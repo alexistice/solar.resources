@@ -1,0 +1,144 @@
+# - title: Spinning Reels
+#   url: /spinning-reels
+#   sublinks:
+#     - title: Overview
+#       url: /spinning-reels/
+#     - title: Technical Comparison
+#       url: /spinning-reels/comparison/
+#     # - title: Patented Technology
+#     #   url: /spinning-reels#patent
+#     # - title: Superior Construction
+#     #   url: /spinning-reels#construction
+#     # - title: Customizations
+#     #   url: /spinning-reels#customizations
+#     - title: separator
+#     - title: Spinning Reel Series
+#       url: /#
+#       header: true 
+#     - title: 300 Series
+#       url: /spinning-reels/300-series/
+#     - title: 400 Series
+#       url: /spinning-reels/400-series/
+#     - title: 500 Series
+#       url: /spinning-reels/500-series/
+#     - title: 600 Series
+#       url: /spinning-reels/600-series/
+#     - title: 700 Series
+#       url: /spinning-reels/700-series/
+#     - title: 800 Series
+#       url: /spinning-reels/800-series/
+# - title: Fly Reels
+#   url: /fly-reels
+#   sublinks: 
+#     - title: Coming Soon
+#       url: /fly-reels/comming-soon
+#       header: true 
+#     - title: Waitlist
+#       url: /fly-reels/waitlist
+# - title: About
+#   url: /about
+#   sublinks:
+#     - title: Our Story
+#       url: /about
+#     - title: Team
+#       url: /about/team
+#     - title: Pro Staff
+#       url: /about/pro-staff
+#     - title: Partnerships
+#       url: /about/partnerships
+# - title: Blog
+#   url: /blog
+# - title: Information
+#   url: /info
+#   sublinks:
+#     - title: Contact
+#       url: /info/contact
+#       header: true
+#     - title: Contact Us
+#       url: /info/contact
+#     - title: Pro Staff
+#       url: /info/contact/pro-staff
+#     - title: Media
+#       url: /info/contact/media
+#     - title: separator
+#     - title: Support
+#       url: /info/support
+#       header: true
+#     - title: FAQs
+#       url: /info/support/faqs
+#     - title: Maintenance and Repair
+#       url: /info/support/maintenance-and-repair
+#     - title: Register Your Reel
+#       url: /info/support/reel-registration
+#     - title: Limited Lifetime Warranty
+#       url: /info/support/warranty
+#     - title: Privacy Policy
+#       url: /info/support/privacy/
+#     - title: Terms and Conditions
+#       url: /info/support/terms-and-conditions
+#     - title: separator    
+#     - title: Patents
+#       url: /info/patents
+#       header: true
+#     - title: Power Grip™
+#       url: /info/patents/power-grip
+#     - title: Manufacturing Methodology
+#       url: /info/patents/manufacturing-methodology
+#     - title: Fly Reel with Drag System
+#       url: /info/patents/fly-reel-drag-system/
+#     - title: Fishing Reel Handle Drag System
+#       url: /info/patents/handle-drag-system/
+  
+
+
+
+# Original Nav
+
+# - title: Products
+#   url: https://solarinnovations.com/our-products/
+# - title: Accessories
+#   url: https://solarinnovations.com/accessories/
+# - title: Services
+#   url: /#
+# - title: Project Gallery
+#   url: https://solarinnovations.com/photo-gallery/
+# - title: Quote Forms
+#   url: /quote #TODO
+# - title: Information
+#   url: https://solarinnovations.com/information/
+# - title: About
+#   url: https://solarinnovations.com/about-us/
+#   sublinks: 
+#   - title: Why Choose Us?
+#     url: /#
+#   - title: Core Values
+#     url: /#
+#   - title: History
+#     url: /#
+#   - title: Leadership
+#     url: /#
+#   - title: Press Room
+#     url: /#
+#   - title: Green Inititive
+#     url: /#
+#   - title: Contractor Numbers
+#     url: /#
+
+
+
+# Future Nav
+- title: Coming Soon
+#       url: /fly-reels/comming-soon
+#       header: true 
+- title: Products
+  url: /#
+- title: Services
+  url: /#
+- title: Project Gallery
+  url: /#
+- title: Quote Forms
+  url: /# 
+- title: Information
+  url: /#
+- title: About
+  url: /#

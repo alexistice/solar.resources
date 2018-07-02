@@ -1,0 +1,600 @@
+---
+layout: default
+---
+
+<style>
+  .mt-nav{
+    padding-top: 100px;
+  }
+</style>
+<main class="mt-nav">
+
+  
+  <div class="container-fluid mb-5" id="content">
+      <div class="row">
+        <div class="col-12 border-bottom mb-4">
+          <h1 class="display-5 text-uppercase">{{ page.title | escape }}</h1>
+        </div>
+        <div class="col-lg-2 border-right">
+          <h3 style="font-size: 90%;color:#969696"><strong>Show results for:</strong></h3>
+        </div>
+        
+        <div class="col-lg-10">
+          <div class="container-fluid mb-2 pr-3 ">
+            <div class="row d-nonexs">
+              <div class="col-12">
+                <div class="alert alert-secondary alert-dismissible fade show" role="alert">
+                  <small>
+                    {{ content | remove: '<p>' | remove: '</p>'  }}
+                  </small>
+                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+              </div>
+
+              <!-- Mega Filters -->
+              <div class="col-lg-4 py-3 border ">
+                <div class="d-flex flex-column">
+                  <div class="mx-auto">
+                    <span class="fa-stack fa-3x">
+                      <i class="fas fa-comment fa-stack-2x" ></i>
+                      <i class="fas fa-quote-right fa-stack-1x fa-inverse"></i>
+                    </span>
+                  </div>
+                  <div class="text-center pt-3">
+                      <h4 class="mb-0">Quote Forms</h4>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-lg-4 py-3 border ">
+                <div class="d-flex flex-column">
+                  <div class="mx-auto">
+                    <i class="fas fa-store-alt fa-6x"></i>
+                  </div>
+                  <div class="text-center pt-3">
+                      <h4 class="mb-0">Products</h4>
+                  </div>
+                </div>
+              </div>
+
+
+              <div class="col-lg-4 py-3 border ">
+                <div class="d-flex flex-column">
+                  <div class="mx-auto">
+                    <i class="fas fa-gavel fa-6x"></i>
+                  </div>
+                  <div class="text-center pt-3">
+                      <h4 class="mb-0">Warranty</h4>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-lg-4 py-3 border ">
+                <div class="d-flex flex-column">
+                  <div class="mx-auto">
+                    <span class="fa-stack fa-3x">
+                      <i class="fas fa-search fa-stack-2x" ></i>
+                      <i class="fas fa-briefcase fa-stack-1x" style="font-size: 60%;margin-left: -9px;margin-top: -9px;"></i>
+                    </span>
+                  </div>
+                  <div class="text-center pt-3">
+                      <h4 class="mb-0">Case Studies</h4>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-lg-4 py-3 border ">
+                <div class="d-flex flex-column">
+                  <div class="mx-auto">
+                    <i class="fas fa-camera-retro fa-6x"></i>
+                  </div>
+                  <div class="text-center pt-3">
+                      <h4 class="mb-0">Photo Gallery</h4>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-lg-4 py-3 border ">
+                <div class="d-flex flex-column">
+                  <div class="mx-auto">
+                    <i class="fas fa-truck-loading fa-6x"></i>
+                  </div>
+                  <div class="text-center pt-3">
+                      <h4 class="mb-0">Projects</h4>
+                  </div>
+                </div>
+              </div>
+              <!-- End Mega Filters -->
+
+              <!-- Product preview slider -->
+
+              <div class="col-12 text-right mt-4"><h3 class="h5 mb-0"><small>Products</small></h3></div>
+
+              <div class="col-12  py-3 border-top border-bottom">
+                <div class="container-fluid ">
+                  <div class="row">
+                    <div class="col-1 my-auto text-center"><i class="fas fa-angle-left fa-2x "></i></div>
+
+                    <div class="col-10">
+
+                      <div class="container-fluid">
+                        <div class="row">
+
+                            <div class="col-2">
+                              <div class="d-flex flex-column">
+                                <div class="mx-auto">
+                                    <img src="http://via.placeholder.com/150x150" alt="..." class="img rounded-circle">
+                                </div>
+                                <div class="text-center pt-3">
+                                    <h5 class="mb-0"><small>Doors</small></h4>
+                                </div>
+                              </div>
+                            </div>
+        
+                            <div class="col-2">
+                              <div class="d-flex flex-column">
+                                <div class="mx-auto">
+                                    <img src="http://via.placeholder.com/150x150" alt="..." class="img rounded-circle">
+                                </div>
+                                <div class="text-center pt-3">
+                                    <h5 class="mb-0"><small>Windows</small></h4>
+                                </div>
+                              </div>
+                            </div>
+        
+                            <div class="col-2">
+                              <div class="d-flex flex-column">
+                                <div class="mx-auto">
+                                    <img src="http://via.placeholder.com/150x150" alt="..." class="img rounded-circle">
+                                </div>
+                                <div class="text-center pt-3">
+                                    <h5 class="mb-0"><small>Skylights</small></h4>
+                                </div>
+                              </div>
+                            </div>
+        
+                            <div class="col-2">
+                              <div class="d-flex flex-column">
+                                <div class="mx-auto">
+                                    <img src="http://via.placeholder.com/150x150" alt="..." class="img rounded-circle">
+                                </div>
+                                <div class="text-center pt-3">
+                                    <h5 class="mb-0"><small>Structures</small></h4>
+                                </div>
+                              </div>
+                            </div>
+        
+                            <div class="col-2">
+                              <div class="d-flex flex-column">
+                                <div class="mx-auto">
+                                    <img src="http://via.placeholder.com/150x150" alt="..." class="img rounded-circle">
+                                </div>
+                                <div class="text-center pt-3">
+                                    <h5 class="mb-0"><small>Railings</small></h4>
+                                </div>
+                              </div>
+                            </div>
+        
+                            <div class="col-2">
+                              <div class="d-flex flex-column">
+                                <div class="mx-auto">
+                                    <img src="http://via.placeholder.com/150x150" alt="..." class="img rounded-circle">
+                                </div>
+                                <div class="text-center pt-3">
+                                    <h5 class="mb-0"><small>Accessories</small></h5>
+                                </div>
+                              </div>
+                            </div>
+
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="col-1 my-auto text-center"><i class="fas fa-angle-right fa-2x"></i></div>
+                  </div>
+
+                </div>
+              </div>
+              <!-- End Product preview slider -->
+
+              <!-- Recent Projects preview slider -->
+              <div class="col-12 text-right mt-4"><h3 class="h5 mb-0"><small>Recent Projects</small></h3></div>
+
+              <div class="col-12  py-3 border-top border-bottom">
+                  <div class="container-fluid ">
+                    <div class="row">
+                      <div class="col-1 my-auto text-center"><i class="fas fa-angle-left fa-2x "></i></div>
+  
+                      <div class="col-10">
+                        <div class="card-group">
+                          <div class="card">
+                            <img class="card-img-top" src="http://via.placeholder.com/250x150" alt="Card image cap">
+                            <div class="card-body">
+                              <h5 class="card-title">Card title</h5>
+                              <p class="card-text m-0"><small >New York City, NY</small></p>
+                              <p class="card-text"><small class="text-muted">June 27, 2018</small></p>
+                              <span class="badge badge-secondary">Greenhouse</span>
+                              <span class="badge badge-secondary">Folding Glass Wall</span>
+                              <span class="badge badge-secondary">Operable Skylight</span>
+                            </div>
+                          </div>
+                          <div class="card">
+                            <img class="card-img-top" src="http://via.placeholder.com/250x150" alt="Card image cap">
+                            <div class="card-body">
+                              <h5 class="card-title">Card title</h5>
+                              <p class="card-text m-0"><small >Jacksonville, FL</small></p>
+                              <p class="card-text"><small class="text-muted">June 2, 2018</small></p>
+                              <span class="badge badge-secondary">Slide &amp; Stack Glass Wall</span>
+                            </div>
+                          </div>
+                          <div class="card">
+                            <img class="card-img-top" src="http://via.placeholder.com/250x150" alt="Card image cap">
+                            <div class="card-body">
+                              <h5 class="card-title">Card title</h5>
+                              <p class="card-text m-0"><small >Strathmere, NJ</small></p>
+                              <p class="card-text"><small class="text-muted">May 12, 2018</small></p>
+                              <span class="badge badge-secondary">Tilt Turn Window</span>
+                              <span class="badge badge-secondary">Garden Window</span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                    <div class="col-1 my-auto text-center"><i class="fas fa-angle-right fa-2x"></i></div>
+                  </div>
+
+                </div>
+              </div>
+              <!-- End Recent Projects preview slider -->
+            </div>  
+            
+            <!-- Results, Sort, Display options -->
+            <div class="row mt-3">
+
+              <div class="col-6 text-muted mt-auto"><small>37 results for all.</small></div>
+              <div class="col-6 text-right">
+                <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
+
+                  <!-- <button type="button" class="btn btn-secondary"><i class="fas fa-sort-amount-up"></i></button> -->
+                  <button type="button" class="btn btn-secondary" ><i class="fas fa-sort-amount-down"></i></button>
+                
+                  <div class="btn-group" role="group">
+                    <button id="btnGroupDrop1" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      Sort: Date
+                    </button>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="btnGroupDrop1">
+                      <a class="dropdown-item" href="#">Date</a>
+                      <a class="dropdown-item" href="#">Alphabetical</a>
+                    </div>
+                  </div>
+                  <button type="button" class="btn btn-secondary active"><i class="fas fa-list-ul"></i></button>
+                  <button type="button" class="btn btn-secondary"><i class="fas fa-th-large"></i></button>
+                  <button type="button" class="btn btn-secondary"><i class="fas fa-th"></i></button>
+
+                </div>
+              </div>
+            </div>
+            <!-- End Results, Sort, Display options -->
+            
+            <!-- Results List -->
+            <div class="row d-nonez border-top mt-1 mb-4" id="results-list">
+              <div class="col-lg-12 mt-3 pt-3">
+
+                  <div class="row no-gutters">
+                    <div class="col-lg-4">
+                      <div class="row no-gutters pr-3 justify-content-end">
+                        <div class="col-lg-12">
+                          <h4 class="mb-0">Project ID: 05-10-021</h4>
+                          <p class="mb-0"><small class="text-muted">May 12, 2018</small></p>
+                          <p class="mb-2"><small class="text-muted">Cityin, Georga</small></p>
+                        </div>
+                        <div class="col-12 mb-1">
+                          <img class="img" src="http://via.placeholder.com/350x200" >
+                        </div>
+                        <div class="col-3">
+                          <img class="img pl-1" src="http://via.placeholder.com/350x200" >
+                        </div>
+                        <div class="col-3">
+                          <img class="img pl-1" src="http://via.placeholder.com/350x200" >
+                        </div>
+                        <div class="col-3">
+                          <img class="img pl-1" src="http://via.placeholder.com/350x200" >
+                        </div>
+                      </div>
+                      
+
+
+                    
+
+                    </div> 
+                    
+                    <div class="col-lg-6 align-content-between">
+
+
+                      <div class="row no-gutters">
+                        <div class="col-lg-11">
+                          
+                          <p style="font-size: 90%">Three curved barrel vault skylights connected together. 1 gable end with gable end with custom insignia and arch design.</p>
+                        </div>
+                        <div class="col-lg-1">
+                          
+                        </div>
+
+                      </div>
+
+                      <div class="row no-gutters">
+                        <div class="col-lg-11">
+                          <ul class="list-unstyled text-right mx-0" style="font-size: 90%">
+                            <li><span class="float-left">Application:</span>	Residential</li>
+                            <li><span class="float-left">Exterior Color:</span>	White, Duracron</li>
+                            <li><span class="float-left">Interior Color:</span>	White, Duracron</li>
+                            <li><span class="float-left">Glaze:</span>	Specialty</li>
+                            <li><span class="float-left">Width:</span>	13 feet</li>
+                            <li><span class="float-left">Length / Projection:</span>	32 feet</li>
+                            <li><span class="float-left">Ridge Height:</span>	7 feet</li>
+                            <li><span class="float-left">Product Details:</span>	501-750 SQF. Glass</li>
+                          </ul>
+                        </div>
+                       
+                      </div>
+
+
+
+
+
+
+              
+
+                      <div style="position: absolute;bottom: 0;left: 0;">
+                        <span class="badge badge-secondary">Skylight</span>
+                        <span class="badge badge-secondary">Curved Barrel Vault</span>
+                        <span class="badge badge-secondary">Segmented Barrel Vault</span>
+                      </div>
+
+
+                    </div>
+                    <div class="col-lg-2">
+
+                      <div class="d-flex flex-column mb-3 justify-content-start">
+                        <div class="d-flex flex-row justify-content-start">
+                          <i class="fas fa-truck-loading fa-2x float-right"></i>
+                        </div>
+                      </div>
+                      <div class="d-flex flex-column mb-3 justify-content-start">
+                        <div class="d-flex flex-row justify-content-start">
+                          <i class="fas fa-map-marked-alt fa-2x"></i>
+                        </div>
+                      </div>
+                      <div class="d-flex flex-column mb-3 justify-content-start">
+                        <div class="d-flex flex-row justify-content-start align-items-center">
+
+                          <span class="fa-stack fa-1x">
+                            <i class="fas fa-search fa-stack-2x" ></i>
+                            <i class="fas fa-briefcase fa-stack-1x" style="font-size: 60%;margin-left: -3px;margin-top: -3px;"></i>
+                          </span>
+                        </div>
+                      </div>
+                      <div class="d-flex flex-column mb-3 justify-content-start">
+                        <div class="d-flex flex-row justify-content-start align-items-center">
+                    
+                          <i class="fas fa-camera-retro fa-2x"></i>
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+
+              </div>
+
+            </div>
+
+            
+
+            <!-- Results Small Grid -->
+            <div class="row border-top mt-1 mb-4" id="results-sm-grid">
+                <div class="col-lg-4  mt-3 pt-3">
+                    <div class="row no-gutters">
+                      <div class="col-lg-12">
+                        <div class="row no-gutters pr-3 justify-content-end">
+                          <div class="col-lg-12">
+                            <h4 class="mb-0">Project ID: 05-10-021</h4>
+                            <p class="mb-2"><small class="text-muted">May 12, 2018</small></p>
+                          </div>
+                          <div class="col-12 mb-1">
+                            <img class="img" src="http://via.placeholder.com/350x200" >
+                          </div>
+                        </div>
+                      </div> 
+                      <div class="col-lg-12">
+  
+                        <div class="d-flex flex-row justify-content-start">
+                          <div class="d-flex flex-column mr-3 my-3 justify-content-start align-items-center">
+                            <i class="fas fa-truck-loading fa-2x float-right"></i>
+                          </div>
+                          <div class="d-flex flex-column mr-3 my-3 justify-content-start align-items-center">
+                            <span class="fa-stack fa-1x">
+                              <i class="fas fa-search fa-stack-2x" ></i>
+                              <i class="fas fa-briefcase fa-stack-1x" style="font-size: 60%;margin-left: -3px;margin-top: -3px;"></i>
+                            </span>
+                          </div>
+                          <div class="d-flex flex-column mr-3 my-3 justify-content-start align-items-center">
+                            <i class="fas fa-camera-retro fa-2x"></i>
+                          </div>
+                        </div>
+                      </div>
+                      
+                      <div class="col-lg-12 align-content-between">
+                        <div>
+                          <span class="badge badge-secondary">Skylight</span>
+                          <span class="badge badge-secondary">Curved Barrel Vault</span>
+                          <span class="badge badge-secondary">Segmented Barrel Vault</span>
+                        </div>
+                      </div>
+                    </div>
+                </div>
+                <div class="col-lg-4  mt-3 pt-3">
+                  <div class="row no-gutters">
+                    <div class="col-lg-12">
+                      <div class="row no-gutters pr-3 justify-content-end">
+                        <div class="col-lg-12">
+                          <h4 class="mb-0">Project ID: 05-10-021</h4>
+                          <p class="mb-2"><small class="text-muted">May 12, 2018</small></p>
+                        </div>
+                        <div class="col-12 mb-1">
+                          <img class="img" src="http://via.placeholder.com/350x200" >
+                        </div>
+                      </div>
+                    </div> 
+                    <div class="col-lg-12">
+
+                      <div class="d-flex flex-row justify-content-start">
+                        <div class="d-flex flex-column mr-3 my-3 justify-content-start align-items-center">
+                          <i class="fas fa-truck-loading fa-2x float-right"></i>
+                        </div>
+                        <div class="d-flex flex-column mr-3 my-3 justify-content-start align-items-center">
+                          <span class="fa-stack fa-1x">
+                            <i class="fas fa-search fa-stack-2x" ></i>
+                            <i class="fas fa-briefcase fa-stack-1x" style="font-size: 60%;margin-left: -3px;margin-top: -3px;"></i>
+                          </span>
+                        </div>
+                        <div class="d-flex flex-column mr-3 my-3 justify-content-start align-items-center">
+                          <i class="fas fa-camera-retro fa-2x"></i>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <div class="col-lg-12 align-content-between">
+                      <div>
+                        <span class="badge badge-secondary">Skylight</span>
+                        <span class="badge badge-secondary">Curved Barrel Vault</span>
+                        <span class="badge badge-secondary">Segmented Barrel Vault</span>
+                      </div>
+                    </div>
+                  </div>
+              </div>
+              <div class="col-lg-4  mt-3 pt-3">
+                <div class="row no-gutters">
+                  <div class="col-lg-12">
+                    <div class="row no-gutters pr-3 justify-content-end">
+                      <div class="col-lg-12">
+                        <h4 class="mb-0">Project ID: 05-10-021</h4>
+                        <p class="mb-2"><small class="text-muted">May 12, 2018</small></p>
+                      </div>
+                      <div class="col-12 mb-1">
+                        <img class="img" src="http://via.placeholder.com/350x200" >
+                      </div>
+                    </div>
+                  </div> 
+                  <div class="col-lg-12">
+
+                    <div class="d-flex flex-row justify-content-start">
+                      <div class="d-flex flex-column mr-3 my-3 justify-content-start align-items-center">
+                        <i class="fas fa-truck-loading fa-2x float-right"></i>
+                      </div>
+                      <div class="d-flex flex-column mr-3 my-3 justify-content-start align-items-center">
+                        <span class="fa-stack fa-1x">
+                          <i class="fas fa-search fa-stack-2x" ></i>
+                          <i class="fas fa-briefcase fa-stack-1x" style="font-size: 60%;margin-left: -3px;margin-top: -3px;"></i>
+                        </span>
+                      </div>
+                      <div class="d-flex flex-column mr-3 my-3 justify-content-start align-items-center">
+                        <i class="fas fa-camera-retro fa-2x"></i>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div class="col-lg-12 align-content-between">
+                    <div>
+                      <span class="badge badge-secondary">Skylight</span>
+                      <span class="badge badge-secondary">Curved Barrel Vault</span>
+                      <span class="badge badge-secondary">Segmented Barrel Vault</span>
+                    </div>
+                  </div>
+                </div>
+            </div>
+            </div>
+
+
+
+            <!-- Results Big Grid -->
+            <div class="row border-top mt-1 mb-4" id="results-lg-grid">
+              <div class="col-lg-3  mt-3 pt-3">
+                <div class="row no-gutters">
+                  <div class="col-lg-12">
+                    <div class="row no-gutters  justify-content-end">
+                      <div class="col-lg-12">
+                        <h4 class="mb-0">05-10-021</h4>
+                        <p class="mb-2"><small class="text-muted">May 12, 2018</small></p>
+                      </div>
+                      <div class="col-12 mb-1">
+                        <img class="img" src="http://via.placeholder.com/350x200" >
+                      </div>
+                    </div>
+                  </div> 
+                </div>
+              </div>
+
+              <div class="col-lg-3  mt-3 pt-3">
+                <div class="row no-gutters">
+                  <div class="col-lg-12">
+                    <div class="row no-gutters  justify-content-end">
+                      <div class="col-lg-12">
+                        <h4 class="mb-0">05-10-021</h4>
+                        <p class="mb-2"><small class="text-muted">May 12, 2018</small></p>
+                      </div>
+                      <div class="col-12 mb-1">
+                        <img class="img" src="http://via.placeholder.com/350x200" >
+                      </div>
+                    </div>
+                  </div> 
+                </div>
+              </div>
+
+
+              <div class="col-lg-3  mt-3 pt-3">
+                <div class="row no-gutters">
+                  <div class="col-lg-12">
+                    <div class="row no-gutters  justify-content-end">
+                      <div class="col-lg-12">
+                        <h4 class="mb-0">05-10-021</h4>
+                        <p class="mb-2"><small class="text-muted">May 12, 2018</small></p>
+                      </div>
+                      <div class="col-12 mb-1">
+                        <img class="img" src="http://via.placeholder.com/350x200" >
+                      </div>
+                    </div>
+                  </div> 
+                </div>
+              </div>
+
+              <div class="col-lg-3  mt-3 pt-3">
+                <div class="row no-gutters">
+                  <div class="col-lg-12">
+                    <div class="row no-gutters  justify-content-end">
+                      <div class="col-lg-12">
+                        <h4 class="mb-0">05-10-021</h4>
+                        <p class="mb-2"><small class="text-muted">May 12, 2018</small></p>
+                      </div>
+                      <div class="col-12 mb-1">
+                        <img class="img" src="http://via.placeholder.com/350x200" >
+                      </div>
+                    </div>
+                  </div> 
+                </div>
+              </div>
+
+            </div>
+
+            
+
+
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+</main>
+

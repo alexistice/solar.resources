@@ -17,19 +17,65 @@ title: Resources | Solar Innovations
 email: nkline@solarinnovations.com
 description: Stuff for other stuff
 baseurl: "" # the subpath of your site, e.g. /blog
-url: "https://jekyllvue.metaincognita.com" # the base hostname & protocol for your site, e.g. http://example.com
+url: "" # the base hostname & protocol for your site, e.g. http://example.com
 twitter_username: jekyllrb
 github_username:  jekyll
 sass:
     style: compressed
 
+theme: solar-flair
+theme_style: one # Use 'grey' and not 'gray'
+asset_cdn: 1 # 0 = no  |  1 = yes, unminified  |  2 = yes, minified
+
+# Dev Details
+email: ndkline@theagora.us
+twitter_username: ndkline
+github: false
+github_username:  ndkline
+github_url: https://github.com/ndkline/solar-flair
+
+
+## Social Accounts
+facebook: SolarInnovations
+twitter: SlrInnovations
+pinterest: slrinnovations
+instagram: https://www.instagram.com/solarinnovations/
+houzz: solar-innovations
+linkedin: solar-innovations-inc
+youtube: UCXIilGSA5MeSKM8xAoC8iPA   # channel ID
+# google_plus: Solarinnovations
+github_organization: https://github.com/SolarInnovations
+medium: https://medium.com/solarinnovations
+
+
+
+# Home
+vertical_height: 100 # Only supports 100 right now -- TODO
+cta_gs_url: /planning 
+ 
+# Blog
+permalink: /blog/:year/:month/:day/:title.html
+
 # Build settings
+# sass:
+#   style: compressed
+minify_html: false
+
 markdown: kramdown
 source: src
 destination: dist
-# theme: minima
 plugins:
   - jekyll-feed
+  - jekyll-toc
+
+collections:
+  footer-nav:
+    output: false
+   
+includes:
+- navbar
+
+
 
 # Exclude from processing.
 # The following items will not be processed, by default. Create a custom list
@@ -42,3 +88,98 @@ exclude:
   - vendor/cache/
   - vendor/gems/
   - vendor/ruby/
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - "*.gemspec"
+  - "*.gem"
+  - /assets/bootstrap/_data
+  - /assets/bootstrap/_includes
+  - /assets/bootstrap/_plugins
+  - /assets/bootstrap/.github
+  - /assets/bootstrap/assets
+  - /assets/bootstrap/build
+  - /assets/bootstrap/docs
+  - /assets/bootstrap/js
+  - /assets/bootstrap/nuget
+  - /assets/bootstrap/scss
+  - /assets/bootstrap/_config
+  - /assets/bootstrap/.babelrc.js
+  - /assets/bootstrap/.editorconfig
+  - /assets/bootstrap/.eslintignore
+  - /assets/bootstrap/.eslintrc.json
+  - /assets/bootstrap/.gitignore
+  - /assets/bootstrap/.stylelintignore
+  - /assets/bootstrap/.stylelintrc
+  - /assets/bootstrap/.travis.yml
+  - /assets/bootstrap/CNAME
+  - /assets/bootstrap/CODE_OF_CONDUCT.md
+  - /assets/bootstrap/composer.json
+  - /assets/bootstrap/favicon.ico
+  - /assets/bootstrap/Gemfile
+  - /assets/bootstrap/Gemfile.lock
+  - /assets/bootstrap/index.html
+  - /assets/bootstrap/LICENSE
+  - /assets/bootstrap/package-lock.json
+  - /assets/bootstrap/README.md
+  - /assets/bootstrap/robots.txt
+  - /assets/bootstrap/sache.json
+  - /assets/bootstrap/sw.js
+  - /assets/font-awesome/.github
+  - /assets/font-awesome/advanced-options
+  - /assets/font-awesome/svg-with-js
+  - /assets/font-awesome/use-on-desktop
+  - /assets/font-awesome/CHANGELOG.md
+  - /assets/font-awesome/CODE_OF_CONDUCT.md
+  - /assets/font-awesome/CONTRIBUTING.md
+  - /assets/font-awesome/LICENSE.txt
+  - /assets/font-awesome/README.md
+  - /assets/font-awesome/UPGRADING.md  
+  - /assets/jquery/_site
+  - /assets/jquery/.github
+  - /assets/jquery/build
+  - /assets/jquery/external
+  - /assets/jquery/node_modules
+  - /assets/jquery/src
+  - /assets/jquery/test
+  - /assets/jquery/.editorconfig
+  - /assets/jquery/.eslintignore
+  - /assets/jquery/.eslintrc-browser.json
+  - /assets/jquery/.eslintrc-node.json
+  - /assets/jquery/.eslintrc.json
+  - /assets/jquery/.gitattributes
+  - /assets/jquery/.gitignore
+  - /assets/jquery/.mailmap
+  - /assets/jquery/.npmignore
+  - /assets/jquery/.npmrc
+  - /assets/jquery/.travis.yml
+  - /assets/jquery/AUTHORS.txt
+  - /assets/jquery/CODE_OF_CONDUCT.md
+  - /assets/jquery/CONTRIBUTING.md
+  - /assets/jquery/Gruntfile.js
+  - /assets/jquery/LICENSE.md
+  - /assets/jquery/package-lock.json
+  - /assets/jquery/package.json
+  - /assets/jquery/README.md
+  - /assets/scrollreveal/.github
+  - /assets/scrollreveal/lib
+  - /assets/scrollreveal/src
+  - /assets/scrollreveal/.gitattributes
+  - /assets/scrollreveal/.gitignore
+  - /assets/scrollreveal/bower.json
+  - /assets/scrollreveal/CHANGELOG.md
+  - /assets/scrollreveal/gulpfile.js
+  - /assets/scrollreveal/LICENSE.md
+  - /assets/scrollreveal/package.json
+  - /assets/scrollreveal/README.md
+  - /assets/lightbox/bower.json
+  - /assets/lightbox/ekko-lightbox.js
+  - /assets/lightbox/examples
+  - /assets/lightbox/Gruntfile.js
+  - /assets/lightbox/ISSUE_TEMPLATE.md
+  - /assets/lightbox/LICENSE
+  - /assets/lightbox/package.json
+  - /assets/lightbox/README.md
+  - /assets/lightbox/yarn.lock            
+  - /assets/lightbox/ekko-lightbox.less
+  - /assets/illustrator
