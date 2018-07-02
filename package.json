@@ -1,0 +1,43 @@
+{
+    "name": "jekyll-vue",
+    "version": "1.0.0",
+    "description": "Vue-Jekyll Updated",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "dev": "./node_modules/.bin/concurrently \"cross-env NODE_ENV=development ./node_modules/.bin/webpack -w\" \"bundle exec jekyll serve -w --incremental\"",
+        "htmlclean": "./node_modules/.bin/htmlclean dist -o dist",
+        "build": "cross-env NODE_ENV=production ./node_modules/.bin/webpack --progress -p && bundle exec jekyll build && npm run htmlclean",
+        "serve": "./node_modules/.bin/serve ./dist -p 4000",
+        "build:serve": "yarn run build && yarn run serve"
+    },
+    "author": "",
+    "license": "MIT",
+    "devDependencies": {
+        "babel-core": "^6.26.0",
+        "babel-loader": "^7.1.2",
+        "babel-preset-es2015": "^6.24.1",
+        "babel-preset-es2015-native-modules": "^6.9.4",
+        "babel-preset-react": "^6.24.1",
+        "concurrently": "^3.5.1",
+        "cross-env": "^5.1.1",
+        "css-loader": "^0.28.7",
+        "expose-loader": "^0.7.4",
+        "extract-text-webpack-plugin": "^3.0.2",
+        "file-loader": "^1.1.5",
+        "htmlclean-cli": "^1.0.6",
+        "jquery": "^3.2.1",
+        "lodash": "^4.17.4",
+        "moment": "^2.19.4",
+        "node-sass": "^4.7.2",
+        "sass-loader": "^6.0.6",
+        "serve": "^6.4.1",
+        "style-loader": "^0.19.1",
+        "url-loader": "^0.6.2",
+        "vue": "^2.5.10",
+        "vue-loader": "^13.5.0",
+        "vue-template-compiler": "^2.5.10",
+        "webpack": "^3.10.0",
+        "webpack-dev-server": "^2.9.7"
+    }
+}
