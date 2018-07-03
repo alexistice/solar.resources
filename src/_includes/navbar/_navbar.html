@@ -1,0 +1,46 @@
+
+{% assign nav-items = "Products|Services|About|Information|Blog" | split: "|" %}
+
+<!--Navbar-->
+<nav class="navbar navbar-expand-lg vh-10 fixed-top p-0">
+
+    <!-- Branding -->
+    <a class="navbar-brand pb-1 pt-3 pl-3" href="/">
+        <img src="https://solarinnovations.com/wp-content/uploads/20th-Anniversary-Logo.png" class="p-1" height="50px"  alt="">      
+    </a>
+    
+    <!-- Collapse button -->
+    <button class="navbar-toggler mr-3" type="button" data-toggle="collapse" data-target="#navbarSupportedContent1" aria-controls="navbarSupportedContent1" aria-expanded="false" aria-label="Toggle navigation"><i class="fas fa-bars"></i></button>
+    
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse pr-3" id="navbarSupportedContent1" >
+        <ul class="navbar-nav ml-auto">
+        {% for nav-item in nav-items %}
+            {% assign link-lowercase = nav-item | downcase %}
+            {% capture filename %}navbar/{{link-lowercase}}.html{% endcapture %}
+            <li class="nav-item dropdown mega-dropdown">
+                <a class="nav-link dropdown-toggle pl-3" id="navbarDropdownMenuLink{{forloop.index}}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ nav-item }}</a>
+            
+                <div class="dropdown-menu mega-menu v-2 row z-depth-1 position-absolute" aria-labelledby="navbarDropdownMenuLink{{forloop.index}}">
+                    <div class="row mx-md-4 mx-1 justify-content-between mb-1 ">
+                        <h5 class="h1 faded ">{{ nav-item }}</h5>
+                        <i class="far fa-times-circle fa-2x pointer my-auto"></i>
+                    </div>  
+                    <div class="row no-gutters">
+                        <div class="col-12 ">
+                            <div class="shadow-top w-100 ">
+                                <div class="nav-scroll container-fluid paper-bg py-3">
+                                    {% include {{filename}} %}      
+                                </div>
+                            </div>
+                        </div>
+                    </div>      
+                </div>
+            </li>
+                
+        {% endfor %}
+        </ul>
+    </div>
+</nav>
+    
+                    

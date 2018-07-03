@@ -1,9 +1,11 @@
 <!DOCTYPE html>
+{% assign theme_style = page.theme_style | default: site.theme_style   %}
+
 <html lang="{{ page.lang | default: site.lang | default: "en" }}">
 
   {% include head.html %}
 
-  <body>
+  <body class="{{ theme_style }}">
 
     {% include header.html %}
 

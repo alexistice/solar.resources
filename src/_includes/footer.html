@@ -1,49 +1,361 @@
-<footer class="site-footer">
+{% assign color = page.theme_style | default: site.theme_style %}
+{% assign links = site.data.navigation %}
 
-  <div class="wrapper">
+<style>
+  html {
+    background: #231F20;
+  }
 
-    <h2 class="footer-heading">{{ site.title | escape }}</h2>
+  .grad-cust {
+    background: linear-gradient( rgba(50, 107, 50, .95), rgba(35, 31, 32, 1));
+    color: white;
+    border-top: solid 5px #f47b28;
+  }
 
-      <div class="__vue-root" id="MyFooter"></div>
-      <div class="__vue-root" data-message="Hello" id="Greet"></div>
+  footer.footer {
+    background: url('/assets/iso/Iso3.gif'), url('/assets/iso/Iso11.gif');
+    background-repeat: no-repeat;
+    background-position: left top, right top;
+  }
 
-    <div class="footer-col-wrapper">
-      <div class="footer-col footer-col-1">
-        <ul class="contact-list">
-          <li>
-            {% if site.author %}
-              {{ site.author | escape }}
-            {% else %}
-              {{ site.title | escape }}
-            {% endif %}
-            </li>
-            {% if site.email %}
-            <li><a href="mailto:{{ site.email }}">{{ site.email }}</a></li>
-            {% endif %}
-        </ul>
+  .brand-foot {
+    background: linear-gradient( rgba(35, 31, 32, 1),
+    rgba(35, 31, 32, 1));
+  }
+
+  body {
+    background: #f8f9fa;
+  }
+
+  hr.grad-left {
+    border: 0;
+    height: 1px;
+    background-image: linear-gradient(to right, rgba(255, 255, 255, 0.75), rgba(255, 255, 255, 0));
+    width: 90%;
+    margin: auto auto;
+  }
+
+  a.highlight {
+    background: #f47b28;
+    color: white;
+    padding: 5px 10px;
+    font-weight: bold;
+    transition: color .2s;
+    transition: background .2s;
+
+  }
+
+  a.highlight:hover {
+    background: transparent;
+    color: #f47b28;
+    padding: 5px 10px;
+    font-weight: bold;
+  }
+
+  .footer-header {
+    text-transform: capitalize;
+    color: #c6c6c6;
+  }
+</style>
+<footer class="footer" id="footer">
+
+  <section class="grad-cust">
+
+
+    <div class="container-fluid pb-5">
+      <div class="row justify-content-center py-5">
+        <div class="col-lg-4 col-md-6 col-10 text-center my-auto sr-contact">
+          <div class="d-flex p-2">
+            <i class="fab fa-instagram fa-5x my-auto"></i>
+            <div class="px-5 my-auto">
+              <h4>Follow</h4>
+              <p>
+                <a href="https://www.instagram.com/solarinnovations/" class="highlight" target="_blank">@SolarInnovations</a>
+              </p>
+              <p>on Instagram</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-6 col-10 text-center my-auto sr-contact">
+          <h3>Sign Up for our Newsletter</h3>
+          <p class="text-left">
+            <small>By signing up, you'll be emailed about once a month with major updates and news.</small>
+          </p>
+          <div id="mc_embed_signup">
+            <form action="https://solarinnovations.us10.list-manage.com/subscribe/post?u=33bd73704744a7e9a97d20ecb&amp;id=5f99c670c5"
+              method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate form-inline"
+              target="_blank" novalidate>
+              <div id="mc_embed_signup_scroll" class="form-group w-100">
+                <label for="mce-EMAIL" class="mb-4 d-none">Enter your email</label>
+                <input type="email" value="" name="EMAIL" class="email form-control" style="width:70%" id="mce-EMAIL" placeholder="Your@Email.com"
+                  required>
+
+                <div style="position: absolute; left: -5000px;" aria-hidden="true">
+                  <input type="text" name="b_33bd73704744a7e9a97d20ecb_5f99c670c5" tabindex="-1" value="">
+                </div>
+                <input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button btn btn-light ml-2">
+              </div>
+            </form>
+            <p class="text-left">
+              <small style="font-size: 60%; color:#c6c6c6">You will be able to unsubscribe at anytime.</small>
+            </p>
+          </div>
+        </div>
       </div>
 
-      <div class="footer-col footer-col-2">
-        <ul class="social-media-list">
-          {% if site.github_username %}
-          <li>
-            {% include icon-github.html username=site.github_username %}
-          </li>
-          {% endif %}
+      <hr class="grad">
 
-          {% if site.twitter_username %}
-          <li>
-            {% include icon-twitter.html username=site.twitter_username %}
-          </li>
-          {% endif %}
-        </ul>
-      </div>
+    </div>
 
-      <div class="footer-col footer-col-3">
-        <p>{{ site.description | escape }}</p>
+
+
+
+    {% assign links = site.data.navigation %}
+
+  </section>
+
+  <div class="container-fluid brand-foot">
+
+    <div class="row">
+      <div class="col-12 order-3 my-auto">
+        <div class="container-fluid text-center list-unstyled">
+          <div class="row my-5">
+            {% assign counter = 8 %} {% if site.instagram %}
+            <div class="col py-2">
+              <a class="{% cycle '', 'grey' %}" target="_blank" alt="Instagram" href="{{ site.instagram }}">
+                <i class="fab fa-instagram fa-4x sr-pop-a" aria-hidden="true "></i>
+              </a>
+            </div>
+            {% endif %} {% if site.facebook %}
+            <div class="col py-2">
+              <a class="{% cycle '', 'grey' %}" target="_blank" alt="Facebook" href="https://www.facebook.com/{{ site.facebook }}/">
+                <i class="fab fa-facebook-square fa-4x icon-grey sr-pop-a" aria-hidden="true"></i>
+              </a>
+            </div>
+            {% endif %} {% if site.twitter %}
+            <div class="col py-2">
+              <a class="{% cycle '', 'grey' %}" target="_blank" alt="Twitter" href="https://twitter.com/{{ site.twitter }}">
+                <i class="fab fa-twitter fa-4x icon-grey sr-pop-a" aria-hidden="true"></i>
+              </a>
+            </div>
+            {% endif %} {% if site.tumblr %}
+            <div class="col py-2">
+              <a class="{% cycle '', 'grey' %}" target="_blank" alt="Tumblr" href="{{ site.tumblr }}/">
+                <i class="fab fa-tumblr fa-4x sr-pop-a" aria-hidden="true"></i>
+              </a>
+            </div>
+            {% endif %} {% if site.pinterest %}
+            <div class="col py-2">
+              <a class="{% cycle '', 'grey' %}" target="_blank" alt="Pinterest" href="https://www.pinterest.com/{{ site.pinterest }}/">
+                <i class="fab fa-pinterest fa-4x sr-pop-a" aria-hidden="true"></i>
+              </a>
+            </div>
+            {% endif %} {% if site.houzz %}
+            <div class="col py-2">
+              <a class="{% cycle '', 'grey' %}" target="_blank" alt="Houzz" href="https://www.houzz.com/pro/{{ site.houzz }}">
+                <i class="fab fa-houzz fa-4x sr-pop-a" aria-hidden="true"></i>
+              </a>
+            </div>
+            {% endif %} {% if site.linkedin %}
+            <div class="col py-2">
+              <a class="{% cycle '', 'grey' %}" target="_blank" alt="LinkedIn" href="https://www.linkedin.com/company/{{ site.linkedin }}/">
+                <i class="fab fa-linkedin fa-4x icon-grey sr-pop-a" aria-hidden="true"></i>
+              </a>
+            </div>
+            {% endif %} {% if site.youtube %}
+            <div class="col py-2">
+              <a class="{% cycle '', 'grey' %}" target="_blank" alt="Youtube" href="https://www.youtube.com/user/{{ site.youtube }}">
+                <i class="fab fa-youtube fa-4x sr-pop-a" aria-hidden="true"></i>
+              </a>
+            </div>
+            {% endif %} {% if site.google_plus %}
+            <div class="col py-2">
+              <a class="{% cycle '', 'grey' %}" target="_blank" alt="Google Plus" href="https://plus.google.com/+{{ site.google_plus }}/">
+                <i class="fab fa-google-plus-square fa-4x icon-grey sr-pop-a" aria-hidden="true"></i>
+              </a>
+            </div>
+            {% endif %} {% if site.github_organization %}
+            <div class="col py-2">
+              <a class="{% cycle '', 'grey' %}" target="_blank" alt="Organizational Github" href="{{ site.github_organization }}/">
+                <i class="fab fa-github fa-4x icon-grey sr-pop-a" aria-hidden="true"></i>
+              </a>
+            </div>
+            {% endif %} {% if site.medium %}
+            <div class="col py-2">
+              <a class="{% cycle '', 'grey' %}" target="_blank" alt="Medium" href="{{ site.medium }}/">
+                <i class="fab fa-medium-m fa-4x icon-grey sr-pop-a" aria-hidden="true"></i>
+              </a>
+            </div>
+            {% endif %} {% if site.quora %}
+            <div class="col py-2">
+              <a class="{% cycle '', 'grey' %}" target="_blank" alt="Quora" href="{{ site.quora }}/">
+                <i class="fab fa-quora fa-4x icon-grey sr-pop-a" aria-hidden="true"></i>
+              </a>
+            </div>
+            {% endif %}
+          </div>
+        </div>
       </div>
     </div>
 
+    <!-- <hr class="grad"> -->
+
+    <small class="row mt-5">
+      <div class="col-12">
+        <div class="container-fluid">
+          {% include navbar/products.html location="footer" nav-items="products" %}
+        </div>
+      </div>
+    </small>
+
+    <hr class="grad my-5">
+
+    <div class="row">
+      <div class="col-12 order-3 my-auto">
+        <div class="container-fluid text-center list-unstyled">
+          <div class="row my-3">
+            <div class="col order-6 py-2 my-auto">
+              <a class="sr-pop-d" href="https://www.bbb.org/washington-dc-eastern-pa/business-reviews/greenhouse/solar-innovations-inc-in-pine-grove-pa-70004549"
+                target="_blank">
+                <img src="/assets/affiliates/better-business-bureau.png">
+              </a>
+            </div>
+            <div class="col order-5 py-2 my-auto">
+              <a class="sr-pop-d" href="https://www.nahb.org/" target="_blank">
+                <img src="/assets/affiliates/national-association-of-home-builders.png">
+              </a>
+            </div>
+            <div class="col order-4 py-2 my-auto">
+              <a class="sr-pop-d" href="http://www.nfrc.org/" target="_blank">
+                <img src="/assets/affiliates/national-fenestration-rating-council.png" width="120px">
+              </a>
+            </div>
+            <div class="col order-3 py-2 my-auto">
+              <a class="sr-pop-d" href="https://www.glass.org/" target="_blank">
+                <img src="/assets/affiliates/national-glass-association.png">
+              </a>
+            </div>
+            <div class="col order-2 py-2 my-auto">
+              <a class="sr-pop-d" href="https://www.ngma.com/" target="_blank">
+                <img src="/assets/affiliates/national-greenhouse-manufacturers-association-edit.png">
+              </a>
+            </div>
+            <div class="col order-1 py-2 my-auto">
+              <a class="sr-pop-d" href="http://www.nationalsunroom.org/" target="_blank">
+                <img src="/assets/affiliates/national-sunroom-association.png">
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row sr-pop-c pb-5">
+      <div class="col-12">
+        <div class="container ">
+          <div class="row my-4 py-2">
+            <div class="col-12 py-1 text-center">
+              <a href="https://solarinnovations.com">
+                <strong>Solar Innovations
+                  <sup>®</sup>
+                </strong>
+              </a>
+              <span class="px-2" style="color:#c6c6c6">|</span>
+              <a href="https://innovativereeltechnologies.com/" style="color: #298FC2">
+                <strong>Innovative Reel Technologies
+                  <sup>®</sup>
+                </strong>
+              </a>
+              <span class="px-2" style="color:#c6c6c6">|</span>
+              <a href="https://universalclamps.com" style="color:#f15830">
+                <strong>Universal
+                  <sup>®</sup> Clamps</strong>
+              </a>
+              <span class="px-2" style="color:#c6c6c6">|</span>
+              <a href="https://planning.solar" class="grey">
+                <strong>Planning Solar</strong>
+              </a>
+            </div>
+          </div>
+          <div class="row py-3 justify-content-between ">
+            <div class="col">
+              <p style="color:#c6c6c6">
+                <small>&copy; {{ site.time | date: '%Y' }} Innovative Reel Technologies, Ltd. |
+                  <a style="color:#c6c6c6" href="/info/support/all-rights-reserved/">All Rights Reserved</a>
+                </small>
+              </p>
+            </div>
+            <div class="col text-right">
+              <a href="/info/support/warranty/" style="color:#c6c6c6">
+                <small>Warranty</small>
+              </a>
+              <span style="color:#c6c6c6">|</span>
+              <a href="/info/support/privacy/" style="color:#c6c6c6">
+                <small>Privacy Policy</small>
+              </a>
+              <span style="color:#c6c6c6">|</span>
+              <a href="/info/support/terms-and-conditions/" style="color:#c6c6c6">
+                <small>Terms &amp; Conditions</small>
+              </a>
+              <span style="color:#c6c6c6">|</span>
+              <a href="/info/support/report-a-bug/" style="color:#c6c6c6">
+                <small>Report a Bug
+                  <span class="fa-stack " style="font-size: 80%;">
+                    <i class="fas fa-bug fa-stack-1x"></i>
+                    <i class="fas fa-ban fa-stack-2x" style="color:#d83105"></i>
+                  </span>
+                </small>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 
 </footer>
+
+
+
+<script src="https://flair.planning.solar/assets/jquery/dist/jquery.min.js" media="nope!" onload="this.media='all'"></script>
+<script src="https://flair.planning.solar/assets/jquery.easing/jquery.easing.min.js" media="nope!" onload="this.media='all'"></script>
+<script src="https://flair.planning.solar/assets/bootstrap/dist/js/bootstrap.bundle.min.js" media="nope!" onload="this.media='all'"></script>
+<script src="https://flair.planning.solar/assets/scrollreveal/dist/scrollreveal.min.js" media="nope!" onload="this.media='all'"></script>
+<script src="/assets/lightbox/dist/ekko-lightbox.js" media="nope!" onload="this.media='all'"></script>
+<!-- <script src="https://flair.planning.solar/assets/solar-flair.min.js" media="nope!" onload="this.media='all'"></script> -->
+<script src="/assets/solar-flair.min.js" media="nope!" onload="this.media='all'"></script>
+
+<script media="nope!" onload="this.media='all'">
+  $(document).on('click', '[data-toggle="lightbox"]', function (event) {
+    event.preventDefault();
+    $(this).ekkoLightbox();
+  });
+</script>
+
+
+
+<script>
+  $(document).ready(function () {
+
+    $('.dropdown-toggle').click(function (e) {
+      if ($('.dropdown-menu.show:visible').length) {
+        $('body').css('overflow', 'auto');
+
+      } else {
+        e.preventDefault();
+        $('body').css('overflow', 'hidden');
+      }
+    });
+
+    $(document).click(function (e) {
+      $('body').css('overflow', 'auto');
+    });
+
+  });
+</script>
+
+
+
+
+<script src="/assets/jquery.serialize-object.min.js" media="nope!" onload="this.media='all'"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.17.0/dist/jquery.validate.min.js" media="nope!" onload="this.media='all'"></script>
+<!-- https://script.google.com/macros/s/AKfycbyHvjcZv6evSHXF1q7nf6AHnDXkA-tc_pw9NjrehxFa_HPy_9Y/exec -->

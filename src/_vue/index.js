@@ -4,15 +4,13 @@ import 'lodash';
 import jQuery from 'jquery';
 window.$ = window.JQuery = jQuery;
 import Vue from 'vue';
-import Hello from './components/Hello.vue';
-import MyFooter from './components/Footer.vue';
+import Resources from './components/Resources.vue';
 import Greet from './components/Greet.vue';
 
 import '../_sass/app.scss'
-
+Vue.config.devtools = true
 const APPS = {
-  Hello,
-  MyFooter,
+  Resources,
   Greet
 };
 
