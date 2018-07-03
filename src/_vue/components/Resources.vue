@@ -17,7 +17,7 @@
         <div class="container-fluid mb-2 pr-3 ">
           <div class="row d-nonex">
             <div class="col-12">
-              <div class="alert alert-secondary alert-dismissible fade show" role="alert">
+              <div class="alert mb-0 alert-secondary alert-dismissible fade show" role="alert">
                 <small>
                   Solar Innovations® is happy to work with our customers, vendors, and dealers to achieve outstanding results. Time is of the essence for many of our customers, we have provided various resources for immediate review.
                 </small>
