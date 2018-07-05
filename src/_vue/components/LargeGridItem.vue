@@ -13,8 +13,8 @@
                 </div>
             </div> 
             <div class="col-lg-12 align-content-between">
-                <div class="mb-2" >
-                    <span class="badge badge-secondary mr-2" v-for="geo in resource.GeoType1.split(',')" v-bind:key="geo">{{ geo }}</span>
+                <div class="mb-2" v-if="Array.isArray(resource.Products)">
+                    <span class="badge badge-primary mr-2" v-for="product in resource.Products" v-bind:key="product">{{ product }}</span>
                 </div>
             </div>
             <div class="col-lg-12">
@@ -41,13 +41,16 @@
 </template>
 <script>
 export default {
-    props: [ 'resource' ],
-    methods: {
-        imgUrlFormat: function(filename, num)
-        {
-            var path = '/assets/images/project-gallery/';
-            return path.concat(filename).concat('-').concat(num).concat('.jpg');
-        }
-    },
-}
+  props: ["resource"],
+  methods: {
+    imgUrlFormat: function(filename, num) {
+      var path = "/assets/images/project-gallery/";
+      return path
+        .concat(filename)
+        .concat("-")
+        .concat(num)
+        .concat(".jpg");
+    }
+  }
+};
 </script>

@@ -34,7 +34,7 @@
           <!-- Results, Sort, Display options -->
           <div class="row mt-3">
 
-            <div class="col-6 text-muted mt-auto"><small>37 results for all.</small></div>
+            <div class="col-6 text-muted mt-auto"><small>{{ filteredResources.length }} results for all.</small></div>
             <div class="col-6 text-right">
               <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
 
@@ -66,13 +66,6 @@
 
             <span :is="currentView" v-for="resource in filteredResources" v-bind:resource="resource" v-bind:key="resource.ID"></span>
           </div>
-
-
-          
-
-        
-
-
         </div>
       </div>
     </div>
@@ -84,46 +77,56 @@
 </template>
 
 <script>
-import projects from '../data/projects.json';
+import projects from "../data/projects.json";
 
-import MegaFilter from './MegaFilter.vue';
-import ListItem from './ListItem.vue';
-import SmallGridItem from './SmallGridItem.vue';
-import LargeGridItem from './LargeGridItem.vue';
+import MegaFilter from "./MegaFilter.vue";
+import ListItem from "./ListItem.vue";
+import SmallGridItem from "./SmallGridItem.vue";
+import LargeGridItem from "./LargeGridItem.vue";
 
 export default {
-  name: 'Resources',
-  data () {
+  name: "Resources",
+  data() {
     return {
       projects: projects,
-      currentView: 'list-item'
-    }
+      currentView: "list-item"
+    };
   },
   components: {
-    MegaFilter, ListItem, SmallGridItem, LargeGridItem
+    MegaFilter,
+    ListItem,
+    SmallGridItem,
+    LargeGridItem
   },
   methods: {
-    changeView: function(component)
-    {
+    changeView: function(component) {
       this.currentView = component;
     }
   },
-  computed:{
-    groupByProjectID(){
+  computed: {
+    groupByProjectID() {
       return this.projects.reduce((acc, proj) => {
-        (acc[proj.ProjectID] = acc[proj.ProjectID] || []).push(proj.ID)
-        return acc
-      }, {})
-    },filteredResources() {
-      return this.projects
-        .slice(0, 25);
-        // .filter(this.moviePassesGenreFilter)
-        // .filter(movie => movie.sessions.find(this.sessionPassesTimeFilter));
+        (acc[proj.ProjectID] = acc[proj.ProjectID] || []).push(proj.ID);
+        return acc;
+      }, {});
+    },
+    optionApplications() {
+      return this.projects.reduce((acc, proj) => {
+        (acc[proj.ProjectID] = acc[proj.ProjectID] || []).push(proj.ID);
+        return acc;
+      }, {});
+    },
+    filteredResources() {
+      return this.projects.slice(0, 25);
+      // .filter(this.moviePassesGenreFilter)
+      // .filter(movie => movie.sessions.find(this.sessionPassesTimeFilter));
     }
   }
-}
+};
 </script>
 
 <style scoped>
-h1 {color: #000}
+h1 {
+  color: #000;
+}
 </style>
