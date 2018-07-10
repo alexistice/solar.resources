@@ -73,13 +73,12 @@
 
                             
                             </li>
-                            <li><span class="float-left">Exterior Color:</span>	 {{ resource.ExtColor }}</li>
-                            <li><span class="float-left">Interior Color:</span>	{{ resource.IntColor }}</li>
-                            <li><span class="float-left">Glaze:</span>	{{ resource.Glazes }}</li>
-                            <li><span class="float-left">Width:</span>	{{ resource.Width }}</li>
-                            <li><span class="float-left">Length / Projection:</span>	{{ resource.LengthProjection }}</li>
-                            <li><span class="float-left">Ridge Height:</span>	{{ resource.RidgeHeight }}</li>
-                            <li><span class="float-left">Product Details:</span>	{{ resource.GeoType2 }}</li>
+                            <li v-if="resource.ExtColor"><span class="float-left">Exterior Color:</span>	 {{ resource.ExtColor }}</li>
+                            <li v-if="resource.IntColor"><span class="float-left">Interior Color:</span>	{{ resource.IntColor }}</li>
+                            <li v-if="resource.Glazes"><span class="float-left">Glaze:</span>	{{ resource.Glazes }}</li>
+                            <li v-if="resource.Width"><span class="float-left">Width:</span>	{{ resource.Width }}</li>
+                            <li v-if="resource.LengthProjection"><span class="float-left">Length / Projection:</span>	{{ resource.LengthProjection }}</li>
+                            <li v-if="resource.RidgeHeight"><span class="float-left">Ridge Height:</span>	{{ resource.RidgeHeight }}</li>
                         </ul>
                     </div>
                 </div>
@@ -90,11 +89,16 @@
             <div class="col-lg-2">
                 <div class="mb-2" v-if="Array.isArray(resource.Products)">
                     <strong>Products</strong><br>
-                    <span class="badge badge-primary mr-2" v-for="product in resource.Products" v-bind:key="product">{{ product }}</span>
+                    <span class="badge badge-primary mr-2" v-for="product in resource.Products" v-bind:key="product.ID">{{ product.ProductName }}</span>
                 </div>
-                <div class="mb-2" v-if="Array.isArray(resource.GeoType1)">
+                <div class="mb-2" v-if="Array.isArray(resource.Products)">
                     <strong>Features</strong><br>
-                    <span class="badge badge-secondary mr-2" v-for="geo in resource.GeoType1" v-bind:key="geo">{{ geo }}</span>
+                    <div v-for="product in resource.Products" v-bind:key="product.ID">
+                        <span class="badge badge-secondary mr-2" v-for="geotype in product.GeoType1" v-bind:key="geotype">
+                            {{ geotype }}
+                        </span>
+                        
+                    </div>
                 </div>
                 <!--  -->
             </div>
