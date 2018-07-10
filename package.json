@@ -37,6 +37,7 @@
         "vue": "^2.5.10",
         "vue-loader": "^13.5.0",
         "vue-template-compiler": "^2.5.10",
+        "scrollmonitor": "~1.2.0",
         "webpack": "^3.10.0",
         "webpack-dev-server": "^2.9.7"
     }

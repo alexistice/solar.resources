@@ -98,12 +98,13 @@
           <div class="row d-nonez border-top mt-1 mb-4" id="results-list" v-if="filteredResources.length">
             <span :is="currentView" v-for="resource in filteredResources" v-bind:resource="resource" v-bind:key="resource.ID"></span>
           </div>
-          <div v-else-if="projects.length" class="no-results">
+          <div v-else-if="projects.length" class="no-results"  >
               No Results
           </div>
           <div v-else class="no-results">
               Loading...
           </div>
+          <div id="product-list-bottom"></div>
         </div>
       </div>
     </div>
@@ -253,16 +254,18 @@ export default {
       this.$bus.$on("check-filter", checkFilter.bind(this));
       // bus.$on("check-filter", checkFilter.bind(this));
   },
-  // mounted: function() {
-  //     // this.onSubmit();
+  mounted: function() {
+      // this.onSubmit();
       
-  //     var vueInstance = this;
-  //     var elem = document.getElementById('product-list-bottom');
-  //     var watcher = scrollMonitor.create(elem);
-  //     watcher.enterViewport(function(){
-  //         vueInstance.appendItems();
-  //     })
-  // }
+      var vueInstance = this;
+      console.log(elem)
+      var elem = document.getElementById('product-list-bottom');
+      var watcher = scrollMonitor.create(elem);
+      watcher.enterViewport(function(){
+          // vueInstance.appendItems();
+          console.log('test = yes');
+      })
+  }
 };
 </script>
 

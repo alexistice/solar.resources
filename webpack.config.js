@@ -2,7 +2,7 @@ const path = require('path');
 const webpack = require('webpack');
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 
-
+var ScrollMonitor = require("scrollmonitor");
 
 
 module.exports = {
@@ -76,6 +76,7 @@ module.exports = {
 
         new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
 
+        // new ScrollMonitor(),
 
         new webpack.ProvidePlugin({
             $: "jquery",
