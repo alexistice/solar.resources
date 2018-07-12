@@ -3,41 +3,23 @@
         <div class="row no-gutters">
             <div class="col-lg-4">
                 <div class="row no-gutters pr-3 justify-content-end">
+                    <!-- http://solar.localhost/wp-content/uploads/ 
+                    Image1
+                    Image2
+                    Image3
+                    Image4
+                    -->
                     <div class="col-12 mb-1">
-                        <!-- /assets/project-gallery-images/04-03-004-t.jpg -->
-                        <img class="img" v-bind:src="imgUrlFormat(resource.ProjectID, 1)" >
+                        <img class="img" v-bind:src="imgUrlFormat(resource.Image1)" >
                     </div>
                     <div class="col-3">
-                        <img class="img pl-1" v-bind:src="imgUrlFormat(resource.ProjectID, 2)">
+                        <img class="img pl-1" v-bind:src="imgUrlFormat(resource.Image2)">
                     </div>
                     <div class="col-3">
-                        <img class="img pl-1" v-bind:src="imgUrlFormat(resource.ProjectID, 3)">
+                        <img class="img pl-1" v-bind:src="imgUrlFormat(resource.Image3)">
                     </div>
                     <div class="col-3">
-                        <img class="img pl-1" v-bind:src="imgUrlFormat(resource.ProjectID, 4)">
-                    </div>
-                    <div class="col-lg-12 mt-3">
-                        <div class="d-flex flex-row justify-content-between">
-                            <div class="d-flex flex-column mb-3 mr-3 justify-content-start">
-                                <i class="fas fa-truck-loading fa-2x float-right"></i>
-                            </div>
-                        
-                            <div class="d-flex flex-column mb-3 mr-3 justify-content-start">
-                                <i class="fas fa-map-marked-alt fa-2x"></i>
-                            </div>
-                        
-                            <div class="d-flex flex-column mb-3 mr-3 justify-content-start">
-                                <span class="fa-stack fa-1x">
-                                    <i class="fas fa-search fa-stack-2x" ></i>
-                                    <i class="fas fa-briefcase fa-stack-1x" style="font-size: 60%;margin-left: -3px;margin-top: -3px;"></i>
-                                </span>
-                            </div>
-                      
-                            <div class="d-flex flex-column mb-3 mr-3 justify-content-start">
-                        
-                                <i class="fas fa-camera-retro fa-2x"></i>
-                            </div>
-                        </div>
+                        <img class="img pl-1" v-bind:src="imgUrlFormat(resource.Image4)">
                     </div>
                 </div>
             </div> 
@@ -75,7 +57,21 @@
                             </li>
                             <li v-if="resource.ExtColor"><span class="float-left">Exterior Color:</span>	 {{ resource.ExtColor }}</li>
                             <li v-if="resource.IntColor"><span class="float-left">Interior Color:</span>	{{ resource.IntColor }}</li>
-                            <li v-if="resource.Glazes"><span class="float-left">Glaze:</span>	{{ resource.Glazes }}</li>
+                            <!-- <li v-if="resource.Glazes"><span class="float-left">Glaze:</span>	{{ resource.Glazes }}</li> -->
+
+                            <li>
+                                <span class="float-left">Glaze:</span>	
+                                <span 
+                                    v-for="(glaze, index) in resource.Glazes" 
+                                    v-bind:key="glaze">
+                                    <span v-if="index != resource.Glazes.length && index != 0">, {{ glaze }}</span>
+                                    <span v-else>{{ glaze }}</span>
+                                    
+                                </span>
+
+                            
+                            </li>
+
                             <li v-if="resource.Width"><span class="float-left">Width:</span>	{{ resource.Width }}</li>
                             <li v-if="resource.LengthProjection"><span class="float-left">Length / Projection:</span>	{{ resource.LengthProjection }}</li>
                             <li v-if="resource.RidgeHeight"><span class="float-left">Ridge Height:</span>	{{ resource.RidgeHeight }}</li>
@@ -109,13 +105,16 @@
 export default {
   props: ["resource"],
   methods: {
-    imgUrlFormat: function(filename, num) {
-      var path = "/assets/images/project-gallery/";
+    imgUrlFormat: function(filename) {
+    // <img src="http://solar.localhost/wp-content/uploads/000_1163_500.jpg">
+
+    //   var path = "/assets/images/project-gallery/";
+      var path = "http://solar.localhost/wp-content/uploads/";
       return path
-        .concat(filename)
-        .concat("-")
-        .concat(num)
-        .concat(".jpg");
+        .concat(filename);
+        // .concat("-")
+        // .concat(num)
+        // .concat(".jpg");
     }
   }
 };

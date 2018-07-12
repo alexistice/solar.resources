@@ -1,6 +1,5 @@
 <template>
   <main  class="mt-3">
-    
     <div class="container-fluid mb-5" id="content">
       <div class="row">
       <div class="col-12 border-bottom mb-4">
@@ -11,9 +10,6 @@
 
         <div class="d-flex flex-column">
           <strong>Applications</strong>
-          <!-- <div  v-for="app in listApplications" v-bind:key="app">
-            <div class="p-0"><small><i class="far fa-square mr-1" style="color: rgb(150, 150, 150)"></i> {{ app }}</small></div>
-          </div> -->
           <check-filter v-for="app in listApplications" category="applications" v-bind:name="app" v-bind:key="app"></check-filter>
         </div>
         
@@ -21,38 +17,32 @@
         
         <div class="d-flex flex-column">
           <strong>Glaze</strong>
-          <div  v-for="glaze in glazes" v-bind:key="glaze">
-            <div class="p-0"><small><i class="far fa-square mr-1" style="color: rgb(150, 150, 150)"></i> {{ glaze }}</small></div>
-          </div>
+          <check-filter v-for="glaze in glazesOptions"  category="glazes" v-bind:name="glaze" v-bind:key="glaze"></check-filter>
         </div>
 
         <hr class="my-2">
         
         <div class="d-flex flex-column">
           <strong>Glaze Colors</strong>
-          <div  v-for="glaze in glazeColor" v-bind:key="glaze">
-            <div class="p-0"><small><i class="far fa-square mr-1" style="color: rgb(150, 150, 150)"></i> {{ glaze }}</small></div>
-          </div>
+          <check-filter v-for="glaze in glazeColor"  category="glazes" v-bind:name="glaze" v-bind:key="glaze"></check-filter>
         </div>
 
         <hr class="my-2">
         
         <div class="d-flex flex-column">
           <strong>Glaze Coating</strong>
-          <div  v-for="glaze in listGlazeCoatings" v-bind:key="glaze">
-            <div class="p-0"><small><i class="far fa-square mr-1" style="color: rgb(150, 150, 150)"></i> {{ glaze }}</small></div>
-          </div>
+          <check-filter v-for="glaze in listGlazeCoatings"  category="glazes" v-bind:name="glaze" v-bind:key="glaze"></check-filter>          
         </div>
 
-      </div>
-      
+      </div> 
+        
       <div class="col-lg-10">
         <div class="container-fluid mb-2 pr-3 ">
           <div class="row d-nonex">
             <div class="col-12">
               <div class="alert mb-0 alert-secondary alert-dismissible fade show" role="alert">
                 <small>
-                  Solar Innovations® is happy to work with our customers, vendors, and dealers to achieve outstanding results. Time is of the essence for many of our customers, we have provided various resources for immediate review.
+                  Solar Innovations<sup>®</sup> is happy to work with our customers, vendors, and dealers to achieve outstanding results. Time is of the essence for many of our customers, we have provided various resources for immediate review.
                 </small>
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
@@ -66,29 +56,51 @@
           
           <!-- Results, Sort, Display options -->
           <div class="row mt-3">
-
-            <div class="col-6 text-muted mt-auto"><small>{{ filteredResources.length }} results for all.</small></div>
-            <div class="col-6 text-right">
+            <div class="col-4 text-left">
               <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
 
                 <!-- <button type="button" class="btn btn-secondary"><i class="fas fa-sort-amount-up"></i></button> -->
-                <!-- <button type="button" class="btn btn-secondary" ><i class="fas fa-sort-amount-down"></i></button>
+                <button type="button" class="btn btn-secondary" @click="changeSortDirection()" >
+                  <i v-bind:class="{ 'fas fa-sort-amount-up': sortDirection === 'desc', 'fas fa-sort-amount-down': sortDirection === 'asc' }"></i>
+                  <!-- <i class="fas fa-sort-amount-down"></i> -->
+                </button>
               
+                <!-- <button class="btn btn-secondary" @click="changeSortDirection()" type="button" class="btn btn-secondary">
+                  <i class="fas fa-sort-amount-down"></i>
+                </button> -->
+ 
+ 
                 <div class="btn-group" role="group">
+
                   <button id="btnGroupDrop1" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Sort: Date
                   </button>
                   <div class="dropdown-menu dropdown-menu-right" aria-labelledby="btnGroupDrop1">
                     <a class="dropdown-item" href="#">Date</a>
-                    <a class="dropdown-item" href="#">Alphabetical</a>
+                    <!-- <a class="dropdown-item" href="#">Alphabetical</a> -->
                   </div>
-                </div> -->
+                </div>
 
                 <button v-bind:class="{ 'btn btn-secondary': true, active: currentView === 'list-item' }" @click="changeView('list-item')" type="button" ><i class="fas fa-list-ul"></i></button>
                 <button v-bind:class="{ 'btn btn-secondary': true, active: currentView === 'large-grid-item' }" @click="changeView('large-grid-item')" type="button" class="btn btn-secondary"><i class="fas fa-th-large"></i></button>
                 <button v-bind:class="{ 'btn btn-secondary': true, active: currentView === 'small-grid-item' }" @click="changeView('small-grid-item')" type="button" class="btn btn-secondary"><i class="fas fa-th"></i></button>
 
               </div>
+            </div>
+            <div class="col-6 text-muted mt-auto">
+              <!-- <form class="searchbar" v-on:submit.prevent="onSubmit">
+                  <input type="text" v-model="newSearch" placeholder="Search for Posters">
+                  <input type="submit" value="Search" class="btn btn-secondary btn-sm" >
+              </form> -->
+              <div class="input-group">
+                <input type="text" class="form-control" v-model="newSearch" placeholder="Search for Projects" aria-label="Recipient's username" aria-describedby="search">
+                <div class="input-group-append">
+                  <button class="btn btn-outline-secondary btn-sm" type="submit" value="Search">Search</button>
+                </div>
+              </div>
+            </div>
+            <div class="col-2 text-muted mt-auto">
+              <small>Showing {{ filteredResources.length }} results.</small>
             </div>
           </div>
           <!-- End Results, Sort, Display options -->
@@ -141,9 +153,13 @@ export default {
       projects: projects,
       currentView: "list-item",
       glazeColor: [ "Clear", "White", "Bronze", "Gray", "Blue", "Green" ],
-      glazes: ["Glass", "Monolithic Glass", "Polycarbonate", "Tempered"],
-      // bus,
-      applications: []
+      glazesOptions: ["Glass", "Monolithic Glass", "Polycarbonate", "Tempered"],
+      newSearch: '',
+      lastSearch: '',
+      sortDirection: 'asc',
+      applications: [],
+      glazes: [],
+      loadNumber: 5
     };
   },
   components: {
@@ -156,6 +172,13 @@ export default {
   methods: {
     changeView: function(component) {
       this.currentView = component;
+    },
+    changeSortDirection: function() {
+      if(this.sortDirection === 'desc'){
+        this.sortDirection = 'asc';
+      }else{
+        this.sortDirection = 'desc';
+      }
     },
     getArrayDiff: function(a, b) {
       var ret = [];
@@ -171,12 +194,11 @@ export default {
       }
       return ret;
     },
-    // appendItems: function(){
-    //     if(this.items.length < this.results.length){
-    //         var append = this.results.slice(this.items.length, this.items.length + LOAD_NUM);
-    //         this.items = this.items.concat(append);
-    //     }
-    // },
+    appendItems: function(){
+        if(this.filteredResources.length < this.projects.length){
+            this.loadNumber = this.loadNumber + 10;
+        }
+    },
     filterApplications(proj) {
       if (!this.applications.length) {
         return true;
@@ -184,8 +206,21 @@ export default {
         let projApplications = proj.Application;
         let matched = true;
         this.applications.forEach(app => {
-          console.log(app);
           if (projApplications.indexOf(app) === -1) {
+            matched = false;
+          }
+        });
+        return matched;
+      }
+    },
+    filterGlazes(proj) {
+      if (!this.glazes.length) {
+        return true;
+      } else {
+        let projGlazes = proj.Glazes;
+        let matched = true;
+        this.glazes.forEach(app => {
+          if (projGlazes.indexOf(app) === -1) {
             matched = false;
           }
         });
@@ -194,12 +229,12 @@ export default {
     }
   },
   computed: {
-    groupByProjectID() {
-      return this.projects.reduce((acc, proj) => {
-        (acc[proj.ProjectID] = acc[proj.ProjectID] || []).push(proj.ID);
-        return acc;
-      }, {});
-    },
+    // groupByProjectID() {
+    //   return this.projects.reduce((acc, proj) => {
+    //     (acc[proj.ProjectID] = acc[proj.ProjectID] || []).push(proj.ID);
+    //     return acc;
+    //   }, {});
+    // },
     optionApplications() {
       const apps = this.projects.reduce((acc, proj) => {
         if(Array.isArray(proj.Application)){
@@ -239,31 +274,55 @@ export default {
       
       // glazeColor glaze
       list = this.getArrayDiff(list, this.glazeColor);
-      list = this.getArrayDiff(list, this.glazes);
+      list = this.getArrayDiff(list, this.glazesOptions);
       return list.sort();
     },
     filteredResources() {
-      let proj = this.projects.slice(0, 25);
-      return proj
+      // let proj = this.projects;
+      
+      let proj = this.projects.filter((project) => {
+        return project.Description.toLowerCase().includes(this.newSearch.toLowerCase());
+      });
+
+
+      // sort code
+      // if (this.sort == 'views') {
+      //   return players.sort(function(a, b) {
+      //     return b.views - a.views
+      //   });
+      // } else {
+      //   return players;
+      // }
+
+      let projFiltered = proj
       // return this.projects
-        .filter(this.filterApplications);
+        .filter(this.filterApplications)
+        .filter(this.filterGlazes)
+       
+        
+      // TODO : Filter before the Slice 
+      let projFilteredSorted =  projFiltered
+        .sort(function(a, b) {
+          return a.Date - b.Date
+        });
+      if(this.sortDirection === "asc"){
+        projFilteredSorted = projFilteredSorted.reverse();
+      }
+      return projFilteredSorted.slice(0, this.loadNumber);
+
+
       // .filter(movie => movie.sessions.find(this.sessionPassesTimeFilter));
     }
   },
   created() {
       this.$bus.$on("check-filter", checkFilter.bind(this));
-      // bus.$on("check-filter", checkFilter.bind(this));
   },
   mounted: function() {
-      // this.onSubmit();
-      
       var vueInstance = this;
-      console.log(elem)
       var elem = document.getElementById('product-list-bottom');
       var watcher = scrollMonitor.create(elem);
       watcher.enterViewport(function(){
-          // vueInstance.appendItems();
-          console.log('test = yes');
+          vueInstance.appendItems();
       })
   }
 };

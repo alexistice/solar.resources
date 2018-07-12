@@ -8,16 +8,16 @@
                     <!-- <p class="mb-2"><small class="text-muted">May 12, 2018</small></p> -->
                 </div>
                 <div class="col-12 mb-1">
-                    <img class="img"  v-bind:src="imgUrlFormat(resource.ProjectID, 1)" >
+                    <img class="img"  v-bind:src="imgUrlFormat(resource.Image1)" >
                 </div>
                 </div>
             </div> 
             <div class="col-lg-12 align-content-between">
                 <div class="mb-2" v-if="Array.isArray(resource.Products)">
-                    <span class="badge badge-primary mr-2" v-for="product in resource.Products" v-bind:key="product">{{ product }}</span>
+                    <span class="badge badge-primary mr-2" v-for="product in resource.Products" v-bind:key="product.ID">{{ product.ProductName }}</span>
                 </div>
             </div>
-            <div class="col-lg-12">
+            <!-- <div class="col-lg-12">
 
                 <div class="d-flex flex-row justify-content-start">
                 <div class="d-flex flex-column mr-3 justify-content-start align-items-center">
@@ -33,9 +33,7 @@
                     <i class="fas fa-camera-retro fa-2x"></i>
                 </div>
                 </div>
-            </div>
-        
-        
+            </div> -->
         </div>
     </div>
 </template>
@@ -43,13 +41,10 @@
 export default {
   props: ["resource"],
   methods: {
-    imgUrlFormat: function(filename, num) {
-      var path = "/assets/images/project-gallery/";
+    imgUrlFormat: function(filename) {
+      var path = "http://solar.localhost/wp-content/uploads/";
       return path
-        .concat(filename)
-        .concat("-")
-        .concat(num)
-        .concat(".jpg");
+        .concat(filename);
     }
   }
 };
