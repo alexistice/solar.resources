@@ -100,7 +100,7 @@
               </div>
             </div>
             <div class="col-2 text-muted mt-auto">
-              <small>Showing {{ filteredResources.length }} results.</small>
+              <small>{{ totalResults }} results found.</small>
             </div>
           </div>
           <!-- End Results, Sort, Display options -->
@@ -159,7 +159,8 @@ export default {
       sortDirection: 'asc',
       applications: [],
       glazes: [],
-      loadNumber: 5
+      loadNumber: 5,
+      totalResults: 0
     };
   },
   components: {
@@ -284,23 +285,11 @@ export default {
         return project.Description.toLowerCase().includes(this.newSearch.toLowerCase());
       });
 
-
-      // sort code
-      // if (this.sort == 'views') {
-      //   return players.sort(function(a, b) {
-      //     return b.views - a.views
-      //   });
-      // } else {
-      //   return players;
-      // }
-
       let projFiltered = proj
       // return this.projects
         .filter(this.filterApplications)
         .filter(this.filterGlazes)
        
-        
-      // TODO : Filter before the Slice 
       let projFilteredSorted =  projFiltered
         .sort(function(a, b) {
           return a.Date - b.Date
@@ -308,6 +297,7 @@ export default {
       if(this.sortDirection === "asc"){
         projFilteredSorted = projFilteredSorted.reverse();
       }
+      this.totalResults = projFilteredSorted.length;
       return projFilteredSorted.slice(0, this.loadNumber);
 
 
