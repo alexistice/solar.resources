@@ -9,20 +9,20 @@
                     Image3
                     Image4
                     -->
-                    <div class="col-12 mb-1">
+                    <div class="col-12 mb-1" v-if="resource.Image1">
                         <img class="img" v-bind:src="imgUrlFormat(resource.Image1)" >
                     </div>
-                    <div class="col-3">
+                    <div class="col-3" v-if="resource.Image2">
                         <img class="img pl-1" v-bind:src="imgUrlFormat(resource.Image2)">
                     </div>
-                    <div class="col-3">
+                    <div class="col-3" v-if="resource.Image3">
                         <img class="img pl-1" v-bind:src="imgUrlFormat(resource.Image3)">
                     </div>
-                    <div class="col-3">
+                    <div class="col-3" v-if="resource.Image4">
                         <img class="img pl-1" v-bind:src="imgUrlFormat(resource.Image4)">
                     </div>
                 </div>
-            </div> 
+            </div>   
                   
             <div class="col-lg-6 align-content-between">
                 <div class="row no-gutters">
