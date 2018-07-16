@@ -2259,51 +2259,11 @@
     "ProjectID":"10-12-218"
     ,"Date":201012218
     ,"ID": 76
-    ,"ProductName":"Architectural Enhancement"
-    ,"GeoType1":"Eave Vent,Ridge Vent"
-    ,"GeoType2":""
-    ,"Description":"Straight eave, double pitch greenhouse with operable ridge and eave vents."
-    ,"Image1":"IMG_0196-2_500x375.jpg"
-    ,"Image2":"Intersecting-arm-rod-with-gusset-2_500x375.jpg"
-    ,"Image3":"IMG_0197-2_500x375.jpg"
-    ,"Image4":"Intersecting-arm-rod-with-gusset_500x375.jpg"
-    ,"ExtColor":"Clear Anodized (Class 1)"
-    ,"IntColor":"Clear Anodized (Class 1)"
-    ,"LengthProjection":"25 feet"
-    ,"RidgeHeight":"7 inches"
-    ,"Location":"Pennsylvania"
-    ,"Width":"25 feet"
-    ,"Application":["Institutional"]
-    ,"Glazes":["Clear"]
-  },
-  {
-    "ProjectID":"10-12-218"
-    ,"Date":201012218
-    ,"ID": 77
-    ,"ProductName":"Door"
-    ,"GeoType1":""
-    ,"GeoType2":""
-    ,"Description":"Straight eave, double pitch greenhouse with operable ridge and eave vents."
-    ,"Image1":"IMG_0196-2_500x375.jpg"
-    ,"Image2":"Intersecting-arm-rod-with-gusset-2_500x375.jpg"
-    ,"Image3":"IMG_0197-2_500x375.jpg"
-    ,"Image4":"Intersecting-arm-rod-with-gusset_500x375.jpg"
-    ,"ExtColor":"Clear Anodized (Class 1)"
-    ,"IntColor":"Clear Anodized (Class 1)"
-    ,"LengthProjection":"25 feet"
-    ,"RidgeHeight":"7 inches"
-    ,"Location":"Pennsylvania"
-    ,"Width":"25 feet"
-    ,"Application":["Institutional"]
-    ,"Glazes":["Clear"]
-  },
-  {
-    "ProjectID":"10-12-218"
-    ,"Date":201012218
-    ,"ID": 78
-    ,"ProductName":"Greenhouse"
-    ,"GeoType1":"Straight Eave Lean-To"
-    ,"GeoType2":"501-750 SQF. Glass"
+    ,"Products":[
+      { "ProductName": "Architectural Enhancement", "GeoType1": ["Eave Vent,Ridge Vent"], "GeoType2": [] },
+      { "ProductName": "Door", "GeoType1": [], "GeoType2": [] },
+      { "ProductName": "Greenhouse", "GeoType1": ["Straight Eave Lean-To"], "GeoType2": ["501-750 SQF. Glass"] }
+    ]
     ,"Description":"Straight eave, double pitch greenhouse with operable ridge and eave vents."
     ,"Image1":"IMG_0196-2_500x375.jpg"
     ,"Image2":"Intersecting-arm-rod-with-gusset-2_500x375.jpg"
@@ -2322,51 +2282,11 @@
     "ProjectID":"10-12-160"
     ,"Date":201012160
     ,"ID": 79
-    ,"ProductName":"Architectural Enhancement"
-    ,"GeoType1":"Dormers,Ridge Vent"
-    ,"GeoType2":""
-    ,"Description":"Straight eave double pitch greenhouse with projected dormer, awning windows, ridge vents, and terrace door."
-    ,"Image1":"SEDP-Delaney-Ext_500x3271.jpg"
-    ,"Image2":"IMG_0813_500x375.jpg"
-    ,"Image3":"IMG_1069.jpg"
-    ,"Image4":"SEDP-Delaney-Ext_500x327.jpg"
-    ,"ExtColor":"Bronze, Duracron"
-    ,"IntColor":"Bronze, Duracron"
-    ,"LengthProjection":"18 feet"
-    ,"RidgeHeight":"12 feet"
-    ,"Location":"Pennsylvania"
-    ,"Width":"13 feet"
-    ,"Application":["Residential"]
-    ,"Glazes":["Clear"]
-  },
-  {
-    "ProjectID":"10-12-160"
-    ,"Date":201012160
-    ,"ID": 80
-    ,"ProductName":"Hobby Greenhouse"
-    ,"GeoType1":"Straight Eave Double Pitch"
-    ,"GeoType2":"501-750 SQF. Glass"
-    ,"Description":"Straight eave double pitch greenhouse with projected dormer, awning windows, ridge vents, and terrace door."
-    ,"Image1":"SEDP-Delaney-Ext_500x3271.jpg"
-    ,"Image2":"IMG_0813_500x375.jpg"
-    ,"Image3":"IMG_1069.jpg"
-    ,"Image4":"SEDP-Delaney-Ext_500x327.jpg"
-    ,"ExtColor":"Bronze, Duracron"
-    ,"IntColor":"Bronze, Duracron"
-    ,"LengthProjection":"18 feet"
-    ,"RidgeHeight":"12 feet"
-    ,"Location":"Pennsylvania"
-    ,"Width":"13 feet"
-    ,"Application":["Residential"]
-    ,"Glazes":["Clear"]
-  },
-  {
-    "ProjectID":"10-12-160"
-    ,"Date":201012160
-    ,"ID": 81
-    ,"ProductName":"Window"
-    ,"GeoType1":"Projected"
-    ,"GeoType2":"Awning"
+    ,"Products":[
+      { "ProductName": "Architectural Enhancement", "GeoType1": ["Dormers", "Ridge Vent"], "GeoType2": [] },
+      { "ProductName": "Hobby Greenhouse", "GeoType1": ["Straight Eave Double Pitch"], "GeoType2": ["501-750 SQF. Glass"] },
+      { "ProductName": "Window", "GeoType1": ["Projected"], "GeoType2": ["Awning"] }
+    ]
     ,"Description":"Straight eave double pitch greenhouse with projected dormer, awning windows, ridge vents, and terrace door."
     ,"Image1":"SEDP-Delaney-Ext_500x3271.jpg"
     ,"Image2":"IMG_0813_500x375.jpg"
@@ -2385,72 +2305,12 @@
     "ProjectID":"10-11-183"
     ,"Date":201011183
     ,"ID": 82
-    ,"ProductName":"Door"
-    ,"GeoType1":""
-    ,"GeoType2":""
-    ,"Description":"Straight eave, double pitch greenhouse with operable ridge vent."
-    ,"Image1":"shade_ers2-e1342192358444.jpg"
-    ,"Image2":"Herrin-R1-13.jpg"
-    ,"Image3":"Herrin-R1-9.jpg"
-    ,"Image4":"Herrin-R1-7_500x338.jpg"
-    ,"ExtColor":"White, Duracron"
-    ,"IntColor":"White, Duracron"
-    ,"LengthProjection":"18 feet"
-    ,"RidgeHeight":"11 feet"
-    ,"Location":""
-    ,"Width":"16 feet"
-    ,"Application":["Educational", "Institutional", "Research"]
-    ,"Glazes":["Clear"]
-  },
-  {
-    "ProjectID":"10-11-183"
-    ,"Date":201011183
-    ,"ID": 83
-    ,"ProductName":"Greenhouse"
-    ,"GeoType1":"Straight Eave Double Pitch"
-    ,"GeoType2":"501-750 SQF. Glass"
-    ,"Description":"Straight eave, double pitch greenhouse with operable ridge vent."
-    ,"Image1":"shade_ers2-e1342192358444.jpg"
-    ,"Image2":"Herrin-R1-13.jpg"
-    ,"Image3":"Herrin-R1-9.jpg"
-    ,"Image4":"Herrin-R1-7_500x338.jpg"
-    ,"ExtColor":"White, Duracron"
-    ,"IntColor":"White, Duracron"
-    ,"LengthProjection":"18 feet"
-    ,"RidgeHeight":"11 feet"
-    ,"Location":""
-    ,"Width":"16 feet"
-    ,"Application":["Educational", "Institutional", "Research"]
-    ,"Glazes":["Clear"]
-  },
-  {
-    "ProjectID":"10-11-183"
-    ,"Date":201011183
-    ,"ID": 84
-    ,"ProductName":"Greenhouse Accessory"
-    ,"GeoType1":"Storage"
-    ,"GeoType2":"Circulation Fans,Wood Top Bench"
-    ,"Description":"Straight eave, double pitch greenhouse with operable ridge vent."
-    ,"Image1":"shade_ers2-e1342192358444.jpg"
-    ,"Image2":"Herrin-R1-13.jpg"
-    ,"Image3":"Herrin-R1-9.jpg"
-    ,"Image4":"Herrin-R1-7_500x338.jpg"
-    ,"ExtColor":"White, Duracron"
-    ,"IntColor":"White, Duracron"
-    ,"LengthProjection":"18 feet"
-    ,"RidgeHeight":"11 feet"
-    ,"Location":""
-    ,"Width":"16 feet"
-    ,"Application":["Educational", "Institutional", "Research"]
-    ,"Glazes":["Clear"]
-  },
-  {
-    "ProjectID":"10-11-183"
-    ,"Date":201011183
-    ,"ID": 85
-    ,"ProductName":"Shades"
-    ,"GeoType1":"Exterior Operable"
-    ,"GeoType2":"HVHZ / Miami-Dade Rated"
+    ,"Products":[
+      { "ProductName": "Door", "GeoType1": [], "GeoType2": [] },
+      { "ProductName": "Greenhouse", "GeoType1": ["Straight Eave Double Pitch"], "GeoType2": ["501-750 SQF. Glass"] },
+      { "ProductName": "Greenhouse Accessory", "GeoType1": ["Storage"], "GeoType2": ["Circulation Fans", "Wood Top Bench"] },
+      { "ProductName": "Shades", "GeoType1": ["Exterior Operable"], "GeoType2": ["HVHZ / Miami-Dade Rated"] }
+    ]
     ,"Description":"Straight eave, double pitch greenhouse with operable ridge vent."
     ,"Image1":"shade_ers2-e1342192358444.jpg"
     ,"Image2":"Herrin-R1-13.jpg"
@@ -2469,30 +2329,10 @@
     "ProjectID":"11-03-349"
     ,"Date":201103349
     ,"ID": 86
-    ,"ProductName":"Greenhouse"
-    ,"GeoType1":"Straight Eave Double Pitch"
-    ,"GeoType2":"501-750 SQF. Glass"
-    ,"Description":"Straight eave, double pitch greenhouse with polycarbonate."
-    ,"Image1":"gh-inst-Mt.-Lake-High-ext-pcd.jpg"
-    ,"Image2":"gh-Mt.-Lake-High-int.jpg"
-    ,"Image3":"gh-mt-lake-EW-vents_500x280.jpg"
-    ,"Image4":"EW-rev-gh-inst-Mt.-Lake-High-ext-pcd_500x244.jpg"
-    ,"ExtColor":"White, Duracron"
-    ,"IntColor":"White, Duracron"
-    ,"LengthProjection":"30 feet"
-    ,"RidgeHeight":"16 feet"
-    ,"Location":"Washington"
-    ,"Width":"26 feet"
-    ,"Application":["Educational", "Institutional", "Research"]
-    ,"Glazes":["Polycarbonate"]
-  },
-  {
-    "ProjectID":"11-03-349"
-    ,"Date":201103349
-    ,"ID": 87
-    ,"ProductName":"Polycarbonate"
-    ,"GeoType1":"Poly Greenhouses"
-    ,"GeoType2":""
+    ,"Products":[
+      { "ProductName": "Greenhouse", "GeoType1": ["Straight Eave Double Pitch"], "GeoType2": ["501-750 SQF. Glass"] },
+      { "ProductName": "Polycarbonate", "GeoType1": ["Poly Greenhouses"], "GeoType2": [] }
+    ]
     ,"Description":"Straight eave, double pitch greenhouse with polycarbonate."
     ,"Image1":"gh-inst-Mt.-Lake-High-ext-pcd.jpg"
     ,"Image2":"gh-Mt.-Lake-High-int.jpg"
@@ -6001,9 +5841,9 @@
     "ProjectID":"11-04-126"
     ,"Date":201104126
     ,"ID": 258
-    ,"ProductName":"Sliding Door"
-    ,"GeoType1":"Door"
-    ,"GeoType2":"100-250 SQF. Glass,Dual Track"
+    ,"Products":[
+      { "ProductName": "Sliding Door", "GeoType1": ["Door"], "GeoType2": ["100-250 SQF. Glass", "Dual Track"] }
+    ]
     ,"Description":"PXXXXP dual track sliding, stacking door system with pocket."
     ,"Image1":"poolhouse6_500x375.jpg"
     ,"Image2":"handles-poolhouse4.jpg"
@@ -7030,51 +6870,11 @@
     "ProjectID":"11-04-054"
     ,"Date":201104054
     ,"ID": 307
-    ,"ProductName":"Architectural Enhancement"
-    ,"GeoType1":"Gable End"
-    ,"GeoType2":""
-    ,"Description":"Insulated Straight Eave Double Pitch Greenhouse with one Gable end and terrace door."
-    ,"Image1":"IMG_0080_500x375.jpg"
-    ,"Image2":"IMG_0081_500x375.jpg"
-    ,"Image3":"IMG_0082_500x375.jpg"
-    ,"Image4":"IMG_0078_500x375.jpg"
-    ,"ExtColor":"Black, Duracron"
-    ,"IntColor":"Black, Duracron"
-    ,"LengthProjection":"16 feet 0 inches"
-    ,"RidgeHeight":"9 feet 9 inches"
-    ,"Location":"Pennsylvania"
-    ,"Width":"10 feet"
-    ,"Application":["Residential"]
-    ,"Glazes":["Clear"]
-  },
-  {
-    "ProjectID":"11-04-054"
-    ,"Date":201104054
-    ,"ID": 308
-    ,"ProductName":"Door"
-    ,"GeoType1":""
-    ,"GeoType2":""
-    ,"Description":"Insulated Straight Eave Double Pitch Greenhouse with one Gable end and terrace door."
-    ,"Image1":"IMG_0080_500x375.jpg"
-    ,"Image2":"IMG_0081_500x375.jpg"
-    ,"Image3":"IMG_0082_500x375.jpg"
-    ,"Image4":"IMG_0078_500x375.jpg"
-    ,"ExtColor":"Black, Duracron"
-    ,"IntColor":"Black, Duracron"
-    ,"LengthProjection":"16 feet 0 inches"
-    ,"RidgeHeight":"9 feet 9 inches"
-    ,"Location":"Pennsylvania"
-    ,"Width":"10 feet"
-    ,"Application":["Residential"]
-    ,"Glazes":["Clear"]
-  },
-  {
-    "ProjectID":"11-04-054"
-    ,"Date":201104054
-    ,"ID": 309
-    ,"ProductName":"Greenhouse"
-    ,"GeoType1":"Straight Eave Double Pitch"
-    ,"GeoType2":"250-500 SQF. Glass"
+    ,"Products":[
+      { "ProductName": "Architectural Enhancement", "GeoType1": ["Gable End"], "GeoType2": [] },
+      { "ProductName": "Door", "GeoType1": [], "GeoType2": [] },
+      { "ProductName": "Greenhouse", "GeoType1": ["Straight Eave Double Pitch"], "GeoType2": ["250-500 SQF. Glass"] }
+    ]
     ,"Description":"Insulated Straight Eave Double Pitch Greenhouse with one Gable end and terrace door."
     ,"Image1":"IMG_0080_500x375.jpg"
     ,"Image2":"IMG_0081_500x375.jpg"
@@ -7996,9 +7796,9 @@
     "ProjectID":"11-01-119"
     ,"Date":201101119
     ,"ID": 353
-    ,"ProductName":"Operable / Retractable Skylights"
-    ,"GeoType1":"Lantern0 Degree Operable,Operable Skylight,Retractable Skylight / Roof"
-    ,"GeoType2":"51-100 SQF. Glass,Hydraulic Operation,Manual"
+    ,"Products":[
+      { "ProductName": "Operable / Retractable Skylights", "GeoType1": ["90 Degree Operable,Operable Skylight,Retractable Skylight / Roof"], "GeoType2": ["51-100 SQF. Glass", "Hydraulic Operation", "Manual"] }
+    ]
     ,"Description":"Operable Succah Skylight located in New York and used for Ecclesiastical purposes"
     ,"Image1":"Skylighttouchup_5001.jpg"
     ,"Image2":"Skylight8_touchup_500.jpg"
@@ -8017,9 +7817,9 @@
     "ProjectID":"11-01-333"
     ,"Date":201101333
     ,"ID": 354
-    ,"ProductName":"Folding Glass Wall"
-    ,"GeoType1":"Door,Monster Wall"
-    ,"GeoType2":"250-500 SQF. Glass,All Wall"
+    ,"Products":[
+      { "ProductName": "Folding Glass Wall", "GeoType1": ["Door", "Monster Wall"], "GeoType2": ["250-500 SQF. Glass", "All Wall"] }
+    ]
     ,"Description":"Double door mid wall folding system, 5 PANELS FOLD LEFT, 5 PANELS FOLD RIGHT, RECESSED SILL WITH ADJUSTABLE RAMP"
     ,"Image1":"radio-station-06272012_touchup_500.jpg"
     ,"Image2":"radio-station-06272012-2_500.jpg"
@@ -8122,9 +7922,9 @@
     "ProjectID":"11-01-369"
     ,"Date":201101369
     ,"ID": 359
-    ,"ProductName":"Lift Slide"
-    ,"GeoType1":"Dual Panel,Multi Panel"
-    ,"GeoType2":"250-500 SQF. Glass"
+    ,"Products":[
+      { "ProductName": "Lift Slide", "GeoType1": ["Dual Panel", "Multi Panel"], "GeoType2": ["250-500 SQF. Glass"] }
+    ]
     ,"Description":"Lift Slide Doors used in a residential setting."
     ,"Image1":"IMG00635-20120309-1243_500.jpg"
     ,"Image2":"IMG00636-20120309-1243_500.jpg"
@@ -8311,30 +8111,10 @@
     "ProjectID":"10-12-282"
     ,"Date":201012282
     ,"ID": 368
-    ,"ProductName":"Greenhouse"
-    ,"GeoType1":"Straight Eave Double Pitch"
-    ,"GeoType2":"751-1000 SQF. Glass"
-    ,"Description":"Straight eave, double pitch greenhouse with operable ridge vents, awning windows, ridge cresting, and finial."
-    ,"Image1":"Reilly1.jpg"
-    ,"Image2":"Reilly2.jpg"
-    ,"Image3":"Reilly3.jpg"
-    ,"Image4":"Reilly4.jpg"
-    ,"ExtColor":"Dark Bronze Anodized"
-    ,"IntColor":"Dark Bronze Anodized"
-    ,"LengthProjection":"Units Vary"
-    ,"RidgeHeight":"Units Vary"
-    ,"Location":"Pennsylvania"
-    ,"Width":"Units Vary"
-    ,"Application":["Residential"]
-    ,"Glazes":["Clear"]
-  },
-  {
-    "ProjectID":"10-12-282"
-    ,"Date":201012282
-    ,"ID": 369
-    ,"ProductName":"Hobby Greenhouse"
-    ,"GeoType1":"Straight Eave Double Pitch"
-    ,"GeoType2":"750-1000 SQF. Glass"
+    ,"Products":[
+      { "ProductName": "Greenhouse", "GeoType1": ["Straight Eave Double Pitch"], "GeoType2": ["751-1000 SQF. Glass"] },
+      { "ProductName": "Hobby Greenhouse", "GeoType1": ["Straight Eave Double Pitch"], "GeoType2": ["750-1000 SQF. Glass"] }
+    ]
     ,"Description":"Straight eave, double pitch greenhouse with operable ridge vents, awning windows, ridge cresting, and finial."
     ,"Image1":"Reilly1.jpg"
     ,"Image2":"Reilly2.jpg"
@@ -8818,51 +8598,11 @@
     "ProjectID":"11-03-036"
     ,"Date":201103036
     ,"ID": 395
-    ,"ProductName":"Decorative Elements"
-    ,"GeoType1":"Finials,Ridge Cresting"
-    ,"GeoType2":""
-    ,"Description":"Straight Eave double pitch sunroom with one gable end. Features a terrace door, awning windows, a finial, and ridge cresting"
-    ,"Image1":"Schaef1.jpg"
-    ,"Image2":"Schaef2.jpg"
-    ,"Image3":"Schaef3.jpg"
-    ,"Image4":"Schaef4.jpg"
-    ,"ExtColor":"White"
-    ,"IntColor":"White"
-    ,"LengthProjection":"5 feet"
-    ,"RidgeHeight":"9 feet"
-    ,"Location":"Pennsylvania"
-    ,"Width":"9 feet"
-    ,"Application":["Home", "Residential"]
-    ,"Glazes":["Clear"]
-  },
-  {
-    "ProjectID":"11-03-036"
-    ,"Date":201103036
-    ,"ID": 396
-    ,"ProductName":"Door"
-    ,"GeoType1":""
-    ,"GeoType2":""
-    ,"Description":"Straight Eave double pitch sunroom with one gable end. Features a terrace door, awning windows, a finial, and ridge cresting"
-    ,"Image1":"Schaef1.jpg"
-    ,"Image2":"Schaef2.jpg"
-    ,"Image3":"Schaef3.jpg"
-    ,"Image4":"Schaef4.jpg"
-    ,"ExtColor":"White"
-    ,"IntColor":"White"
-    ,"LengthProjection":"5 feet"
-    ,"RidgeHeight":"9 feet"
-    ,"Location":"Pennsylvania"
-    ,"Width":"9 feet"
-    ,"Application":["Home", "Residential"]
-    ,"Glazes":["Clear"]
-  },
-  {
-    "ProjectID":"11-03-036"
-    ,"Date":201103036
-    ,"ID": 397
-    ,"ProductName":"Sunroom"
-    ,"GeoType1":"Straight Eave Double Pitch"
-    ,"GeoType2":"100-250 SQF. Glass"
+    ,"Products":[
+      { "ProductName": "Decorative Elements", "GeoType1": ["Finials", "Ridge Cresting"], "GeoType2": [] },
+      { "ProductName": "Door", "GeoType1": [], "GeoType2": [] },
+      { "ProductName": "Sunroom", "GeoType1": ["Straight Eave Double Pitch"], "GeoType2": ["100-250 SQF. Glass"] }
+    ]
     ,"Description":"Straight Eave double pitch sunroom with one gable end. Features a terrace door, awning windows, a finial, and ridge cresting"
     ,"Image1":"Schaef1.jpg"
     ,"Image2":"Schaef2.jpg"
@@ -10624,9 +10364,9 @@
     "ProjectID":"10-12-005"
     ,"Date":201012005
     ,"ID": 482
-    ,"ProductName":"Folding Glass Wall"
-    ,"GeoType1":"Door,Windows"
-    ,"GeoType2":"250-500 SQF. Glass,All Wall"
+    ,"Products":[
+      { "ProductName": "Folding Glass Wall", "GeoType1": ["Door", "Windows"], "GeoType2": ["250-500 SQF. Glass", "All Wall"] }
+    ]
     ,"Description":"6 All Wall Folding Glass Walls for use in suites in the remodeled Amon Carter stadium at Texas Christian University"
     ,"Image1":"12_Web500.jpg"
     ,"Image2":"3_Web500.jpg"
@@ -10771,9 +10511,9 @@
     "ProjectID":"11-02-052"
     ,"Date":201102052
     ,"ID": 489
-    ,"ProductName":"Wood Curtain Wall"
-    ,"GeoType1":"Vertical,Vertical with Integrated Slope"
-    ,"GeoType2":"250-500 SQF. Glass"
+    ,"Products":[
+      { "ProductName": "Wood Curtain Wall", "GeoType1": ["Vertical", "Vertical with Integrated Slope"], "GeoType2": ["250-500 SQF. Glass"] }
+    ]
     ,"Description":"Residential Wood Curtain Wall installed at Lake front property in West Virginia with custom walnut wood."
     ,"Image1":"shafferresidence1.jpg"
     ,"Image2":"shafferresidence2.jpg"
@@ -10792,72 +10532,12 @@
     "ProjectID":"11-04-229"
     ,"Date":201104229
     ,"ID": 490
-    ,"ProductName":"Decorative Elements"
-    ,"GeoType1":"Base Panels"
-    ,"GeoType2":""
-    ,"Description":"Straight eave double pitch greenhouse with two gable ends, attached double pitch walkway, French doors, ridge vents and eave vents."
-    ,"Image1":"edelman-10-04052012.jpg"
-    ,"Image2":"edelman-29-04052012.jpg"
-    ,"Image3":"edelman-15-04052012.jpg"
-    ,"Image4":"edelman-26-04052012.jpg"
-    ,"ExtColor":"Bronze, duracron"
-    ,"IntColor":"bronze, duracron"
-    ,"LengthProjection":"40 feet"
-    ,"RidgeHeight":"9 feet 5 inches"
-    ,"Location":"Connecticut"
-    ,"Width":"29 feet"
-    ,"Application":["Residential"]
-    ,"Glazes":["Clear"]
-  },
-  {
-    "ProjectID":"11-04-229"
-    ,"Date":201104229
-    ,"ID": 491
-    ,"ProductName":"Door"
-    ,"GeoType1":"In-System French Door"
-    ,"GeoType2":""
-    ,"Description":"Straight eave double pitch greenhouse with two gable ends, attached double pitch walkway, French doors, ridge vents and eave vents."
-    ,"Image1":"edelman-10-04052012.jpg"
-    ,"Image2":"edelman-29-04052012.jpg"
-    ,"Image3":"edelman-15-04052012.jpg"
-    ,"Image4":"edelman-26-04052012.jpg"
-    ,"ExtColor":"Bronze, duracron"
-    ,"IntColor":"bronze, duracron"
-    ,"LengthProjection":"40 feet"
-    ,"RidgeHeight":"9 feet 5 inches"
-    ,"Location":"Connecticut"
-    ,"Width":"29 feet"
-    ,"Application":["Residential"]
-    ,"Glazes":["Clear"]
-  },
-  {
-    "ProjectID":"11-04-229"
-    ,"Date":201104229
-    ,"ID": 492
-    ,"ProductName":"Greenhouse"
-    ,"GeoType1":"Straight Eave Double Pitch"
-    ,"GeoType2":"1001-2000+ SQF. Glass1 SQF. Glass"
-    ,"Description":"Straight eave double pitch greenhouse with two gable ends, attached double pitch walkway, French doors, ridge vents and eave vents."
-    ,"Image1":"edelman-10-04052012.jpg"
-    ,"Image2":"edelman-29-04052012.jpg"
-    ,"Image3":"edelman-15-04052012.jpg"
-    ,"Image4":"edelman-26-04052012.jpg"
-    ,"ExtColor":"Bronze, duracron"
-    ,"IntColor":"bronze, duracron"
-    ,"LengthProjection":"40 feet"
-    ,"RidgeHeight":"9 feet 5 inches"
-    ,"Location":"Connecticut"
-    ,"Width":"29 feet"
-    ,"Application":["Residential"]
-    ,"Glazes":["Clear"]
-  },
-  {
-    "ProjectID":"11-04-229"
-    ,"Date":201104229
-    ,"ID": 493
-    ,"ProductName":"Walkway"
-    ,"GeoType1":"Straight Eave Double Pitch"
-    ,"GeoType2":"100-250 SQF. Glass"
+    ,"Products":[
+      { "ProductName": "Decorative Elements", "GeoType1": ["Base Panels"], "GeoType2": [] },
+      { "ProductName": "Door", "GeoType1": ["In-System French Door"], "GeoType2": [] },
+      { "ProductName": "Greenhouse", "GeoType1": ["Straight Eave Double Pitch"], "GeoType2": ["1001-2000+ SQF. Glass", "1 SQF. Glass"] },
+      { "ProductName": "Walkway", "GeoType1": ["Straight Eave Double Pitch"], "GeoType2": ["100-250 SQF. Glass"] }
+    ]
     ,"Description":"Straight eave double pitch greenhouse with two gable ends, attached double pitch walkway, French doors, ridge vents and eave vents."
     ,"Image1":"edelman-10-04052012.jpg"
     ,"Image2":"edelman-29-04052012.jpg"
@@ -10876,51 +10556,11 @@
     "ProjectID":"10-11-291"
     ,"Date":201011291
     ,"ID": 494
-    ,"ProductName":"Architectural Enhancement"
-    ,"GeoType1":"Transom"
-    ,"GeoType2":""
-    ,"Description":"Segmented Radius Radius Folding Glass Wall"
-    ,"Image1":"sunsetzoo1.jpg"
-    ,"Image2":"sunsetzoo2.jpg"
-    ,"Image3":"sunsetzoo3.jpg"
-    ,"Image4":"sunsetzoo4.jpg"
-    ,"ExtColor":"Clear Anodized (Class 1)"
-    ,"IntColor":"Clear Anodized (Class 1)"
-    ,"LengthProjection":"-"
-    ,"RidgeHeight":"6 feet 7 inches"
-    ,"Location":"Kansas"
-    ,"Width":"18 feet"
-    ,"Application":["Commercial"]
-    ,"Glazes":["Clear"]
-  },
-  {
-    "ProjectID":"10-11-291"
-    ,"Date":201011291
-    ,"ID": 495
-    ,"ProductName":"Decorative Elements"
-    ,"GeoType1":"Transoms"
-    ,"GeoType2":""
-    ,"Description":"Segmented Radius Radius Folding Glass Wall"
-    ,"Image1":"sunsetzoo1.jpg"
-    ,"Image2":"sunsetzoo2.jpg"
-    ,"Image3":"sunsetzoo3.jpg"
-    ,"Image4":"sunsetzoo4.jpg"
-    ,"ExtColor":"Clear Anodized (Class 1)"
-    ,"IntColor":"Clear Anodized (Class 1)"
-    ,"LengthProjection":"-"
-    ,"RidgeHeight":"6 feet 7 inches"
-    ,"Location":"Kansas"
-    ,"Width":"18 feet"
-    ,"Application":["Commercial"]
-    ,"Glazes":["Clear"]
-  },
-  {
-    "ProjectID":"10-11-291"
-    ,"Date":201011291
-    ,"ID": 496
-    ,"ProductName":"Folding Glass Wall"
-    ,"GeoType1":"Door"
-    ,"GeoType2":"250-500 SQF. Glass,Segmented Radius"
+    ,"Products":[
+      { "ProductName": "Architectural Enhancement", "GeoType1": ["Transom"], "GeoType2": [] },
+      { "ProductName": "Decorative Elements", "GeoType1": ["Transoms"], "GeoType2": [] },
+      { "ProductName": "Folding Glass Wall", "GeoType1": ["Door"], "GeoType2": ["250-500 SQF. Glass", "Segmented Radius"] }
+    ]
     ,"Description":"Segmented Radius Radius Folding Glass Wall"
     ,"Image1":"sunsetzoo1.jpg"
     ,"Image2":"sunsetzoo2.jpg"
@@ -10981,51 +10621,11 @@
     "ProjectID":"10-12-086"
     ,"Date":201012086
     ,"ID": 499
-    ,"ProductName":"Architectural Enhancement"
-    ,"GeoType1":"Gable End,Transom"
-    ,"GeoType2":""
-    ,"Description":"Straight Eave Lean-to Sunroom with tilt turn windows and a solid panel roof engineered by Solar Innovations"
-    ,"Image1":"shakeshack1.jpg"
-    ,"Image2":"shakeshack2.jpg"
-    ,"Image3":"shakeshack3.jpg"
-    ,"Image4":"shakeshack4.jpg"
-    ,"ExtColor":"Dark Bronze Anodized"
-    ,"IntColor":"Dark Bronze Anodized"
-    ,"LengthProjection":"24 feet 8 inches"
-    ,"RidgeHeight":"14 feet 10 inches"
-    ,"Location":"New York"
-    ,"Width":"21 feet 7 inches"
-    ,"Application":["Commercial", "Dining", "Retail Sales"]
-    ,"Glazes":["LoE 366"]
-  },
-  {
-    "ProjectID":"10-12-086"
-    ,"Date":201012086
-    ,"ID": 500
-    ,"ProductName":"Sunroom"
-    ,"GeoType1":"Straight Eave Lean-To"
-    ,"GeoType2":"1001-2000+ SQF. Glass1 SQF. Glass"
-    ,"Description":"Straight Eave Lean-to Sunroom with tilt turn windows and a solid panel roof engineered by Solar Innovations"
-    ,"Image1":"shakeshack1.jpg"
-    ,"Image2":"shakeshack2.jpg"
-    ,"Image3":"shakeshack3.jpg"
-    ,"Image4":"shakeshack4.jpg"
-    ,"ExtColor":"Dark Bronze Anodized"
-    ,"IntColor":"Dark Bronze Anodized"
-    ,"LengthProjection":"24 feet 8 inches"
-    ,"RidgeHeight":"14 feet 10 inches"
-    ,"Location":"New York"
-    ,"Width":"21 feet 7 inches"
-    ,"Application":["Commercial", "Dining", "Retail Sales"]
-    ,"Glazes":["LoE 366"]
-  },
-  {
-    "ProjectID":"10-12-086"
-    ,"Date":201012086
-    ,"ID": 501
-    ,"ProductName":"Titl Turn"
-    ,"GeoType1":"Tilt Turn Window"
-    ,"GeoType2":""
+    ,"Products":[
+      { "ProductName": "Architectural Enhancement", "GeoType1": ["Gable End", "Transom"], "GeoType2": [] },
+      { "ProductName": "Sunroom", "GeoType1": ["Straight Eave Lean-To"], "GeoType2": ["1001-2000+ SQF. Glass", "1 SQF. Glass"] },
+      { "ProductName": "Tilt Turn", "GeoType1": ["Tilt Turn Window"], "GeoType2": [] }
+    ]
     ,"Description":"Straight Eave Lean-to Sunroom with tilt turn windows and a solid panel roof engineered by Solar Innovations"
     ,"Image1":"shakeshack1.jpg"
     ,"Image2":"shakeshack2.jpg"
@@ -11282,72 +10882,12 @@
     "ProjectID":"10-11-307"
     ,"Date":201011307
     ,"ID": 521
-    ,"ProductName":"Architectural Enhancement"
-    ,"GeoType1":"Eave Vent,Ridge Vent"
-    ,"GeoType2":""
-    ,"Description":"Straight Eave lean-to greenhouse with integrated photovoltaic panels."
-    ,"Image1":"BCDS_3.jpg"
-    ,"Image2":"IMG_9053.jpg"
-    ,"Image3":"BCDS_7.jpg"
-    ,"Image4":"IMG_9045_copyright.jpg"
-    ,"ExtColor":"Clear Anodized (Class I)"
-    ,"IntColor":"Clear Anodized (Class I)"
-    ,"LengthProjection":"10 feet"
-    ,"RidgeHeight":"34 feet"
-    ,"Location":"Massachusetts"
-    ,"Width":"23 feet"
-    ,"Application":["Institutional"]
-    ,"Glazes":["LoE 272", "Heat Strengthened Laminated"]
-  },
-  {
-    "ProjectID":"10-11-307"
-    ,"Date":201011307
-    ,"ID": 522
-    ,"ProductName":"Curtain Wall"
-    ,"GeoType1":"Vertical Curtain Wall"
-    ,"GeoType2":""
-    ,"Description":"Straight Eave lean-to greenhouse with integrated photovoltaic panels."
-    ,"Image1":"BCDS_3.jpg"
-    ,"Image2":"IMG_9053.jpg"
-    ,"Image3":"BCDS_7.jpg"
-    ,"Image4":"IMG_9045_copyright.jpg"
-    ,"ExtColor":"Clear Anodized (Class I)"
-    ,"IntColor":"Clear Anodized (Class I)"
-    ,"LengthProjection":"10 feet"
-    ,"RidgeHeight":"34 feet"
-    ,"Location":"Massachusetts"
-    ,"Width":"23 feet"
-    ,"Application":["Institutional"]
-    ,"Glazes":["LoE 272", "Heat Strengthened Laminated"]
-  },
-  {
-    "ProjectID":"10-11-307"
-    ,"Date":201011307
-    ,"ID": 523
-    ,"ProductName":"Door"
-    ,"GeoType1":"Commercial Terrace & French Doors"
-    ,"GeoType2":""
-    ,"Description":"Straight Eave lean-to greenhouse with integrated photovoltaic panels."
-    ,"Image1":"BCDS_3.jpg"
-    ,"Image2":"IMG_9053.jpg"
-    ,"Image3":"BCDS_7.jpg"
-    ,"Image4":"IMG_9045_copyright.jpg"
-    ,"ExtColor":"Clear Anodized (Class I)"
-    ,"IntColor":"Clear Anodized (Class I)"
-    ,"LengthProjection":"10 feet"
-    ,"RidgeHeight":"34 feet"
-    ,"Location":"Massachusetts"
-    ,"Width":"23 feet"
-    ,"Application":["Institutional"]
-    ,"Glazes":["LoE 272", "Heat Strengthened Laminated"]
-  },
-  {
-    "ProjectID":"10-11-307"
-    ,"Date":201011307
-    ,"ID": 524
-    ,"ProductName":"Greenhouse"
-    ,"GeoType1":"Straight Eave Lean-To"
-    ,"GeoType2":"751-1000 SQF. Glass"
+    ,"Products":[
+      { "ProductName": "Architectural Enhancement", "GeoType1": ["Eave Vent,Ridge Vent"], "GeoType2": [] },
+      { "ProductName": "Curtain Wall", "GeoType1": ["Vertical Curtain Wall"], "GeoType2": [] },
+      { "ProductName": "Door", "GeoType1": ["Commercial Terrace & French Doors"], "GeoType2": [] },
+      { "ProductName": "Greenhouse", "GeoType1": ["Straight Eave Lean-To"], "GeoType2": ["751-1000 SQF. Glass"] }
+    ]
     ,"Description":"Straight Eave lean-to greenhouse with integrated photovoltaic panels."
     ,"Image1":"BCDS_3.jpg"
     ,"Image2":"IMG_9053.jpg"
@@ -11366,9 +10906,9 @@
     "ProjectID":"11-03-282"
     ,"Date":201103282
     ,"ID": 525
-    ,"ProductName":"Skylight"
-    ,"GeoType1":"Hip End"
-    ,"GeoType2":"51-100 SQF. Glass"
+    ,"Products":[
+      { "ProductName": "Skylight", "GeoType1": ["Hip End" ],  "GeoType2": ["51-100 SQF. Glass"] }
+    ]
     ,"Description":"Straight eave double pitch skylight with two hip ends."
     ,"Image1":"Grogan1.jpg"
     ,"Image2":"Grogan2.jpg"
@@ -11471,9 +11011,10 @@
     "ProjectID":"11-04-184"
     ,"Date":201104184
     ,"ID": 530
-    ,"ProductName":"Architectural Enhancement"
-    ,"GeoType1":"Ridge Vent"
-    ,"GeoType2":""
+    ,"Products":[
+      { "ProductName": "Architectural Enhancement", "GeoType1": ["Ridge Vent"], "GeoType2": [] },
+      { "ProductName": "Skylight", "GeoType1": ["Pyramid"], "GeoType2": ["51-100 SQF. Glass"] }
+    ]
     ,"Description":"Two tone pyramid skylight with ridge vent."
     ,"Image1":"Boswell1.jpg"
     ,"Image2":"Boswell2.jpg"
@@ -11484,28 +11025,7 @@
     ,"LengthProjection":"8 feet"
     ,"RidgeHeight":"2 feet"
     ,"Location":"Canada"
-    ,"Width":"8 feet"
-    ,"Application":["Residential"]
-    ,"Glazes":["Clear", "Heat Strengthened Laminated"]
-  },
-  {
-    "ProjectID":"11-04-184"
-    ,"Date":201104184
-    ,"ID": 531
-    ,"ProductName":"Skylight"
-    ,"GeoType1":"Pyramid"
-    ,"GeoType2":"51-100 SQF. Glass"
-    ,"Description":"Two tone pyramid skylight with ridge vent."
-    ,"Image1":"Boswell1.jpg"
-    ,"Image2":"Boswell2.jpg"
-    ,"Image3":"Boswell3.jpg"
-    ,"Image4":"Boswell4.jpg"
-    ,"ExtColor":"Black, Duracron"
-    ,"IntColor":"White, Duracron"
-    ,"LengthProjection":"8 feet"
-    ,"RidgeHeight":"2 feet"
-    ,"Location":"Canada"
-    ,"Width":"8 feet"
+    ,"Width":"8 feet" 
     ,"Application":["Residential"]
     ,"Glazes":["Clear", "Heat Strengthened Laminated"]
   },
@@ -11729,51 +11249,11 @@
     "ProjectID":"11-04-244"
     ,"Date":201104244
     ,"ID": 548
-    ,"ProductName":"Folding Glass Wall"
-    ,"GeoType1":"Door"
-    ,"GeoType2":"100-250 SQF. Glass,Single Door End Jamb"
-    ,"Description":"Double tilt turn window with fixed astragal using the European window system and a three-panel folding glass wall system with obscure #62 acid etch glass."
-    ,"Image1":"Hochman1.jpg"
-    ,"Image2":"Hochman2.jpg"
-    ,"Image3":"hochman-17.jpg"
-    ,"Image4":"hochman-22.jpg"
-    ,"ExtColor":"custom color, fluoropolymer"
-    ,"IntColor":"custom color, fluoropolymer"
-    ,"LengthProjection":"varies per unit"
-    ,"RidgeHeight":"varies per unit"
-    ,"Location":"New York"
-    ,"Width":"varies per unit"
-    ,"Application":["Commercial"]
-    ,"Glazes":["Specialty"]
-  },
-  {
-    "ProjectID":"11-04-244"
-    ,"Date":201104244
-    ,"ID": 549
-    ,"ProductName":"Glazing"
-    ,"GeoType1":"Specialty Glazing"
-    ,"GeoType2":""
-    ,"Description":"Double tilt turn window with fixed astragal using the European window system and a three-panel folding glass wall system with obscure #62 acid etch glass."
-    ,"Image1":"Hochman1.jpg"
-    ,"Image2":"Hochman2.jpg"
-    ,"Image3":"hochman-17.jpg"
-    ,"Image4":"hochman-22.jpg"
-    ,"ExtColor":"custom color, fluoropolymer"
-    ,"IntColor":"custom color, fluoropolymer"
-    ,"LengthProjection":"varies per unit"
-    ,"RidgeHeight":"varies per unit"
-    ,"Location":"New York"
-    ,"Width":"varies per unit"
-    ,"Application":["Commercial"]
-    ,"Glazes":["Specialty"]
-  },
-  {
-    "ProjectID":"11-04-244"
-    ,"Date":201104244
-    ,"ID": 550
-    ,"ProductName":"Titl Turn"
-    ,"GeoType1":"Tilt Turn Window"
-    ,"GeoType2":""
+    ,"Products":[
+      { "ProductName": "Folding Glass Wall", "GeoType1": ["Door"], "GeoType2": ["100-250 SQF. Glass", "Single Door End Jamb"] },
+      { "ProductName": "Glazing", "GeoType1": ["Specialty Glazing"], "GeoType2": [] },
+      { "ProductName": "Tilt Turn", "GeoType1": ["Tilt Turn Window"], "GeoType2": [] }
+    ]
     ,"Description":"Double tilt turn window with fixed astragal using the European window system and a three-panel folding glass wall system with obscure #62 acid etch glass."
     ,"Image1":"Hochman1.jpg"
     ,"Image2":"Hochman2.jpg"
@@ -12065,7 +11545,7 @@
     "ProjectID":"08-12-292"
     ,"Date":200812292
     ,"ID": 564
-    ,"ProductName":"Car WashCar Wash"
+    ,"ProductName":"Car Wash"
     ,"GeoType1":"Stairway Covers"
     ,"GeoType2":"51-100 SQF. Glass"
     ,"Description":"Manually operable straight eave lean-to skylight"
@@ -14583,98 +14063,17 @@
     ,"Glazes":["LoE 272"]
   },
   {
-    "ProjectID":"11-04-184"
-    ,"Date":201104184
-    ,"ID": 685
-    ,"ProductName":"Folding Glass Wall"
-    ,"GeoType1":"Door"
-    ,"GeoType2":"250-500 SQF. Glass,All Wall,Single Door End Jamb"
-    ,"Description":"Two two-tone folding glass wall systems including four operable panels."
-    ,"Image1":"BoswellFGW1.jpg"
-    ,"Image2":"BoswellFGW2.jpg"
-    ,"Image3":"BoswellFGW3.jpg"
-    ,"Image4":"BoswellFGW4.jpg"
-    ,"ExtColor":"Black,Duracron,Two tone"
-    ,"IntColor":"Duracron,Two Tone,White"
-    ,"LengthProjection":"varies per unit"
-    ,"RidgeHeight":"varies per unit"
-    ,"Location":"Canada"
-    ,"Width":"-"
-    ,"Application":["Residential"]
-    ,"Glazes":["Clear"]
-  },
-  {
     "ProjectID":"11-01-380"
     ,"Date":201101380
     ,"ID": 686
-    ,"ProductName":"Glazing"
-    ,"GeoType1":"Specialty Glazing"
-    ,"GeoType2":""
+    ,"Products":[
+      { "ProductName": "Glazing", "GeoType1": ["Specialty Glazing"], "GeoType2": [] },
+      { "ProductName": "Greenhouse", "GeoType1": ["Straight Eave Double Pitch"], "GeoType2": ["1001-2000+ SQF. Glass", "1 SQF. Glass", "Aluminum Tube System"] },
+      { "ProductName": "Greenhouse Accessory", "GeoType1": ["Greenhouse Benches", "Storage"], "GeoType2": [] },
+      { "ProductName": "Shades", "GeoType1": ["Interior Operable"], "GeoType2": ["HVHZ / Miami-Dade Rated"] }
+    ]
     ,"Description":"Straight eave double pitch greenhouse with two gable ends, true divided pediment,  two interior trusses, benches and operable shade system."
-    ,"Image1":"Hassenfeld1.jpg"
-    ,"Image2":"Hassenfeld2.jpg"
-    ,"Image3":"Hassenfeld3.jpg"
-    ,"Image4":"Hassenfeld4.jpg"
-    ,"ExtColor":"Duracron,White"
-    ,"IntColor":"Duracron,White"
-    ,"LengthProjection":"28 feet 8 inches"
-    ,"RidgeHeight":"18 feet"
-    ,"Location":"Rhode Island"
-    ,"Width":"17 feet 8 inches"
-    ,"Application":["Residential"]
-    ,"Glazes":["Clear", "Heat Strengthened Laminated"]
-  },
-  {
-    "ProjectID":"11-01-380"
-    ,"Date":201101380
-    ,"ID": 687
-    ,"ProductName":"Greenhouse"
-    ,"GeoType1":"Straight Eave Double Pitch"
-    ,"GeoType2":"1001-2000+ SQF. Glass1 SQF. Glass,Aluminum Tube System"
-    ,"Description":"Straight eave double pitch greenhouse with two gable ends, true divided pediment,  two interior trusses, benches and operable shade system."
-    ,"Image1":"Hassenfeld1.jpg"
-    ,"Image2":"Hassenfeld2.jpg"
-    ,"Image3":"Hassenfeld3.jpg"
-    ,"Image4":"Hassenfeld4.jpg"
-    ,"ExtColor":"Duracron,White"
-    ,"IntColor":"Duracron,White"
-    ,"LengthProjection":"28 feet 8 inches"
-    ,"RidgeHeight":"18 feet"
-    ,"Location":"Rhode Island"
-    ,"Width":"17 feet 8 inches"
-    ,"Application":["Residential"]
-    ,"Glazes":["Clear", "Heat Strengthened Laminated"]
-  },
-  {
-    "ProjectID":"11-01-380"
-    ,"Date":201101380
-    ,"ID": 688
-    ,"ProductName":"Greenhouse Accessory"
-    ,"GeoType1":"Greenhouse Benches,Storage"
-    ,"GeoType2":"Fixed Bench,Potting Bench"
-    ,"Description":"Straight eave double pitch greenhouse with two gable ends, true divided pediment,  two interior trusses, benches and operable shade system."
-    ,"Image1":"Hassenfeld1.jpg"
-    ,"Image2":"Hassenfeld2.jpg"
-    ,"Image3":"Hassenfeld3.jpg"
-    ,"Image4":"Hassenfeld4.jpg"
-    ,"ExtColor":"Duracron,White"
-    ,"IntColor":"Duracron,White"
-    ,"LengthProjection":"28 feet 8 inches"
-    ,"RidgeHeight":"18 feet"
-    ,"Location":"Rhode Island"
-    ,"Width":"17 feet 8 inches"
-    ,"Application":["Residential"]
-    ,"Glazes":["Clear", "Heat Strengthened Laminated"]
-  },
-  {
-    "ProjectID":"11-01-380"
-    ,"Date":201101380
-    ,"ID": 689
-    ,"ProductName":"Shades"
-    ,"GeoType1":"Interior Operable"
-    ,"GeoType2":"HVHZ / Miami-Dade Rated"
-    ,"Description":"Straight eave double pitch greenhouse with two gable ends, true divided pediment,  two interior trusses, benches and operable shade system."
-    ,"Image1":"Hassenfeld1.jpg"
+    ,"Image1":"2012/08/Hassenfeld1.jpg"
     ,"Image2":"Hassenfeld2.jpg"
     ,"Image3":"Hassenfeld3.jpg"
     ,"Image4":"Hassenfeld4.jpg"
@@ -14691,32 +14090,12 @@
     "ProjectID":"10-12-197"
     ,"Date":201012197
     ,"ID": 690
-    ,"ProductName":"Greenhouse"
-    ,"GeoType1":"Straight Eave Double Pitch"
-    ,"GeoType2":"250-500 SQF. Glass,Aluminum Tube System"
+    ,"Products":[
+      { "ProductName": "Greenhouse", "GeoType1": ["Straight Eave Double Pitch"], "GeoType2": ["250-500 SQF. Glass", "Aluminum Tube System"] },
+      { "ProductName": "Greenhouse Accessory", "GeoType1": ["Temperature Control"], "GeoType2": ["Circulation Fans"] }
+    ]
     ,"Description":"Straight eave double pitch educational greenhouse with ridge vents, awning windows, terrace door and circulation fan."
-    ,"Image1":"HickoryGroveGreenhouse1.jpg"
-    ,"Image2":"HickoryGroveGreenhouse2.jpg"
-    ,"Image3":"HickoryGroveGreenhouse3.jpg"
-    ,"Image4":"HickoryGroveGreenhouse4.jpg"
-    ,"ExtColor":"Clear Anodized (Class 1)"
-    ,"IntColor":"Clear Anodized (Class 1)"
-    ,"LengthProjection":"13 feet"
-    ,"RidgeHeight":"9 feet"
-    ,"Location":"Pennsylvania"
-    ,"Width":"12 feet"
-    ,"Application":["Educational", "Institutional", "Research"]
-    ,"Glazes":["LoE 272"]
-  },
-  {
-    "ProjectID":"10-12-197"
-    ,"Date":201012197
-    ,"ID": 691
-    ,"ProductName":"Greenhouse Accessory"
-    ,"GeoType1":"Temperature Control"
-    ,"GeoType2":"Circulation Fans"
-    ,"Description":"Straight eave double pitch educational greenhouse with ridge vents, awning windows, terrace door and circulation fan."
-    ,"Image1":"HickoryGroveGreenhouse1.jpg"
+    ,"Image1":"2012/08/HickoryGroveGreenhouse1.jpg"
     ,"Image2":"HickoryGroveGreenhouse2.jpg"
     ,"Image3":"HickoryGroveGreenhouse3.jpg"
     ,"Image4":"HickoryGroveGreenhouse4.jpg"
@@ -14733,32 +14112,12 @@
     "ProjectID":"11-04-107"
     ,"Date":201104107
     ,"ID": 692
-    ,"ProductName":"Door"
-    ,"GeoType1":"Commercial Terrace & French Doors"
-    ,"GeoType2":""
+    ,"Products":[
+      { "ProductName": "Door", "GeoType1": ["Commercial Terrace & French Doors"], "GeoType2": [] },
+      { "ProductName": "Stacking Glass Wall", "GeoType1": ["Doors"], "GeoType2": ["501-750 SQF. Glass"] }
+    ]
     ,"Description":"Stacking glass wall system with 2 outswing single doors each using panic hardware, 14 panels stack left and 19 panels stack right, with a recessed tank sill."
-    ,"Image1":"LibertyVillage1.jpg"
-    ,"Image2":"LibertyVillage2.jpg"
-    ,"Image3":"LibertyVillage3.jpg"
-    ,"Image4":"LibertyVillage4.jpg"
-    ,"ExtColor":"Clear Anodized (Class 1)"
-    ,"IntColor":"Clear Anodized (Class 1)"
-    ,"LengthProjection":"85 feet"
-    ,"RidgeHeight":"10 feet"
-    ,"Location":"Canada"
-    ,"Width":"-"
-    ,"Application":["Commercial", "Dining"]
-    ,"Glazes":["LoE 180", "LoE i89"]
-  },
-  {
-    "ProjectID":"11-04-107"
-    ,"Date":201104107
-    ,"ID": 693
-    ,"ProductName":"Stacking Glass Wall"
-    ,"GeoType1":"Doors"
-    ,"GeoType2":"501-750 SQF. Glass"
-    ,"Description":"Stacking glass wall system with 2 outswing single doors each using panic hardware, 14 panels stack left and 19 panels stack right, with a recessed tank sill."
-    ,"Image1":"LibertyVillage1.jpg"
+    ,"Image1":"2012/08/LibertyVillage1.jpg"
     ,"Image2":"LibertyVillage2.jpg"
     ,"Image3":"LibertyVillage3.jpg"
     ,"Image4":"LibertyVillage4.jpg"
@@ -14868,51 +14227,11 @@
     "ProjectID":"10-10-208"
     ,"Date":201010208
     ,"ID": 707
-    ,"ProductName":"Car WashCar Wash"
-    ,"GeoType1":"Stairway Covers"
-    ,"GeoType2":"250-500 SQF. Glass"
-    ,"Description":"Lean-to skylight enclosing elevator shaft featuring Copper cladding exterior and white laminated glazing."
-    ,"Image1":"37Commonwealth1.jpg"
-    ,"Image2":"37Commonwealth2.jpg"
-    ,"Image3":"37Commonwealth3.jpg"
-    ,"Image4":"37Commonwealth4.jpg"
-    ,"ExtColor":"Copper,Metal Cladding"
-    ,"IntColor":""
-    ,"LengthProjection":"13 feet"
-    ,"RidgeHeight":"3 feet 6 inches"
-    ,"Location":"Massachusetts"
-    ,"Width":"9 feet"
-    ,"Application":["Home", "Residential"]
-    ,"Glazes":["LoE 272", "Laminated", "White"]
-  },
-  {
-    "ProjectID":"10-10-208"
-    ,"Date":201010208
-    ,"ID": 708
-    ,"ProductName":"Glazing"
-    ,"GeoType1":"Specialty Glazing"
-    ,"GeoType2":""
-    ,"Description":"Lean-to skylight enclosing elevator shaft featuring Copper cladding exterior and white laminated glazing."
-    ,"Image1":"37Commonwealth1.jpg"
-    ,"Image2":"37Commonwealth2.jpg"
-    ,"Image3":"37Commonwealth3.jpg"
-    ,"Image4":"37Commonwealth4.jpg"
-    ,"ExtColor":"Copper,Metal Cladding"
-    ,"IntColor":""
-    ,"LengthProjection":"13 feet"
-    ,"RidgeHeight":"3 feet 6 inches"
-    ,"Location":"Massachusetts"
-    ,"Width":"9 feet"
-    ,"Application":["Home", "Residential"]
-    ,"Glazes":["LoE 272", "Laminated", "White"]
-  },
-  {
-    "ProjectID":"10-10-208"
-    ,"Date":201010208
-    ,"ID": 709
-    ,"ProductName":"Skylight"
-    ,"GeoType1":"Irregular / Custom,Lean-To"
-    ,"GeoType2":"250-500 SQF. Glass"
+    ,"Products":[
+      { "ProductName": "Car Wash", "GeoType1": ["Stairway Covers"], "GeoType2": ["250-500 SQF. Glass"] },
+      { "ProductName": "Glazing", "GeoType1": ["Specialty Glazing"], "GeoType2": [] },
+      { "ProductName": "Skylight", "GeoType1": ["Irregular / Custom,Lean-To"], "GeoType2": ["250-500 SQF. Glass"] }
+    ]
     ,"Description":"Lean-to skylight enclosing elevator shaft featuring Copper cladding exterior and white laminated glazing."
     ,"Image1":"37Commonwealth1.jpg"
     ,"Image2":"37Commonwealth2.jpg"
@@ -16456,31 +15775,11 @@
     "ProjectID":"11-02-177"
     ,"Date":201102177
     ,"ID": 795
-    ,"ProductName":"Conservatory"
-    ,"GeoType1":"Straight Eave Lean-To"
-    ,"GeoType2":"250-500 SQF. Glass"
+    ,"Products":[
+      { "ProductName": "Conservatory", "GeoType1": ["Straight Eave Lean-To"], "GeoType2": ["250-500 SQF. Glass"] },
+      { "ProductName": "Decorative Elements", "GeoType1": ["Base Panels,Grids,SDLs"], "GeoType2": ["Ogee Grid"] }
+    ]
     ,"Description":"Straight eave lean to sunroom with zero gable ends.  Decorative accessories include SDL grids with ogee style on exterior and traditional style on interior.  Raised base panels interior and exterior."
-    ,"Image1":"Tomashefsky-10042012-5.jpg"
-    ,"Image2":"Tomashefsky-10042012-3.jpg"
-    ,"Image3":"Tomashefsky-10042012-2.jpg"
-    ,"Image4":"Tomashefsky-10042012-Edited.jpg"
-    ,"ExtColor":"White"
-    ,"IntColor":"White"
-    ,"LengthProjection":"11' 8\""
-    ,"RidgeHeight":"9' 6\""
-    ,"Location":"Connecticut"
-    ,"Width":"17' 5\""
-    ,"Application":["Residential"]
-    ,"Glazes":["LoE 272"]
-  },
-  {
-    "ProjectID":"11-02-177"
-    ,"Date":201102177
-    ,"ID": 796
-    ,"ProductName":"Decorative Elements"
-    ,"GeoType1":"Base Panels,Grids,SDLs"
-    ,"GeoType2":"Ogee Grid"
-    ,"Description":"Straight eave lean to sunroom with zero gable ends. Decorative accessories include SDL grids with ogee style on exterior and traditional style on interior.  Raised base panels interior and exterior."
     ,"Image1":"Tomashefsky-10042012-5.jpg"
     ,"Image2":"Tomashefsky-10042012-3.jpg"
     ,"Image3":"Tomashefsky-10042012-2.jpg"
@@ -18242,9 +17541,9 @@
     "ProjectID":"11-01-083"
     ,"Date":201101083
     ,"ID": 881
-    ,"ProductName":"Folding Glass Wall"
-    ,"GeoType1":"Door"
-    ,"GeoType2":"501-750 SQF. Glass"
+    ,"Products":[
+      { "ProductName": "Folding Glass Wall", "GeoType1": ["Door"], "GeoType2": ["501-750 SQF. Glass"] }
+    ]
     ,"Description":"Multiple folding glass walls with configurations including all wall, single door last panel, and double door endwall.  Each unit has a recessed sill with flushed stop"
     ,"Image1":"IMAG00103.jpg"
     ,"Image2":"IMAG00082_edited_no_ladder.jpg"
@@ -18263,9 +17562,9 @@
     "ProjectID":"11-04-184 (2)"
     ,"Date":201104184
     ,"ID": 882
-    ,"ProductName":"Folding Glass Wall"
-    ,"GeoType1":"Door"
-    ,"GeoType2":"100-250 SQF. Glass"
+    ,"Products":[
+      { "ProductName": "Folding Glass Wall", "GeoType1": ["Door"], "GeoType2": ["100-250 SQF. Glass"] }
+    ]
     ,"Description":"Two folding glass wall units, one with a single door hinge jamb configuration and one with an all wall configuration.  Both units fold to the outside and utilize a standard sill."
     ,"Image1":"IMG_8179_80_81Average.jpg"
     ,"Image2":"IMG_8563_4_5Average.jpg"
@@ -18279,6 +17578,27 @@
     ,"Width":"varies per unit"
     ,"Application":["Residential"]
     ,"Glazes":["LoE 272"]
+  },
+  {
+    "ProjectID":"11-04-184 (3)"
+    ,"Date":201104184
+    ,"ID": 685
+    ,"Products":[
+      { "ProductName": "Folding Glass Wall", "GeoType1": ["Door"], "GeoType2": ["250-500 SQF. Glass", "All Wall", "Single Door End Jamb"] }
+    ]
+    ,"Description":"Two two-tone folding glass wall systems including four operable panels."
+    ,"Image1":"2012/08/BoswellFGW1.jpg"
+    ,"Image2":"BoswellFGW2.jpg"
+    ,"Image3":"BoswellFGW3.jpg"
+    ,"Image4":"BoswellFGW4.jpg"
+    ,"ExtColor":"Black,Duracron,Two tone"
+    ,"IntColor":"Duracron,Two Tone,White"
+    ,"LengthProjection":"varies per unit"
+    ,"RidgeHeight":"varies per unit"
+    ,"Location":"Canada"
+    ,"Width":"-"
+    ,"Application":["Residential"]
+    ,"Glazes":["Clear"]
   },
   {
     "ProjectID":"08-06-213"
@@ -20303,9 +19623,9 @@
     "ProjectID":"11-04-148"
     ,"Date":201104148
     ,"ID": 982
-    ,"ProductName":"Greenhouse"
-    ,"GeoType1":"Straight Eave Double Pitch"
-    ,"GeoType2":"1001-2000+ SQF. Glass1 SQF. Glass"
+    ,"Products":[
+      { "ProductName": "Greenhouse", "GeoType1": ["Straight Eave Double Pitch"], "GeoType2": ["1001-2000+ SQF. Glass", "1 SQF. Glass"] }
+    ]
     ,"Description":"Straight eave double pitch greenhouse with two gable ends, ridge vents, eave vents, finial, ridge cresting, and French doors"
     ,"Image1":"Selander-Residential-Greenhouse-4.jpg"
     ,"Image2":"Selander-Residential-Greenhouse-2.jpg"
@@ -20879,9 +20199,11 @@
     "ProjectID":"11-02-238"
     ,"Date":201102238
     ,"ID": 1019
-    ,"ProductName":"Architectural Enhancement"
-    ,"GeoType1":"Dormers,Lantern"
-    ,"GeoType2":""
+    ,"Products":[
+      { "ProductName": "Architectural Enhancement", "GeoType1": ["Dormers", "Lantern"], "GeoType2": [] },
+      { "ProductName": "Conservatory", "GeoType1": ["Irregular / Custom", "Straight Eave Double Pitch"], "GeoType2": ["2000+ SQF. Glass"] },
+      { "ProductName": "Decorative Elements", "GeoType1": ["Finials", "Ridge Cresting"], "GeoType2": ["Corner Trim", "Traditional Grid"] }
+    ]
     ,"Description":"Straight eave pyramid conservatory with four double pitch lanterns, two interior partitions, transoms, gridwork, gable rake molding, gutter, downspout and a pyramid lantern."
     ,"Image1":"Diassi-11-27-13-edited_500.jpg"
     ,"Image2":"Decorative-Conservatory-2.jpg"
@@ -20896,76 +20218,14 @@
     ,"Application":["Residential"]
     ,"Glazes":["LoE 272"]
   },
-  {
-    "ProjectID":"11-02-238"
-    ,"Date":201102238
-    ,"ID": 1020
-    ,"ProductName":"Conservatory"
-    ,"GeoType1":"Irregular / Custom,Straight Eave Double Pitch"
-    ,"GeoType2":"2000+ SQF. Glass"
-    ,"Description":"Straight eave pyramid conservatory with four double pitch lanterns, two interior partitions, transoms, gridwork, gable rake molding, gutter, downspout and a pyramid lantern."
-    ,"Image1":"Diassi-11-27-13-edited_500.jpg"
-    ,"Image2":"Decorative-Conservatory-2.jpg"
-    ,"Image3":"Decorative-Conservatory-3.jpg"
-    ,"Image4":"Decorative-Conservatory.jpg"
-    ,"ExtColor":"White"
-    ,"IntColor":"White"
-    ,"LengthProjection":"40'1L"
-    ,"RidgeHeight":"25'"
-    ,"Location":"New Jersey"
-    ,"Width":"40'"
-    ,"Application":["Residential"]
-    ,"Glazes":["LoE 272"]
-  },
-  {
-    "ProjectID":"11-02-238"
-    ,"Date":201102238
-    ,"ID": 1021
-    ,"ProductName":"Decorative Elements"
-    ,"GeoType1":"Finials,Ridge Cresting"
-    ,"GeoType2":"Corner Trim,Traditional Grid"
-    ,"Description":"Straight eave pyramid conservatory with four double pitch lanterns, two interior partitions, transoms, gridwork, gable rake molding, gutter, downspout and a pyramid lantern."
-    ,"Image1":"Diassi-11-27-13-edited_500.jpg"
-    ,"Image2":"Decorative-Conservatory-2.jpg"
-    ,"Image3":"Decorative-Conservatory-3.jpg"
-    ,"Image4":"Decorative-Conservatory.jpg"
-    ,"ExtColor":"White"
-    ,"IntColor":"White"
-    ,"LengthProjection":"40'1L"
-    ,"RidgeHeight":"25'"
-    ,"Location":"New Jersey"
-    ,"Width":"40'"
-    ,"Application":["Residential"]
-    ,"Glazes":["LoE 272"]
-  },
-  {
+  { 
     "ProjectID":"10-12-318"
     ,"Date":201012318
     ,"ID": 1022
-    ,"ProductName":"Door"
-    ,"GeoType1":"Out of System Terrace and French Doors"
-    ,"GeoType2":""
-    ,"Description":"Multiple sets of window systems.  Each unit has an insulated panel, fixed window, hopper window and lower insulated panel. Job also features an out of system commercial terrace door with push pull hardware"
-    ,"Image1":"Solar-Innovations-Windows.jpg"
-    ,"Image2":"Solar-Innovations-Windows-4.jpg"
-    ,"Image3":"Solar-Innovations-Windows-2.jpg"
-    ,"Image4":"Solar-Innovations-Windows-3.jpg"
-    ,"ExtColor":"White"
-    ,"IntColor":"White"
-    ,"LengthProjection":"varies per unit"
-    ,"RidgeHeight":"varies per unit"
-    ,"Location":"New Jersey"
-    ,"Width":"varies per unit"
-    ,"Application":["Commercial", "Office Space"]
-    ,"Glazes":["LoE 366"]
-  },
-  {
-    "ProjectID":"10-12-318"
-    ,"Date":201012318
-    ,"ID": 1023
-    ,"ProductName":"Window"
-    ,"GeoType1":"Hung,International,Projected"
-    ,"GeoType2":"501-750 SQF. Glass,Fixed,Hopper"
+    ,"Products":[
+      { "ProductName": "Door", "GeoType1": ["Out of System Terrace and French Doors"], "GeoType2": [] },
+      { "ProductName": "Window", "GeoType1": ["Hung", "International", "Projected"], "GeoType2": ["501-750 SQF. Glass", "Fixed", "Hopper"] }
+    ]
     ,"Description":"Multiple sets of window systems.  Each unit has an insulated panel, fixed window, hopper window and lower insulated panel. Job also features an out of system commercial terrace door with push pull hardware"
     ,"Image1":"Solar-Innovations-Windows.jpg"
     ,"Image2":"Solar-Innovations-Windows-4.jpg"
@@ -21152,9 +20412,9 @@
     "ProjectID":"10-12-161"
     ,"Date":201012161
     ,"ID": 1032
-    ,"ProductName":"Folding Glass Wall"
-    ,"GeoType1":""
-    ,"GeoType2":"100-250 SQF. Glass,Single Door End Jamb"
+    ,"Products":[
+      { "ProductName": "Folding Glass Wall", "GeoType1": [], "GeoType2": ["100-250 SQF. Glass", "Single Door End Jamb"] }
+    ]
     ,"Description":"Single door hinge jamb folding wall system, top loaded, with three panels and a recessed sill using an adjustable ramp."
     ,"Image1":"Car-Dealership-Folding-Doors-2.jpg"
     ,"Image2":"Car-Dealership-Folding-Doors.jpg"
@@ -21173,9 +20433,9 @@
     "ProjectID":"11-10-387"
     ,"Date":201110387
     ,"ID": 1033
-    ,"ProductName":"Folding Glass Wall"
-    ,"GeoType1":""
-    ,"GeoType2":" 0-50 SQF. Glass,Single Door Last Panel"
+    ,"Products":[
+      { "ProductName": "Folding Glass Wall", "GeoType1": [], "GeoType2": ["0-50 SQF. Glass", "Single Door Last Panel"] }
+    ]
     ,"Description":"Single door hinge jamb folding wall system, bottom loaded, with three panels and a recessed sill"
     ,"Image1":"Car-Dealership-Folding-Doors1.jpg"
     ,"Image2":"Car-Dealership-Folding-Doors-21.jpg"
@@ -21215,30 +20475,10 @@
     "ProjectID":"11-03-268"
     ,"Date":201103268
     ,"ID": 1035
-    ,"ProductName":"Folding Glass Wall"
-    ,"GeoType1":""
-    ,"GeoType2":"250-500 SQF. Glass,Double Door Mid Wall"
-    ,"Description":"Whole house glazing package which includes a pivot door, and multiple folding walls"
-    ,"Image1":"Nobel-Doors-and-Windows-Florida.jpg"
-    ,"Image2":"Nobel-Doors-and-Windows-Florida-2.jpg"
-    ,"Image3":"Nobel-Doors-and-Windows-Florida-3.jpg"
-    ,"Image4":"Nobel-Doors-and-Windows-Florida-4.jpg"
-    ,"ExtColor":"Clear Anodized (Class 1)"
-    ,"IntColor":"Clear Anodized (Class 1)"
-    ,"LengthProjection":"Units Vary"
-    ,"RidgeHeight":"Units Vary"
-    ,"Location":"Florida"
-    ,"Width":"Units Vary"
-    ,"Application":["Home", "Residential"]
-    ,"Glazes":["Solarban 60"]
-  },
-  {
-    "ProjectID":"11-03-268"
-    ,"Date":201103268
-    ,"ID": 1036
-    ,"ProductName":"Pivot"
-    ,"GeoType1":"Door"
-    ,"GeoType2":""
+    ,"Products":[
+      { "ProductName": "Folding Glass Wall", "GeoType1": [], "GeoType2": ["250-500 SQF. Glass", "Double Door Mid Wall"] },
+      { "ProductName": "Pivot", "GeoType1": ["Door"], "GeoType2": [] }
+    ]
     ,"Description":"Whole house glazing package which includes a pivot door, and multiple folding walls"
     ,"Image1":"Nobel-Doors-and-Windows-Florida.jpg"
     ,"Image2":"Nobel-Doors-and-Windows-Florida-2.jpg"
@@ -22590,7 +21830,7 @@
     "ProjectID":"10-07-223"
     ,"Date":201007223
     ,"ID": 1110
-    ,"ProductName":"Car WashCar Wash"
+    ,"ProductName":"Car Wash"
     ,"GeoType1":"Stairway Covers"
     ,"GeoType2":"100-250 SQF. Glass"
     ,"Description":"Two straight eave lean-to window well covers with gable ends."
@@ -22991,30 +22231,10 @@
     "ProjectID":"10-11-066"
     ,"Date":201011066
     ,"ID": 1131
-    ,"ProductName":"Architectural Enhancement"
-    ,"GeoType1":"Dormers"
-    ,"GeoType2":""
-    ,"Description":"Straight eave double pitch greenhouse with one gable end, two dormers, Palladian arch, ridge cresting, finial, ridge vents, eave vents, circulating fans and evaporative coolers"
-    ,"Image1":"Image-2.jpg"
-    ,"Image2":"Image-3.jpg"
-    ,"Image3":"image-5.jpg"
-    ,"Image4":"IMG_3630.jpg"
-    ,"ExtColor":"White"
-    ,"IntColor":"White"
-    ,"LengthProjection":"26'"
-    ,"RidgeHeight":"14'5"
-    ,"Location":"Missouri"
-    ,"Width":"21'"
-    ,"Application":["Residential"]
-    ,"Glazes":["Clear"]
-  },
-  {
-    "ProjectID":"10-11-066"
-    ,"Date":201011066
-    ,"ID": 1132
-    ,"ProductName":"Greenhouse"
-    ,"GeoType1":"Straight Eave Double Pitch"
-    ,"GeoType2":"751-1000 SQF. Glass"
+    ,"Products":[
+      { "ProductName": "Architectural Enhancement", "GeoType1": ["Dormers"], "GeoType2": [] },
+      { "ProductName": "Greenhouse", "GeoType1": ["Straight Eave Double Pitch"], "GeoType2": ["751-1000 SQF. Glass"] }
+    ]
     ,"Description":"Straight eave double pitch greenhouse with one gable end, two dormers, Palladian arch, ridge cresting, finial, ridge vents, eave vents, circulating fans and evaporative coolers"
     ,"Image1":"Image-2.jpg"
     ,"Image2":"Image-3.jpg"
@@ -23307,11 +22527,11 @@
     "ProjectID":"10-11-332"
     ,"Date":201011332
     ,"ID": 1147
-    ,"ProductName":"Folding Glass Wall"
-    ,"GeoType1":"Door"
-    ,"GeoType2":"751-1000 SQF. Glass,All Wall"
+    ,"Products":[
+      { "ProductName": "Folding Glass Wall", "GeoType1": ["Door"], "GeoType2": ["751-1000 SQF. Glass,All Wall"] }
+    ]
     ,"Description":"Multiple sets of folding glass walls located in the Caribbean.  All the units have varying configurations, sizes and use recessed sills."
-    ,"Image1":"Waterloo-10-14-2013-2-web.jpg"
+    ,"Image1":"2013/10/Waterloo-10-14-2013-2-web.jpg"
     ,"Image2":"Waterloo-10-14-2013-1-web.jpg"
     ,"Image3":"Waterloo-10-14-2013-4-web.jpg"
     ,"Image4":"Waterloo-10-14-2013-5-web.jpg"
@@ -23581,9 +22801,9 @@
     "ProjectID":"10-10-110"
     ,"Date":201010110
     ,"ID": 1161
-    ,"ProductName":"Greenhouse"
-    ,"GeoType1":"Irregular / Custom,Straight Eave Lean-To"
-    ,"GeoType2":"250-500 SQF. Glass"
+    ,"Products":[
+      { "ProductName": "Greenhouse", "GeoType1": ["Irregular / Custom", "Straight Eave Lean-To"], "GeoType2": ["250-500 SQF. Glass"] }
+    ]
     ,"Description":"Irregular straight eave lean-to greenhouse with ridge vents, eave vents and French doors.  The interior of the greenhouse features circulating fans and a humidifier.  The gardeners raise a variety of house plants year round inside the greenhouse."
     ,"Image1":"IMG_1360_Buena-Vista-GH-small.jpg"
     ,"Image2":"Buena-Vista-11-11-2013-1.jpg"
@@ -24024,51 +23244,11 @@
     "ProjectID":"11-02-068"
     ,"Date":201102068
     ,"ID": 1184
-    ,"ProductName":"Sliding Door"
-    ,"GeoType1":"Door"
-    ,"GeoType2":"51-100 SQF. Glass,G2"
-    ,"Description":"Straight eave, lean-to sunroom with two gable ends, a G2 sliding glass door system, and tilt turn windows."
-    ,"Image1":"DSC04418_Web500.jpg"
-    ,"Image2":"DSC04413_Web500.jpg"
-    ,"Image3":"Slider-Reinstalled-after-Ed-Fixed-Flashing-of-house-9-19-14-2-Web500.jpg"
-    ,"Image4":"DSC04419_Web500.jpg"
-    ,"ExtColor":"White"
-    ,"IntColor":"White"
-    ,"LengthProjection":"3'4"
-    ,"RidgeHeight":"5'3"
-    ,"Location":"Pennsylvania"
-    ,"Width":"7'"
-    ,"Application":["Residential"]
-    ,"Glazes":["LoE 366", "LoE i89"]
-  },
-  {
-    "ProjectID":"11-02-068"
-    ,"Date":201102068
-    ,"ID": 1185
-    ,"ProductName":"Sunroom"
-    ,"GeoType1":"Straight Eave Lean-To"
-    ,"GeoType2":"51-100 SQF. Glass,Aluminum Tube System"
-    ,"Description":"Straight eave, lean-to sunroom with two gable ends, a G2 sliding glass door system, and tilt turn windows."
-    ,"Image1":"DSC04418_Web500.jpg"
-    ,"Image2":"DSC04413_Web500.jpg"
-    ,"Image3":"Slider-Reinstalled-after-Ed-Fixed-Flashing-of-house-9-19-14-2-Web500.jpg"
-    ,"Image4":"DSC04419_Web500.jpg"
-    ,"ExtColor":"White"
-    ,"IntColor":"White"
-    ,"LengthProjection":"3'4"
-    ,"RidgeHeight":"5'3"
-    ,"Location":"Pennsylvania"
-    ,"Width":"7'"
-    ,"Application":["Residential"]
-    ,"Glazes":["LoE 366", "LoE i89"]
-  },
-  {
-    "ProjectID":"11-02-068"
-    ,"Date":201102068
-    ,"ID": 1186
-    ,"ProductName":"Titl Turn"
-    ,"GeoType1":"Tilt Turn Window"
-    ,"GeoType2":""
+    ,"Products":[
+      { "ProductName": "Sliding Door", "GeoType1": ["Door"], "GeoType2": ["51-100 SQF. Glass", "G2"] },
+      { "ProductName": "Sunroom", "GeoType1": ["Straight Eave Lean-To"], "GeoType2": ["51-100 SQF. Glass", "Aluminum Tube System"] },
+      { "ProductName": "Tilt Turn", "GeoType1": ["Tilt Turn Window"], "GeoType2": [] }
+    ]
     ,"Description":"Straight eave, lean-to sunroom with two gable ends, a G2 sliding glass door system, and tilt turn windows."
     ,"Image1":"DSC04418_Web500.jpg"
     ,"Image2":"DSC04413_Web500.jpg"
@@ -24087,72 +23267,12 @@
     "ProjectID":"11-02-032"
     ,"Date":201102032
     ,"ID": 1187
-    ,"ProductName":" Complete Glazing Packages  "
-    ,"GeoType1":"Complete Glazing Packages"
-    ,"GeoType2":"100-250 SQF. Glass"
-    ,"Description":"A complete glazing package which used Solar's sliding doors, sliding screens, and terrace doors."
-    ,"Image1":"upstsate-renovation-1-24-2014-16_Web5001.jpg"
-    ,"Image2":"upstsate-renovation-1-24-2014-3_Web500.jpg"
-    ,"Image3":"upstsate-renovation-1-24-2014-2_Web500.jpg"
-    ,"Image4":"upstsate-renovation-1-24-2014-24_Web500.jpg"
-    ,"ExtColor":"Clear Anodized (Class 1)"
-    ,"IntColor":"Clear Anodized (Class 1)"
-    ,"LengthProjection":""
-    ,"RidgeHeight":"varies by unit"
-    ,"Location":"New York"
-    ,"Width":"varies by unit"
-    ,"Application":["Residential"]
-    ,"Glazes":["LoE 272"]
-  },
-  {
-    "ProjectID":"11-02-032"
-    ,"Date":201102032
-    ,"ID": 1188
-    ,"ProductName":"Door"
-    ,"GeoType1":"Out of System Terrace and French Doors"
-    ,"GeoType2":""
-    ,"Description":"A complete glazing package which used Solar's sliding doors, sliding screens, and terrace doors."
-    ,"Image1":"upstsate-renovation-1-24-2014-16_Web5001.jpg"
-    ,"Image2":"upstsate-renovation-1-24-2014-3_Web500.jpg"
-    ,"Image3":"upstsate-renovation-1-24-2014-2_Web500.jpg"
-    ,"Image4":"upstsate-renovation-1-24-2014-24_Web500.jpg"
-    ,"ExtColor":"Clear Anodized (Class 1)"
-    ,"IntColor":"Clear Anodized (Class 1)"
-    ,"LengthProjection":""
-    ,"RidgeHeight":"varies by unit"
-    ,"Location":"New York"
-    ,"Width":"varies by unit"
-    ,"Application":["Residential"]
-    ,"Glazes":["LoE 272"]
-  },
-  {
-    "ProjectID":"11-02-032"
-    ,"Date":201102032
-    ,"ID": 1189
-    ,"ProductName":"Screen"
-    ,"GeoType1":"Sliding"
-    ,"GeoType2":"Manual"
-    ,"Description":"A complete glazing package which used Solar's sliding doors, sliding screens, and terrace doors."
-    ,"Image1":"upstsate-renovation-1-24-2014-16_Web5001.jpg"
-    ,"Image2":"upstsate-renovation-1-24-2014-3_Web500.jpg"
-    ,"Image3":"upstsate-renovation-1-24-2014-2_Web500.jpg"
-    ,"Image4":"upstsate-renovation-1-24-2014-24_Web500.jpg"
-    ,"ExtColor":"Clear Anodized (Class 1)"
-    ,"IntColor":"Clear Anodized (Class 1)"
-    ,"LengthProjection":""
-    ,"RidgeHeight":"varies by unit"
-    ,"Location":"New York"
-    ,"Width":"varies by unit"
-    ,"Application":["Residential"]
-    ,"Glazes":["LoE 272"]
-  },
-  {
-    "ProjectID":"11-02-032"
-    ,"Date":201102032
-    ,"ID": 1190
-    ,"ProductName":"Sliding Door"
-    ,"GeoType1":"Door"
-    ,"GeoType2":"100-250 SQF. Glass,G2,Multi-Track"
+    ,"Products":[
+      { "ProductName": "Complete Glazing Packages", "GeoType1": ["Complete Glazing Packages"], "GeoType2": ["100-250 SQF. Glass"] },
+      { "ProductName": "Door", "GeoType1": ["Out of System Terrace and French Doors"], "GeoType2": [] },
+      { "ProductName": "Screen", "GeoType1": ["Sliding"], "GeoType2": ["Manual"] },
+      { "ProductName": "Sliding Door", "GeoType1": ["Door"], "GeoType2": ["100-250 SQF. Glass", "G2", "Multi-Track"] }
+    ]
     ,"Description":"A complete glazing package which used Solar's sliding doors, sliding screens, and terrace doors."
     ,"Image1":"upstsate-renovation-1-24-2014-16_Web5001.jpg"
     ,"Image2":"upstsate-renovation-1-24-2014-3_Web500.jpg"
@@ -24192,72 +23312,12 @@
     "ProjectID":"10-11-063"
     ,"Date":201011063
     ,"ID": 1192
-    ,"ProductName":" Complete Glazing Packages  "
-    ,"GeoType1":"Complete Glazing Packages"
-    ,"GeoType2":"1001-2000+ SQF. Glass1 SQF. Glass"
-    ,"Description":"Terrace doors, sliding glass doors, and vertical curtain walls featuring the Mulled Window System."
-    ,"Image1":"9492-19-reduced_Web500.jpg"
-    ,"Image2":"9492-20-reduced_Web500.jpg"
-    ,"Image3":"9492-16_Web500.jpg"
-    ,"Image4":"perch-7_Web500.jpg"
-    ,"ExtColor":"Dark Bronze Anodized"
-    ,"IntColor":"Dark Bronze Anodized"
-    ,"LengthProjection":"varies per unit"
-    ,"RidgeHeight":"varies per unit"
-    ,"Location":"New York"
-    ,"Width":"varies by unit"
-    ,"Application":["Home", "Residential"]
-    ,"Glazes":["Clear"]
-  },
-  {
-    "ProjectID":"10-11-063"
-    ,"Date":201011063
-    ,"ID": 1193
-    ,"ProductName":"Door"
-    ,"GeoType1":"In-System Terrace Door"
-    ,"GeoType2":""
-    ,"Description":"Terrace doors, sliding glass doors, and vertical curtain walls featuring the Mulled Window System."
-    ,"Image1":"9492-19-reduced_Web500.jpg"
-    ,"Image2":"9492-20-reduced_Web500.jpg"
-    ,"Image3":"9492-16_Web500.jpg"
-    ,"Image4":"perch-7_Web500.jpg"
-    ,"ExtColor":"Dark Bronze Anodized"
-    ,"IntColor":"Dark Bronze Anodized"
-    ,"LengthProjection":"varies per unit"
-    ,"RidgeHeight":"varies per unit"
-    ,"Location":"New York"
-    ,"Width":"varies by unit"
-    ,"Application":["Home", "Residential"]
-    ,"Glazes":["Clear"]
-  },
-  {
-    "ProjectID":"10-11-063"
-    ,"Date":201011063
-    ,"ID": 1194
-    ,"ProductName":"Sliding Door"
-    ,"GeoType1":"Door"
-    ,"GeoType2":"100-250 SQF. Glass,Dual Track"
-    ,"Description":"Terrace doors, sliding glass doors, and vertical curtain walls featuring the Mulled Window System."
-    ,"Image1":"9492-19-reduced_Web500.jpg"
-    ,"Image2":"9492-20-reduced_Web500.jpg"
-    ,"Image3":"9492-16_Web500.jpg"
-    ,"Image4":"perch-7_Web500.jpg"
-    ,"ExtColor":"Dark Bronze Anodized"
-    ,"IntColor":"Dark Bronze Anodized"
-    ,"LengthProjection":"varies per unit"
-    ,"RidgeHeight":"varies per unit"
-    ,"Location":"New York"
-    ,"Width":"varies by unit"
-    ,"Application":["Home", "Residential"]
-    ,"Glazes":["Clear"]
-  },
-  {
-    "ProjectID":"10-11-063"
-    ,"Date":201011063
-    ,"ID": 1195
-    ,"ProductName":"Window"
-    ,"GeoType1":"Mulled"
-    ,"GeoType2":"751-1000 SQF. Glass"
+    ,"Products":[
+      { "ProductName": "Complete Glazing Packages", "GeoType1": ["Complete Glazing Packages"], "GeoType2": ["1001-2000+ SQF. Glass1 SQF. Glass"] },
+      { "ProductName": "Door", "GeoType1": ["In-System Terrace Door"], "GeoType2": [] },
+      { "ProductName": "Sliding Door", "GeoType1": ["Door"], "GeoType2": ["100-250 SQF. Glass,Dual Track"] },
+      { "ProductName": "Window", "GeoType1": ["Mulled"], "GeoType2": ["751-1000 SQF. Glass"] }
+    ]
     ,"Description":"Terrace doors, sliding glass doors, and vertical curtain walls featuring the Mulled Window System."
     ,"Image1":"9492-19-reduced_Web500.jpg"
     ,"Image2":"9492-20-reduced_Web500.jpg"
@@ -24276,35 +23336,15 @@
     "ProjectID":"10-10-080"
     ,"Date":201010080
     ,"ID": 1196
-    ,"ProductName":"Folding Glass Wall"
-    ,"GeoType1":"Door"
-    ,"GeoType2":"250-500 SQF. Glass,50,HVHZ / Miami-Dade Rated"
+    ,"Products":[
+      { "ProductName": "Folding Glass Wall", "GeoType1": ["Door"], "GeoType2": ["250-500 SQF. Glass", "50,HVHZ / Miami-Dade Rated"] },
+      { "ProductName": "Folding Glass Wall", "GeoType1": ["Windows"], "GeoType2": ["250-500 SQF. Glass", "50,HVHZ / Miami-Dade Rated"] }
+    ]
     ,"Description":"Multiple sets of folding glass walls, using recessed sills with adjustable ramps, located on a private beach club."
-    ,"Image1":"Beach-Club-2-20-2014-beach-dining_Web500.jpg"
-    ,"Image2":"Beach-Club-2-20-2014-beach-dining-3_Web500.jpg"
-    ,"Image3":"Beach-Club-pass-thru-2-20-2014_Web500.jpg"
-    ,"Image4":"Beach-Club-2-20-2014-front-dining-porch_Web500.jpg"
-    ,"ExtColor":"White"
-    ,"IntColor":"White"
-    ,"LengthProjection":""
-    ,"RidgeHeight":"varies by unit"
-    ,"Location":"Florida"
-    ,"Width":"varies by unit"
-    ,"Application":["Commercial"]
-    ,"Glazes":["Glass", "Gray", "Impact", "Monolithic Glass"]
-  },
-  {
-    "ProjectID":"10-10-080"
-    ,"Date":201010080
-    ,"ID": 1197
-    ,"ProductName":"Folding Glass Wall"
-    ,"GeoType1":"Windows"
-    ,"GeoType2":"250-500 SQF. Glass,50,HVHZ / Miami-Dade Rated"
-    ,"Description":"Multiple sets of folding glass walls, using recessed sills with adjustable ramps, located on a private beach club."
-    ,"Image1":"Beach-Club-2-20-2014-beach-dining_Web500.jpg"
-    ,"Image2":"Beach-Club-2-20-2014-beach-dining-3_Web500.jpg"
-    ,"Image3":"Beach-Club-pass-thru-2-20-2014_Web500.jpg"
-    ,"Image4":"Beach-Club-2-20-2014-front-dining-porch_Web500.jpg"
+    ,"Image1":"2014/02/Beach-Club-2-20-2014-beach-dining_Web500.jpg"
+    ,"Image2":"2014/02/Beach-Club-2-20-2014-beach-dining-3_Web500.jpg"
+    ,"Image3":"2014/02/Beach-Club-pass-thru-2-20-2014_Web500.jpg"
+    ,"Image4":"2014/02/Beach-Club-2-20-2014-front-dining-porch_Web500.jpg"
     ,"ExtColor":"White"
     ,"IntColor":"White"
     ,"LengthProjection":""
@@ -24385,9 +23425,9 @@
     "ProjectID":"11-03-026"
     ,"Date":201103026
     ,"ID": 1205
-    ,"ProductName":"Folding Glass Wall"
-    ,"GeoType1":"Door"
-    ,"GeoType2":"250-500 SQF. Glass,All Wall,50,Split Wall Floating Jamb"
+    ,"Products":[
+      { "ProductName": "Folding Glass Wall", "GeoType1": ["Door"], "GeoType2": ["250-500 SQF. Glass", "All Wall", "50", "Split Wall Floating Jamb"] }
+    ]
     ,"Description":"Six split folding glass wall systems and one all wall system featuring low profiles grids.  These units have been designed, engineered, fabricated, and installed in accordance to Florida State Impact Certified Building Code."
     ,"Image1":"Affiniti-Architects-32-no-handles_500.jpg"
     ,"Image2":"Affiniti-Architects-16-no-handles_500.jpg"
@@ -24516,7 +23556,7 @@
     "ProjectID":"10-09-231"
     ,"Date":201009231
     ,"ID": 1216
-    ,"ProductName":"Car WashCar Wash"
+    ,"ProductName":"Car Wash"
     ,"GeoType1":"Stairway Covers"
     ,"GeoType2":"250-500 SQF. Glass"
     ,"Description":"One straight eave, lean to enclosure connected into another straight eave, lean-to structure on a library. Both have one gable end. The one serves as an entryway and the other is an elevator shaft.  The terrace door leading into the enclosure includes panic hardware., and the canopy features decorative ridge cresting and a finial."
@@ -25090,7 +24130,7 @@
     ,"Date":201312261
     ,"ID": 1269
     ,"Products":[
-      { "ProductName": "Car WashCar Wash", "GeoType1": [ "Stairway Covers" ], "GeoType2": ["51-100 SQF. Glass", "National Fenestration Rating Council Certified"] }, 
+      { "ProductName": "Car Wash", "GeoType1": [ "Stairway Covers" ], "GeoType2": ["51-100 SQF. Glass", "National Fenestration Rating Council Certified"] }, 
       { "ProductName": "Operable / Retractable Skylights", "GeoType1": [ "Lantern 0 Degree Operable", "In System", "Operable Skylight", "Single Slope" ], "GeoType2": ["51-100 SQF. Glass"] },
       { "ProductName": "Skylight", "GeoType1": [ "Hip EndDormers", "Single Slope" ], "GeoType2": ["51-100 SQF. Glass"] }
     ]
