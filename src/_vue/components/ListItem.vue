@@ -3,12 +3,6 @@
         <div class="row no-gutters">
             <div class="col-lg-4">
                 <div class="row no-gutters pr-3 justify-content-end">
-                    <!-- http://solar.localhost/wp-content/uploads/ 
-                    Image1
-                    Image2
-                    Image3
-                    Image4
-                    -->
                     <div class="col-12 mb-1" v-if="resource.Image1">
                         <img class="img" v-bind:src="imgUrlFormat(resource.Image1)" >
                     </div>
