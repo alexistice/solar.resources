@@ -2,23 +2,28 @@
     <div class="col-lg-12 mt-4 pb-4 border-bottom">
         <div class="row no-gutters">
             <div class="col-lg-4">
-                <div class="row no-gutters pr-3 justify-content-end">
-                    <div class="col-12 mb-1" v-if="resource.Image1">
-                        <img class="img" v-bind:src="imgUrlFormat(resource.Image1)" >
+                <div class="row  no-gutters pr-3">
+                    <div class="col-12 bigCrop">
+                        <img class="img-fluid" v-bind:src="image" >
                     </div>
-                    <div class="col-3" v-if="resource.Image2">
-                        <img class="img pl-1" v-bind:src="imgUrlFormat(resource.Image2)">
+                </div>
+                <div class="row no-gutters pr-3 pt-1 justify-content-end">
+                    <div class="col-6 crop pl-1 mb-1" v-if="resource.Image1">
+                        <img @mouseover="imgHover(imgUrlFormat(resource.Image1))" class="img" v-bind:src="imgUrlFormat(resource.Image1)" >
                     </div>
-                    <div class="col-3" v-if="resource.Image3">
-                        <img class="img pl-1" v-bind:src="imgUrlFormat(resource.Image3)">
+                    <div class="col-6 crop pl-1 mb-1" v-if="resource.Image2">
+                        <img @mouseover="imgHover(imgUrlFormat(resource.Image2))" class="img" v-bind:src="imgUrlFormat(resource.Image2)">
                     </div>
-                    <div class="col-3" v-if="resource.Image4">
-                        <img class="img pl-1" v-bind:src="imgUrlFormat(resource.Image4)">
+                    <div class="col-6 crop pl-1 mb-1" v-if="resource.Image3">
+                        <img @mouseover="imgHover(imgUrlFormat(resource.Image3))" class="img" v-bind:src="imgUrlFormat(resource.Image3)">
+                    </div>
+                    <div class="col-6 crop pl-1 mb-1" v-if="resource.Image4">
+                        <img @mouseover="imgHover(imgUrlFormat(resource.Image4))" lass="img" v-bind:src="imgUrlFormat(resource.Image4)">
                     </div>
                 </div>
             </div>   
                   
-            <div class="col-lg-6 align-content-between">
+            <div class="col-lg-8 align-content-between">
                 <div class="row no-gutters">
                     <div class="col-lg-11">
                         <h4 class="mb-0">{{ resource.ProjectID }}</h4>
@@ -73,43 +78,54 @@
                     </div>
                 </div>
 
-                
+                <div class="row no-gutters">
+                    <div class="col-lg-12">
+                        <!-- <div class="mb-2" v-if="Array.isArray(resource.Products)">
+                            <strong>Products:</strong>
+                            <span class="badge badge-primary mr-2" v-for="product in resource.Products" v-bind:key="product.ID">{{ product.ProductName }}</span>
+                        </div> -->
+                        <div class="mb-1" v-if="Array.isArray(resource.Products)">
+                            <!-- <strong>Features:</strong> -->
+                            <div v-for="product in resource.Products" v-bind:key="product.ID" class="d-inline-block w-100">
+                                <span class="badge badge-primary mr-1 mb-1">{{ product.ProductName }}</span>
 
-            </div>
-            <div class="col-lg-2">
-                <div class="mb-2" v-if="Array.isArray(resource.Products)">
-                    <strong>Products</strong><br>
-                    <span class="badge badge-primary mr-2" v-for="product in resource.Products" v-bind:key="product.ID">{{ product.ProductName }}</span>
-                </div>
-                <div class="mb-2" v-if="Array.isArray(resource.Products)">
-                    <strong>Features</strong><br>
-                    <div v-for="product in resource.Products" v-bind:key="product.ID">
-                        <span class="badge badge-secondary mr-2" v-for="geotype in product.GeoType1" v-bind:key="geotype">
-                            {{ geotype }}
-                        </span>
-                        
+                                <span class="badge badge-secondary mr-1 mb-1" v-for="geotype in product.GeoType1" v-bind:key="geotype">
+                                    {{ geotype }}
+                                </span>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <!--  -->
             </div>
         </div>
     </div>
 </template>
 <script>
 export default {
-  props: ["resource"],
-  methods: {
-    imgUrlFormat: function(filename) {
-    // <img src="http://solar.localhost/wp-content/uploads/000_1163_500.jpg">
+    props: ["resource"],
+    data() {
+        return {
+            image: this.imgUrlFormat(this.resource.Image1)
+        };
+    },
+    methods: {
+        imgUrlFormat(filename) {
+        // <img src="http://solar.localhost/wp-content/uploads/000_1163_500.jpg">
 
-    //   var path = "/assets/images/project-gallery/";
-      var path = "http://solar.localhost/wp-content/uploads/";
-      return path
-        .concat(filename);
+        //   var path = "/assets/images/project-gallery/";
+        var path = "http://solar.localhost/wp-content/uploads/";
+        return path.concat(filename);
         // .concat("-")
         // .concat(num)
         // .concat(".jpg");
+        },
+        imgHover(image) {
+            this.image = image;
+        }
+        
+    },
+    computed:{
+        
     }
-  }
 };
-</script>
+</script>  

@@ -5994,27 +5994,6 @@
     ,"Glazes":["LoE 272"]
   },
   {
-    "ProjectID":"09-03-379"
-    ,"Date":200903379
-    ,"ID": 576
-    ,"ProductName":"Folding Glass Wall"
-    ,"GeoType1":"Door"
-    ,"GeoType2":"51-100 SQF. Glass,All Wall"
-    ,"Description":"Folding Glass Walls used in gymnasium press box."
-    ,"Image1":"CoppinState1.jpg"
-    ,"Image2":"CoppinState2.jpg"
-    ,"Image3":"CoppinState3.jpg"
-    ,"Image4":"CoppinState4.jpg"
-    ,"ExtColor":"Clear Anodized (Class 1)"
-    ,"IntColor":"Clear Anodized (Class 1)"
-    ,"LengthProjection":""
-    ,"RidgeHeight":""
-    ,"Location":""
-    ,"Width":""
-    ,"Application":["Commercial", "Institutional", "Sporting"]
-    ,"Glazes":["Clear", "Monolithic Glass"]
-  },
-  {
     "ProjectID":"11-05-374"
     ,"Date":201105374
     ,"ID": 577
@@ -11995,8 +11974,7 @@
     ,"Products":[
       { "ProductName": "Architectural Enhancement", "GeoType1": ["Eave Vent", "Lantern", "Ridge Vent"], "GeoType2": [] },
       { "ProductName": "Greenhouse", "GeoType1": ["Hip End", "Irregular / Custom"], "GeoType2": ["1001-2000+ SQF. Glass", "1 SQF. Glass"] },
-      { "ProductName": "Window", "GeoType1": ["Projected"], "GeoType2": ["Awning"] },
-      { "ProductName": "xxx", "GeoType1": [], "GeoType2": [] }
+      { "ProductName": "Window", "GeoType1": ["Projected"], "GeoType2": ["Awning"] }
     ]
     ,"Description":"Straight eave lean-to greenhouse with one hip end and a lantern with two hip ends, ridge vents, eave vents and awning windows"
     ,"Image1":"IMG_2102-web.jpg"
@@ -13909,7 +13887,7 @@
     ,"Products":[
       { "ProductName": "Architectural Enhancement", "GeoType1": ["Eave Vent", "Gable End", "Ridge Vent"], "GeoType2": ["Aluminum", "Rolling Bench"] }, 
       { "ProductName": "Greenhouse", "GeoType1": ["Hung", "Straight Eave Double Pitch"], "GeoType2": ["1001-2000+ SQF. Glass", " 1 SQF. Glass"] }, 
-      { "ProductName": "Greenhouse Accessory", "GeoType1": ["Environmental Control Systems,Temperature Control"], "GeoType2": ["Aluminum Tube", "Circulation Fans", "Evaporative Coolers", "Grow Lights", "Rolling Bench"] },
+      { "ProductName": "Greenhouse Accessory", "GeoType1": ["Environmental Control Systems", "Temperature Control"], "GeoType2": ["Aluminum Tube", "Circulation Fans", "Evaporative Coolers", "Grow Lights", "Rolling Bench"] },
       { "ProductName": "Shades", "GeoType1": ["Interior Folding / Roman Pleated", "Interior Operable", "Pleated Gravity Fed"], "GeoType2": ["HVHZ / Miami-Dade Rated"] }
     ]
     ,"Description":"Straight eave, double pitch greenhouse with two gable ends featuring six interior, pleated, gravity fed roof shades. These shades are operated by the Microgorw system."
@@ -14081,9 +14059,9 @@
     "ProjectID":"08-12-297"
     ,"Date":200812297
     ,"ID": 1293
-    ,"ProductName":"Greenhouse"
-    ,"GeoType1":"Irregular / Custom,Straight Eave Double Pitch"
-    ,"GeoType2":"1001-2000+ SQF. Glass1 SQF. Glass,Aluminum Tube System"
+    ,"Products":[
+      { "ProductName": "Greenhouse", "GeoType1": [ "Irregular / Custom", "Straight Eave Double Pitch" ], "GeoType2": ["1001-2000+ SQF. Glass", "1 SQF. Glass", "Aluminum Tube System"] }
+    ]
     ,"Description":"One straight eave, double pitch institutional greenhouse including aluminum gutter, four downspouts, four awning windows, four 3-bay operable ridge vents, four 12\" shutter fans, three 16\" shutter fans, and evaporative cooler. The greenhouse is located at Susquehanna University."
     ,"Image1":"service-1-4-15-3-Web500.jpg"
     ,"Image2":"service-1-4-15-6-Web500.jpg"

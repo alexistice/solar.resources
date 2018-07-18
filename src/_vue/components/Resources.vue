@@ -7,6 +7,12 @@
       </div>
       <div class="col-lg-2 border-right">
         <h3 style="font-size: 90%;color:#969696"><strong>Show results for:</strong></h3>
+        <div class="d-flex flex-column">
+          <strong>Products</strong>
+          <check-filter v-for="prod in listProducts" category="products" v-bind:name="prod" v-bind:key="prod"></check-filter>
+        </div>
+
+        <hr class="my-2">
 
         <div class="d-flex flex-column">
           <strong>Applications</strong>
@@ -159,6 +165,7 @@ export default {
       sortDirection: 'asc',
       applications: [],
       glazes: [],
+      products: [],
       loadNumber: 5,
       totalResults: 0
     };
@@ -200,10 +207,27 @@ export default {
             this.loadNumber = this.loadNumber + 10;
         }
     },
+    filterProducts(proj) {
+      if (!this.products.length) {
+        return true;
+      } else {
+        let projProducts = proj.Products;
+        let matched = false;
+        this.products.forEach(app => {
+          for(var i = 0; i < projProducts.length; i++) {
+            if (projProducts[i].ProductName === app) {
+              matched = true; 
+              //break;
+            }
+          }
+        });
+        return matched;
+      }
+    },
     filterApplications(proj) {
       if (!this.applications.length) {
         return true;
-      } else {
+      } else { 
         let projApplications = proj.Application;
         let matched = true;
         this.applications.forEach(app => {
@@ -236,6 +260,26 @@ export default {
     //     return acc;
     //   }, {});
     // },
+    optionProducts() {
+      const products = this.projects.reduce((acc, proj) => {
+        if(Array.isArray(proj.Products)){
+          proj.Products.forEach(product => {
+            (acc[product.ProductName] = acc[product.ProductName] || []).push(proj.ProjectID);
+          })
+        }
+        return acc;
+      }, {});
+      
+      return products;
+    },
+    listProducts(){
+      let list = [];
+      Object.keys(this.optionProducts).forEach(function (key) {
+        // do something with obj[key]
+        list.push(key);
+      });
+      return list.sort();
+    },
     optionApplications() {
       const apps = this.projects.reduce((acc, proj) => {
         if(Array.isArray(proj.Application)){
@@ -289,6 +333,7 @@ export default {
       // return this.projects
         .filter(this.filterApplications)
         .filter(this.filterGlazes)
+        .filter(this.filterProducts)
        
       let projFilteredSorted =  projFiltered
         .sort(function(a, b) {
