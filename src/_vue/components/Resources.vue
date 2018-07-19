@@ -8,8 +8,10 @@
       <div class="col-lg-2 border-right">
         <h3 style="font-size: 90%;color:#969696"><strong>Show results for:</strong></h3>
         <div class="d-flex flex-column">
-          <strong>Products</strong>
-          <check-filter v-for="prod in listProducts" category="products" v-bind:name="prod" v-bind:key="prod"></check-filter>
+          <div class="d-flex justify-content-between align-items-center">
+            <strong>Products</strong><small><i class="float-right fas fa-plus"></i></small>
+          </div>
+          <check-filter v-if="showProducts" v-for="prod in listProducts" category="products" v-bind:name="prod" v-bind:key="prod"></check-filter>
         </div>
 
         <hr class="my-2">
@@ -160,6 +162,7 @@ export default {
       currentView: "list-item",
       glazeColor: [ "Clear", "White", "Bronze", "Gray", "Blue", "Green" ],
       glazesOptions: ["Glass", "Monolithic Glass", "Polycarbonate", "Tempered"],
+      showProducts: false,
       newSearch: '',
       lastSearch: '',
       sortDirection: 'asc',

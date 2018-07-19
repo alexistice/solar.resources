@@ -8,13 +8,13 @@
                     </div>
                 </div>
                 <div class="row no-gutters pr-3 pt-1 justify-content-end">
-                    <div class="col-6 crop pl-1 mb-1" v-if="resource.Image1">
+                    <div class="col-6 crop  mb-1" v-if="resource.Image1">
                         <img @mouseover="imgHover(imgUrlFormat(resource.Image1))" class="img" v-bind:src="imgUrlFormat(resource.Image1)" >
                     </div>
                     <div class="col-6 crop pl-1 mb-1" v-if="resource.Image2">
                         <img @mouseover="imgHover(imgUrlFormat(resource.Image2))" class="img" v-bind:src="imgUrlFormat(resource.Image2)">
                     </div>
-                    <div class="col-6 crop pl-1 mb-1" v-if="resource.Image3">
+                    <div class="col-6 crop mb-1" v-if="resource.Image3">
                         <img @mouseover="imgHover(imgUrlFormat(resource.Image3))" class="img" v-bind:src="imgUrlFormat(resource.Image3)">
                     </div>
                     <div class="col-6 crop pl-1 mb-1" v-if="resource.Image4">
