@@ -49,15 +49,26 @@
                                     v-bind:key="application">
                                     <span v-if="index != resource.Application.length && index != 0">, {{ application }}</span>
                                     <span v-else>{{ application }}</span>
-                                    
-                                </span>
-
-                            
+                                </span> 
                             </li>
-                            <li v-if="resource.ExtColor"><span class="float-left">Exterior Color:</span>	 {{ resource.ExtColor }}</li>
-                            <li v-if="resource.IntColor"><span class="float-left">Interior Color:</span>	{{ resource.IntColor }}</li>
-                            <!-- <li v-if="resource.Glazes"><span class="float-left">Glaze:</span>	{{ resource.Glazes }}</li> -->
-
+                             <li>
+                                <span class="float-left">Exterior Color:</span>	
+                                <span 
+                                    v-for="(color, index) in resource.ExtColor" 
+                                    v-bind:key="color">
+                                    <span v-if="index != resource.ExtColor.length && index != 0">, {{ color }}</span>
+                                    <span v-else>{{ color }}</span>
+                                </span>
+                            </li>
+                            <li>
+                                <span class="float-left">Interior Color:</span>	
+                                <span 
+                                    v-for="(color, index) in resource.IntColor" 
+                                    v-bind:key="color">
+                                    <span v-if="index != resource.IntColor.length && index != 0">, {{ color }}</span>
+                                    <span v-else>{{ color }}</span>
+                                </span>
+                            </li>
                             <li>
                                 <span class="float-left">Glaze:</span>	
                                 <span 
@@ -65,10 +76,7 @@
                                     v-bind:key="glaze">
                                     <span v-if="index != resource.Glazes.length && index != 0">, {{ glaze }}</span>
                                     <span v-else>{{ glaze }}</span>
-                                    
                                 </span>
-
-                            
                             </li>
 
                             <li v-if="resource.Width"><span class="float-left">Width:</span>	{{ resource.Width }}</li>
@@ -102,30 +110,27 @@
 </template>
 <script>
 export default {
-    props: ["resource"],
-    data() {
-        return {
-            image: this.imgUrlFormat(this.resource.Image1)
-        };
-    },
-    methods: {
-        imgUrlFormat(filename) {
-        // <img src="http://solar.localhost/wp-content/uploads/000_1163_500.jpg">
+  props: ["resource"],
+  data() {
+    return {
+      image: this.imgUrlFormat(this.resource.Image1)
+    };
+  },
+  methods: {
+    imgUrlFormat(filename) {
+      // <img src="http://solar.localhost/wp-content/uploads/000_1163_500.jpg">
 
-        //   var path = "/assets/images/project-gallery/";
-        var path = "http://solar.localhost/wp-content/uploads/";
-        return path.concat(filename);
-        // .concat("-")
-        // .concat(num)
-        // .concat(".jpg");
-        },
-        imgHover(image) {
-            this.image = image;
-        }
-        
+      //   var path = "/assets/images/project-gallery/";
+      var path = "http://solar.localhost/wp-content/uploads/";
+      return path.concat(filename);
+      // .concat("-")
+      // .concat(num)
+      // .concat(".jpg");
     },
-    computed:{
-        
+    imgHover(image) {
+      this.image = image;
     }
+  },
+  computed: {}
 };
 </script>  

@@ -3,12 +3,12 @@
   %} {% assign color = site.data.theme[theme_style].color %} {% if site.gtm_id %}
   <!-- Google Tag Manager -->
   <script>(function (w, d, s, l, i) {
-    w[l] = w[l] || []; w[l].push({
-      'gtm.start':
-        new Date().getTime(), event: 'gtm.js'
-    }); var f = d.getElementsByTagName(s)[0],
-      j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
-        'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+      w[l] = w[l] || []; w[l].push({
+        'gtm.start':
+          new Date().getTime(), event: 'gtm.js'
+      }); var f = d.getElementsByTagName(s)[0],
+        j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+          'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
     })(window, document, 'script', 'dataLayer', '{{ site.gtm_id }}');</script>
   <!-- End Google Tag Manager -->
   {% endif %}
@@ -183,7 +183,7 @@
       rgba(255, 255, 255, 0.35)),
       url('/assets/patterns/white_wall_hash.png');
     }
- 
+
     #footer>div>small>div>div>div>div>a>h6,
     #footer>div>small>div>div>div>div>h6,
     #footer>div>small>div>div>div>div>div>ul>li,
@@ -193,11 +193,13 @@
       color: #a0a0a0;
       /* color: #c6c6c6; */
     }
+
     .crop {
       height: 75px;
-        /*width: 400px;*/
+      /*width: 400px;*/
       overflow: hidden;
     }
+
     .crop img {
       height: auto;
       width: 100%;
@@ -205,14 +207,14 @@
 
     .bigCrop {
       height: 200px;
-        /*width: 400px;*/
+      /*width: 400px;*/
       overflow: hidden;
     }
+
     .bigCrop img {
       height: auto;
       width: 100%;
     }
-
   </style>
 
 </head>

@@ -8,8 +8,11 @@
       <div class="col-lg-2 border-right">
         <h3 style="font-size: 90%;color:#969696"><strong>Show results for:</strong></h3>
         <div class="d-flex flex-column">
-          <div class="d-flex justify-content-between align-items-center">
-            <strong>Products</strong><small><i class="float-right fas fa-plus"></i></small>
+          <div class="d-flex justify-content-between align-items-center pointer" v-on:click="toggleProductsDisplay">
+            <strong>Products</strong>
+            <small>
+              <i v-bind:class="{ 'fas fa-plus': !showProducts, 'fas fa-minus': showProducts }"></i>
+            </small>
           </div>
           <check-filter v-if="showProducts" v-for="prod in listProducts" category="products" v-bind:name="prod" v-bind:key="prod"></check-filter>
         </div>
@@ -17,30 +20,76 @@
         <hr class="my-2">
 
         <div class="d-flex flex-column">
-          <strong>Applications</strong>
-          <check-filter v-for="app in listApplications" category="applications" v-bind:name="app" v-bind:key="app"></check-filter>
+          <div class="d-flex justify-content-between align-items-center pointer" v-on:click="toggleApplicationsDisplay">
+            <strong>Applications</strong>
+            <small>
+              <i v-bind:class="{ 'fas fa-plus': !showApplications, 'fas fa-minus': showApplications }"></i>
+            </small>
+          </div>
+          <check-filter v-if="showApplications" v-for="app in listApplications" category="applications" v-bind:name="app" v-bind:key="app"></check-filter>
         </div>
         
         <hr class="my-2">
         
         <div class="d-flex flex-column">
-          <strong>Glaze</strong>
-          <check-filter v-for="glaze in glazesOptions"  category="glazes" v-bind:name="glaze" v-bind:key="glaze"></check-filter>
+          <div class="d-flex justify-content-between align-items-center pointer" v-on:click="toggleGlazesDisplay">
+            <strong>Glaze</strong>
+            <small>
+              <i v-bind:class="{ 'fas fa-plus': !showGlazes, 'fas fa-minus': showGlazes }"></i>
+            </small>
+          </div>
+          <check-filter  v-if="showGlazes" v-for="glaze in glazesOptions"  category="glazes" v-bind:name="glaze" v-bind:key="glaze"></check-filter>
         </div>
 
         <hr class="my-2">
         
         <div class="d-flex flex-column">
-          <strong>Glaze Colors</strong>
-          <check-filter v-for="glaze in glazeColor"  category="glazes" v-bind:name="glaze" v-bind:key="glaze"></check-filter>
+          <div class="d-flex justify-content-between align-items-center pointer" v-on:click="toggleGlazeColorsDisplay">
+            <strong>Glaze Colors</strong>
+            <small>
+              <i v-bind:class="{ 'fas fa-plus': !showGlazeColors, 'fas fa-minus': showGlazeColors }"></i>
+            </small>
+          </div>
+          <check-filter v-if="showGlazeColors" v-for="glaze in glazeColor"  category="glazes" v-bind:name="glaze" v-bind:key="glaze"></check-filter>
         </div>
 
         <hr class="my-2">
         
         <div class="d-flex flex-column">
-          <strong>Glaze Coating</strong>
-          <check-filter v-for="glaze in listGlazeCoatings"  category="glazes" v-bind:name="glaze" v-bind:key="glaze"></check-filter>          
+          <div class="d-flex justify-content-between align-items-center pointer" v-on:click="toggleGlazeCoatingDisplay">
+            <strong>Glaze Coating</strong>
+            <small>
+              <i v-bind:class="{ 'fas fa-plus': !showGlazeCoating, 'fas fa-minus': showGlazeCoating }"></i>
+            </small>
+          </div>
+          <check-filter v-if="showGlazeCoating" v-for="glaze in listGlazeCoatings"  category="glazes" v-bind:name="glaze" v-bind:key="glaze"></check-filter>          
         </div>
+
+        <hr class="my-2">
+
+        <div class="d-flex flex-column">
+          <div class="d-flex justify-content-between align-items-center pointer" v-on:click="toggleExtColorDisplay">
+            <strong>Exterior Color</strong>
+            <small>
+              <i v-bind:class="{ 'fas fa-plus': !showExtColor, 'fas fa-minus': showExtColor }"></i>
+            </small>
+          </div>
+          <check-filter v-if="showExtColor" v-for="color in listExtColor" category="extColor" v-bind:name="color" v-bind:key="color"></check-filter>
+        </div>
+
+        <hr class="my-2">
+
+        <div class="d-flex flex-column">
+          <div class="d-flex justify-content-between align-items-center pointer" v-on:click="toggleIntColorDisplay">
+            <strong>Interior Color</strong>
+            <small>
+              <i v-bind:class="{ 'fas fa-plus': !showIntColor, 'fas fa-minus': showIntColor }"></i>
+            </small>
+          </div>
+          <check-filter v-if="showIntColor" v-for="color in listIntColor" category="intColor" v-bind:name="color" v-bind:key="color"></check-filter>
+        </div>
+
+        <hr class="my-2">
 
       </div> 
         
@@ -136,7 +185,7 @@
 </template>
 
 <script>
-import Vue from 'vue';
+import Vue from "vue";
 import projects from "../data/projects.json";
 
 import MegaFilter from "./MegaFilter.vue";
@@ -153,22 +202,73 @@ import { checkFilter } from "../util/bus";
 //   }
 // });
 
-
 export default {
   name: "Resources",
   data() {
     return {
       projects: projects,
       currentView: "list-item",
-      glazeColor: [ "Clear", "White", "Bronze", "Gray", "Blue", "Green" ],
+      glazeColor: ["Clear", "White", "Bronze", "Gray", "Blue", "Green"],
       glazesOptions: ["Glass", "Monolithic Glass", "Polycarbonate", "Tempered"],
+      materialOptions: [
+        "Aluminum",
+        "Metal Cladding",
+        "Vinyl-Composite",
+        "Wood",
+        "Wood Cladding",
+        "Wood Veneer"
+      ],
+      finishOptions: [
+        "AAMA 2603",
+        "AAMA 2604",
+        "AAMA 2605",
+        "Anodized",
+        "Fluoropolymer",
+        "Powder Coat"
+      ],
+      standardColors: [
+        "Black",
+        "Natural Clay",
+        "Bronze",
+        "White",
+        "Green (Hartford)",
+        "Sandstone",
+        "Mill Aluminum",
+        "Bronze (Dark)",
+        "Clear (Class I)"
+      ],
+      metalCladding: [
+        "Copper",
+        "Stainless Steel",
+        "Simulated Lead Coated Copper",
+        "Bronze"
+      ],
+      woodCladding: [
+        "White Oak",
+        "Red Oak",
+        "Hard Maple",
+        "White Ash",
+        "Cherry",
+        "Douglas Fir",
+        "Sapele Mahogany",
+        "Walnut"
+      ],
       showProducts: false,
-      newSearch: '',
-      lastSearch: '',
-      sortDirection: 'asc',
+      showApplications: false,
+      showGlazes: false,
+      showGlazeColors: false,
+      showGlazeCoating: false,
+      showExtColor: true,
+      showIntColor: false,
+      newSearch: "",
+      lastSearch: "",
+      sortDirection: "asc",
       applications: [],
       glazes: [],
       products: [],
+      geoType1: [],
+      extColor: [],
+      intColor: [],
       loadNumber: 5,
       totalResults: 0
     };
@@ -181,22 +281,44 @@ export default {
     LargeGridItem
   },
   methods: {
-    changeView: function(component) {
+    changeView(component) {
       this.currentView = component;
     },
-    changeSortDirection: function() {
-      if(this.sortDirection === 'desc'){
-        this.sortDirection = 'asc';
-      }else{
-        this.sortDirection = 'desc';
+    toggleProductsDisplay() {
+      this.showProducts = !this.showProducts;
+    },
+    toggleApplicationsDisplay() {
+      this.showApplications = !this.showApplications;
+    },
+    toggleGlazesDisplay() {
+      this.showGlazes = !this.showGlazes;
+    },
+    toggleGlazeColorsDisplay() {
+      this.showGlazeColors = !this.showGlazeColors;
+    },
+    toggleGlazeCoatingDisplay() {
+      this.showGlazeCoating = !this.showGlazeCoating;
+    },
+    toggleExtColorDisplay() {
+      this.showExtColor = !this.showExtColor;
+    },
+    toggleIntColorDisplay() {
+      this.showIntColor = !this.showIntColor;
+    },
+    changeSortDirection() {
+      if (this.sortDirection === "desc") {
+        this.sortDirection = "asc";
+      } else {
+        this.sortDirection = "desc";
       }
     },
-    getArrayDiff: function(a, b) {
+    getArrayDiff(a, b) {
       var ret = [];
       if (!(Array.isArray(a) && Array.isArray(b))) {
-          return ret;
+        return ret;
       }
-      var i; var key;
+      var i;
+      var key;
       for (i = a.length - 1; i >= 0; i--) {
         key = a[i];
         if (-1 === b.indexOf(key)) {
@@ -205,10 +327,10 @@ export default {
       }
       return ret;
     },
-    appendItems: function(){
-        if(this.filteredResources.length < this.projects.length){
-            this.loadNumber = this.loadNumber + 10;
-        }
+    appendItems() {
+      if (this.filteredResources.length < this.projects.length) {
+        this.loadNumber = this.loadNumber + 10;
+      }
     },
     filterProducts(proj) {
       if (!this.products.length) {
@@ -217,9 +339,9 @@ export default {
         let projProducts = proj.Products;
         let matched = false;
         this.products.forEach(app => {
-          for(var i = 0; i < projProducts.length; i++) {
+          for (var i = 0; i < projProducts.length; i++) {
             if (projProducts[i].ProductName === app) {
-              matched = true; 
+              matched = true;
               //break;
             }
           }
@@ -230,7 +352,7 @@ export default {
     filterApplications(proj) {
       if (!this.applications.length) {
         return true;
-      } else { 
+      } else {
         let projApplications = proj.Application;
         let matched = true;
         this.applications.forEach(app => {
@@ -254,6 +376,34 @@ export default {
         });
         return matched;
       }
+    },
+    filterExtColor(proj) {
+      if (!this.extColor.length) {
+        return true;
+      } else {
+        let projExtColors = proj.ExtColor;
+        let matched = true;
+        this.extColor.forEach(app => {
+          if (projExtColors.indexOf(app) === -1) {
+            matched = false;
+          }
+        });
+        return matched;
+      }
+    },
+    filterIntColor(proj) {
+      if (!this.intColor.length) {
+        return true;
+      } else {
+        let projIntColors = proj.IntColor;
+        let matched = true;
+        this.intColor.forEach(app => {
+          if (projIntColors.indexOf(app) === -1) {
+            matched = false;
+          }
+        });
+        return matched;
+      }
     }
   },
   computed: {
@@ -265,19 +415,21 @@ export default {
     // },
     optionProducts() {
       const products = this.projects.reduce((acc, proj) => {
-        if(Array.isArray(proj.Products)){
+        if (Array.isArray(proj.Products)) {
           proj.Products.forEach(product => {
-            (acc[product.ProductName] = acc[product.ProductName] || []).push(proj.ProjectID);
-          })
+            (acc[product.ProductName] = acc[product.ProductName] || []).push(
+              proj.ProjectID
+            );
+          });
         }
         return acc;
       }, {});
-      
+
       return products;
     },
-    listProducts(){
+    listProducts() {
       let list = [];
-      Object.keys(this.optionProducts).forEach(function (key) {
+      Object.keys(this.optionProducts).forEach(function(key) {
         // do something with obj[key]
         list.push(key);
       });
@@ -285,19 +437,19 @@ export default {
     },
     optionApplications() {
       const apps = this.projects.reduce((acc, proj) => {
-        if(Array.isArray(proj.Application)){
+        if (Array.isArray(proj.Application)) {
           proj.Application.forEach(app => {
             (acc[app] = acc[app] || []).push(proj.ProjectID);
-          })
+          });
         }
         return acc;
       }, {});
-      
+
       return apps;
     },
-    listApplications(){
+    listApplications() {
       let list = [];
-      Object.keys(this.optionApplications).forEach(function (key) {
+      Object.keys(this.optionApplications).forEach(function(key) {
         // do something with obj[key]
         list.push(key);
       });
@@ -305,7 +457,7 @@ export default {
     },
     optionGlazes() {
       return this.projects.reduce((acc, proj) => {
-        if(Array.isArray(proj.Glazes)){
+        if (Array.isArray(proj.Glazes)) {
           proj.Glazes.forEach(glaze => {
             (acc[glaze] = acc[glaze] || []).push(proj.ProjectID);
           });
@@ -313,61 +465,103 @@ export default {
         return acc;
       }, {});
     },
-    listGlazeCoatings(){
+    listGlazeCoatings() {
       let list = [];
-      Object.keys(this.optionGlazes).forEach(function (key) {
+      Object.keys(this.optionGlazes).forEach(function(key) {
         // do something with obj[key]
         list.push(key);
       });
-      
+
       // glazeColor glaze
       list = this.getArrayDiff(list, this.glazeColor);
       list = this.getArrayDiff(list, this.glazesOptions);
       return list.sort();
     },
+    optionExtColor() {
+      const apps = this.projects.reduce((acc, proj) => {
+        if (Array.isArray(proj.ExtColor)) {
+          proj.ExtColor.forEach(app => {
+            (acc[app] = acc[app] || []).push(proj.ProjectID);
+          });
+        }
+        return acc;
+      }, {});
+
+      return apps;
+    },
+    listExtColor() {
+      let list = [];
+      Object.keys(this.optionExtColor).forEach(function(key) {
+        // do something with obj[key]
+        list.push(key);
+      });
+      return list.sort();
+    },
+    optionIntColor() {
+      const apps = this.projects.reduce((acc, proj) => {
+        if (Array.isArray(proj.IntColor)) {
+          proj.IntColor.forEach(app => {
+            (acc[app] = acc[app] || []).push(proj.ProjectID);
+          });
+        }
+        return acc;
+      }, {});
+
+      return apps;
+    },
+    listIntColor() {
+      let list = [];
+      Object.keys(this.optionIntColor).forEach(function(key) {
+        // do something with obj[key]
+        list.push(key);
+      });
+      return list.sort();
+    },
     filteredResources() {
       // let proj = this.projects;
-      
-      let proj = this.projects.filter((project) => {
-        return project.Description.toLowerCase().includes(this.newSearch.toLowerCase());
+
+      let proj = this.projects.filter(project => {
+        return project.Description.toLowerCase().includes(
+          this.newSearch.toLowerCase()
+        );
       });
 
       let projFiltered = proj
-      // return this.projects
+        // return this.projects
         .filter(this.filterApplications)
         .filter(this.filterGlazes)
-        .filter(this.filterProducts)
-       
-      let projFilteredSorted =  projFiltered
-        .sort(function(a, b) {
-          return a.Date - b.Date
-        });
-      if(this.sortDirection === "asc"){
+        .filter(this.filterExtColor)
+        .filter(this.filterIntColor)
+        .filter(this.filterProducts);
+
+      let projFilteredSorted = projFiltered.sort(function(a, b) {
+        return a.Date - b.Date;
+      });
+      if (this.sortDirection === "asc") {
         projFilteredSorted = projFilteredSorted.reverse();
       }
       this.totalResults = projFilteredSorted.length;
       return projFilteredSorted.slice(0, this.loadNumber);
 
-
       // .filter(movie => movie.sessions.find(this.sessionPassesTimeFilter));
     }
   },
   created() {
-      this.$bus.$on("check-filter", checkFilter.bind(this));
+    this.$bus.$on("check-filter", checkFilter.bind(this));
   },
   mounted: function() {
-      var vueInstance = this;
-      var elem = document.getElementById('product-list-bottom');
-      var watcher = scrollMonitor.create(elem);
-      watcher.enterViewport(function(){
-          vueInstance.appendItems();
-      })
+    var vueInstance = this;
+    var elem = document.getElementById("product-list-bottom");
+    var watcher = scrollMonitor.create(elem);
+    watcher.enterViewport(function() {
+      vueInstance.appendItems();
+    });
   }
 };
 </script>
 
 <style scoped>
-h1 {
-  color: #000;
+pointer {
+  cursor: pointer;
 }
 </style>
