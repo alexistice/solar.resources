@@ -38,48 +38,99 @@
               <i v-bind:class="{ 'fas fa-plus': !showGlazes, 'fas fa-minus': showGlazes }"></i>
             </small>
           </div>
-          <check-filter  v-if="showGlazes" v-for="glaze in glazesOptions"  category="glazes" v-bind:name="glaze" v-bind:key="glaze"></check-filter>
-        </div>
+          <div v-if="showGlazes">
 
-        <hr class="my-2">
-        
-        <div class="d-flex flex-column">
-          <div class="d-flex justify-content-between align-items-center pointer" v-on:click="toggleGlazeColorsDisplay">
-            <strong>Glaze Colors</strong>
-            <small>
-              <i v-bind:class="{ 'fas fa-plus': !showGlazeColors, 'fas fa-minus': showGlazeColors }"></i>
-            </small>
-          </div>
-          <check-filter v-if="showGlazeColors" v-for="glaze in glazeColor"  category="glazes" v-bind:name="glaze" v-bind:key="glaze"></check-filter>
-        </div>
+            <check-filter   v-for="glaze in glazesOptions"  category="glazes" v-bind:name="glaze" v-bind:key="glaze"></check-filter>
 
-        <hr class="my-2">
-        
-        <div class="d-flex flex-column">
-          <div class="d-flex justify-content-between align-items-center pointer" v-on:click="toggleGlazeCoatingDisplay">
-            <strong>Glaze Coating</strong>
-            <small>
-              <i v-bind:class="{ 'fas fa-plus': !showGlazeCoating, 'fas fa-minus': showGlazeCoating }"></i>
-            </small>
+            <div class="d-flex justify-content-between align-items-center pointer pt-2" v-on:click="toggleGlazeColorsDisplay">
+              <strong style="font-size:.75em">Glaze Colors</strong>
+            </div>
+            <check-filter v-for="glaze in glazeColor"  category="glazes" v-bind:name="glaze" v-bind:key="glaze"></check-filter>
+
+            <div class="d-flex justify-content-between align-items-center pointer pt-2" v-on:click="toggleGlazeCoatingDisplay">
+              <strong style="font-size:.75em">Glaze Coating</strong>
+            </div>
+            <check-filter v-for="glaze in listGlazeCoatings"  category="glazes" v-bind:name="glaze" v-bind:key="glaze"></check-filter>          
+            
           </div>
-          <check-filter v-if="showGlazeCoating" v-for="glaze in listGlazeCoatings"  category="glazes" v-bind:name="glaze" v-bind:key="glaze"></check-filter>          
         </div>
 
         <hr class="my-2">
 
         <div class="d-flex flex-column">
           <div class="d-flex justify-content-between align-items-center pointer" v-on:click="toggleExtColorDisplay">
-            <strong>Exterior Color</strong>
+            <strong>Exterior</strong>
             <small>
               <i v-bind:class="{ 'fas fa-plus': !showExtColor, 'fas fa-minus': showExtColor }"></i>
             </small>
           </div>
-          <check-filter v-if="showExtColor" v-for="color in listExtColor" category="extColor" v-bind:name="color" v-bind:key="color"></check-filter>
+          
+          <div v-if="showExtColor" >
+            <div class="d-flex justify-content-between align-items-center pointer pt-2" v-on:click="toggleGlazeColorsDisplay">
+              <strong style="font-size:.75em">Materials</strong>
+            </div>
+            <check-filter v-for="material in materialOptions"  category="extColor" v-bind:name="material" v-bind:key="material"></check-filter>
+
+            <div class="d-flex justify-content-between align-items-center pointer pt-2" v-on:click="toggleGlazeColorsDisplay">
+              <strong style="font-size:.75em">Finishes</strong>
+            </div>
+            <check-filter v-for="finish in finishOptions"  category="extColor" v-bind:name="finish" v-bind:key="finish"></check-filter>
+
+            <div class="d-flex justify-content-between align-items-center pointer pt-2" v-on:click="toggleGlazeColorsDisplay">
+              <strong style="font-size:.75em">Standard Colors</strong>
+            </div>
+            <check-filter v-for="color in standardColors"  category="extColor" v-bind:name="color" v-bind:key="color"></check-filter>
+            
+            <div class="d-flex justify-content-between align-items-center pointer pt-2" v-on:click="toggleGlazeColorsDisplay">
+              <strong style="font-size:.75em">Standard Cladding</strong>
+            </div>
+            <check-filter v-for="option in claddingOptions"  category="extColor" v-bind:name="option" v-bind:key="option+'-clad'"></check-filter>
+
+            <div class="d-flex justify-content-between align-items-center pointer pt-2" v-on:click="toggleGlazeColorsDisplay">
+              <strong style="font-size:.75em">Custom Options</strong>
+            </div>
+            <check-filter v-for="color in listExtColor" category="extColor" v-bind:name="color" v-bind:key="color"></check-filter>
+          </div>
         </div>
 
         <hr class="my-2">
 
         <div class="d-flex flex-column">
+          <div class="d-flex justify-content-between align-items-center pointer" v-on:click="toggleIntColorDisplay">
+            <strong>Interior</strong>
+            <small>
+              <i v-bind:class="{ 'fas fa-plus': !showIntColor, 'fas fa-minus': showIntColor }"></i>
+            </small>
+          </div>
+          
+          <div v-if="showIntColor" >
+            <div class="d-flex justify-content-between align-items-center pointer pt-2" v-on:click="toggleGlazeColorsDisplay">
+              <strong style="font-size:.75em">Materials</strong>
+            </div>
+            <check-filter v-for="material in materialOptions"  category="intColor" v-bind:name="material" v-bind:key="material"></check-filter>
+
+            <div class="d-flex justify-content-between align-items-center pointer pt-2" v-on:click="toggleGlazeColorsDisplay">
+              <strong style="font-size:.75em">Finishes</strong>
+            </div>
+            <check-filter v-for="finish in finishOptions"  category="intColor" v-bind:name="finish" v-bind:key="finish"></check-filter>
+
+            <div class="d-flex justify-content-between align-items-center pointer pt-2" v-on:click="toggleGlazeColorsDisplay">
+              <strong style="font-size:.75em">Standard Colors</strong>
+            </div>
+            <check-filter v-for="color in standardColors"  category="intColor" v-bind:name="color" v-bind:key="color"></check-filter>
+            
+            <div class="d-flex justify-content-between align-items-center pointer pt-2" v-on:click="toggleGlazeColorsDisplay">
+              <strong style="font-size:.75em">Standard Cladding</strong>
+            </div>
+            <check-filter v-for="option in claddingOptions"  category="intColor" v-bind:name="option" v-bind:key="option+'-clad'"></check-filter>
+
+            <div class="d-flex justify-content-between align-items-center pointer pt-2" v-on:click="toggleGlazeColorsDisplay">
+              <strong style="font-size:.75em">Custom Options</strong>
+            </div>
+            <check-filter v-for="color in listIntColor" category="intColor" v-bind:name="color" v-bind:key="color"></check-filter>
+          </div>
+        </div>
+        <!-- <div class="d-flex flex-column">
           <div class="d-flex justify-content-between align-items-center pointer" v-on:click="toggleIntColorDisplay">
             <strong>Interior Color</strong>
             <small>
@@ -87,7 +138,7 @@
             </small>
           </div>
           <check-filter v-if="showIntColor" v-for="color in listIntColor" category="intColor" v-bind:name="color" v-bind:key="color"></check-filter>
-        </div>
+        </div> -->
 
         <hr class="my-2">
 
@@ -195,20 +246,21 @@ import SmallGridItem from "./SmallGridItem.vue";
 import LargeGridItem from "./LargeGridItem.vue";
 import { checkFilter } from "../util/bus";
 
-// const bus = new Vue();
-// Object.defineProperty(Vue.prototype, "$bus", {
-//   get() {
-//     return this.$root.bus;
-//   }
-// });
-
 export default {
   name: "Resources",
   data() {
     return {
       projects: projects,
       currentView: "list-item",
-      glazeColor: ["Clear", "White", "Bronze", "Gray", "Blue", "Green"],
+      glazeColor: [
+        "Custom Color",
+        "Clear",
+        "Blue",
+        "Bronze",
+        "Gray",
+        "Green",
+        "White"
+      ],
       glazesOptions: ["Glass", "Monolithic Glass", "Polycarbonate", "Tempered"],
       materialOptions: [
         "Aluminum",
@@ -222,44 +274,40 @@ export default {
         "AAMA 2603",
         "AAMA 2604",
         "AAMA 2605",
-        "Anodized",
+        "Class I Anodized",
         "Fluoropolymer",
         "Powder Coat"
       ],
       standardColors: [
         "Black",
-        "Natural Clay",
         "Bronze",
-        "White",
+        "Clear Anodized",
+        "Dark Bronze Anodized",
         "Green (Hartford)",
-        "Sandstone",
         "Mill Aluminum",
-        "Bronze (Dark)",
-        "Clear (Class I)"
+        "Natural Clay",
+        "Sandstone",
+        "White"
       ],
-      metalCladding: [
-        "Copper",
-        "Stainless Steel",
-        "Simulated Lead Coated Copper",
-        "Bronze"
-      ],
-      woodCladding: [
-        "White Oak",
-        "Red Oak",
-        "Hard Maple",
-        "White Ash",
+      claddingOptions: [
+        "Bronze",
         "Cherry",
+        "Copper",
         "Douglas Fir",
+        "Hard Maple",
+        "Red Oak",
         "Sapele Mahogany",
-        "Walnut"
+        "Simulated Lead Coated Copper",
+        "Stainless Steel",
+        "Walnut",
+        "White Ash",
+        "White Oak"
       ],
       showProducts: false,
       showApplications: false,
       showGlazes: false,
-      showGlazeColors: false,
-      showGlazeCoating: false,
-      showExtColor: true,
-      showIntColor: false,
+      showExtColor: false,
+      showIntColor: true,
       newSearch: "",
       lastSearch: "",
       sortDirection: "asc",
@@ -495,6 +543,10 @@ export default {
         // do something with obj[key]
         list.push(key);
       });
+      list = this.getArrayDiff(list, this.materialOptions);
+      list = this.getArrayDiff(list, this.finishOptions);
+      list = this.getArrayDiff(list, this.standardColors);
+      list = this.getArrayDiff(list, this.claddingOptions);
       return list.sort();
     },
     optionIntColor() {
@@ -515,6 +567,10 @@ export default {
         // do something with obj[key]
         list.push(key);
       });
+      list = this.getArrayDiff(list, this.materialOptions);
+      list = this.getArrayDiff(list, this.finishOptions);
+      list = this.getArrayDiff(list, this.standardColors);
+      list = this.getArrayDiff(list, this.claddingOptions);
       return list.sort();
     },
     filteredResources() {
