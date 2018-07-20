@@ -108,7 +108,7 @@
               <strong style="font-size:.75em">Materials</strong>
             </div>
             <check-filter v-for="material in materialOptions"  category="intColor" v-bind:name="material" v-bind:key="material"></check-filter>
-
+ 
             <div class="d-flex justify-content-between align-items-center pt-2">
               <strong style="font-size:.75em">Finishes</strong>
             </div>

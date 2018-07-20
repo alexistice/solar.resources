@@ -121,7 +121,7 @@ export default {
       // <img src="http://solar.localhost/wp-content/uploads/000_1163_500.jpg">
 
       //   var path = "/assets/images/project-gallery/";
-      var path = "http://solar.localhost/wp-content/uploads/";
+      var path = "https://solarinnovations.com/wp-content/uploads/";
       return path.concat(filename);
       // .concat("-")
       // .concat(num)

@@ -1,0 +1,34 @@
+
+pointer[data-v-c7b149ea] {
+  cursor: pointer;
+}
+.stately[data-v-c7b149ea] {
+    width: 500px;     
+    font-size: 500px; 
+    color: black;
+    background: none;
+}
+.shade-1[data-v-c7b149ea]{
+  color:#D8D8D8;
+}
+.shade-2[data-v-c7b149ea]{
+  color:#989898;
+}
+.shade-3[data-v-c7b149ea]{
+  color:#808080;
+}
+.shade-4[data-v-c7b149ea]{
+  color:#686868;
+}
+.shade-5[data-v-c7b149ea]{
+  color:#383838;
+}
+
+pointer[data-v-3f99a286]{
+    cursor: pointer;
+}
+
+h1[data-v-df221e22] {color: blue
+}
+
+/*# sourceMappingURL=vue.css.map*/

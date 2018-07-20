@@ -63,7 +63,7 @@ minify_html: false
 
 markdown: kramdown
 source: src
-destination: dist
+destination: docs
 plugins:
   - jekyll-feed
   - jekyll-toc

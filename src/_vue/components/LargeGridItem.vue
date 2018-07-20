@@ -42,7 +42,7 @@ export default {
   props: ["resource"],
   methods: {
     imgUrlFormat: function(filename) {
-      var path = "http://solar.localhost/wp-content/uploads/";
+      var path = "https://solarinnovations.com/wp-content/uploads/";
       return path
         .concat(filename);
     }
