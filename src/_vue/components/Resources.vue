@@ -140,7 +140,17 @@
               <i v-bind:class="{ 'fas fa-plus': !showLocations, 'fas fa-minus': showLocations }"></i>
             </small>
           </div>
-          <check-filter v-if="showLocations" v-for="loc in listLocation" category="locations" v-bind:name="loc" v-bind:key="loc"></check-filter>
+          <div v-if="showLocations">
+            <div class="mb-1 d-flex justify-content-between align-items-center pt-2">
+              <strong style="font-size:.75em">International</strong>
+            </div>
+            <check-filter v-for="loc in internatinalOptions" category="locations" v-bind:name="loc" v-bind:key="loc"></check-filter>
+
+            <div class="mb-1 d-flex justify-content-between align-items-center pt-2">
+              <strong style="font-size:.75em">Domestic</strong>
+            </div>
+            <check-filter v-for="loc in listLocation" category="locations" v-bind:name="loc" v-bind:key="loc"></check-filter>
+          </div>
         </div>
         
         <hr class="my-2">
@@ -436,6 +446,10 @@ export default {
         "White Ash",
         "White Oak"
       ],
+      internatinalOptions: [
+        "Europe",
+        "Canada"
+      ],
       showMap: false,
       showProducts: false,
       showApplications: false,
@@ -443,9 +457,9 @@ export default {
       showExtColor: false,
       showIntColor: false,
       showLocations: false,
-      showWidths: true,
-      showLengthProjections: true,
-      showRidgeHeights: true,
+      showWidths: false,
+      showLengthProjections: false,
+      showRidgeHeights: false,
       newSearch: "",
       lastSearch: "",
       sortDirection: "asc",
@@ -768,6 +782,7 @@ export default {
       Object.keys(this.optionLocation).forEach(function(key) {
         list.push(key);
       });
+      list = this.getArrayDiff(list, this.internatinalOptions);
       return list.sort();
     },
     optionWidth() {
