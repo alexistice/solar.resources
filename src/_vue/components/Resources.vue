@@ -155,7 +155,7 @@
         
         <hr class="my-2">
 
-        <div class="d-flex flex-column">
+        <!-- <div class="d-flex flex-column">
           <div class="d-flex justify-content-between align-items-center pointer" v-on:click="toggleWidthsDisplay">
             <strong>Width</strong>
             <small>
@@ -222,7 +222,7 @@
           </div>
         </div>
 
-        <hr class="my-2">
+        <hr class="my-2"> -->
 
 
       </div> 
