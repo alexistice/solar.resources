@@ -1866,7 +1866,8 @@
     ,"Products":[
       { "ProductName": "Architectural Enhancement", "GeoType1": ["Transom"], "GeoType2": [] },
       { "ProductName": "Decorative Elements", "GeoType1": ["Base Panels", "Column", "Grids", "Gutter"], "GeoType2": [] },
-      { "ProductName": "Door", "GeoType1": ["In-System French Door", "Ridge Vent", "Gable End"], "GeoType2": [] }
+      { "ProductName": "Door", "GeoType1": ["In-System French Door"], "GeoType2": [] },
+      { "ProductName": "Conservatory", "GeoType1": [ "Ridge Vent", "Gable End"], "GeoType2": [] }
     ]
     ,"Description":"Straight eave pyramid-roofed conservatory in Hartford Green Duracron. Accessories include 8 residential french doors, 16 decorative base panels with traditional grids, 20 decorative rosette appliques, and 16 decorative columns. Glazing is 366 Sol-I-Guard."
     ,"Image1":"kramer_penthouse_010708-11_500x281.jpg"
@@ -7308,7 +7309,7 @@
     "ProjectID":"07-10-010"
     ,"Date":200710010
     ,"Products":[
-      { "ProductName": "Door", "GeoType1": ["Ridge Vent", "Gable End"], "GeoType2": [] }
+      { "ProductName": "Door", "GeoType1": [], "GeoType2": [] }
     ]
     ,"Description":"Outswing french door with standard black hardware including butt hinges mortise lock with deadbolt lever handle with interior sdl s and exterior low profile grids."
     ,"Image1":"Storefront-Doors.jpg"

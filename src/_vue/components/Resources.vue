@@ -17,16 +17,20 @@
           <check-filter v-if="showProducts" v-for="prod in listProducts" category="products" v-bind:name="prod" v-bind:key="prod"></check-filter>
         </div>
 
-        <hr class="my-2">
+        <hr class="my-2" v-if="products.length">
         
-        <div class="d-flex flex-column">        
+        <div class="d-flex flex-column" v-if="products.length">        
           <div class="d-flex justify-content-between align-items-center pointer" v-on:click="toggleFeaturesDisplay">
             <strong>Features</strong>
             <small>
               <i v-bind:class="{ 'fas fa-plus': !showFeatures, 'fas fa-minus': showFeatures }"></i>
             </small>
           </div>
-          <check-filter v-if="showFeatures" v-for="feature in listFeatures" category="geoType1" v-bind:name="feature" v-bind:key="feature"></check-filter>
+          <div v-if="showFeatures" v-for="product in listProducts" v-bind:key="product">
+            <strong style="font-size:.75em">{{ product }}</strong>
+            <check-filter  v-for="feature in optionFeatureGroups[product]" category="geoType1" v-bind:name="feature" v-bind:key="feature"></check-filter>
+          </div>
+          <!-- <check-filter v-if="showFeatures" v-for="feature in listFeatures" category="geoType1" v-bind:name="feature" v-bind:key="feature"></check-filter> -->
         </div>
 
         <hr class="my-2">
@@ -648,16 +652,20 @@ export default {
           proj.Products.forEach(product => {
             if (Array.isArray(product.GeoType1)) {
               product.GeoType1.forEach(feature => {
-                (acc[product.ProductName] = acc[product.ProductName] || []).push(
-                  feature
-                );
+                if(acc[product.ProductName] = acc[product.ProductName]){
+                  if(acc[product.ProductName].indexOf(feature)==-1){
+                    acc[product.ProductName].push(feature);
+                  }
+                }else{
+                  acc[product.ProductName] = [];
+                }
               });
             }
           });
         }
         return acc;
       }, {});
-
+      
       return ret;
     },
     optionFeatures() {
