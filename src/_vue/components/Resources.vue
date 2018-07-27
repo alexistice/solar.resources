@@ -18,6 +18,18 @@
         </div>
 
         <hr class="my-2">
+        
+        <div class="d-flex flex-column">        
+          <div class="d-flex justify-content-between align-items-center pointer" v-on:click="toggleFeaturesDisplay">
+            <strong>Features</strong>
+            <small>
+              <i v-bind:class="{ 'fas fa-plus': !showFeatures, 'fas fa-minus': showFeatures }"></i>
+            </small>
+          </div>
+          <check-filter v-if="showFeatures" v-for="feature in listFeatures" category="geoType1" v-bind:name="feature" v-bind:key="feature"></check-filter>
+        </div>
+
+        <hr class="my-2">
 
         <div class="d-flex flex-column">
           <div class="d-flex justify-content-between align-items-center pointer" v-on:click="toggleApplicationsDisplay">
@@ -154,8 +166,6 @@
         </div>
         
         <hr class="my-2">
-
-
 
       </div> 
         
@@ -384,6 +394,7 @@ export default {
       ],
       showMap: false,
       showProducts: false,
+      showFeatures: true,
       showApplications: false,
       showGlazes: false,
       showExtColor: false,
@@ -399,6 +410,7 @@ export default {
       glazes: [],
       products: [],
       geoType1: [],
+      geoType2: [],
       extColor: [],
       intColor: [],
       locations: [],
@@ -422,6 +434,9 @@ export default {
     },
     toggleProductsDisplay() {
       this.showProducts = !this.showProducts;
+    },
+    toggleFeaturesDisplay() {
+      this.showFeatures = !this.showFeatures;
     },
     toggleApplicationsDisplay() {
       this.showApplications = !this.showApplications;
@@ -505,6 +520,27 @@ export default {
         //   }
         // });
         // return matched;
+      }
+    },
+    filterFeatures(proj) {
+      if (!this.geoType1.length) {
+        return true;
+      } else {
+        let projProducts = proj.Products;
+        let matched = [];
+        projProducts.forEach(products => {
+          // console.log(this.geoType1[0]);
+          products.GeoType1.forEach(feature => {
+            if(this.geoType1.includes(feature)){
+              matched.push(true);
+            }
+          });
+        });
+        if(matched.length != this.geoType1.length){
+          return false;
+        }else{
+          return true;
+        }
       }
     },
     filterApplications(proj) {
@@ -602,7 +638,49 @@ export default {
     listProducts() {
       let list = [];
       Object.keys(this.optionProducts).forEach(function(key) {
-        // do something with obj[key]
+        list.push(key);
+      });
+      return list.sort();
+    },
+    optionFeatureGroups() {
+      const ret = this.projects.reduce((acc, proj) => {
+        if (Array.isArray(proj.Products)) {
+          proj.Products.forEach(product => {
+            if (Array.isArray(product.GeoType1)) {
+              product.GeoType1.forEach(feature => {
+                (acc[product.ProductName] = acc[product.ProductName] || []).push(
+                  feature
+                );
+              });
+            }
+          });
+        }
+        return acc;
+      }, {});
+
+      return ret;
+    },
+    optionFeatures() {
+      const ret = this.projects.reduce((acc, proj) => {
+        if (Array.isArray(proj.Products)) {
+          proj.Products.forEach(product => {
+            if (Array.isArray(product.GeoType1)) {
+              product.GeoType1.forEach(feature => {
+                (acc[feature] = acc[feature] || []).push(
+                  proj.ProjectID
+                );
+              });
+            }
+          });
+        }
+        return acc;
+      }, {});
+
+      return ret;
+    },
+    listFeatures() {
+      let list = [];
+      Object.keys(this.optionFeatures).forEach(function(key) {
         list.push(key);
       });
       return list.sort();
@@ -717,44 +795,6 @@ export default {
       list = this.getArrayDiff(list, this.internatinalOptions);
       return list.sort();
     },
-    optionWidth() {
-      const apps = this.projects.reduce((acc, proj) => {
-        if (proj.Width !== "-") {
-          // proj.Application.forEach(app => {
-            (acc[proj.Width] = acc[proj.Width] || []).push(proj.ProjectID);
-          // });
-        }
-        return acc;
-      }, {});
-
-      return apps;
-    },
-    listWidth() {
-      let list = [];
-      Object.keys(this.optionWidth).forEach(function(key) {
-        list.push(key);
-      });
-      return list.sort();
-    },
-    optionRidgeHeight() {
-      const apps = this.projects.reduce((acc, proj) => {
-        if (proj.RidgeHeight !== "-") {
-          // proj.Application.forEach(app => {
-            (acc[proj.RidgeHeight] = acc[proj.RidgeHeight] || []).push(proj.ProjectID);
-          // });
-        }
-        return acc;
-      }, {});
-
-      return apps;
-    },
-    listRidgeHeight() {
-      let list = [];
-      Object.keys(this.optionRidgeHeight).forEach(function(key) {
-        list.push(key);
-      });
-      return list.sort();
-    },
     filteredResources() {
       let proj = this.projects;
 
@@ -786,6 +826,7 @@ export default {
         .filter(this.filterExtColor)
         .filter(this.filterIntColor)
         .filter(this.filterLocations)
+        .filter(this.filterFeatures)
         .filter(this.filterProducts);
 
       let projFilteredSorted = projFiltered.sort(function(a, b) {

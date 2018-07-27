@@ -48,7 +48,7 @@
     ,"Date":200701020
     ,"Products":[
       { "ProductName": "Decorative Elements", "GeoType1": ["Grids", "SDLs"], "GeoType2": "" }, 
-      { "ProductName": "Door", "GeoType1": null, "GeoType2": "" },
+      { "ProductName": "Door", "GeoType1": [], "GeoType2": [] },
       { "ProductName": "Folding Glass Wall", "GeoType1": [ "Windows" ], "GeoType2": "250-500 SQF. Glass,All Wall" },
       { "ProductName": "Window", "GeoType1": [ "Folding" ], "GeoType2": "51-100 SQF. Glass" }
     ]
@@ -179,7 +179,7 @@
     "ProjectID":"05-03-035"
     ,"Date":200503035
     ,"Products":[
-      { "ProductName": "Architectural Enhancement", "GeoType1": ["Eave Vent,Ridge Vent"], "GeoType2": ["250-500 SQF. Glass"] },
+      { "ProductName": "Architectural Enhancement", "GeoType1": ["Eave Vent", "Ridge Vent"], "GeoType2": ["250-500 SQF. Glass"] },
       { "ProductName": "Decorative Elements", "GeoType1": ["Ridge Cresting"], "GeoType2": [] },
       { "ProductName": "Greenhouse", "GeoType1": ["Straight Eave Double Pitch"], "GeoType2": ["1001-2000+ SQF. Glass", "1 SQF. Glass", "Restoration System"] },
       { "ProductName": "Greenhouse Accessory", "GeoType1": ["Storage"], "GeoType2": ["Metal Mesh Top Bench"] }
@@ -430,7 +430,7 @@
     "ProjectID":"05-08-044"
     ,"Date":200508044
     ,"Products":[
-      { "ProductName": "Architectural Enhancement", "GeoType1": ["Lantern,Transom"], "GeoType2": ["51-100 SQF. Glass"] },
+      { "ProductName": "Architectural Enhancement", "GeoType1": ["Lantern", "Transom"], "GeoType2": ["51-100 SQF. Glass"] },
       { "ProductName": "Conservatory", "GeoType1": ["Irregular / Custom"], "GeoType2": ["501-750 SQF. Glass", "Urban / High Rise"] },
       { "ProductName": "Decorative Elements", "GeoType1": ["Finials", "Ridge Cresting"], "GeoType2": ["Traditional Grid"] }
     ]
@@ -630,7 +630,7 @@
     ,"Products":[
       { "ProductName": "Architectural Enhancement", "GeoType1": [ "Gable End", "Ridge Vent" ], "GeoType2": [] }, 
       { "ProductName": "Door", "GeoType1": [  ], "GeoType2": [] },
-      { "ProductName": "Sunroom", "GeoType1": [ "Hip End,Straight Eave Lean-To" ], "GeoType2": ["250-500 SQF. Glass"] }
+      { "ProductName": "Sunroom", "GeoType1": [ "Hip End", "Straight Eave Lean-To" ], "GeoType2": ["250-500 SQF. Glass"] }
     ]
     ,"Description":"Straight eave lean to enclosure with a 90 corner on 1 side and attaching to a hip valley structure with 2 partial gable ends."
     ,"Image1":"IMG_1101_500x375.jpg"
@@ -1011,7 +1011,7 @@
     "ProjectID":"10-12-218"
     ,"Date":201012218
     ,"Products":[
-      { "ProductName": "Architectural Enhancement", "GeoType1": ["Eave Vent,Ridge Vent"], "GeoType2": [] },
+      { "ProductName": "Architectural Enhancement", "GeoType1": ["Eave Vent", "Ridge Vent"], "GeoType2": [] },
       { "ProductName": "Door", "GeoType1": [], "GeoType2": [] },
       { "ProductName": "Greenhouse", "GeoType1": ["Straight Eave Lean-To"], "GeoType2": ["501-750 SQF. Glass"] }
     ]
@@ -1499,7 +1499,7 @@
     ,"Date":200904378
     ,"Products":[
       { "ProductName": "Architectural Enhancement", "GeoType1": ["Dormers"], "GeoType2": [] },
-      { "ProductName": "Skylight", "GeoType1": ["Straight Eave Lean To"], "GeoType2": ["250-500 SQF. Glass"] }
+      { "ProductName": "Skylight", "GeoType1": ["Straight Eave Lean-To"], "GeoType2": ["250-500 SQF. Glass"] }
     ]
     ,"Description":"Straight eave lean to skylight with a straight eave double pitch dormer and ridge vents."
     ,"Image1":"greenburg_080909-20_500x375.jpg"
@@ -1800,7 +1800,7 @@
     ,"Date":200408012
     ,"Products":[
       { "ProductName": "Operable / Retractable Skylights", "GeoType1": ["Operable Skylight"], "GeoType2": ["100-250 SQF. Glass"] },
-      { "ProductName": "Pool Enclosure", "GeoType1": ["Irregular / Custom,Staright Eave Lean-To"], "GeoType2": ["100-250 SQF. Glass"] }
+      { "ProductName": "Pool Enclosure", "GeoType1": ["Irregular / Custom", "Straight Eave Lean-To"], "GeoType2": ["100-250 SQF. Glass"] }
     ]
     ,"Description":"Straight eave, lean-to pool enclosure with five retractable roof panels."
     ,"Image1":"IMG_2626_500x375.jpg"
@@ -1841,7 +1841,7 @@
     "ProjectID":"08-09-045"
     ,"Date":200809045
     ,"Products":[
-      { "ProductName": "Architectural Enhancement", "GeoType1": ["Dormers,Entryway / Vestibule"], "GeoType2": [] },
+      { "ProductName": "Architectural Enhancement", "GeoType1": ["Dormers", "Entryway / Vestibule"], "GeoType2": [] },
       { "ProductName": "Decorative Elements", "GeoType1": ["Ridge Cresting", "SDLs"], "GeoType2": [] },
       { "ProductName": "Door", "GeoType1": [], "GeoType2": [] },
       { "ProductName": "Sunroom", "GeoType1": ["Straight Eave Lean-To"], "GeoType2": ["100-250 SQF. Glass"] }
@@ -2444,7 +2444,7 @@
     ,"Date":200508020
     ,"Products":[
       { "ProductName": "Door", "GeoType1": [], "GeoType2": [] },
-      { "ProductName": "Pool Enclosure", "GeoType1": ["Staright Eave Lean-To"], "GeoType2": ["250-500 SQF. Glass"] },
+      { "ProductName": "Pool Enclosure", "GeoType1": ["Straight Eave Lean-To"], "GeoType2": ["250-500 SQF. Glass"] },
       { "ProductName": "Window", "GeoType1": ["Projected"], "GeoType2": ["0-50 SQF. Glass"] }
     ]
     ,"Description":"Straight eave, lean-to pool enclosure with awning windows and French doors"
@@ -2465,7 +2465,7 @@
     "ProjectID":"07-12-016"
     ,"Date":200712016
     ,"Products":[
-      { "ProductName": "Decorative Elements", "GeoType1": ["Finials,Ridge Cresting"], "GeoType2": [] },
+      { "ProductName": "Decorative Elements", "GeoType1": ["Finials", "Ridge Cresting"], "GeoType2": [] },
       { "ProductName": "Greenhouse", "GeoType1": ["Straight Eave Double Pitch"], "GeoType2": ["1001-2000+ SQF. Glass", "1 SQF. Glass"] },
       { "ProductName": "Greenhouse Accessory", "GeoType1": ["Storage"], "GeoType2": ["Cold Frames,Rolling Bench"] }
     ]
@@ -2529,7 +2529,7 @@
     ,"Date":201111171
     ,"Products":[
       { "ProductName": "Polycarbonate", "GeoType1": [ "Poly Pool Enclosure" ], "GeoType2": [  ] },
-      { "ProductName": "Pool Enclosure", "GeoType1": [ "Staright Eave Lean-To" ], "GeoType2": [ "250-500 SQF. Glass" ] }
+      { "ProductName": "Pool Enclosure", "GeoType1": [ "Straight Eave Lean-To" ], "GeoType2": [ "250-500 SQF. Glass" ] }
     ]
     ,"Description":"Straight eave, lean-to lap pool enclosure."
     ,"Image1":"hutchins_edited_500x375.jpg"
@@ -2899,7 +2899,7 @@
     "ProjectID":"04-02-002"
     ,"Date":200402002
     ,"Products":[
-      { "ProductName": "Skylight", "GeoType1": ["Single Slope", "Straight Eave Lean To"], "GeoType2": ["100-250 SQF. Glass"] }
+      { "ProductName": "Skylight", "GeoType1": ["Single Slope", "Straight Eave Lean-To"], "GeoType2": ["100-250 SQF. Glass"] }
     ]
     ,"Description":"Straight eave lean to single slope with no gable ends."
     ,"Image1":"39-1-20-06_0004-2_500x333.jpg"
@@ -2919,7 +2919,7 @@
     "ProjectID":"05-08-017"
     ,"Date":200508017
     ,"Products":[
-      { "ProductName": "Skylight", "GeoType1": ["Single Slope", "Straight Eave Lean To"], "GeoType2": ["250-500 SQF. Glass"] }
+      { "ProductName": "Skylight", "GeoType1": ["Single Slope", "Straight Eave Lean-To"], "GeoType2": ["250-500 SQF. Glass"] }
     ]
     ,"Description":"Commercial L shaped, single slope skylight."
     ,"Image1":"DSCN4966_touchup-2_500x375.jpg"
@@ -2939,7 +2939,7 @@
     "ProjectID":"05-06-029"
     ,"Date":200506029
     ,"Products":[
-      { "ProductName": "Operable / Retractable Skylights", "GeoType1": ["In System"], "GeoType2": ["0-50 SQF. Glass"] },
+      { "ProductName": "Operable / Retractable Skylights", "GeoType1": [], "GeoType2": ["0-50 SQF. Glass"] },
       { "ProductName": "Skylight", "GeoType1": ["Irregular / Custom", "Single Slope"], "GeoType2": [] }
     ]
     ,"Description":"Operable skylight with a manual hatch and one gable end."
@@ -3003,7 +3003,7 @@
     ,"Date":200604044
     ,"Products":[
       { "ProductName": "Decorative Elements", "GeoType1": ["Gutter", "Ring and Collar Ties"], "GeoType2": [] },
-      { "ProductName": "Screen", "GeoType1": ["Sliding,Stacking"], "GeoType2": ["Manual,Roller Screens"] }
+      { "ProductName": "Screen", "GeoType1": ["Sliding", "Stacking"], "GeoType2": ["Manual", "Roller Screens"] }
     ]
     ,"Description":"Multi-Track Sliding Stacking Screen System with no pocket, top load 3 panels sliding left (OXXX) as viewed from the outside, standard sill, Sliding screen system with gray fiberglass screen all hardware to be black"
     ,"Image1":"unedited-sliding-door-possible-Orr-Lake_500x375.jpg"
@@ -3194,7 +3194,7 @@
     ,"Date":200411041
     ,"Products":[
       { "ProductName": "Conservatory", "GeoType1": ["Straight Eave Double Pitch"], "GeoType2": ["250-500 SQF. Glass"] },
-      { "ProductName": "Decorative Elements", "GeoType1": ["Finials,Ridge Cresting"], "GeoType2": [] },
+      { "ProductName": "Decorative Elements", "GeoType1": ["Finials", "Ridge Cresting"], "GeoType2": [] },
       { "ProductName": "Hobby Greenhouse", "GeoType1": ["Straight Eave Double Pitch"], "GeoType2": [] },
       { "ProductName": "Sunroom", "GeoType1": ["Straight Eave Double Pitch"], "GeoType2": [] }
     ]
@@ -3554,7 +3554,7 @@
     "ProjectID":"10-02-437"
     ,"Date":201002437
     ,"Products":[
-      { "ProductName": "Pivot", "GeoType1": ["Door", "Curved Barrel VaultTransom"], "GeoType2": [] }
+      { "ProductName": "Pivot", "GeoType1": ["Door", "Curved Barrel Vault", "Transom"], "GeoType2": [] }
     ]
     ,"Description":"Pivot Door for Residential Use in Florida"
     ,"Image1":"DSC_0402_500.jpg"
@@ -3574,7 +3574,7 @@
     "ProjectID":"11-08-428"
     ,"Date":201108428
     ,"Products":[
-      { "ProductName": "Operable / Retractable Skylights", "GeoType1": ["Lantern", "0 Degree Operable"], "GeoType2": ["100-250 SQF. Glass", "Hand Pump", "Hydraulic Operation", "Manual"] }
+      { "ProductName": "Operable / Retractable Skylights", "GeoType1": ["Lantern", "90 Degree Operable"], "GeoType2": ["100-250 SQF. Glass", "Hand Pump", "Hydraulic Operation", "Manual"] }
     ]
     ,"Description":"Operable 90 degree skylight used for ecclesiastical purposes."
     ,"Image1":"500_1.jpg"
@@ -3594,7 +3594,7 @@
     "ProjectID":"11-01-119"
     ,"Date":201101119
     ,"Products":[
-      { "ProductName": "Operable / Retractable Skylights", "GeoType1": ["90 Degree Operable,Operable Skylight,Retractable Skylight / Roof"], "GeoType2": ["51-100 SQF. Glass", "Hydraulic Operation", "Manual"] }
+      { "ProductName": "Operable / Retractable Skylights", "GeoType1": ["90 Degree Operable", "Operable Skylight", "Retractable Skylight / Roof"], "GeoType2": ["51-100 SQF. Glass", "Hydraulic Operation", "Manual"] }
     ]
     ,"Description":"Operable Succah Skylight located in New York and used for Ecclesiastical purposes"
     ,"Image1":"Skylighttouchup_5001.jpg"
@@ -3963,7 +3963,7 @@
     "ProjectID":"11-12-125"
     ,"Date":201112125
     ,"Products":[
-      { "ProductName": "Decorative Elements", "GeoType1": [ "Finials,Ridge Cresting" ], "GeoType2": [] },
+      { "ProductName": "Decorative Elements", "GeoType1": [ "Finials", "Ridge Cresting" ], "GeoType2": [] },
       { "ProductName": "Door", "GeoType1": [ "In-System French Door" ], "GeoType2": [] }, 
       { "ProductName": "Greenhouse", "GeoType1": [ "Straight Eave Double Pitch" ], "GeoType2": [ "250-500 SQF. Glass" ] },
       { "ProductName": "Hobby Greenhouse", "GeoType1": [ "Straight Eave Double Pitch" ], "GeoType2": [  ] }
@@ -4007,7 +4007,7 @@
     ,"Date":200706056
     ,"Products":[
       { "ProductName": "Folding Glass Wall", "GeoType1": ["Door"], "GeoType2": ["Split Wall No Floating Jamb"] },
-      { "ProductName": "Pool Enclosure", "GeoType1": ["Staright Eave Lean-To"], "GeoType2": ["2000+ SQF. Glass"] }
+      { "ProductName": "Pool Enclosure", "GeoType1": ["Straight Eave Lean-To"], "GeoType2": ["2000+ SQF. Glass"] }
     ]
     ,"Description":"Straight eave lean-to pool enclosure with partial gable end, one filler gable end, ridge line connection, and attached straight eave lean-to. Includes operable ridge vents, a multiple track sliding glass door, and a split wall folding glass wall."
     ,"Image1":"rouse1.jpg"
@@ -4027,7 +4027,7 @@
     "ProjectID":"05-08-043"
     ,"Date":200508043
     ,"Products":[
-      { "ProductName": "Architectural Enhancement", "GeoType1": ["Eave Vent,Ridge Vent"], "GeoType2": [] },
+      { "ProductName": "Architectural Enhancement", "GeoType1": ["Eave Vent", "Ridge Vent"], "GeoType2": [] },
       { "ProductName": "Door", "GeoType1": [], "GeoType2": [] },
       { "ProductName": "Greenhouse", "GeoType1": ["Hip End", "Irregular / Custom", "Straight Eave Double Pitch"], "GeoType2": ["2000+ SQF. Glass"] },
       { "ProductName": "Shades", "GeoType1": ["Interior Folding / Roman Pleated", "Interior Operable"], "GeoType2": [] }
@@ -4050,7 +4050,7 @@
     "ProjectID":"07-05-044"
     ,"Date":200705044
     ,"Products":[
-      { "ProductName": "Skylight", "GeoType1": ["Straight Eave Lean To"], "GeoType2": ["501-750 SQF. Glass"] }
+      { "ProductName": "Skylight", "GeoType1": ["Straight Eave Lean-To"], "GeoType2": ["501-750 SQF. Glass"] }
     ]
     ,"Description":"Straight-eave lean to skylight in application at a Condo complex."
     ,"Image1":"2012/08/sl_stasaph1.jpg"
@@ -4389,7 +4389,7 @@
     "ProjectID":"08-04-154"
     ,"Date":200804154
     ,"Products":[
-      { "ProductName": "Architectural Enhancement", "GeoType1": ["Ridge Vent,Transom"], "GeoType2": [] },
+      { "ProductName": "Architectural Enhancement", "GeoType1": ["Ridge Vent", "Transom"], "GeoType2": [] },
       { "ProductName": "Conservatory", "GeoType1": ["Conservatory Nose"], "GeoType2": ["2000+ SQF. Glass"] },
       { "ProductName": "Decorative Elements", "GeoType1": ["Gutter", "Ring and Collar Ties"], "GeoType2": ["Low Profile Grid", "Traditional Grid"] },
       { "ProductName": "Door", "GeoType1": ["In-System French Door"], "GeoType2": [] }
@@ -4718,7 +4718,7 @@
     "ProjectID":"07-03-026"
     ,"Date":200703026
     ,"Products":[
-      { "ProductName": "Pool Enclosure", "GeoType1": ["Staright Eave Lean-To"], "GeoType2": ["751-1000 SQF. Glass"] }
+      { "ProductName": "Pool Enclosure", "GeoType1": ["Straight Eave Lean-To"], "GeoType2": ["751-1000 SQF. Glass"] }
     ]
     ,"Description":"Straight eave, lean-to pool enclosure with structural aluminum trusses, sliding doors and sliding windows"
     ,"Image1":"wolf1.jpg"
@@ -5333,7 +5333,7 @@
     "ProjectID":"11-05-132"
     ,"Date":201105132
     ,"Products":[
-      { "ProductName": "Architectural Enhancement", "GeoType1": ["Eave Vent,Ridge Vent"], "GeoType2": [] },
+      { "ProductName": "Architectural Enhancement", "GeoType1": ["Eave Vent", "Ridge Vent"], "GeoType2": [] },
       { "ProductName": "Greenhouse", "GeoType1": ["Straight Eave Double Pitch"], "GeoType2": ["1001-2000+ SQF. Glass", "1 SQF. Glass"] },
       { "ProductName": "Greenhouse Accessory", "GeoType1": ["Greenhouse Benches", "Light Control", "Storage", "Temperature Control"], "GeoType2": ["Black Polyethylene (Plastic) Mesh Top Bench", "Grow Lights", "Metal Mesh Top Bench"] }
     ]
@@ -5355,7 +5355,7 @@
     "ProjectID":"10-11-307"
     ,"Date":201011307
     ,"Products":[
-      { "ProductName": "Architectural Enhancement", "GeoType1": ["Eave Vent,Ridge Vent"], "GeoType2": [] },
+      { "ProductName": "Architectural Enhancement", "GeoType1": ["Eave Vent", "Ridge Vent"], "GeoType2": [] },
       { "ProductName": "Curtain Wall", "GeoType1": ["Vertical Curtain Wall"], "GeoType2": [] },
       { "ProductName": "Door", "GeoType1": ["Commercial Terrace & French Doors"], "GeoType2": [] },
       { "ProductName": "Greenhouse", "GeoType1": ["Straight Eave Lean-To"], "GeoType2": ["751-1000 SQF. Glass"] }
@@ -5401,7 +5401,7 @@
       { "ProductName": "Complete Glazing Packages", "GeoType1": ["Complete Glazing Packages"], "GeoType2": [] },
       { "ProductName": "Curtain Wall", "GeoType1": ["Vertical Curtain Wall"], "GeoType2": ["51-100 SQF. Glass"] },
       { "ProductName": "Door", "GeoType1": ["In-System Terrace Door"], "GeoType2": [] },
-      { "ProductName": "Folding Glass Wall", "GeoType1": ["Door,Windows"], "GeoType2": ["100-250 SQF. Glass"] },
+      { "ProductName": "Folding Glass Wall", "GeoType1": ["Door", "Windows"], "GeoType2": ["100-250 SQF. Glass"] },
       { "ProductName": "Decorative Elements", "GeoType1": ["Grids"], "GeoType2": [] }
     ]
     ,"Description":"Numerous Thermal Vertical Systems including folding glass walls, dual track sliding glass doors, terrace doors, and windows."
@@ -5492,7 +5492,7 @@
       { "ProductName": "Architectural Enhancement", "GeoType1": ["Ridge Vent"], "GeoType2": [] },
       { "ProductName": "Greenhouse Accessory", "GeoType1": ["Storage", "Temperature Control"], "GeoType2": ["Drip Misting System", "Metal Mesh Top Bench"] },
       { "ProductName": "Hobby Greenhouse", "GeoType1": ["Straight Eave Lean-To"], "GeoType2": ["250-500 SQF. Glass"] },
-      { "ProductName": "Skylight", "GeoType1": ["Single Slope", "Straight Eave Lean To"], "GeoType2": [] }
+      { "ProductName": "Skylight", "GeoType1": ["Single Slope", "Straight Eave Lean-To"], "GeoType2": [] }
     ]
     ,"Description":"Straight eave lean-to greenhouse/skylight with two gable ends utilizing a slope sill member."
     ,"Image1":"Molloy1.jpg"
@@ -5833,7 +5833,7 @@
     ,"Date":200912002
     ,"Products":[
       { "ProductName": "Door", "GeoType1": ["Commercial Terrace & French Doors", "In-System French Door"], "GeoType2": [] },
-      { "ProductName": "Folding Glass Wall", "GeoType1": ["Door,Windows"], "GeoType2": ["250-500 SQF. Glass", "All Wall"] },
+      { "ProductName": "Folding Glass Wall", "GeoType1": ["Door", "Windows"], "GeoType2": ["250-500 SQF. Glass", "All Wall"] },
       { "ProductName": "Window", "GeoType1": ["Folding"], "GeoType2": [] }
     ]
     ,"Description":"Four folding glass wall systems and entry doors enclosing restaurant."
@@ -6241,7 +6241,7 @@
     "ProjectID":"08-05-137"
     ,"Date":200805137
     ,"Products":[
-      { "ProductName": "Conservatory", "GeoType1": ["Conservatory Nose,Irregular / Custom"], "GeoType2": ["501-750 SQF. Glass"] },
+      { "ProductName": "Conservatory", "GeoType1": ["Conservatory Nose", "Irregular / Custom"], "GeoType2": ["501-750 SQF. Glass"] },
       { "ProductName": "Decorative Elements", "GeoType1": ["Gutter"], "GeoType2": ["Downspouts"] },
       { "ProductName": "Greenhouse", "GeoType1": ["Conservatory Nose", "Irregular / Custom"], "GeoType2": ["501-750 SQF. Glass"] },
       { "ProductName": "Sliding Door", "GeoType1": ["Door"], "GeoType2": ["Dual Track"] }
@@ -6333,7 +6333,7 @@
     ,"Date":200909879
     ,"Products":[
       { "ProductName": "Conservatory", "GeoType1": ["Irregular / Custom"], "GeoType2": ["501-750 SQF. Glass"] },
-      { "ProductName": "Decorative Elements", "GeoType1": ["Finials,Ridge Cresting"], "GeoType2": [] },
+      { "ProductName": "Decorative Elements", "GeoType1": ["Finials", "Ridge Cresting"], "GeoType2": [] },
       { "ProductName": "Greenhouse", "GeoType1": ["Irregular / Custom"], "GeoType2": ["501-750 SQF. Glass"] }
     ]
     ,"Description":"Straight eave double pitch skylight with irregular conservatory nose and one full gable end to ground level."
@@ -6522,7 +6522,7 @@
     ,"Products":[
       { "ProductName": "Architectural Enhancement", "GeoType1": ["Ridge Vent"], "GeoType2": [] },
       { "ProductName": "Pool Enclosure", "GeoType1": ["Straight Eave Double Pitch"], "GeoType2": ["501-750 SQF. Glass"] },
-      { "ProductName": "Skylight", "GeoType1": ["Straight Eave Double Pitch", "Straight Eave Lean To"], "GeoType2": ["501-750 SQF. Glass"] },
+      { "ProductName": "Skylight", "GeoType1": ["Straight Eave Double Pitch", "Straight Eave Lean-To"], "GeoType2": ["501-750 SQF. Glass"] },
       { "ProductName": "Sunroom", "GeoType1": ["Straight Eave Double Pitch"], "GeoType2": ["501-750 SQF. Glass"] }
     ]
     ,"Description":"Straight eave lean-to skylight with no gable ends used as the roof of a sunroom, as well as a straight eave, double skylight with no gable ends."
@@ -6697,7 +6697,7 @@
     ,"Date":201202039
     ,"Products":[
       { "ProductName": "Greenhouse", "GeoType1": [ "Straight Eave Lean-To" ], "GeoType2": ["501-750 SQF. Glass,Aluminum Tube System"] }, 
-      { "ProductName": "Greenhouse Accessory", "GeoType1": [ "Temperature Control,Watering Systems" ], "GeoType2": ["Circulation Fans"] },
+      { "ProductName": "Greenhouse Accessory", "GeoType1": [ "Temperature Control", "Watering Systems" ], "GeoType2": ["Circulation Fans"] },
       { "ProductName": "Hobby Greenhouse", "GeoType1": [ "Straight Eave Lean-To" ], "GeoType2": ["501-750 SQF. Glass"] },
       { "ProductName": "Sliding Door", "GeoType1": [ "Door" ], "GeoType2": ["Multi-Track"] }
     ]
@@ -6744,7 +6744,7 @@
     ,"Products":[
       { "ProductName": "Car Wash", "GeoType1": [ "Stairway Covers" ], "GeoType2": ["100-250 SQF. Glass"] },
       { "ProductName": "Door", "GeoType1": [ "In-System Terrace Door" ], "GeoType2": [] },
-      { "ProductName": "Skylight", "GeoType1": [ "Flat", "Straight Eave Lean To" ], "GeoType2": ["51-100 SQF. Glass"] },
+      { "ProductName": "Skylight", "GeoType1": [ "Flat", "Straight Eave Lean-To" ], "GeoType2": ["51-100 SQF. Glass"] },
       { "ProductName": "Walkway", "GeoType1": [ "Straight Eave Lean-To" ], "GeoType2": ["100-250 SQF. Glass"] }
     ]
     ,"Description":"Straight eave lean-to stairway cover with two gable ends and vertical rear wall, featuring Solera glass."
@@ -6787,7 +6787,7 @@
     ,"Products":[
       { "ProductName": "Car Wash", "GeoType1": ["Stairway Covers"], "GeoType2": ["250-500 SQF. Glass"] },
       { "ProductName": "Glazing", "GeoType1": ["Specialty Glazing"], "GeoType2": [] },
-      { "ProductName": "Skylight", "GeoType1": ["Irregular / Custom,Lean-To"], "GeoType2": ["250-500 SQF. Glass"] }
+      { "ProductName": "Skylight", "GeoType1": ["Irregular / Custom", "Lean-To"], "GeoType2": ["250-500 SQF. Glass"] }
     ]
     ,"Description":"Lean-to skylight enclosing elevator shaft featuring Copper cladding exterior and white laminated glazing."
     ,"Image1":"37Commonwealth1.jpg"
@@ -6807,7 +6807,7 @@
     "ProjectID":"05-08-032"
     ,"Date":200508032
     ,"Products":[
-      { "ProductName": "Architectural Enhancement", "GeoType1": ["Dormers,Entryway / Vestibule,Gable End"], "GeoType2": [] },
+      { "ProductName": "Architectural Enhancement", "GeoType1": ["Dormers", "Entryway / Vestibule", "Gable End"], "GeoType2": [] },
       { "ProductName": "Decorative Elements", "GeoType1": ["Finials", "Grids", "Interior Munittin", "Ridge Cresting"], "GeoType2": [] },
       { "ProductName": "Greenhouse", "GeoType1": ["Straight Eave Double Pitch"], "GeoType2": ["751-1000 SQF. Glass"] },
       { "ProductName": "Greenhouse Accessory", "GeoType1": ["Temperature Control"], "GeoType2": [] }
@@ -7022,7 +7022,7 @@
     "ProjectID":"12-01-416"
     ,"Date":201201416
     ,"Products":[
-      { "ProductName": "Architectural Enhancement", "GeoType1": [ "Eave Vent,Ridge Vent" ], "GeoType2": [] }, 
+      { "ProductName": "Architectural Enhancement", "GeoType1": [ "Eave Vent", "Ridge Vent" ], "GeoType2": [] }, 
       { "ProductName": "Decorative Elements", "GeoType1": [ "Gutter" ], "GeoType2": [] },
       { "ProductName": "Greenhouse", "GeoType1": [ "Straight Eave Double Pitch" ], "GeoType2": ["751-1000 SQF. Glass", "Restoration System"] },
       { "ProductName": "Greenhouse Accessory", "GeoType1": [  ], "GeoType2": ["Rolling Bench"] }
@@ -7090,7 +7090,7 @@
     "ProjectID":"10-02-070"
     ,"Date":201002070
     ,"Products":[
-      { "ProductName": "Architectural Enhancement", "GeoType1": ["Dormers,Ridge Vent"], "GeoType2": [] },
+      { "ProductName": "Architectural Enhancement", "GeoType1": ["Dormers", "Ridge Vent"], "GeoType2": [] },
       { "ProductName": "Conservatory", "GeoType1": ["Straight Eave Double Pitch", "Straight Eave Lean-To"], "GeoType2": ["250-500 SQF. Glass"] },
       { "ProductName": "Decorative Elements", "GeoType1": ["Finials", "Ridge Cresting"], "GeoType2": ["Ogee Grid", "Traditional Grid"] }
     ]
@@ -7134,7 +7134,7 @@
     "ProjectID":"08-05-116"
     ,"Date":200805116
     ,"Products":[
-      { "ProductName": "Architectural Enhancement", "GeoType1": ["Dormers,Lantern,Ridge Vent"], "GeoType2": [] },
+      { "ProductName": "Architectural Enhancement", "GeoType1": ["Dormers", "Lantern", "Ridge Vent"], "GeoType2": [] },
       { "ProductName": "Decorative Elements", "GeoType1": ["Finials"], "GeoType2": [] },
       { "ProductName": "Greenhouse", "GeoType1": ["Straight Eave Double Pitch"], "GeoType2": ["1001-2000+ SQF. Glass", "1 SQF. Glass"] }
     ]
@@ -7244,7 +7244,7 @@
     "ProjectID":"10-01-908"
     ,"Date":201001908
     ,"Products":[
-      { "ProductName": "Architectural Enhancement", "GeoType1": ["Dormers,Lantern"], "GeoType2": [] },
+      { "ProductName": "Architectural Enhancement", "GeoType1": ["Dormers", "Lantern"], "GeoType2": [] },
       { "ProductName": "Conservatory", "GeoType1": ["Irregular / Custom", "Straight Eave Double Pitch"], "GeoType2": ["250-500 SQF. Glass"] },
       { "ProductName": "Decorative Elements", "GeoType1": ["Base Panels", "Column", "Crown Molding", "Decorative Gable Pediment", "Finials", "Gutter", "Ridge Cresting", "SDLs"], "GeoType2": ["Bull Nose", "Corner Trim", "Downspouts", "25", "Low Profile Grid", "Ogee Grid"] }
     ]
@@ -7308,9 +7308,9 @@
     "ProjectID":"07-10-010"
     ,"Date":200710010
     ,"Products":[
-      { "ProductName": "Door", "GeoType1": ["Ridge VentGable End"], "GeoType2": [] }
+      { "ProductName": "Door", "GeoType1": ["Ridge Vent", "Gable End"], "GeoType2": [] }
     ]
-    ,"Description":"UTSWING  FRENCH DOOR WITH STANDARD BLACK HARDWARE INCLUDING: BUTT HINGES , MORTISE LOCK WITH DEADBOLT ), LEVER HANDLE , WITH INTERIOR SDL's  AND EXTERIOR LOW-PROFILE GRIDS."
+    ,"Description":"Outswing french door with standard black hardware including butt hinges mortise lock with deadbolt lever handle with interior sdl s and exterior low profile grids."
     ,"Image1":"Storefront-Doors.jpg"
     ,"Image2":"Main-Entrance.jpg"
     ,"Image3":"Storefront-Doors-Copy.jpg"
@@ -7495,7 +7495,7 @@
     "ProjectID":"12-03-002"
     ,"Date":201203002
     ,"Products":[
-      { "ProductName": "Architectural Enhancement", "GeoType1": [ "Eave Vent,Knee Walls,Ridge Vent" ], "GeoType2": [] }, 
+      { "ProductName": "Architectural Enhancement", "GeoType1": [ "Eave Vent", "Knee Walls", "Ridge Vent" ], "GeoType2": [] }, 
       { "ProductName": "Greenhouse", "GeoType1": [ "Straight Eave Lean-To" ], "GeoType2": [ "250-500 SQF. Glass" ] },
       { "ProductName": "Hobby Greenhouse", "GeoType1": [ "Straight Eave Lean-To" ], "GeoType2": [] }
     ]
@@ -7538,7 +7538,7 @@
     ,"Date":201102177
     ,"Products":[
       { "ProductName": "Conservatory", "GeoType1": ["Straight Eave Lean-To"], "GeoType2": ["250-500 SQF. Glass"] },
-      { "ProductName": "Decorative Elements", "GeoType1": ["Base Panels,Grids,SDLs"], "GeoType2": ["Ogee Grid"] }
+      { "ProductName": "Decorative Elements", "GeoType1": ["Base Panels", "Grids", "SDLs"], "GeoType2": ["Ogee Grid"] }
     ]
     ,"Description":"Straight eave lean to sunroom with zero gable ends.  Decorative accessories include SDL grids with ogee style on exterior and traditional style on interior.  Raised base panels interior and exterior."
     ,"Image1":"Tomashefsky-10042012-5.jpg"
@@ -7902,8 +7902,8 @@
     ,"Date":200605024
     ,"Products":[
       { "ProductName": "Architectural Enhancement", "GeoType1": ["Dormers"], "GeoType2": [] },
-      { "ProductName": "Decorative Elements", "GeoType1": ["Decorative Gable Pediment,Ridge Cresting"], "GeoType2": [] },
-      { "ProductName": "Skylight", "GeoType1": ["Straight Eave Double Pitch", "Straight Eave Lean To"], "GeoType2": ["501-750 SQF. Glass"] }
+      { "ProductName": "Decorative Elements", "GeoType1": ["Decorative Gable Pediment", "Ridge Cresting"], "GeoType2": [] },
+      { "ProductName": "Skylight", "GeoType1": ["Straight Eave Double Pitch", "Straight Eave Lean-To"], "GeoType2": ["501-750 SQF. Glass"] }
     ]
     ,"Description":"Straight eave lean to skylight with a dormer, ridge cresting, gutter, finial and Palladian arch."
     ,"Image1":"Winston_Cons_general1488_edited.jpg"
@@ -7966,7 +7966,7 @@
     "ProjectID":"05-12-027"
     ,"Date":200512027
     ,"Products":[
-      { "ProductName": "Decorative Elements", "GeoType1": ["Finials,Ridge Cresting"], "GeoType2": [] },
+      { "ProductName": "Decorative Elements", "GeoType1": ["Finials", "Ridge Cresting"], "GeoType2": [] },
       { "ProductName": "Glazing", "GeoType1": ["Specialty Glazing"], "GeoType2": [] },
       { "ProductName": "Skylight", "GeoType1": ["Hip End"], "GeoType2": ["250-500 SQF. Glass"] }
     ]
@@ -8936,7 +8936,7 @@
     ,"Date":201002398
     ,"Products":[
       { "ProductName": "Folding Glass Wall", "GeoType1": ["Door"], "GeoType2": ["250-500 SQF. Glass"] },
-      { "ProductName": "Lift Slide", "GeoType1": ["Dual Panel,Multi Panel"], "GeoType2": [] },
+      { "ProductName": "Lift Slide", "GeoType1": ["Dual Panel", "Multi Panel"], "GeoType2": [] },
       { "ProductName": "Sliding Door", "GeoType1": ["Door"], "GeoType2": [] }
     ]
     ,"Description":"Residential home using Solar Innovations? glazed aluminum products including a folding wall system, stack wall, curtain wall, sliding door and terrace doors."
@@ -8998,7 +8998,7 @@
     "ProjectID":"08-12-312"
     ,"Date":200812312
     ,"Products":[
-      { "ProductName": "Skylight", "GeoType1": ["Irregular / Custom,Straight Eave Double Pitch"], "GeoType2": ["51-100 SQF. Glass"] }
+      { "ProductName": "Skylight", "GeoType1": ["Irregular / Custom", "Straight Eave Double Pitch"], "GeoType2": ["51-100 SQF. Glass"] }
     ]
     ,"Description":"Irregular straight eave double pitch skylight with 0 gable ends and southern yellow pine interior."
     ,"Image1":"Black-Irregular-Skylight-Copper-Roof.jpg"
@@ -9577,7 +9577,7 @@
     ,"Products":[
       { "ProductName": "Curtain Wall", "GeoType1": ["Vertical Curtain Wall"], "GeoType2": ["250-500 SQF. Glass"] },
       { "ProductName": "Decorative Elements", "GeoType1": ["Transoms"], "GeoType2": [] },
-      { "ProductName": "Folding Glass Wall", "GeoType1": ["Door,Windows"], "GeoType2": ["100-250 SQF. Glass", "Split Wall Floating Jamb"] }
+      { "ProductName": "Folding Glass Wall", "GeoType1": ["Door", "Windows"], "GeoType2": ["100-250 SQF. Glass", "Split Wall Floating Jamb"] }
     ]
     ,"Description":"Restaurant exterior consisting of folding windows, terrace door, curtain wall and  transoms."
     ,"Image1":"Theworkstouchup.jpg"
@@ -9910,7 +9910,7 @@
     "ProjectID":"07-06-035"
     ,"Date":200706035
     ,"Products":[
-      { "ProductName": "Pool Enclosure", "GeoType1": ["Hip End", "Staright Eave Lean-To"], "GeoType2": ["751-1000 SQF. Glass"] }
+      { "ProductName": "Pool Enclosure", "GeoType1": ["Hip End", "Straight Eave Lean-To"], "GeoType2": ["751-1000 SQF. Glass"] }
     ]
     ,"Description":"Straight eave lean to pool enclosure with two hip ends and a commercial door."
     ,"Image1":"Comfort-Inn-Pool-Enclosure.jpg"
@@ -10406,7 +10406,7 @@
     "ProjectID":"12-03-151"
     ,"Date":201203151
     ,"Products":[
-      { "ProductName": "Skylight", "GeoType1": [ "Straight Eave Lean To" ], "GeoType2": ["100-250 SQF. Glass"] }
+      { "ProductName": "Skylight", "GeoType1": [ "Straight Eave Lean-To" ], "GeoType2": ["100-250 SQF. Glass"] }
     ]
     ,"Description":"Straight eave lean to skylight with no gable ends, four casement windows and interior Douglas fir veneer."
     ,"Image1":"Straight-Eave-Lean-To-Skylight-2.jpg"
@@ -10835,7 +10835,7 @@
     ,"Date":201201354
     ,"Products":[
       { "ProductName": "Architectural Enhancement", "GeoType1": [ "Eave Vent" ], "GeoType2": [] }, 
-      { "ProductName": "Decorative Elements", "GeoType1": [ "Finials,Ridge Cresting" ], "GeoType2": [] },
+      { "ProductName": "Decorative Elements", "GeoType1": [ "Finials", "Ridge Cresting" ], "GeoType2": [] },
       { "ProductName": "Skylight", "GeoType1": [ "Straight Eave Double Pitch" ], "GeoType2": ["250-500 SQF. Glass"] }
     ]
     ,"Description":"Straight eave double pitch skylight with two gable ends, eave sashes, finial and ridge cresting"
@@ -11141,7 +11141,7 @@
     "ProjectID":"10-08-321"
     ,"Date":201008321
     ,"Products":[
-      { "ProductName": "Skylight", "GeoType1": ["Hip End,Pyramid"], "GeoType2": ["250-500 SQF. Glass"] }
+      { "ProductName": "Skylight", "GeoType1": ["Hip End", "Pyramid"], "GeoType2": ["250-500 SQF. Glass"] }
     ]
     ,"Description":"Straight eave double pitch skylight with two hip ends, and a pyramid skylight."
     ,"Image1":"IMG00128-20110830-1917-small-web.jpg"
@@ -11162,7 +11162,7 @@
     ,"Date":200404014
     ,"Products":[
       { "ProductName": "Architectural Enhancement", "GeoType1": ["Dormers"], "GeoType2": [] },
-      { "ProductName": "Skylight", "GeoType1": ["Straight Eave Lean To"], "GeoType2": ["250-500 SQF. Glass"] }
+      { "ProductName": "Skylight", "GeoType1": ["Straight Eave Lean-To"], "GeoType2": ["250-500 SQF. Glass"] }
     ]
     ,"Description":"Straight eave lean-to skylight with a dormer."
     ,"Image1":"McNulty-front.jpg"
@@ -11367,7 +11367,7 @@
     "ProjectID":"12-02-014"
     ,"Date":201202014
     ,"Products":[
-      { "ProductName": "Operable / Retractable Skylights", "GeoType1": [ "Operable Skylight,Retractable Skylight / Roof" ], "GeoType2": ["751-1000 SQF. Glass"] }
+      { "ProductName": "Operable / Retractable Skylights", "GeoType1": [ "Operable Skylight", "Retractable Skylight / Roof" ], "GeoType2": ["751-1000 SQF. Glass"] }
     ]
     ,"Description":"Multiple skylights on a residential project.  One retractable stacking single slope skylights and a triangular single slope skylight in addition to others."
     ,"Image1":"necker-island-49_edited-web.jpg"
@@ -11387,7 +11387,7 @@
     "ProjectID":"07-11-012"
     ,"Date":200711012
     ,"Products":[
-      { "ProductName": "Pool Enclosure", "GeoType1": ["Staright Eave Lean-To"], "GeoType2": ["2000+ SQF. Glass"] },
+      { "ProductName": "Pool Enclosure", "GeoType1": ["Straight Eave Lean-To"], "GeoType2": ["2000+ SQF. Glass"] },
       { "ProductName": "Tilt Turn", "GeoType1": ["Tilt Turn Window"], "GeoType2": [] }
     ]
     ,"Description":"Straight eave lean-to pool enclosure with two gable ends, dual track sliding doors, tilt turn windows and an interior truss support system."
@@ -11675,7 +11675,7 @@
     "ProjectID":"08-06-240"
     ,"Date":200806240
     ,"Products":[
-      { "ProductName": "Skylight", "GeoType1": ["Straight Eave Double Pitch", "Straight Eave Lean To"], "GeoType2": ["250-500 SQF. Glass"] }
+      { "ProductName": "Skylight", "GeoType1": ["Straight Eave Double Pitch", "Straight Eave Lean-To"], "GeoType2": ["250-500 SQF. Glass"] }
     ]
     ,"Description":"Three skylights including two selt lean-to configurations and one straight eave double pitch with eave vents."
     ,"Image1":"2013/10/montessori-school-082908-4-web.jpg"
@@ -11916,7 +11916,7 @@
     "ProjectID":"13-03-297"
     ,"Date":201303297
     ,"Products":[
-      { "ProductName": "Skylight", "GeoType1": [ "Pyramid", "Straight Eave Lean To" ], "GeoType2": ["100-250 SQF. Glass", "Pre-Assembled and Pre-Glazed"] }
+      { "ProductName": "Skylight", "GeoType1": [ "Pyramid", "Straight Eave Lean-To" ], "GeoType2": ["100-250 SQF. Glass", "Pre-Assembled and Pre-Glazed"] }
     ]
     ,"Description":"Two straight eave lean-to skylights and four pyramid skylights, all with copper cladding.  The pyramid skylights were shipped pre-assembled and pre-glazed."
     ,"Image1":"Pre-assembled-Skylights-small.jpg"
@@ -11936,7 +11936,7 @@
     "ProjectID":"12-01-155"
     ,"Date":201201155
     ,"Products":[
-      { "ProductName": "Greenhouse", "GeoType1": [ "Hip End,Irregular / Custom" ], "GeoType2": ["1001-2000+ SQF. Glass", "1 SQF. Glass"] }
+      { "ProductName": "Greenhouse", "GeoType1": [ "Hip End", "Irregular / Custom" ], "GeoType2": ["1001-2000+ SQF. Glass", "1 SQF. Glass"] }
     ]
     ,"Description":"Straight eave double pitch greenhouse with two hip ends attached to an existing rear wall. This greenhouse is used at a public garden for overwintering tropical plants.  The greenhouse includes ridge vents, eave vents, downspout and gutter.  The terrace doors on the greenhouse were custom built at 12 ft0 in high to accommodate palm trees."
     ,"Image1":"Chanticleer-2-Nov-4-2013-3-small.jpg"
@@ -12117,7 +12117,7 @@
     "ProjectID":"08-07-216"
     ,"Date":200807216
     ,"Products":[
-      { "ProductName": "Sunroom", "GeoType1": ["Curved Eave Lean-To,Straight Eave Lean-To"], "GeoType2": ["250-500 SQF. Glass"] }
+      { "ProductName": "Sunroom", "GeoType1": ["Curved Eave Lean-To", "Straight Eave Lean-To"], "GeoType2": ["250-500 SQF. Glass"] }
     ]
     ,"Description":"Two straight eave lean-to window well cover used at a public library."
     ,"Image1":"IMG_00652-500-small.jpg"
@@ -12158,7 +12158,7 @@
     "ProjectID":"12-10-123"
     ,"Date":201210123
     ,"Products":[
-      { "ProductName": "Greenhouse", "GeoType1": [ "Irregular / Custom", "Straight Eave Lean-Too" ], "GeoType2": ["1001-2000+ SQF. Glass", "1 SQF. Glass"] }
+      { "ProductName": "Greenhouse", "GeoType1": [ "Irregular / Custom", "Straight Eave Lean-To" ], "GeoType2": ["1001-2000+ SQF. Glass", "1 SQF. Glass"] }
     ]
     ,"Description":"Irregular straight eave lean to sunroom with two gable ends, two chimneys ridge vents and eave vents."
     ,"Image1":"Harley-School-11-25-2013-9-edited.jpg"
@@ -12490,7 +12490,7 @@
     "ProjectID":"11-05-237"
     ,"Date":201105237
     ,"Products":[
-      { "ProductName": "Architectural Enhancement", "GeoType1": ["Eave Vent,Ridge Vent"], "GeoType2": [] },
+      { "ProductName": "Architectural Enhancement", "GeoType1": ["Eave Vent", "Ridge Vent"], "GeoType2": [] },
       { "ProductName": "Conservatory", "GeoType1": ["Irregular / Custom", "Straight Eave Lean-To"], "GeoType2": ["2000+ SQF. Glass"] },
       { "ProductName": "Decorative Elements", "GeoType1": ["Gutter"], "GeoType2": ["Corner Trim", "Ogee Grid"] },
       { "ProductName": "Window", "GeoType1": ["Projected"], "GeoType2": ["Awning"] }
@@ -12746,7 +12746,7 @@
     ,"Date":201301269
     ,"Products":[
       { "ProductName": "Door", "GeoType1": [ "In-System Terrace Door" ], "GeoType2": [] }, 
-      { "ProductName": "Greenhouse", "GeoType1": ["Pinoleum,Curved Eave Double Pitch,Straight Eave Double Pitch"], "GeoType2": ["2000+ SQF. Glass", "Aluminum Tube System"] },
+      { "ProductName": "Greenhouse", "GeoType1": ["Pinoleum", "Curved Eave Double Pitch", "Straight Eave Double Pitch"], "GeoType2": ["2000+ SQF. Glass", "Aluminum Tube System"] },
       { "ProductName": "Greenhouse Accessory", "GeoType1": ["Environmental Control Systems", "Greenhouse Benches", "Light Control", "Temperature Control", "Watering Systems"], "GeoType2": ["Circulation Fans", "Grow Lights", "Metal Mesh Top Bench", "Plastic Top Shelf", "Rolling Bench", "Suspended Misinting System", "Tiered Bench", "Wood Top Bench", "Wood Top Shelf"] },
       { "ProductName": "Shades", "GeoType1": ["Interior Folding / Roman Pleated"], "GeoType2": ["HVHZ / Miami-Dade Rated", "Tiered Bench", "Rolling Bench"] }
     ]
@@ -13027,7 +13027,7 @@
     ,"Description":"One folding glass wall window including fixed window base that is on the second floor of a barn.  The window features Solar's Sandstone Duracron frame finish and LoE 272 glazing with interior muntins."
     ,"Image1":"photo-1-edited-Web500.jpg"
     ,"Image2":"photo-2-Web500.jpg"
-    ,"Image3":"photo-3-web500.jpg"
+    ,"Image3":"2014/09/photo-3-web500.jpg"
     ,"Image4":"photo-4-Web500.jpg"
     ,"ExtColor":["Sandstone"]
     ,"IntColor":["Sandstone"]
@@ -13042,7 +13042,7 @@
     "ProjectID":"12-08-096"
     ,"Date":201208096
     ,"Products":[
-      { "ProductName": "Operable / Retractable Skylights", "GeoType1": [ "Operable Skylight,Retractable Skylight / Roof" ], "GeoType2": ["51-100 SQF. Glass", "Motorized"] }
+      { "ProductName": "Operable / Retractable Skylights", "GeoType1": [ "Operable Skylight", "Retractable Skylight / Roof" ], "GeoType2": ["51-100 SQF. Glass", "Motorized"] }
     ]
     ,"Description":"One G2 Multi-Panel Retractable Skylight including rain sensor. The skylight features a two-tone finish with Solar's Black Duracron frame finish on the exterior and the White Duracron interior frame finish.  The skylight includes a 10 degree pitch."
     ,"Image1":"20140922_140312_Web500.jpg"
@@ -13062,8 +13062,8 @@
     "ProjectID":"14-05-250"
     ,"Date":201405250
     ,"Products":[
-      { "ProductName": "Folding Glass Wall", "GeoType1": [ "Entryway / VestibuleRing and Collar Ties", "Door" ], "GeoType2": ["250-500 SQF. Glass", "All Wall", "Split Wall No Floating Jamb"] }, 
-      { "ProductName": "Pool Enclosure", "GeoType1": [ "Irregular / Custom" ], "GeoType2": ["250-500 SQF. Glass", "High Pressure Sodium Grow Light"] }
+      { "ProductName": "Folding Glass Wall", "GeoType1": [ "Entryway / Vestibule", "Door" ], "GeoType2": ["250-500 SQF. Glass", "All Wall", "Split Wall No Floating Jamb"] }, 
+      { "ProductName": "Pool Enclosure", "GeoType1": [ "Irregular / Custom" , "Ring and Collar Ties" ], "GeoType2": ["250-500 SQF. Glass", "High Pressure Sodium Grow Light"] }
     ]
     ,"Description":"These five folding glass wall systems display three different configurations including three all wall, one split wall, and one single door (hinged panel) wall systems Every one of these folding glass walls have been Florida State Impact tested for 36 in wide x 96 in high panel size."
     ,"Image1":"stuntz-pool-10-02-14-2-Web500.jpg"
@@ -13103,7 +13103,7 @@
     "ProjectID":"14-01-428"
     ,"Date":201401428
     ,"Products":[
-      { "ProductName": "Conservatory", "GeoType1": [ "Entryway / VestibuleGable EndLantern", "SDLs", "Straight Eave Double Pitch" ], "GeoType2": ["2000+ SQF. Glass"] }, 
+      { "ProductName": "Conservatory", "GeoType1": [ "Entryway / Vestibule", "Gable End", "Lantern", "SDLs", "Straight Eave Double Pitch" ], "GeoType2": ["2000+ SQF. Glass"] }, 
       { "ProductName": "Door", "GeoType1": [ "Commercial Terrace & French Doors", "In-System French Door" ], "GeoType2": [] },
       { "ProductName": "Folding Glass Wall", "GeoType1": [ "Windows" ], "GeoType2": ["51-100 SQF. Glass", "Split Wall Floating Jamb", "Traditional Grid"] },
       { "ProductName": "Sliding Door", "GeoType1": [ "Door" ], "GeoType2": ["100-250 SQF. Glass", "Dual Track,G2"] }
@@ -13170,8 +13170,8 @@
     ,"Date":201312261
     ,"Products":[
       { "ProductName": "Car Wash", "GeoType1": [ "Stairway Covers" ], "GeoType2": ["51-100 SQF. Glass", "National Fenestration Rating Council Certified"] }, 
-      { "ProductName": "Operable / Retractable Skylights", "GeoType1": [ "Lantern 0 Degree Operable", "In System", "Operable Skylight", "Single Slope" ], "GeoType2": ["51-100 SQF. Glass"] },
-      { "ProductName": "Skylight", "GeoType1": [ "Hip EndDormers", "Single Slope" ], "GeoType2": ["51-100 SQF. Glass"] }
+      { "ProductName": "Operable / Retractable Skylights", "GeoType1": [ "Lantern 90 Degree Operable", "Operable Skylight", "Single Slope" ], "GeoType2": ["51-100 SQF. Glass"] },
+      { "ProductName": "Skylight", "GeoType1": [ "Hip End", "Dormers", "Single Slope" ], "GeoType2": ["51-100 SQF. Glass"] }
     ]
     ,"Description":"One manually operated 90 degree operable skylight and one single slope fixed skylight used in a rooftop application."
     ,"Image1":"Completed-12-2-14-4-Web50.jpg"
@@ -13191,9 +13191,9 @@
     "ProjectID":"12-09-231"
     ,"Date":201209231
     ,"Products":[
-      { "ProductName": "Architectural Enhancement", "GeoType1": [ "Gable End,Ridge Vent" ], "GeoType2": [ "Aluminum,HVHZ / Miami-Dade Rated" ] }, 
-      { "ProductName": "Decorative Elements", "GeoType1": [ "Column,Gutter,Ridge Cresting" ], "GeoType2": [] },
-      { "ProductName": "Skylight", "GeoType1": [ "Hung,Straight Eave Double Pitch" ], "GeoType2": [ "100-250 SQF. Glass,Stick Built" ] }
+      { "ProductName": "Architectural Enhancement", "GeoType1": [ "Gable End", "Ridge Vent" ], "GeoType2": [ "Aluminum", "HVHZ / Miami-Dade Rated" ] }, 
+      { "ProductName": "Decorative Elements", "GeoType1": [ "Column", "Gutter", "Ridge Cresting" ], "GeoType2": [] },
+      { "ProductName": "Skylight", "GeoType1": [ "Hung", "Straight Eave Double Pitch" ], "GeoType2": [ "100-250 SQF. Glass", "Stick Built" ] }
     ]
     ,"Description":"One straight eave, double pitch pitch skylight utilizing Solar's 4.5 inch bar system. The structure also includes decorative columns and ridge cresting"
     ,"Image1":"2014/11/completed-10-28-14-2-Web500.jpg"
@@ -13319,7 +13319,7 @@
     ,"Date":201302246
     ,"Products":[
       { "ProductName": "Folding Glass Wall", "GeoType1": ["Door"],  "GeoType2": ["51-100 SQF. Glass", "Single Door Last Panel"] },
-      { "ProductName": "Screen", "GeoType1": ["Entryway / VestibuleGable EndLantern", "Decorative Corners"], "GeoType2": ["Manual"] },
+      { "ProductName": "Screen", "GeoType1": ["Entryway / Vestibule", "Gable End", "Lantern", "Decorative Corners"], "GeoType2": ["Manual"] },
       { "ProductName": "Shades", "GeoType1": [ "Interior Operable" ], "GeoType2": ["Door"] }
     ]
     ,"Description":"One G2 Single door (last panel) folding glass wall system featuring a eco-screen multi-function double screen/shade system."
@@ -13340,7 +13340,7 @@
     "ProjectID":"13-06-320"
     ,"Date":201306320
     ,"Products":[
-      { "ProductName": "Skylight", "GeoType1": [ "Irregular / Custom,Single Slope" ], "GeoType2": ["250-500 SQF. Glass"] }
+      { "ProductName": "Skylight", "GeoType1": [ "Irregular / Custom", "Single Slope" ], "GeoType2": ["250-500 SQF. Glass"] }
     ]
     ,"Description":"One irregular SI5600 single slope skylight utilizing Solar's 2.5 in x 8 in framing system used in an educational application."
     ,"Image1":"completed-11-20-14-6-Web500.jpg"
@@ -13401,7 +13401,7 @@
     ,"Date":201401386
     ,"Products":[
       { "ProductName": "Architectural Enhancement", "GeoType1": [ "Ridge Vent" ], "GeoType2": ["Aluminum Tube System-250 SQF. Glass", "Aluminum", "HVHZ / Miami-Dade Rated"] }, 
-      { "ProductName": "Skylight", "GeoType1": [ "Conservatory NoseEntryway / Vestibule", "Hung", "Straight Eave Double Pitch" ], "GeoType2": ["100-250 SQF. Glass", "Stick Built"] },
+      { "ProductName": "Skylight", "GeoType1": [ "Conservatory Nose", "Entryway / Vestibule", "Hung", "Straight Eave Double Pitch" ], "GeoType2": ["100-250 SQF. Glass", "Stick Built"] },
       { "ProductName": "Skylight", "GeoType1": [ "Straight Eave Double Pitch" ], "GeoType2": ["100-250 SQF. Glass", "Stick Built"] }
     ]
     ,"Description":"One straight eave, double pitch skylight featuring 2 four-bay ridge vents. The ridge vents are motorized and controlled by a thermostat."
@@ -13464,7 +13464,7 @@
     ,"Products":[
       { "ProductName": "Architectural Enhancement", "GeoType1": [ "Eave Vent", "Gable End", "Ridge Vent", "Transom" ], "GeoType2": ["Aluminum"] }, 
       { "ProductName": "Decorative Elements", "GeoType1": [ "Finials", "Grids", "Ridge Cresting", "Ring and Collar Ties" ], "GeoType2": ["Traditional Grids", "Rolling Bench"] },
-      { "ProductName": "Greenhouse", "GeoType1": [ "Gable EndLantern", "Straight Eave Double Pitch" ], "GeoType2": ["1001-2000+ SQF. Glass1 SQF. Glass", "Aluminum Tube System"] },
+      { "ProductName": "Greenhouse", "GeoType1": [ "Gable End", "Lantern", "Straight Eave Double Pitch" ], "GeoType2": ["1001-2000+ SQF. Glass1 SQF. Glass", "Aluminum Tube System"] },
       { "ProductName": "Greenhouse Accessory", "GeoType1": [ "Environmental Control Systems", "Temperature Control" ], "GeoType2": ["Aluminum Truss Hangar", "Aluminum Tube", "Rolling Bench", "Sliding Plant Hangar"] }
     ]
     ,"Description":"This one straight eave, double pitch greenhouse with two gable ends includes G1 International windows. The greenhouse includes a variety of accessories including eave vents, ridge vents, thermostats to control temperatures, and isolation relays."
@@ -13565,8 +13565,8 @@
     "ProjectID":"12-10-096"
     ,"Date":201210096
     ,"Products":[
-      { "ProductName": "Greenhouse", "GeoType1": ["Straight Eave Double Pitch"], "GeoType2": ["1001-2000+ SQF. Glass1 SQF. Glass,Aluminum Tube System"] }, 
-      { "ProductName": "Greenhouse Accessory", "GeoType1": [ "Environmental Control Systems,Greenhouse Benches,Light Control" ], "GeoType2": ["Aluminum Tube,Circulation Fans,Rolling Bench"] },
+      { "ProductName": "Greenhouse", "GeoType1": ["Straight Eave Double Pitch"], "GeoType2": ["1001-2000+ SQF. Glass", "1 SQF. Glass", "Aluminum Tube System"] }, 
+      { "ProductName": "Greenhouse Accessory", "GeoType1": [ "Environmental Control Systems", "Greenhouse Benches", "Light Control" ], "GeoType2": ["Aluminum Tube,Circulation Fans,Rolling Bench"] },
       { "ProductName": "Shades", "GeoType1": [ "Interior Operable" ], "GeoType2": ["HVHZ / Miami-Dade Rated"] }
     ]
     ,"Description":"One straight eave, double pitch greenhouse installed with operable shades."
@@ -13588,8 +13588,8 @@
     ,"Date":201410302
     ,"Products":[
       { "ProductName": "Architectural Enhancement", "GeoType1": ["Eave Vent", "Gable End", "Ridge Vent" ],  "GeoType2": ["250-500 SQF. Glass", "Aluminum", "Rolling Bench"] },
-      { "ProductName": "Door", "GeoType1": ["In-System Terrace Door"], "GeoType2": "" },
-      { "ProductName": "Greenhouse", "GeoType1": [ "Hip EndRidge Vent", "Hung", "Straight Eave Double Pitch" ], "GeoType2": "250-500 SQF. Glass,Aluminum Tube System" },
+      { "ProductName": "Door", "GeoType1": ["In-System Terrace Door"], "GeoType2": [] },
+      { "ProductName": "Greenhouse", "GeoType1": [ "Hip End", "Ridge Vent", "Hung", "Straight Eave Double Pitch" ], "GeoType2": "250-500 SQF. Glass,Aluminum Tube System" },
       { "ProductName": "Greenhouse Accessory", "GeoType1": [ "Environmental Control Systems", "Temperature Control" ], "GeoType2": "Aluminum Tube,Rolling Bench" }
     ]
     ,"Description":"One straight eave, double pitch greenhouse installed in Vermont. The greenhouse included two 4-bay operable eave vents, two 4-bay operable ridge vents, isolation relays for both eave and ridge vents, and thermostats foth both the ridge and eave vents."
@@ -13656,7 +13656,7 @@
     "ProjectID":"14-05-233"
     ,"Date":201405233
     ,"Products":[
-      { "ProductName": "Operable / Retractable Skylights", "GeoType1": ["Gable EndStorage", "Transom0Entryway / Vestibule", "Operable Skylight", "Retractable Skylight / Roof", "Single Slope"], "GeoType2": "51-100 SQF. Glass,Motorized" }, 
+      { "ProductName": "Operable / Retractable Skylights", "GeoType1": ["Gable End", "Storage", "Transom", "Entryway / Vestibule", "Operable Skylight", "Retractable Skylight / Roof", "Single Slope"], "GeoType2": "51-100 SQF. Glass,Motorized" }, 
       { "ProductName": "Skylight", "GeoType1": ["Single Slope"], "GeoType2": ["51-100 SQF. Glass", "Curb Mount", "Pre-Assembled and Not Pre-Glazed"] }
     ]
     ,"Description":"The custom designed single slope retractable skylight provided natural ventilation for a residence in an urban neighborhood with limited options.  The skylight system was curb mounted, using a crane to bring the pre-assembled portion of the skylight to the roof. This skylight came equipped with a weather sensor, a motorized operator, and the capability for thermostatic control.  The weather sensor recognizes wind speed and rain, triggering the motorized operator to automatically close the skylight when the conditions are no longer optimal. Then, if connected to the thermostatic control, once the set temperature has been reached and the weather sensor is no longer triggered, the skylight automatically opens to a clear opening of just over 3 ft to ventilate the residence."
@@ -13677,8 +13677,8 @@
     "ProjectID":"12-04-030"
     ,"Date":201204030
     ,"Products":[
-      { "ProductName": "Complete Glazing Packages", "GeoType1": ["Complete Glazing Packages"], "GeoType2": ["2000+ SQF. Glass0+ SQF. Glass", "High Pressure Sodium Grow Light", "Hydronic Bench"] },
-      { "ProductName": "Folding Glass Wall", "GeoType1": ["Gable EndMulti Panel", "Door", "Monster Wall"], "GeoType2": ["501-750 SQF. Glass"] },
+      { "ProductName": "Complete Glazing Packages", "GeoType1": ["Complete Glazing Packages"], "GeoType2": ["2000+ SQF. Glass", "0+ SQF. Glass", "High Pressure Sodium Grow Light", "Hydronic Bench"] },
+      { "ProductName": "Folding Glass Wall", "GeoType1": ["Gable End", "Multi Panel", "Door", "Monster Wall"], "GeoType2": ["501-750 SQF. Glass"] },
       { "ProductName": "Sliding Door", "GeoType1": ["Door"], "GeoType2": ["501-750 SQF. Glass", "Dual Track,G2"] },
       { "ProductName": "Window", "GeoType1": ["Mulled"], "GeoType2": ["501-750 SQF. Glass", "Casement", "Fixed"] }
     ]
