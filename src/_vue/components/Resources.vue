@@ -33,6 +33,21 @@
           </keep-alive>
         </div>
 
+        <hr v-if="products.length" class="my-2">
+
+        <div v-if="products.length" class="d-flex flex-column" >
+          <div class="d-flex justify-content-between align-items-center pointer" v-on:click="toggleDetailsDisplay">
+            <strong>Details</strong>
+            <small>
+              <i v-bind:class="{ 'fas fa-plus': !showDetails, 'fas fa-minus': showDetails }"></i>
+            </small>
+          </div>
+          
+          <keep-alive>
+            <features-filter v-bind:show="showDetails" v-bind:category="'geoType2'" v-bind:list="optionDetailsGroups" v-bind:sqf="sqfList" v-bind:hideHeaders="detailHeadersList" v-bind:products="products" ></features-filter><!-- v-if="showProducts" -->
+          </keep-alive>
+        </div>
+
         <hr class="my-2">
 
         <div class="d-flex flex-column">
@@ -60,8 +75,15 @@
             <keep-alive>
               <products-filter v-if="showGlazes" v-bind:category="'glazes'" v-bind:list="glazesOptions" ></products-filter>
             </keep-alive>
+            
+            <div v-if="showGlazes" class="d-flex justify-content-between align-items-center pt-2">
+              <strong style="font-size:.75em">Square Footage</strong>
+            </div>
+            <keep-alive>
+              <products-filter v-if="showGlazes" v-bind:category="'geoType2'" v-bind:list="sqfList" ></products-filter>
+            </keep-alive>
 
-             <div v-if="showGlazes" class="d-flex justify-content-between align-items-center pt-2">
+            <div v-if="showGlazes" class="d-flex justify-content-between align-items-center pt-2">
               <strong style="font-size:.75em">Glaze Colors</strong>
             </div>
             <keep-alive>
@@ -181,7 +203,7 @@
               <i v-bind:class="{ 'fas fa-plus': !showLocations, 'fas fa-minus': showLocations }"></i>
             </small>
           </div>
-          
+
           <div v-if="showLocations" class="mb-1 d-flex justify-content-between align-items-center pt-2">
             <strong style="font-size:.75em">International</strong>
           </div>
@@ -427,9 +449,29 @@ export default {
         "Europe",
         "Canada"
       ],
+      sqfList: [
+        "0 SQF. Glass",
+        "1-50 SQF. Glass",
+        "51-100 SQF. Glass",
+        "101-250 SQF. Glass",
+        "251-500 SQF. Glass",
+        "501-750 SQF. Glass",
+        "751-1000 SQF. Glass",
+        "1001-2000 SQF. Glass",
+        "2001+ SQF. Glass"
+      ],
+      detailHeadersList:[
+        "Clear Glass Walls",
+        "Canopy",
+        "Curtain Wall",
+        "Walkway",
+        "Wood Curtain Wall"
+      ],
       showMap: false,
       showProducts: false,
       showFeatures: true,
+      showDetails: true,
+      showSqf: false,
       showApplications: false,
       showGlazes: false,
       showExtColor: false,
@@ -474,6 +516,12 @@ export default {
     },
     toggleFeaturesDisplay() {
       this.showFeatures = !this.showFeatures;
+    },
+    toggleDetailsDisplay() {
+      this.showDetails = !this.showDetails;
+    },
+    toggleSqfDisplay() {
+      this.showSqf = !this.showSqf;
     },
     toggleApplicationsDisplay() {
       this.showApplications = !this.showApplications;
@@ -574,6 +622,29 @@ export default {
           });
         });
         if(matched.length != this.geoType1.length){
+          return false;
+        }else{
+          return true;
+        }
+      }
+    },
+    filterDetails(proj) {
+      if (!this.geoType2.length) {
+        return true;
+      } else {
+        let projProducts = proj.Products;
+        let matched = [];
+        projProducts.forEach(products => {
+          // console.log(this.geoType2[0]);
+          if(Array.isArray(products.GeoType2)){
+            products.GeoType2.forEach(feature => {
+              if(this.geoType2.includes(feature)){
+                matched.push(true);
+              }
+            });
+          }
+        });
+        if(matched.length != this.geoType2.length){
           return false;
         }else{
           return true;
@@ -726,6 +797,55 @@ export default {
       });
       return list.sort();
     },
+    optionDetailsGroups() {
+      const ret = this.projects.reduce((acc, proj) => {
+        if (Array.isArray(proj.Products)) {
+          proj.Products.forEach(product => {
+            if (Array.isArray(product.GeoType2)) {
+              product.GeoType2.forEach(feature => {
+                if(!this.sqfList.includes(feature)){ 
+                  if(acc[product.ProductName] = acc[product.ProductName]){
+                    if(acc[product.ProductName].indexOf(feature)==-1){
+                      acc[product.ProductName].push(feature);
+                    }
+                  }else{
+                    acc[product.ProductName] = [];
+                  }
+                }
+              });
+            }
+          });
+        }
+        return acc;
+      }, {});
+      
+      return ret;
+    },
+    optionDetails() {
+      const ret = this.projects.reduce((acc, proj) => {
+        if (Array.isArray(proj.Products)) {
+          proj.Products.forEach(product => {
+            if (Array.isArray(product.GeoType2)) {
+              product.GeoType2.forEach(feature => {
+                (acc[feature] = acc[feature] || []).push(
+                  proj.ProjectID
+                );
+              });
+            }
+          });
+        }
+        return acc;
+      }, {});
+
+      return ret;
+    },
+    listDetails() {
+      let list = [];
+      Object.keys(this.optionDetails).forEach(function(key) {
+        list.push(key);
+      });
+      return list.sort();
+    },
     optionApplications() {
       const apps = this.projects.reduce((acc, proj) => {
         if (Array.isArray(proj.Application)) {
@@ -868,6 +988,7 @@ export default {
         .filter(this.filterIntColor)
         .filter(this.filterLocations)
         .filter(this.filterFeatures)
+        .filter(this.filterDetails)
         .filter(this.filterProducts);
 
       let projFilteredSorted = projFiltered.sort(function(a, b) {

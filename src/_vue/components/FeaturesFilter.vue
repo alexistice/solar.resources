@@ -4,18 +4,18 @@
   <!-- <strong style="font-size:.75em">{{ subhead }}</strong> -->
 
   <div v-if="show" v-for="product in products" v-bind:key="product">
-    <strong style="font-size:.75em">{{ product }}</strong>
-
-    <div v-for="feature in list[product]" v-bind:key="feature">
+    <div v-if="list[product] && list[product].length" style="font-size:.75em; line-height:15px;font-weight:800;" class="mt-2 mb-1 pt-1">
+      {{ product }}
+    </div>
+  
+    <div v-for="feature in list[product]"  v-bind:key="feature">
       <div class="p-0 pointer" v-on:click="checkFilter(category, feature)">
-          <small>
-              <i v-bind:class="{ 'fas fa-check-square': checked.indexOf(feature)>=0, 'far fa-square': checked.indexOf(feature)==-1 }" v-bind:name="feature" class="mr-1"  style="color: rgb(150, 150, 150)"></i> {{ feature }}
-          </small>
+        <small>
+          <i v-bind:class="{ 'fas fa-check-square': checked.indexOf(feature)>=0, 'far fa-square': checked.indexOf(feature)==-1 }" v-bind:name="feature" class="mr-1"  style="color: rgb(150, 150, 150)"></i> {{ feature }}
+        </small>
       </div>
     </div>
   </div>
-  
-
   
 </div>
 
@@ -28,7 +28,7 @@ export default {
       checked: []
     };
   },
-  props: ["list", "products", "category", "show"],
+  props: ["list", "products", "category", "show", "sqf", "hideHeaders"],
   methods: {
     checkFilter(category, name) {
       if(this.checked.indexOf(name) != -1){
