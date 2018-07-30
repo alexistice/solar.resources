@@ -8440,9 +8440,11 @@ process.umask = function() { return 0; };
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__MegaFilter_vue__ = __webpack_require__(20);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ListItem_vue__ = __webpack_require__(22);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__CheckFilter_vue__ = __webpack_require__(24);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__SmallGridItem_vue__ = __webpack_require__(27);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__LargeGridItem_vue__ = __webpack_require__(29);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__util_bus__ = __webpack_require__(10);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__ProductsFilter_vue__ = __webpack_require__(46);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__FeaturesFilter_vue__ = __webpack_require__(51);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__SmallGridItem_vue__ = __webpack_require__(27);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__LargeGridItem_vue__ = __webpack_require__(29);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__util_bus__ = __webpack_require__(10);
 //
 //
 //
@@ -8770,6 +8772,36 @@ process.umask = function() { return 0; };
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
 
 
 
@@ -8825,8 +8857,10 @@ process.umask = function() { return 0; };
     MegaFilter: __WEBPACK_IMPORTED_MODULE_2__MegaFilter_vue__["a" /* default */],
     ListItem: __WEBPACK_IMPORTED_MODULE_3__ListItem_vue__["a" /* default */],
     CheckFilter: __WEBPACK_IMPORTED_MODULE_4__CheckFilter_vue__["a" /* default */],
-    SmallGridItem: __WEBPACK_IMPORTED_MODULE_5__SmallGridItem_vue__["a" /* default */],
-    LargeGridItem: __WEBPACK_IMPORTED_MODULE_6__LargeGridItem_vue__["a" /* default */]
+    ProductsFilter: __WEBPACK_IMPORTED_MODULE_5__ProductsFilter_vue__["a" /* default */],
+    FeaturesFilter: __WEBPACK_IMPORTED_MODULE_6__FeaturesFilter_vue__["a" /* default */],
+    SmallGridItem: __WEBPACK_IMPORTED_MODULE_7__SmallGridItem_vue__["a" /* default */],
+    LargeGridItem: __WEBPACK_IMPORTED_MODULE_8__LargeGridItem_vue__["a" /* default */]
   },
   methods: {
     changeView: function changeView(component) {
@@ -9244,7 +9278,8 @@ process.umask = function() { return 0; };
     }
   },
   created: function created() {
-    this.$bus.$on("check-filter", __WEBPACK_IMPORTED_MODULE_7__util_bus__["a" /* checkFilter */].bind(this));
+    this.$bus.$on("check-filter", __WEBPACK_IMPORTED_MODULE_9__util_bus__["a" /* checkFilter */].bind(this));
+    this.$bus.$on("products-filter", __WEBPACK_IMPORTED_MODULE_9__util_bus__["b" /* productsFilter */].bind(this));
   },
 
   mounted: function mounted() {
@@ -9764,10 +9799,23 @@ process.umask = function() { return 0; };
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return checkFilter; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return productsFilter; });
 /* unused harmony export setDay */
 function checkFilter(category, name, checked) {
   if (checked) {
     this[category].push(name);
+  } else {
+    var index = this[category].indexOf(name);
+    if (index > -1) {
+      this[category].splice(index, 1);
+    }
+  }
+}
+
+function productsFilter(category, name, checked) {
+  if (checked) {
+    this[category].push(name);
+    console.log(this[category]);
   } else {
     var index = this[category].indexOf(name);
     if (index > -1) {
@@ -28462,9 +28510,22 @@ var render = function() {
                   ]
                 ),
                 _vm._v(" "),
-                _vm.showProducts ? _vm._m(2) : _vm._e()
+                _c(
+                  "keep-alive",
+                  [
+                    _vm.showProducts
+                      ? _c("products-filter", {
+                          attrs: {
+                            category: "products",
+                            list: _vm.listProducts
+                          }
+                        })
+                      : _vm._e()
+                  ],
+                  1
+                )
               ],
-              2
+              1
             ),
             _vm._v(" "),
             _vm.products.length ? _c("hr", { staticClass: "my-2" }) : _vm._e(),
@@ -28495,33 +28556,22 @@ var render = function() {
                       ]
                     ),
                     _vm._v(" "),
-                    _vm._l(_vm.listProducts, function(product) {
-                      return _vm.showFeatures
-                        ? _c(
-                            "div",
-                            { key: product },
-                            [
-                              _c(
-                                "strong",
-                                { staticStyle: { "font-size": ".75em" } },
-                                [_vm._v(_vm._s(product))]
-                              ),
-                              _vm._v(" "),
-                              _vm._l(_vm.optionFeatureGroups[product], function(
-                                feature
-                              ) {
-                                return _c("check-filter", {
-                                  key: feature,
-                                  attrs: { category: "geoType1", name: feature }
-                                })
-                              })
-                            ],
-                            2
-                          )
-                        : _vm._e()
-                    })
+                    _c(
+                      "keep-alive",
+                      [
+                        _c("features-filter", {
+                          attrs: {
+                            show: _vm.showFeatures,
+                            category: "geoType1",
+                            list: _vm.optionFeatureGroups,
+                            products: _vm.products
+                          }
+                        })
+                      ],
+                      1
+                    )
                   ],
-                  2
+                  1
                 )
               : _vm._e(),
             _vm._v(" "),
@@ -28552,16 +28602,22 @@ var render = function() {
                   ]
                 ),
                 _vm._v(" "),
-                _vm._l(_vm.listApplications, function(app) {
-                  return _vm.showApplications
-                    ? _c("check-filter", {
-                        key: app,
-                        attrs: { category: "applications", name: app }
-                      })
-                    : _vm._e()
-                })
+                _c(
+                  "keep-alive",
+                  [
+                    _vm.showApplications
+                      ? _c("products-filter", {
+                          attrs: {
+                            category: "applications",
+                            list: _vm.listApplications
+                          }
+                        })
+                      : _vm._e()
+                  ],
+                  1
+                )
               ],
-              2
+              1
             ),
             _vm._v(" "),
             _c("hr", { staticClass: "my-2" }),
@@ -28588,246 +28644,562 @@ var render = function() {
                 ]
               ),
               _vm._v(" "),
-              _vm.showGlazes
-                ? _c(
-                    "div",
+              _c(
+                "div",
+                [
+                  _c(
+                    "keep-alive",
                     [
-                      _vm._l(_vm.glazesOptions, function(glaze) {
-                        return _c("check-filter", {
-                          key: glaze,
-                          attrs: { category: "glazes", name: glaze }
-                        })
-                      }),
-                      _vm._v(" "),
-                      _vm._m(3),
-                      _vm._v(" "),
-                      _vm._l(_vm.glazeColor, function(glaze) {
-                        return _c("check-filter", {
-                          key: glaze,
-                          attrs: { category: "glazes", name: glaze }
-                        })
-                      }),
-                      _vm._v(" "),
-                      _vm._m(4),
-                      _vm._v(" "),
-                      _vm._l(_vm.listGlazeCoatings, function(glaze) {
-                        return _c("check-filter", {
-                          key: glaze,
-                          attrs: { category: "glazes", name: glaze }
-                        })
-                      })
+                      _vm.showGlazes
+                        ? _c("products-filter", {
+                            attrs: {
+                              category: "glazes",
+                              list: _vm.glazesOptions
+                            }
+                          })
+                        : _vm._e()
                     ],
-                    2
+                    1
+                  ),
+                  _vm._v(" "),
+                  _vm.showGlazes
+                    ? _c(
+                        "div",
+                        {
+                          staticClass:
+                            "d-flex justify-content-between align-items-center pt-2"
+                        },
+                        [
+                          _c(
+                            "strong",
+                            { staticStyle: { "font-size": ".75em" } },
+                            [_vm._v("Glaze Colors")]
+                          )
+                        ]
+                      )
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _c(
+                    "keep-alive",
+                    [
+                      _vm.showGlazes
+                        ? _c("products-filter", {
+                            attrs: { category: "glazes", list: _vm.glazeColor }
+                          })
+                        : _vm._e()
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _vm.showGlazes
+                    ? _c(
+                        "div",
+                        {
+                          staticClass:
+                            "d-flex justify-content-between align-items-center pt-2"
+                        },
+                        [
+                          _c(
+                            "strong",
+                            { staticStyle: { "font-size": ".75em" } },
+                            [_vm._v("Glaze Coating")]
+                          )
+                        ]
+                      )
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _c(
+                    "keep-alive",
+                    [
+                      _vm.showGlazes
+                        ? _c("products-filter", {
+                            attrs: {
+                              category: "glazes",
+                              list: _vm.listGlazeCoatings
+                            }
+                          })
+                        : _vm._e()
+                    ],
+                    1
                   )
-                : _vm._e()
+                ],
+                1
+              )
             ]),
             _vm._v(" "),
             _c("hr", { staticClass: "my-2" }),
             _vm._v(" "),
-            _c("div", { staticClass: "d-flex flex-column" }, [
-              _c(
-                "div",
-                {
-                  staticClass:
-                    "d-flex justify-content-between align-items-center pointer",
-                  on: { click: _vm.toggleExtColorDisplay }
-                },
-                [
-                  _c("strong", [_vm._v("Exterior")]),
-                  _vm._v(" "),
-                  _c("small", [
-                    _c("i", {
-                      class: {
-                        "fas fa-plus": !_vm.showExtColor,
-                        "fas fa-minus": _vm.showExtColor
-                      }
-                    })
-                  ])
-                ]
-              ),
-              _vm._v(" "),
-              _vm.showExtColor
-                ? _c(
-                    "div",
-                    [
-                      _vm._m(5),
-                      _vm._v(" "),
-                      _vm._l(_vm.materialOptions, function(material) {
-                        return _c("check-filter", {
-                          key: material,
-                          attrs: { category: "extColor", name: material }
-                        })
-                      }),
-                      _vm._v(" "),
-                      _vm._m(6),
-                      _vm._v(" "),
-                      _vm._l(_vm.finishOptions, function(finish) {
-                        return _c("check-filter", {
-                          key: finish,
-                          attrs: { category: "extColor", name: finish }
-                        })
-                      }),
-                      _vm._v(" "),
-                      _vm._m(7),
-                      _vm._v(" "),
-                      _vm._l(_vm.standardColors, function(color) {
-                        return _c("check-filter", {
-                          key: color,
-                          attrs: { category: "extColor", name: color }
-                        })
-                      }),
-                      _vm._v(" "),
-                      _vm._m(8),
-                      _vm._v(" "),
-                      _vm._l(_vm.claddingOptions, function(option) {
-                        return _c("check-filter", {
-                          key: option + "-clad",
-                          attrs: { category: "extColor", name: option }
-                        })
-                      }),
-                      _vm._v(" "),
-                      _vm._m(9),
-                      _vm._v(" "),
-                      _vm._l(_vm.listExtColor, function(color) {
-                        return _c("check-filter", {
-                          key: color,
-                          attrs: { category: "extColor", name: color }
-                        })
+            _c(
+              "div",
+              { staticClass: "d-flex flex-column" },
+              [
+                _c(
+                  "div",
+                  {
+                    staticClass:
+                      "d-flex justify-content-between align-items-center pointer",
+                    on: { click: _vm.toggleExtColorDisplay }
+                  },
+                  [
+                    _c("strong", [_vm._v("Exterior")]),
+                    _vm._v(" "),
+                    _c("small", [
+                      _c("i", {
+                        class: {
+                          "fas fa-plus": !_vm.showExtColor,
+                          "fas fa-minus": _vm.showExtColor
+                        }
                       })
-                    ],
-                    2
-                  )
-                : _vm._e()
-            ]),
+                    ])
+                  ]
+                ),
+                _vm._v(" "),
+                _vm.showExtColor
+                  ? _c(
+                      "div",
+                      {
+                        staticClass:
+                          "d-flex justify-content-between align-items-center pt-2"
+                      },
+                      [
+                        _c(
+                          "strong",
+                          { staticStyle: { "font-size": ".75em" } },
+                          [_vm._v("Materials")]
+                        )
+                      ]
+                    )
+                  : _vm._e(),
+                _vm._v(" "),
+                _c(
+                  "keep-alive",
+                  [
+                    _vm.showExtColor
+                      ? _c("products-filter", {
+                          attrs: {
+                            category: "extColor",
+                            list: _vm.materialOptions
+                          }
+                        })
+                      : _vm._e()
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _vm.showExtColor
+                  ? _c(
+                      "div",
+                      {
+                        staticClass:
+                          "d-flex justify-content-between align-items-center pt-2"
+                      },
+                      [
+                        _c(
+                          "strong",
+                          { staticStyle: { "font-size": ".75em" } },
+                          [_vm._v("Finishes")]
+                        )
+                      ]
+                    )
+                  : _vm._e(),
+                _vm._v(" "),
+                _c(
+                  "keep-alive",
+                  [
+                    _vm.showExtColor
+                      ? _c("products-filter", {
+                          attrs: {
+                            category: "extColor",
+                            list: _vm.finishOptions
+                          }
+                        })
+                      : _vm._e()
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _vm.showExtColor
+                  ? _c(
+                      "div",
+                      {
+                        staticClass:
+                          "d-flex justify-content-between align-items-center pt-2"
+                      },
+                      [
+                        _c(
+                          "strong",
+                          { staticStyle: { "font-size": ".75em" } },
+                          [_vm._v("Standard Colors")]
+                        )
+                      ]
+                    )
+                  : _vm._e(),
+                _vm._v(" "),
+                _c(
+                  "keep-alive",
+                  [
+                    _vm.showExtColor
+                      ? _c("products-filter", {
+                          attrs: {
+                            category: "extColor",
+                            list: _vm.standardColors
+                          }
+                        })
+                      : _vm._e()
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _vm.showExtColor
+                  ? _c(
+                      "div",
+                      {
+                        staticClass:
+                          "d-flex justify-content-between align-items-center pt-2"
+                      },
+                      [
+                        _c(
+                          "strong",
+                          { staticStyle: { "font-size": ".75em" } },
+                          [_vm._v("Standard Cladding")]
+                        )
+                      ]
+                    )
+                  : _vm._e(),
+                _vm._v(" "),
+                _c(
+                  "keep-alive",
+                  [
+                    _vm.showExtColor
+                      ? _c("products-filter", {
+                          attrs: {
+                            category: "extColor",
+                            list: _vm.claddingOptions
+                          }
+                        })
+                      : _vm._e()
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _vm.showExtColor
+                  ? _c(
+                      "div",
+                      {
+                        staticClass:
+                          "d-flex justify-content-between align-items-center pt-2"
+                      },
+                      [
+                        _c(
+                          "strong",
+                          { staticStyle: { "font-size": ".75em" } },
+                          [_vm._v("Custom Options")]
+                        )
+                      ]
+                    )
+                  : _vm._e(),
+                _vm._v(" "),
+                _c(
+                  "keep-alive",
+                  [
+                    _vm.showExtColor
+                      ? _c("products-filter", {
+                          attrs: {
+                            category: "extColor",
+                            list: _vm.listExtColor
+                          }
+                        })
+                      : _vm._e()
+                  ],
+                  1
+                )
+              ],
+              1
+            ),
             _vm._v(" "),
             _c("hr", { staticClass: "my-2" }),
             _vm._v(" "),
-            _c("div", { staticClass: "d-flex flex-column" }, [
-              _c(
-                "div",
-                {
-                  staticClass:
-                    "d-flex justify-content-between align-items-center pointer",
-                  on: { click: _vm.toggleIntColorDisplay }
-                },
-                [
-                  _c("strong", [_vm._v("Interior")]),
-                  _vm._v(" "),
-                  _c("small", [
-                    _c("i", {
-                      class: {
-                        "fas fa-plus": !_vm.showIntColor,
-                        "fas fa-minus": _vm.showIntColor
-                      }
-                    })
-                  ])
-                ]
-              ),
-              _vm._v(" "),
-              _vm.showIntColor
-                ? _c(
-                    "div",
-                    [
-                      _vm._m(10),
-                      _vm._v(" "),
-                      _vm._l(_vm.materialOptions, function(material) {
-                        return _c("check-filter", {
-                          key: material,
-                          attrs: { category: "intColor", name: material }
-                        })
-                      }),
-                      _vm._v(" "),
-                      _vm._m(11),
-                      _vm._v(" "),
-                      _vm._l(_vm.finishOptions, function(finish) {
-                        return _c("check-filter", {
-                          key: finish,
-                          attrs: { category: "intColor", name: finish }
-                        })
-                      }),
-                      _vm._v(" "),
-                      _vm._m(12),
-                      _vm._v(" "),
-                      _vm._l(_vm.standardColors, function(color) {
-                        return _c("check-filter", {
-                          key: color,
-                          attrs: { category: "intColor", name: color }
-                        })
-                      }),
-                      _vm._v(" "),
-                      _vm._m(13),
-                      _vm._v(" "),
-                      _vm._l(_vm.claddingOptions, function(option) {
-                        return _c("check-filter", {
-                          key: option + "-clad",
-                          attrs: { category: "intColor", name: option }
-                        })
-                      }),
-                      _vm._v(" "),
-                      _vm._m(14),
-                      _vm._v(" "),
-                      _vm._l(_vm.listIntColor, function(color) {
-                        return _c("check-filter", {
-                          key: color,
-                          attrs: { category: "intColor", name: color }
-                        })
+            _c(
+              "div",
+              { staticClass: "d-flex flex-column" },
+              [
+                _c(
+                  "div",
+                  {
+                    staticClass:
+                      "d-flex justify-content-between align-items-center pointer",
+                    on: { click: _vm.toggleIntColorDisplay }
+                  },
+                  [
+                    _c("strong", [_vm._v("Interior")]),
+                    _vm._v(" "),
+                    _c("small", [
+                      _c("i", {
+                        class: {
+                          "fas fa-plus": !_vm.showIntColor,
+                          "fas fa-minus": _vm.showIntColor
+                        }
                       })
-                    ],
-                    2
-                  )
-                : _vm._e()
-            ]),
+                    ])
+                  ]
+                ),
+                _vm._v(" "),
+                _vm.showIntColor
+                  ? _c(
+                      "div",
+                      {
+                        staticClass:
+                          "d-flex justify-content-between align-items-center pt-2"
+                      },
+                      [
+                        _c(
+                          "strong",
+                          { staticStyle: { "font-size": ".75em" } },
+                          [_vm._v("Materials")]
+                        )
+                      ]
+                    )
+                  : _vm._e(),
+                _vm._v(" "),
+                _c(
+                  "keep-alive",
+                  [
+                    _vm.showIntColor
+                      ? _c("products-filter", {
+                          attrs: {
+                            category: "intColor",
+                            list: _vm.materialOptions
+                          }
+                        })
+                      : _vm._e()
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _vm.showIntColor
+                  ? _c(
+                      "div",
+                      {
+                        staticClass:
+                          "d-flex justify-content-between align-items-center pt-2"
+                      },
+                      [
+                        _c(
+                          "strong",
+                          { staticStyle: { "font-size": ".75em" } },
+                          [_vm._v("Finishes")]
+                        )
+                      ]
+                    )
+                  : _vm._e(),
+                _vm._v(" "),
+                _c(
+                  "keep-alive",
+                  [
+                    _vm.showIntColor
+                      ? _c("products-filter", {
+                          attrs: {
+                            category: "intColor",
+                            list: _vm.finishOptions
+                          }
+                        })
+                      : _vm._e()
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _vm.showIntColor
+                  ? _c(
+                      "div",
+                      {
+                        staticClass:
+                          "d-flex justify-content-between align-items-center pt-2"
+                      },
+                      [
+                        _c(
+                          "strong",
+                          { staticStyle: { "font-size": ".75em" } },
+                          [_vm._v("Standard Colors")]
+                        )
+                      ]
+                    )
+                  : _vm._e(),
+                _vm._v(" "),
+                _c(
+                  "keep-alive",
+                  [
+                    _vm.showIntColor
+                      ? _c("products-filter", {
+                          attrs: {
+                            category: "intColor",
+                            list: _vm.standardColors
+                          }
+                        })
+                      : _vm._e()
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _vm.showIntColor
+                  ? _c(
+                      "div",
+                      {
+                        staticClass:
+                          "d-flex justify-content-between align-items-center pt-2"
+                      },
+                      [
+                        _c(
+                          "strong",
+                          { staticStyle: { "font-size": ".75em" } },
+                          [_vm._v("Standard Cladding")]
+                        )
+                      ]
+                    )
+                  : _vm._e(),
+                _vm._v(" "),
+                _c(
+                  "keep-alive",
+                  [
+                    _vm.showIntColor
+                      ? _c("products-filter", {
+                          attrs: {
+                            category: "intColor",
+                            list: _vm.claddingOptions
+                          }
+                        })
+                      : _vm._e()
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _vm.showIntColor
+                  ? _c(
+                      "div",
+                      {
+                        staticClass:
+                          "d-flex justify-content-between align-items-center pt-2"
+                      },
+                      [
+                        _c(
+                          "strong",
+                          { staticStyle: { "font-size": ".75em" } },
+                          [_vm._v("Custom Options")]
+                        )
+                      ]
+                    )
+                  : _vm._e(),
+                _vm._v(" "),
+                _c(
+                  "keep-alive",
+                  [
+                    _vm.showIntColor
+                      ? _c("products-filter", {
+                          attrs: {
+                            category: "intColor",
+                            list: _vm.listIntColor
+                          }
+                        })
+                      : _vm._e()
+                  ],
+                  1
+                )
+              ],
+              1
+            ),
             _vm._v(" "),
             _c("hr", { staticClass: "my-2" }),
             _vm._v(" "),
-            _c("div", { staticClass: "d-flex flex-column" }, [
-              _c(
-                "div",
-                {
-                  staticClass:
-                    "d-flex justify-content-between align-items-center pointer",
-                  on: { click: _vm.toggleLocationDisplay }
-                },
-                [
-                  _c("strong", [_vm._v("Location")]),
-                  _vm._v(" "),
-                  _c("small", [
-                    _c("i", {
-                      class: {
-                        "fas fa-plus": !_vm.showLocations,
-                        "fas fa-minus": _vm.showLocations
-                      }
-                    })
-                  ])
-                ]
-              ),
-              _vm._v(" "),
-              _vm.showLocations
-                ? _c(
-                    "div",
-                    [
-                      _vm._m(15),
-                      _vm._v(" "),
-                      _vm._l(_vm.internatinalOptions, function(loc) {
-                        return _c("check-filter", {
-                          key: loc,
-                          attrs: { category: "locations", name: loc }
-                        })
-                      }),
-                      _vm._v(" "),
-                      _vm._m(16),
-                      _vm._v(" "),
-                      _vm._l(_vm.listLocation, function(loc) {
-                        return _c("check-filter", {
-                          key: loc,
-                          attrs: { category: "locations", name: loc }
-                        })
+            _c(
+              "div",
+              { staticClass: "d-flex flex-column" },
+              [
+                _c(
+                  "div",
+                  {
+                    staticClass:
+                      "d-flex justify-content-between align-items-center pointer",
+                    on: { click: _vm.toggleLocationDisplay }
+                  },
+                  [
+                    _c("strong", [_vm._v("Location")]),
+                    _vm._v(" "),
+                    _c("small", [
+                      _c("i", {
+                        class: {
+                          "fas fa-plus": !_vm.showLocations,
+                          "fas fa-minus": _vm.showLocations
+                        }
                       })
-                    ],
-                    2
-                  )
-                : _vm._e()
-            ]),
+                    ])
+                  ]
+                ),
+                _vm._v(" "),
+                _vm.showLocations
+                  ? _c(
+                      "div",
+                      {
+                        staticClass:
+                          "mb-1 d-flex justify-content-between align-items-center pt-2"
+                      },
+                      [
+                        _c(
+                          "strong",
+                          { staticStyle: { "font-size": ".75em" } },
+                          [_vm._v("International")]
+                        )
+                      ]
+                    )
+                  : _vm._e(),
+                _vm._v(" "),
+                _c(
+                  "keep-alive",
+                  [
+                    _vm.showLocations
+                      ? _c("products-filter", {
+                          attrs: {
+                            category: "locations",
+                            list: _vm.internatinalOptions
+                          }
+                        })
+                      : _vm._e()
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _vm.showLocations
+                  ? _c(
+                      "div",
+                      {
+                        staticClass:
+                          "mb-1 d-flex justify-content-between align-items-center pt-2"
+                      },
+                      [
+                        _c(
+                          "strong",
+                          { staticStyle: { "font-size": ".75em" } },
+                          [_vm._v("Domestic")]
+                        )
+                      ]
+                    )
+                  : _vm._e(),
+                _vm._v(" "),
+                _c(
+                  "keep-alive",
+                  [
+                    _vm.showLocations
+                      ? _c("products-filter", {
+                          attrs: {
+                            category: "locations",
+                            list: _vm.listLocation
+                          }
+                        })
+                      : _vm._e()
+                  ],
+                  1
+                )
+              ],
+              1
+            ),
             _vm._v(" "),
             _c("hr", { staticClass: "my-2" })
           ]),
@@ -28837,7 +29209,7 @@ var render = function() {
               _c(
                 "div",
                 { staticClass: "row d-nonex" },
-                [_vm._m(17), _vm._v(" "), _c("mega-filter")],
+                [_vm._m(2), _vm._v(" "), _c("mega-filter")],
                 1
               ),
               _vm._v(" "),
@@ -28975,7 +29347,7 @@ var render = function() {
                       }
                     }),
                     _vm._v(" "),
-                    _vm._m(18)
+                    _vm._m(3)
                   ])
                 ]),
                 _vm._v(" "),
@@ -30072,7 +30444,7 @@ var render = function() {
                           _vm._v("Projects by State")
                         ]),
                         _vm._v(" "),
-                        _vm._m(19)
+                        _vm._m(4)
                       ]
                     )
                   : _vm._e()
@@ -30125,219 +30497,6 @@ var staticRenderFns = [
     return _c("h3", { staticStyle: { "font-size": "90%", color: "#969696" } }, [
       _c("strong", [_vm._v("Show results for:")])
     ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _vm._l(_vm.listProducts, function(prod) {
-      return _c("check-filter", {
-        key: prod,
-        attrs: { category: "products", name: prod }
-      })
-    })
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "div",
-      { staticClass: "d-flex justify-content-between align-items-center pt-2" },
-      [
-        _c("strong", { staticStyle: { "font-size": ".75em" } }, [
-          _vm._v("Glaze Colors")
-        ])
-      ]
-    )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "div",
-      { staticClass: "d-flex justify-content-between align-items-center pt-2" },
-      [
-        _c("strong", { staticStyle: { "font-size": ".75em" } }, [
-          _vm._v("Glaze Coating")
-        ])
-      ]
-    )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "div",
-      { staticClass: "d-flex justify-content-between align-items-center pt-2" },
-      [
-        _c("strong", { staticStyle: { "font-size": ".75em" } }, [
-          _vm._v("Materials")
-        ])
-      ]
-    )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "div",
-      { staticClass: "d-flex justify-content-between align-items-center pt-2" },
-      [
-        _c("strong", { staticStyle: { "font-size": ".75em" } }, [
-          _vm._v("Finishes")
-        ])
-      ]
-    )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "div",
-      { staticClass: "d-flex justify-content-between align-items-center pt-2" },
-      [
-        _c("strong", { staticStyle: { "font-size": ".75em" } }, [
-          _vm._v("Standard Colors")
-        ])
-      ]
-    )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "div",
-      { staticClass: "d-flex justify-content-between align-items-center pt-2" },
-      [
-        _c("strong", { staticStyle: { "font-size": ".75em" } }, [
-          _vm._v("Standard Cladding")
-        ])
-      ]
-    )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "div",
-      { staticClass: "d-flex justify-content-between align-items-center pt-2" },
-      [
-        _c("strong", { staticStyle: { "font-size": ".75em" } }, [
-          _vm._v("Custom Options")
-        ])
-      ]
-    )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "div",
-      { staticClass: "d-flex justify-content-between align-items-center pt-2" },
-      [
-        _c("strong", { staticStyle: { "font-size": ".75em" } }, [
-          _vm._v("Materials")
-        ])
-      ]
-    )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "div",
-      { staticClass: "d-flex justify-content-between align-items-center pt-2" },
-      [
-        _c("strong", { staticStyle: { "font-size": ".75em" } }, [
-          _vm._v("Finishes")
-        ])
-      ]
-    )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "div",
-      { staticClass: "d-flex justify-content-between align-items-center pt-2" },
-      [
-        _c("strong", { staticStyle: { "font-size": ".75em" } }, [
-          _vm._v("Standard Colors")
-        ])
-      ]
-    )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "div",
-      { staticClass: "d-flex justify-content-between align-items-center pt-2" },
-      [
-        _c("strong", { staticStyle: { "font-size": ".75em" } }, [
-          _vm._v("Standard Cladding")
-        ])
-      ]
-    )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "div",
-      { staticClass: "d-flex justify-content-between align-items-center pt-2" },
-      [
-        _c("strong", { staticStyle: { "font-size": ".75em" } }, [
-          _vm._v("Custom Options")
-        ])
-      ]
-    )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "div",
-      {
-        staticClass:
-          "mb-1 d-flex justify-content-between align-items-center pt-2"
-      },
-      [
-        _c("strong", { staticStyle: { "font-size": ".75em" } }, [
-          _vm._v("International")
-        ])
-      ]
-    )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "div",
-      {
-        staticClass:
-          "mb-1 d-flex justify-content-between align-items-center pt-2"
-      },
-      [
-        _c("strong", { staticStyle: { "font-size": ".75em" } }, [
-          _vm._v("Domestic")
-        ])
-      ]
-    )
   },
   function() {
     var _vm = this
@@ -30513,6 +30672,365 @@ if (false) {
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 36 */,
+/* 37 */,
+/* 38 */,
+/* 39 */,
+/* 40 */,
+/* 41 */,
+/* 42 */,
+/* 43 */,
+/* 44 */,
+/* 45 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+/* harmony default export */ __webpack_exports__["a"] = ({
+  data: function data() {
+    return {
+      checked: []
+    };
+  },
+
+  props: ["list", "subhead", "category"],
+  methods: {
+    checkFilter: function checkFilter(category, name) {
+      if (this.checked.indexOf(name) != -1) {
+        this.checked.splice(this.checked.indexOf(name), 1);
+        this.$bus.$emit("check-filter", category, name, false);
+      } else {
+        this.checked.push(name);
+        this.$bus.$emit("check-filter", category, name, true);
+      }
+      // this.checked = !this.checked;
+    }
+  }
+});
+
+/***/ }),
+/* 46 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_ProductsFilter_vue__ = __webpack_require__(45);
+/* unused harmony namespace reexport */
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_17ee8e86_hasScoped_true_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_ProductsFilter_vue__ = __webpack_require__(48);
+var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__(47)
+}
+var normalizeComponent = __webpack_require__(0)
+/* script */
+
+
+/* template */
+
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = injectStyle
+/* scopeId */
+var __vue_scopeId__ = "data-v-17ee8e86"
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_ProductsFilter_vue__["a" /* default */],
+  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_17ee8e86_hasScoped_true_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_ProductsFilter_vue__["a" /* default */],
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "src/_vue/components/ProductsFilter.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-17ee8e86", Component.options)
+  } else {
+    hotAPI.reload("data-v-17ee8e86", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+/* harmony default export */ __webpack_exports__["a"] = (Component.exports);
+
+
+/***/ }),
+/* 47 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 48 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    [
+      _vm.subhead
+        ? _c("strong", { staticStyle: { "font-size": ".75em" } }, [
+            _vm._v(_vm._s(_vm.subhead))
+          ])
+        : _vm._e(),
+      _vm._v(" "),
+      _vm._l(_vm.list, function(prod) {
+        return _c("div", { key: prod }, [
+          _c(
+            "div",
+            {
+              staticClass: "p-0 pointer",
+              on: {
+                click: function($event) {
+                  _vm.checkFilter(_vm.category, prod)
+                }
+              }
+            },
+            [
+              _c("small", [
+                _c("i", {
+                  staticClass: "mr-1",
+                  class: {
+                    "fas fa-check-square": _vm.checked.indexOf(prod) >= 0,
+                    "far fa-square": _vm.checked.indexOf(prod) == -1
+                  },
+                  staticStyle: { color: "rgb(150, 150, 150)" },
+                  attrs: { name: prod }
+                }),
+                _vm._v(" " + _vm._s(prod) + "\n        ")
+              ])
+            ]
+          )
+        ])
+      })
+    ],
+    2
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+var esExports = { render: render, staticRenderFns: staticRenderFns }
+/* harmony default export */ __webpack_exports__["a"] = (esExports);
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-17ee8e86", esExports)
+  }
+}
+
+/***/ }),
+/* 49 */,
+/* 50 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+/* harmony default export */ __webpack_exports__["a"] = ({
+  data: function data() {
+    return {
+      checked: []
+    };
+  },
+
+  props: ["list", "products", "category", "show"],
+  methods: {
+    checkFilter: function checkFilter(category, name) {
+      if (this.checked.indexOf(name) != -1) {
+        this.checked.splice(this.checked.indexOf(name), 1);
+        this.$bus.$emit("check-filter", category, name, false);
+      } else {
+        this.checked.push(name);
+        this.$bus.$emit("check-filter", category, name, true);
+      }
+    }
+  }
+});
+
+/***/ }),
+/* 51 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_FeaturesFilter_vue__ = __webpack_require__(50);
+/* unused harmony namespace reexport */
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_1f9ca61f_hasScoped_true_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_FeaturesFilter_vue__ = __webpack_require__(53);
+var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__(52)
+}
+var normalizeComponent = __webpack_require__(0)
+/* script */
+
+
+/* template */
+
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = injectStyle
+/* scopeId */
+var __vue_scopeId__ = "data-v-1f9ca61f"
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_FeaturesFilter_vue__["a" /* default */],
+  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_1f9ca61f_hasScoped_true_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_FeaturesFilter_vue__["a" /* default */],
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "src/_vue/components/FeaturesFilter.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-1f9ca61f", Component.options)
+  } else {
+    hotAPI.reload("data-v-1f9ca61f", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+/* harmony default export */ __webpack_exports__["a"] = (Component.exports);
+
+
+/***/ }),
+/* 52 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 53 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    _vm._l(_vm.products, function(product) {
+      return _vm.show
+        ? _c(
+            "div",
+            { key: product },
+            [
+              _c("strong", { staticStyle: { "font-size": ".75em" } }, [
+                _vm._v(_vm._s(product))
+              ]),
+              _vm._v(" "),
+              _vm._l(_vm.list[product], function(feature) {
+                return _c("div", { key: feature }, [
+                  _c(
+                    "div",
+                    {
+                      staticClass: "p-0 pointer",
+                      on: {
+                        click: function($event) {
+                          _vm.checkFilter(_vm.category, feature)
+                        }
+                      }
+                    },
+                    [
+                      _c("small", [
+                        _c("i", {
+                          staticClass: "mr-1",
+                          class: {
+                            "fas fa-check-square":
+                              _vm.checked.indexOf(feature) >= 0,
+                            "far fa-square": _vm.checked.indexOf(feature) == -1
+                          },
+                          staticStyle: { color: "rgb(150, 150, 150)" },
+                          attrs: { name: feature }
+                        }),
+                        _vm._v(" " + _vm._s(feature) + "\n          ")
+                      ])
+                    ]
+                  )
+                ])
+              })
+            ],
+            2
+          )
+        : _vm._e()
+    })
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+var esExports = { render: render, staticRenderFns: staticRenderFns }
+/* harmony default export */ __webpack_exports__["a"] = (esExports);
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-1f9ca61f", esExports)
+  }
+}
 
 /***/ })
 /******/ ]);

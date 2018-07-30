@@ -14,24 +14,23 @@
               <i v-bind:class="{ 'fas fa-plus': !showProducts, 'fas fa-minus': showProducts }"></i>
             </small>
           </div>
-          
-          <check-filter v-once v-if="showProducts" v-for="prod in listProducts" category="products" v-bind:name="prod" v-bind:key="prod"></check-filter>
+          <keep-alive>
+            <products-filter v-if="showProducts" v-bind:category="'products'" v-bind:list="listProducts" ></products-filter>
+          </keep-alive>
         </div>
 
-        <hr class="my-2" v-if="products.length">
-        
-        <div class="d-flex flex-column" v-if="products.length">        
+        <hr class="my-2"  v-if="products.length">
+
+         <div v-if="products.length" class="d-flex flex-column" >
           <div class="d-flex justify-content-between align-items-center pointer" v-on:click="toggleFeaturesDisplay">
             <strong>Features</strong>
             <small>
               <i v-bind:class="{ 'fas fa-plus': !showFeatures, 'fas fa-minus': showFeatures }"></i>
             </small>
           </div>
-          <div v-if="showFeatures" v-for="product in listProducts" v-bind:key="product">
-            <strong style="font-size:.75em">{{ product }}</strong>
-            <check-filter  v-for="feature in optionFeatureGroups[product]" category="geoType1" v-bind:name="feature" v-bind:key="feature"></check-filter>
-          </div>
-          <!-- <check-filter v-if="showFeatures" v-for="feature in listFeatures" category="geoType1" v-bind:name="feature" v-bind:key="feature"></check-filter> -->
+          <keep-alive>
+            <features-filter v-bind:show="showFeatures" v-bind:category="'geoType1'" v-bind:list="optionFeatureGroups" v-bind:products="products" ></features-filter><!-- v-if="showProducts" -->
+          </keep-alive>
         </div>
 
         <hr class="my-2">
@@ -43,7 +42,9 @@
               <i v-bind:class="{ 'fas fa-plus': !showApplications, 'fas fa-minus': showApplications }"></i>
             </small>
           </div>
-          <check-filter v-if="showApplications" v-for="app in listApplications" category="applications" v-bind:name="app" v-bind:key="app"></check-filter>
+          <keep-alive>
+            <products-filter v-if="showApplications" v-bind:category="'applications'" v-bind:list="listApplications" ></products-filter>
+          </keep-alive>
         </div>
         
         <hr class="my-2">
@@ -55,20 +56,25 @@
               <i v-bind:class="{ 'fas fa-plus': !showGlazes, 'fas fa-minus': showGlazes }"></i>
             </small>
           </div>
-          <div v-if="showGlazes">
+          <div >
+            <keep-alive>
+              <products-filter v-if="showGlazes" v-bind:category="'glazes'" v-bind:list="glazesOptions" ></products-filter>
+            </keep-alive>
 
-            <check-filter   v-for="glaze in glazesOptions"  category="glazes" v-bind:name="glaze" v-bind:key="glaze"></check-filter>
-
-            <div class="d-flex justify-content-between align-items-center pt-2">
+             <div v-if="showGlazes" class="d-flex justify-content-between align-items-center pt-2">
               <strong style="font-size:.75em">Glaze Colors</strong>
             </div>
-            <check-filter v-for="glaze in glazeColor"  category="glazes" v-bind:name="glaze" v-bind:key="glaze"></check-filter>
+            <keep-alive>
+              <products-filter v-if="showGlazes" v-bind:category="'glazes'" v-bind:list="glazeColor" ></products-filter>
+            </keep-alive>
 
-            <div class="d-flex justify-content-between align-items-center pt-2">
+            <div v-if="showGlazes" class="d-flex justify-content-between align-items-center pt-2">
               <strong style="font-size:.75em">Glaze Coating</strong>
             </div>
-            <check-filter v-for="glaze in listGlazeCoatings"  category="glazes" v-bind:name="glaze" v-bind:key="glaze"></check-filter>          
-            
+            <keep-alive>
+              <products-filter v-if="showGlazes" v-bind:category="'glazes'" v-bind:list="listGlazeCoatings" ></products-filter>
+            </keep-alive>
+
           </div>
         </div>
 
@@ -82,32 +88,40 @@
             </small>
           </div>
           
-          <div v-if="showExtColor" >
-            <div class="d-flex justify-content-between align-items-center pt-2">
+
+            <div v-if="showExtColor" class="d-flex justify-content-between align-items-center pt-2">
               <strong style="font-size:.75em">Materials</strong>
             </div>
-            <check-filter v-for="material in materialOptions"  category="extColor" v-bind:name="material" v-bind:key="material"></check-filter>
+            <keep-alive>
+              <products-filter v-if="showExtColor" v-bind:category="'extColor'" v-bind:list="materialOptions" ></products-filter>
+            </keep-alive>
 
-            <div class="d-flex justify-content-between align-items-center pt-2">
+            <div v-if="showExtColor" class="d-flex justify-content-between align-items-center pt-2">
               <strong style="font-size:.75em">Finishes</strong>
             </div>
-            <check-filter v-for="finish in finishOptions"  category="extColor" v-bind:name="finish" v-bind:key="finish"></check-filter>
+            <keep-alive>
+              <products-filter v-if="showExtColor" v-bind:category="'extColor'" v-bind:list="finishOptions" ></products-filter>
+            </keep-alive>
 
-            <div class="d-flex justify-content-between align-items-center pt-2">
+            <div v-if="showExtColor" class="d-flex justify-content-between align-items-center pt-2">
               <strong style="font-size:.75em">Standard Colors</strong>
             </div>
-            <check-filter v-for="color in standardColors"  category="extColor" v-bind:name="color" v-bind:key="color"></check-filter>
-            
-            <div class="d-flex justify-content-between align-items-center pt-2">
+            <keep-alive>
+              <products-filter v-if="showExtColor" v-bind:category="'extColor'" v-bind:list="standardColors" ></products-filter>
+            </keep-alive>        
+            <div v-if="showExtColor" class="d-flex justify-content-between align-items-center pt-2">
               <strong style="font-size:.75em">Standard Cladding</strong>
             </div>
-            <check-filter v-for="option in claddingOptions"  category="extColor" v-bind:name="option" v-bind:key="option+'-clad'"></check-filter>
-
-            <div class="d-flex justify-content-between align-items-center pt-2">
+            <keep-alive>
+              <products-filter v-if="showExtColor" v-bind:category="'extColor'" v-bind:list="claddingOptions" ></products-filter>
+            </keep-alive> 
+            <div v-if="showExtColor" class="d-flex justify-content-between align-items-center pt-2">
               <strong style="font-size:.75em">Custom Options</strong>
-            </div>
-            <check-filter v-for="color in listExtColor" category="extColor" v-bind:name="color" v-bind:key="color"></check-filter>
-          </div>
+            </div> 
+            <keep-alive>
+              <products-filter v-if="showExtColor" v-bind:category="'extColor'" v-bind:list="listExtColor" ></products-filter>
+            </keep-alive> 
+
         </div>
 
         <hr class="my-2">
@@ -120,35 +134,45 @@
             </small>
           </div>
           
-          <div v-if="showIntColor" >
-            <div class="d-flex justify-content-between align-items-center pt-2">
-              <strong style="font-size:.75em">Materials</strong>
-            </div>
-            <check-filter v-for="material in materialOptions"  category="intColor" v-bind:name="material" v-bind:key="material"></check-filter>
- 
-            <div class="d-flex justify-content-between align-items-center pt-2">
-              <strong style="font-size:.75em">Finishes</strong>
-            </div>
-            <check-filter v-for="finish in finishOptions"  category="intColor" v-bind:name="finish" v-bind:key="finish"></check-filter>
-
-            <div class="d-flex justify-content-between align-items-center pt-2">
-              <strong style="font-size:.75em">Standard Colors</strong>
-            </div>
-            <check-filter v-for="color in standardColors"  category="intColor" v-bind:name="color" v-bind:key="color"></check-filter>
-            
-            <div class="d-flex justify-content-between align-items-center pt-2">
-              <strong style="font-size:.75em">Standard Cladding</strong>
-            </div>
-            <check-filter v-for="option in claddingOptions"  category="intColor" v-bind:name="option" v-bind:key="option+'-clad'"></check-filter>
-
-            <div class="d-flex justify-content-between align-items-center pt-2">
-              <strong style="font-size:.75em">Custom Options</strong>
-            </div>
-            <check-filter v-for="color in listIntColor" category="intColor" v-bind:name="color" v-bind:key="color"></check-filter>
+          <div v-if="showIntColor" class="d-flex justify-content-between align-items-center pt-2">
+            <strong style="font-size:.75em">Materials</strong>
           </div>
+          <keep-alive>
+            <products-filter v-if="showIntColor" v-bind:category="'intColor'" v-bind:list="materialOptions" ></products-filter>
+          </keep-alive> 
+
+          <div v-if="showIntColor" class="d-flex justify-content-between align-items-center pt-2">
+            <strong style="font-size:.75em">Finishes</strong>
+          </div>
+          <keep-alive>
+            <products-filter v-if="showIntColor" v-bind:category="'intColor'" v-bind:list="finishOptions" ></products-filter>
+          </keep-alive> 
+
+          <div v-if="showIntColor" class="d-flex justify-content-between align-items-center pt-2">
+            <strong style="font-size:.75em">Standard Colors</strong>
+          </div>
+          <keep-alive>
+            <products-filter v-if="showIntColor" v-bind:category="'intColor'" v-bind:list="standardColors" ></products-filter>
+          </keep-alive> 
+
+          <div v-if="showIntColor" class="d-flex justify-content-between align-items-center pt-2">
+            <strong style="font-size:.75em">Standard Cladding</strong>
+          </div>
+          <keep-alive>
+            <products-filter v-if="showIntColor" v-bind:category="'intColor'" v-bind:list="claddingOptions" ></products-filter>
+          </keep-alive> 
+
+          <div v-if="showIntColor"  class="d-flex justify-content-between align-items-center pt-2">
+            <strong style="font-size:.75em">Custom Options</strong>
+          </div>
+          <keep-alive>
+            <products-filter v-if="showIntColor" v-bind:category="'intColor'" v-bind:list="listIntColor" ></products-filter>
+          </keep-alive> 
+
         </div>
 
         <hr class="my-2">
+
 
         <div class="d-flex flex-column">
           <div class="d-flex justify-content-between align-items-center pointer" v-on:click="toggleLocationDisplay">
@@ -157,20 +181,24 @@
               <i v-bind:class="{ 'fas fa-plus': !showLocations, 'fas fa-minus': showLocations }"></i>
             </small>
           </div>
-          <div v-if="showLocations">
-            <div class="mb-1 d-flex justify-content-between align-items-center pt-2">
-              <strong style="font-size:.75em">International</strong>
-            </div>
-            <check-filter v-for="loc in internatinalOptions" category="locations" v-bind:name="loc" v-bind:key="loc"></check-filter>
-
-            <div class="mb-1 d-flex justify-content-between align-items-center pt-2">
-              <strong style="font-size:.75em">Domestic</strong>
-            </div>
-            <check-filter v-for="loc in listLocation" category="locations" v-bind:name="loc" v-bind:key="loc"></check-filter>
+          
+          <div v-if="showLocations" class="mb-1 d-flex justify-content-between align-items-center pt-2">
+            <strong style="font-size:.75em">International</strong>
           </div>
+          <keep-alive>
+            <products-filter v-if="showLocations" v-bind:category="'locations'" v-bind:list="internatinalOptions" ></products-filter>
+          </keep-alive> 
+
+          <div v-if="showLocations" class="mb-1 d-flex justify-content-between align-items-center pt-2">
+            <strong style="font-size:.75em">Domestic</strong>
+          </div>
+          <keep-alive>
+            <products-filter v-if="showLocations" v-bind:category="'locations'" v-bind:list="listLocation" ></products-filter>
+          </keep-alive> 
+
         </div>
         
-        <hr class="my-2">
+        <hr class="my-2"> 
 
       </div> 
         
@@ -332,9 +360,11 @@ import projects from "../data/projects.json";
 import MegaFilter from "./MegaFilter.vue";
 import ListItem from "./ListItem.vue";
 import CheckFilter from "./CheckFilter.vue";
+import ProductsFilter from "./ProductsFilter.vue";
+import FeaturesFilter from "./FeaturesFilter.vue";
 import SmallGridItem from "./SmallGridItem.vue";
 import LargeGridItem from "./LargeGridItem.vue";
-import { checkFilter } from "../util/bus";
+import { checkFilter, productsFilter } from "../util/bus";
 
 export default {
   name: "Resources",
@@ -427,6 +457,8 @@ export default {
     MegaFilter,
     ListItem,
     CheckFilter,
+    ProductsFilter,
+    FeaturesFilter,
     SmallGridItem,
     LargeGridItem
   },
@@ -852,6 +884,7 @@ export default {
   },
   created() {
     this.$bus.$on("check-filter", checkFilter.bind(this));
+    this.$bus.$on("products-filter", productsFilter.bind(this));
   },
   mounted: function() {
     var vueInstance = this;
