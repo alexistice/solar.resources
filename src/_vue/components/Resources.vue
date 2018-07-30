@@ -14,7 +14,8 @@
               <i v-bind:class="{ 'fas fa-plus': !showProducts, 'fas fa-minus': showProducts }"></i>
             </small>
           </div>
-          <check-filter v-if="showProducts" v-for="prod in listProducts" category="products" v-bind:name="prod" v-bind:key="prod"></check-filter>
+          
+          <check-filter v-once v-if="showProducts" v-for="prod in listProducts" category="products" v-bind:name="prod" v-bind:key="prod"></check-filter>
         </div>
 
         <hr class="my-2" v-if="products.length">
