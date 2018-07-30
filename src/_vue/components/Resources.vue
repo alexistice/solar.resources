@@ -621,10 +621,10 @@ export default {
             }
           });
         });
-        if(matched.length != this.geoType1.length){
-          return false;
-        }else{
+        if(matched.length >= this.geoType1.length){
           return true;
+        }else{
+          return false;
         }
       }
     },
@@ -644,10 +644,10 @@ export default {
             });
           }
         });
-        if(matched.length != this.geoType2.length){
-          return false;
-        }else{
+        if(matched.length >= this.geoType2.length){
           return true;
+        }else{
+          return false;
         }
       }
     },

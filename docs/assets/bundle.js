@@ -9009,10 +9009,10 @@ process.umask = function() { return 0; };
             }
           });
         });
-        if (matched.length != this.geoType1.length) {
-          return false;
-        } else {
+        if (matched.length >= this.geoType1.length) {
           return true;
+        } else {
+          return false;
         }
       }
     },
@@ -9034,10 +9034,10 @@ process.umask = function() { return 0; };
             });
           }
         });
-        if (matched.length != this.geoType2.length) {
-          return false;
-        } else {
+        if (matched.length >= this.geoType2.length) {
           return true;
+        } else {
+          return false;
         }
       }
     },
