@@ -39,3 +39,4 @@ https://jekyllvue.metaincognita.com/
 
 - http://stackoverflow.com/questions/31933359/using-react-in-a-multi-page-app
 - https://www.jonathan-petitcolas.com/2016/08/12/plugging-webpack-to-jekyll-powered-pages.html
+- https://github.com/euvl/vue-js-modal
