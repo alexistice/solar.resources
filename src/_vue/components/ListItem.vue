@@ -3,26 +3,27 @@
         <div class="row no-gutters">
             <div class="col-lg-4">
                 <div class="row  no-gutters pr-3">
-                    <div class="col-12 bigCrop">
-                        <img class="img-fluid" v-bind:src="image" >
+                    <div class="col-12 ">
+                        <!-- <img class="img-fluid" v-bind:src="image" > -->
+                        <div class="img thumbBig" v-bind:style="{ backgroundImage: 'url(' + image + ')' }" ></div>
                     </div>
                 </div>
                 <div class="row no-gutters pr-3 pt-1 justify-content-end">
-                    <div class="col-6 crop  mb-1" v-if="resource.Image1">
-                        <img @mouseover="imgHover(imgUrlFormat(resource.Image1))" class="img" v-bind:src="imgUrlFormat(resource.Image1)" >
+                    <div class="col-6  mb-1" v-if="resource.Image1">
+                        <div @mouseover="imgHover(imgUrlFormat(resource.Image1))" class="img thumb" v-bind:style="{ backgroundImage: 'url(' + imgUrlFormat(resource.Image1) + ')' }" ></div>
                     </div>
-                    <div class="col-6 crop pl-1 mb-1" v-if="resource.Image2">
-                        <img @mouseover="imgHover(imgUrlFormat(resource.Image2))" class="img" v-bind:src="imgUrlFormat(resource.Image2)">
+                    <div class="col-6 pl-1 mb-1" v-if="resource.Image2">
+                        <div @mouseover="imgHover(imgUrlFormat(resource.Image2))" class="img thumb" v-bind:style="{ backgroundImage: 'url(' + imgUrlFormat(resource.Image2) + ')' }" ></div>
                     </div>
-                    <div class="col-6 crop mb-1" v-if="resource.Image3">
-                        <img @mouseover="imgHover(imgUrlFormat(resource.Image3))" class="img" v-bind:src="imgUrlFormat(resource.Image3)">
+                    <div class="col-6 mb-1" v-if="resource.Image3">
+                        <div @mouseover="imgHover(imgUrlFormat(resource.Image3))" class="img thumb" v-bind:style="{ backgroundImage: 'url(' + imgUrlFormat(resource.Image3) + ')' }" ></div>
                     </div>
-                    <div class="col-6 crop pl-1 mb-1" v-if="resource.Image4">
-                        <img @mouseover="imgHover(imgUrlFormat(resource.Image4))" lass="img" v-bind:src="imgUrlFormat(resource.Image4)">
+                    <div class="col-6 pl-1 mb-1" v-if="resource.Image4">
+                        <div @mouseover="imgHover(imgUrlFormat(resource.Image4))" class="img thumb" v-bind:style="{ backgroundImage: 'url(' + imgUrlFormat(resource.Image4) + ')' }" ></div>
                     </div>
                 </div>
             </div>   
-                  
+                    
             <div class="col-lg-8 align-content-between">
                 <div class="row no-gutters">
                     <div class="col-lg-11">
@@ -120,7 +121,7 @@ export default {
     imgUrlFormat(filename) {
       // <img src="http://solar.localhost/wp-content/uploads/000_1163_500.jpg">
 
-      //   var path = "/assets/images/project-gallery/";
+
       var path = "https://solarinnovations.com/wp-content/uploads/";
       return path.concat(filename);
       // .concat("-")
@@ -134,3 +135,23 @@ export default {
   computed: {}
 };
 </script>  
+<style scoped>
+.thumb {
+    background-color: black;
+    width: 140px;
+    height: 100px;
+    display: inline-block; /* makes it fit in like an <img> */
+    background-size: cover; /* or contain */
+    background-position: center center;
+    background-repeat: no-repeat;
+}
+.thumbBig {
+    background-color: black;
+    width: 290px;
+    height: 200px;
+    display: inline-block; /* makes it fit in like an <img> */
+    background-size: cover; /* or contain */
+    background-position: center center;
+    background-repeat: no-repeat;
+}
+</style>

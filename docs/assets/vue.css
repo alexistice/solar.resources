@@ -24,6 +24,25 @@ pointer[data-v-c7b149ea] {
   color:#383838;
 }
 
+.thumb[data-v-8938a74a] {
+    background-color: black;
+    width: 140px;
+    height: 100px;
+    display: inline-block; /* makes it fit in like an <img> */
+    background-size: cover; /* or contain */
+    background-position: center center;
+    background-repeat: no-repeat;
+}
+.thumbBig[data-v-8938a74a] {
+    background-color: black;
+    width: 290px;
+    height: 200px;
+    display: inline-block; /* makes it fit in like an <img> */
+    background-size: cover; /* or contain */
+    background-position: center center;
+    background-repeat: no-repeat;
+}
+
 pointer[data-v-3f99a286]{
     cursor: pointer;
 }

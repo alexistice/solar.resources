@@ -711,13 +711,16 @@ export default {
       if (!this.locations.length) {
         return true;
       } else {
-        let projLocations = proj.Location;
-        let matched = true;
-        this.locations.forEach(loc => {
-          if (projLocations.indexOf(loc) === -1) {
-            matched = false;
-          }
-        });
+        let projLocation = proj.Location;
+        let matched = false;
+        // this.locations.forEach(loc => {
+        //   if (projLocation.indexOf(loc) === -1) {
+        //     matched = false;
+        //   }
+        // });
+        if(this.locations.includes(projLocation)){
+          matched = true;
+        }
         return matched;
       }
     }
