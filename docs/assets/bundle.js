@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 12);
+/******/ 	return __webpack_require__(__webpack_require__.s = 13);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -201,14 +201,19 @@ module.exports = g;
 
 /***/ }),
 /* 2 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
-"use strict";
-/* WEBPACK VAR INJECTION */(function(process, global, setImmediate) {/*!
+/* WEBPACK VAR INJECTION */(function(global, setImmediate) {/*!
  * Vue.js v2.5.16
  * (c) 2014-2018 Evan You
  * Released under the MIT License.
  */
+(function (global, factory) {
+	 true ? module.exports = factory() :
+	typeof define === 'function' && define.amd ? define(factory) :
+	(global.Vue = factory());
+}(this, (function () { 'use strict';
+
 /*  */
 
 var emptyObject = Object.freeze({});
@@ -471,7 +476,11 @@ var identity = function (_) { return _; };
 /**
  * Generate a static keys string from compiler modules.
  */
-
+function genStaticKeys (modules) {
+  return modules.reduce(function (keys, m) {
+    return keys.concat(m.staticKeys || [])
+  }, []).join(',')
+}
 
 /**
  * Check if two values are loosely equal - that is,
@@ -569,12 +578,12 @@ var config = ({
   /**
    * Show production mode tip message on boot?
    */
-  productionTip: process.env.NODE_ENV !== 'production',
+  productionTip: "development" !== 'production',
 
   /**
    * Whether to enable devtools
    */
-  devtools: process.env.NODE_ENV !== 'production',
+  devtools: "development" !== 'production',
 
   /**
    * Whether to record perf
@@ -777,7 +786,7 @@ var tip = noop;
 var generateComponentTrace = (noop); // work around flow check
 var formatComponentName = (noop);
 
-if (process.env.NODE_ENV !== 'production') {
+{
   var hasConsole = typeof console !== 'undefined';
   var classifyRE = /(?:^|[-_])(\w)/g;
   var classify = function (str) { return str
@@ -1204,7 +1213,7 @@ function defineReactive (
         return
       }
       /* eslint-enable no-self-compare */
-      if (process.env.NODE_ENV !== 'production' && customSetter) {
+      if ("development" !== 'production' && customSetter) {
         customSetter();
       }
       if (setter) {
@@ -1224,7 +1233,7 @@ function defineReactive (
  * already exist.
  */
 function set (target, key, val) {
-  if (process.env.NODE_ENV !== 'production' &&
+  if ("development" !== 'production' &&
     (isUndef(target) || isPrimitive(target))
   ) {
     warn(("Cannot set reactive property on undefined, null, or primitive value: " + ((target))));
@@ -1240,7 +1249,7 @@ function set (target, key, val) {
   }
   var ob = (target).__ob__;
   if (target._isVue || (ob && ob.vmCount)) {
-    process.env.NODE_ENV !== 'production' && warn(
+    "development" !== 'production' && warn(
       'Avoid adding reactive properties to a Vue instance or its root $data ' +
       'at runtime - declare it upfront in the data option.'
     );
@@ -1259,7 +1268,7 @@ function set (target, key, val) {
  * Delete a property and trigger change if necessary.
  */
 function del (target, key) {
-  if (process.env.NODE_ENV !== 'production' &&
+  if ("development" !== 'production' &&
     (isUndef(target) || isPrimitive(target))
   ) {
     warn(("Cannot delete reactive property on undefined, null, or primitive value: " + ((target))));
@@ -1270,7 +1279,7 @@ function del (target, key) {
   }
   var ob = (target).__ob__;
   if (target._isVue || (ob && ob.vmCount)) {
-    process.env.NODE_ENV !== 'production' && warn(
+    "development" !== 'production' && warn(
       'Avoid deleting properties on a Vue instance or its root $data ' +
       '- just set it to null.'
     );
@@ -1312,7 +1321,7 @@ var strats = config.optionMergeStrategies;
 /**
  * Options with restrictions
  */
-if (process.env.NODE_ENV !== 'production') {
+{
   strats.el = strats.propsData = function (parent, child, vm, key) {
     if (!vm) {
       warn(
@@ -1396,7 +1405,7 @@ strats.data = function (
 ) {
   if (!vm) {
     if (childVal && typeof childVal !== 'function') {
-      process.env.NODE_ENV !== 'production' && warn(
+      "development" !== 'production' && warn(
         'The "data" option should be a function ' +
         'that returns a per-instance value in component ' +
         'definitions.',
@@ -1446,7 +1455,7 @@ function mergeAssets (
 ) {
   var res = Object.create(parentVal || null);
   if (childVal) {
-    process.env.NODE_ENV !== 'production' && assertObjectType(key, childVal, vm);
+    "development" !== 'production' && assertObjectType(key, childVal, vm);
     return extend(res, childVal)
   } else {
     return res
@@ -1474,7 +1483,7 @@ strats.watch = function (
   if (childVal === nativeWatch) { childVal = undefined; }
   /* istanbul ignore if */
   if (!childVal) { return Object.create(parentVal || null) }
-  if (process.env.NODE_ENV !== 'production') {
+  {
     assertObjectType(key, childVal, vm);
   }
   if (!parentVal) { return childVal }
@@ -1505,7 +1514,7 @@ strats.computed = function (
   vm,
   key
 ) {
-  if (childVal && process.env.NODE_ENV !== 'production') {
+  if (childVal && "development" !== 'production') {
     assertObjectType(key, childVal, vm);
   }
   if (!parentVal) { return childVal }
@@ -1566,7 +1575,7 @@ function normalizeProps (options, vm) {
       if (typeof val === 'string') {
         name = camelize(val);
         res[name] = { type: null };
-      } else if (process.env.NODE_ENV !== 'production') {
+      } else {
         warn('props must be strings when using array syntax.');
       }
     }
@@ -1578,7 +1587,7 @@ function normalizeProps (options, vm) {
         ? val
         : { type: val };
     }
-  } else if (process.env.NODE_ENV !== 'production') {
+  } else {
     warn(
       "Invalid value for option \"props\": expected an Array or an Object, " +
       "but got " + (toRawType(props)) + ".",
@@ -1606,7 +1615,7 @@ function normalizeInject (options, vm) {
         ? extend({ from: key }, val)
         : { from: val };
     }
-  } else if (process.env.NODE_ENV !== 'production') {
+  } else {
     warn(
       "Invalid value for option \"inject\": expected an Array or an Object, " +
       "but got " + (toRawType(inject)) + ".",
@@ -1649,7 +1658,7 @@ function mergeOptions (
   child,
   vm
 ) {
-  if (process.env.NODE_ENV !== 'production') {
+  {
     checkComponents(child);
   }
 
@@ -1710,7 +1719,7 @@ function resolveAsset (
   if (hasOwn(assets, PascalCaseId)) { return assets[PascalCaseId] }
   // fallback to prototype chain
   var res = assets[id] || assets[camelizedId] || assets[PascalCaseId];
-  if (process.env.NODE_ENV !== 'production' && warnMissing && !res) {
+  if ("development" !== 'production' && warnMissing && !res) {
     warn(
       'Failed to resolve ' + type.slice(0, -1) + ': ' + id,
       options
@@ -1754,11 +1763,7 @@ function validateProp (
     observe(value);
     toggleObserving(prevShouldObserve);
   }
-  if (
-    process.env.NODE_ENV !== 'production' &&
-    // skip validation for weex recycle-list child component props
-    !(false && isObject(value) && ('@binding' in value))
-  ) {
+  {
     assertProp(prop, key, value, vm, absent);
   }
   return value
@@ -1774,7 +1779,7 @@ function getPropDefaultValue (vm, prop, key) {
   }
   var def = prop.default;
   // warn against non-factory defaults for Object & Array
-  if (process.env.NODE_ENV !== 'production' && isObject(def)) {
+  if ("development" !== 'production' && isObject(def)) {
     warn(
       'Invalid default value for prop "' + key + '": ' +
       'Props with type Object/Array must use a factory function ' +
@@ -1935,7 +1940,7 @@ function globalHandleError (err, vm, info) {
 }
 
 function logError (err, vm, info) {
-  if (process.env.NODE_ENV !== 'production') {
+  {
     warn(("Error in " + info + ": \"" + (err.toString()) + "\""), vm);
   }
   /* istanbul ignore else */
@@ -2062,11 +2067,34 @@ function nextTick (cb, ctx) {
 
 /*  */
 
+var mark;
+var measure;
+
+{
+  var perf = inBrowser && window.performance;
+  /* istanbul ignore if */
+  if (
+    perf &&
+    perf.mark &&
+    perf.measure &&
+    perf.clearMarks &&
+    perf.clearMeasures
+  ) {
+    mark = function (tag) { return perf.mark(tag); };
+    measure = function (name, startTag, endTag) {
+      perf.measure(name, startTag, endTag);
+      perf.clearMarks(startTag);
+      perf.clearMarks(endTag);
+      perf.clearMeasures(name);
+    };
+  }
+}
+
 /* not type checking this file because flow doesn't play well with Proxy */
 
 var initProxy;
 
-if (process.env.NODE_ENV !== 'production') {
+{
   var allowedGlobals = makeMap(
     'Infinity,undefined,NaN,isFinite,isNaN,' +
     'parseFloat,parseInt,decodeURI,decodeURIComponent,encodeURI,encodeURIComponent,' +
@@ -2174,29 +2202,6 @@ function _traverse (val, seen) {
   }
 }
 
-var mark;
-var measure;
-
-if (process.env.NODE_ENV !== 'production') {
-  var perf = inBrowser && window.performance;
-  /* istanbul ignore if */
-  if (
-    perf &&
-    perf.mark &&
-    perf.measure &&
-    perf.clearMarks &&
-    perf.clearMeasures
-  ) {
-    mark = function (tag) { return perf.mark(tag); };
-    measure = function (name, startTag, endTag) {
-      perf.measure(name, startTag, endTag);
-      perf.clearMarks(startTag);
-      perf.clearMarks(endTag);
-      perf.clearMeasures(name);
-    };
-  }
-}
-
 /*  */
 
 var normalizeEvent = cached(function (name) {
@@ -2247,7 +2252,7 @@ function updateListeners (
     event = normalizeEvent(name);
     /* istanbul ignore if */
     if (isUndef(cur)) {
-      process.env.NODE_ENV !== 'production' && warn(
+      "development" !== 'production' && warn(
         "Invalid handler for event \"" + (event.name) + "\": got " + String(cur),
         vm
       );
@@ -2324,7 +2329,7 @@ function extractPropsFromVNodeData (
   if (isDef(attrs) || isDef(props)) {
     for (var key in propOptions) {
       var altKey = hyphenate(key);
-      if (process.env.NODE_ENV !== 'production') {
+      {
         var keyInLowerCase = key.toLowerCase();
         if (
           key !== keyInLowerCase &&
@@ -2527,7 +2532,7 @@ function resolveAsyncComponent (
     });
 
     var reject = once(function (reason) {
-      process.env.NODE_ENV !== 'production' && warn(
+      "development" !== 'production' && warn(
         "Failed to resolve async component: " + (String(factory)) +
         (reason ? ("\nReason: " + reason) : '')
       );
@@ -2570,9 +2575,7 @@ function resolveAsyncComponent (
           setTimeout(function () {
             if (isUndef(factory.resolved)) {
               reject(
-                process.env.NODE_ENV !== 'production'
-                  ? ("timeout (" + (res.timeout) + "ms)")
-                  : null
+                "timeout (" + (res.timeout) + "ms)"
               );
             }
           }, res.timeout);
@@ -2719,7 +2722,7 @@ function eventsMixin (Vue) {
 
   Vue.prototype.$emit = function (event) {
     var vm = this;
-    if (process.env.NODE_ENV !== 'production') {
+    {
       var lowerCaseEvent = event.toLowerCase();
       if (lowerCaseEvent !== event && vm._events[lowerCaseEvent]) {
         tip(
@@ -2946,7 +2949,7 @@ function mountComponent (
   vm.$el = el;
   if (!vm.$options.render) {
     vm.$options.render = createEmptyVNode;
-    if (process.env.NODE_ENV !== 'production') {
+    {
       /* istanbul ignore if */
       if ((vm.$options.template && vm.$options.template.charAt(0) !== '#') ||
         vm.$options.el || el) {
@@ -2968,7 +2971,7 @@ function mountComponent (
 
   var updateComponent;
   /* istanbul ignore if */
-  if (process.env.NODE_ENV !== 'production' && config.performance && mark) {
+  if ("development" !== 'production' && config.performance && mark) {
     updateComponent = function () {
       var name = vm._name;
       var id = vm._uid;
@@ -3013,7 +3016,7 @@ function updateChildComponent (
   parentVnode,
   renderChildren
 ) {
-  if (process.env.NODE_ENV !== 'production') {
+  {
     isUpdatingChildComponent = true;
   }
 
@@ -3067,7 +3070,7 @@ function updateChildComponent (
     vm.$forceUpdate();
   }
 
-  if (process.env.NODE_ENV !== 'production') {
+  {
     isUpdatingChildComponent = false;
   }
 }
@@ -3151,7 +3154,7 @@ var index = 0;
 function resetSchedulerState () {
   index = queue.length = activatedChildren.length = 0;
   has = {};
-  if (process.env.NODE_ENV !== 'production') {
+  {
     circular = {};
   }
   waiting = flushing = false;
@@ -3182,7 +3185,7 @@ function flushSchedulerQueue () {
     has[id] = null;
     watcher.run();
     // in dev build, check and stop circular updates.
-    if (process.env.NODE_ENV !== 'production' && has[id] != null) {
+    if ("development" !== 'production' && has[id] != null) {
       circular[id] = (circular[id] || 0) + 1;
       if (circular[id] > MAX_UPDATE_COUNT) {
         warn(
@@ -3310,9 +3313,7 @@ var Watcher = function Watcher (
   this.newDeps = [];
   this.depIds = new _Set();
   this.newDepIds = new _Set();
-  this.expression = process.env.NODE_ENV !== 'production'
-    ? expOrFn.toString()
-    : '';
+  this.expression = expOrFn.toString();
   // parse expression for getter
   if (typeof expOrFn === 'function') {
     this.getter = expOrFn;
@@ -3320,7 +3321,7 @@ var Watcher = function Watcher (
     this.getter = parsePath(expOrFn);
     if (!this.getter) {
       this.getter = function () {};
-      process.env.NODE_ENV !== 'production' && warn(
+      "development" !== 'production' && warn(
         "Failed watching path: \"" + expOrFn + "\" " +
         'Watcher only accepts simple dot-delimited paths. ' +
         'For full control, use a function instead.',
@@ -3535,7 +3536,7 @@ function initProps (vm, propsOptions) {
     keys.push(key);
     var value = validateProp(key, propsOptions, propsData, vm);
     /* istanbul ignore else */
-    if (process.env.NODE_ENV !== 'production') {
+    {
       var hyphenatedKey = hyphenate(key);
       if (isReservedAttribute(hyphenatedKey) ||
           config.isReservedAttr(hyphenatedKey)) {
@@ -3555,8 +3556,6 @@ function initProps (vm, propsOptions) {
           );
         }
       });
-    } else {
-      defineReactive(props, key, value);
     }
     // static props are already proxied on the component's prototype
     // during Vue.extend(). We only need to proxy props defined at
@@ -3577,7 +3576,7 @@ function initData (vm) {
     : data || {};
   if (!isPlainObject(data)) {
     data = {};
-    process.env.NODE_ENV !== 'production' && warn(
+    "development" !== 'production' && warn(
       'data functions should return an object:\n' +
       'https://vuejs.org/v2/guide/components.html#data-Must-Be-a-Function',
       vm
@@ -3590,7 +3589,7 @@ function initData (vm) {
   var i = keys.length;
   while (i--) {
     var key = keys[i];
-    if (process.env.NODE_ENV !== 'production') {
+    {
       if (methods && hasOwn(methods, key)) {
         warn(
           ("Method \"" + key + "\" has already been defined as a data property."),
@@ -3599,7 +3598,7 @@ function initData (vm) {
       }
     }
     if (props && hasOwn(props, key)) {
-      process.env.NODE_ENV !== 'production' && warn(
+      "development" !== 'production' && warn(
         "The data property \"" + key + "\" is already declared as a prop. " +
         "Use prop default value instead.",
         vm
@@ -3636,7 +3635,7 @@ function initComputed (vm, computed) {
   for (var key in computed) {
     var userDef = computed[key];
     var getter = typeof userDef === 'function' ? userDef : userDef.get;
-    if (process.env.NODE_ENV !== 'production' && getter == null) {
+    if ("development" !== 'production' && getter == null) {
       warn(
         ("Getter is missing for computed property \"" + key + "\"."),
         vm
@@ -3658,7 +3657,7 @@ function initComputed (vm, computed) {
     // at instantiation here.
     if (!(key in vm)) {
       defineComputed(vm, key, userDef);
-    } else if (process.env.NODE_ENV !== 'production') {
+    } else {
       if (key in vm.$data) {
         warn(("The computed property \"" + key + "\" is already defined in data."), vm);
       } else if (vm.$options.props && key in vm.$options.props) {
@@ -3689,7 +3688,7 @@ function defineComputed (
       ? userDef.set
       : noop;
   }
-  if (process.env.NODE_ENV !== 'production' &&
+  if ("development" !== 'production' &&
       sharedPropertyDefinition.set === noop) {
     sharedPropertyDefinition.set = function () {
       warn(
@@ -3719,7 +3718,7 @@ function createComputedGetter (key) {
 function initMethods (vm, methods) {
   var props = vm.$options.props;
   for (var key in methods) {
-    if (process.env.NODE_ENV !== 'production') {
+    {
       if (methods[key] == null) {
         warn(
           "Method \"" + key + "\" has an undefined value in the component definition. " +
@@ -3781,7 +3780,7 @@ function stateMixin (Vue) {
   dataDef.get = function () { return this._data };
   var propsDef = {};
   propsDef.get = function () { return this._props };
-  if (process.env.NODE_ENV !== 'production') {
+  {
     dataDef.set = function (newData) {
       warn(
         'Avoid replacing instance root $data. ' +
@@ -3837,7 +3836,7 @@ function initInjections (vm) {
     toggleObserving(false);
     Object.keys(result).forEach(function (key) {
       /* istanbul ignore else */
-      if (process.env.NODE_ENV !== 'production') {
+      {
         defineReactive(vm, key, result[key], function () {
           warn(
             "Avoid mutating an injected value directly since the changes will be " +
@@ -3846,8 +3845,6 @@ function initInjections (vm) {
             vm
           );
         });
-      } else {
-        defineReactive(vm, key, result[key]);
       }
     });
     toggleObserving(true);
@@ -3882,7 +3879,7 @@ function resolveInject (inject, vm) {
           result[key] = typeof provideDefault === 'function'
             ? provideDefault.call(vm)
             : provideDefault;
-        } else if (process.env.NODE_ENV !== 'production') {
+        } else {
           warn(("Injection \"" + key + "\" not found"), vm);
         }
       }
@@ -3941,7 +3938,7 @@ function renderSlot (
   if (scopedSlotFn) { // scoped slot
     props = props || {};
     if (bindObject) {
-      if (process.env.NODE_ENV !== 'production' && !isObject(bindObject)) {
+      if ("development" !== 'production' && !isObject(bindObject)) {
         warn(
           'slot v-bind without argument expects an Object',
           this
@@ -3954,7 +3951,7 @@ function renderSlot (
     var slotNodes = this.$slots[name];
     // warn duplicate slot usage
     if (slotNodes) {
-      if (process.env.NODE_ENV !== 'production' && slotNodes._rendered) {
+      if ("development" !== 'production' && slotNodes._rendered) {
         warn(
           "Duplicate presence of slot \"" + name + "\" found in the same render tree " +
           "- this will likely cause render errors.",
@@ -4029,7 +4026,7 @@ function bindObjectProps (
 ) {
   if (value) {
     if (!isObject(value)) {
-      process.env.NODE_ENV !== 'production' && warn(
+      "development" !== 'production' && warn(
         'v-bind without argument expects an Object or Array value',
         this
       );
@@ -4135,7 +4132,7 @@ function markStaticNode (node, key, isOnce) {
 function bindObjectListeners (data, value) {
   if (value) {
     if (!isPlainObject(value)) {
-      process.env.NODE_ENV !== 'production' && warn(
+      "development" !== 'production' && warn(
         'v-on without argument expects an Object value',
         this
       );
@@ -4408,7 +4405,7 @@ function createComponent (
   // if at this stage it's not a constructor or an async component factory,
   // reject.
   if (typeof Ctor !== 'function') {
-    if (process.env.NODE_ENV !== 'production') {
+    {
       warn(("Invalid Component definition: " + (String(Ctor))), context);
     }
     return
@@ -4567,7 +4564,7 @@ function _createElement (
   normalizationType
 ) {
   if (isDef(data) && isDef((data).__ob__)) {
-    process.env.NODE_ENV !== 'production' && warn(
+    "development" !== 'production' && warn(
       "Avoid using observed data object as vnode data: " + (JSON.stringify(data)) + "\n" +
       'Always create fresh vnode data objects in each render!',
       context
@@ -4583,7 +4580,7 @@ function _createElement (
     return createEmptyVNode()
   }
   // warn against non-primitive key
-  if (process.env.NODE_ENV !== 'production' &&
+  if ("development" !== 'production' &&
     isDef(data) && isDef(data.key) && !isPrimitive(data.key)
   ) {
     {
@@ -4698,16 +4695,13 @@ function initRender (vm) {
   var parentData = parentVnode && parentVnode.data;
 
   /* istanbul ignore else */
-  if (process.env.NODE_ENV !== 'production') {
+  {
     defineReactive(vm, '$attrs', parentData && parentData.attrs || emptyObject, function () {
       !isUpdatingChildComponent && warn("$attrs is readonly.", vm);
     }, true);
     defineReactive(vm, '$listeners', options._parentListeners || emptyObject, function () {
       !isUpdatingChildComponent && warn("$listeners is readonly.", vm);
     }, true);
-  } else {
-    defineReactive(vm, '$attrs', parentData && parentData.attrs || emptyObject, null, true);
-    defineReactive(vm, '$listeners', options._parentListeners || emptyObject, null, true);
   }
 }
 
@@ -4726,7 +4720,7 @@ function renderMixin (Vue) {
     var _parentVnode = ref._parentVnode;
 
     // reset _rendered flag on slots for duplicate slot check
-    if (process.env.NODE_ENV !== 'production') {
+    {
       for (var key in vm.$slots) {
         // $flow-disable-line
         vm.$slots[key]._rendered = false;
@@ -4749,7 +4743,7 @@ function renderMixin (Vue) {
       // return error render result,
       // or previous vnode to prevent render error causing blank component
       /* istanbul ignore else */
-      if (process.env.NODE_ENV !== 'production') {
+      {
         if (vm.$options.renderError) {
           try {
             vnode = vm.$options.renderError.call(vm._renderProxy, vm.$createElement, e);
@@ -4760,13 +4754,11 @@ function renderMixin (Vue) {
         } else {
           vnode = vm._vnode;
         }
-      } else {
-        vnode = vm._vnode;
       }
     }
     // return empty vnode in case the render function errored out
     if (!(vnode instanceof VNode)) {
-      if (process.env.NODE_ENV !== 'production' && Array.isArray(vnode)) {
+      if ("development" !== 'production' && Array.isArray(vnode)) {
         warn(
           'Multiple root nodes returned from render function. Render function ' +
           'should return a single root node.',
@@ -4793,7 +4785,7 @@ function initMixin (Vue) {
 
     var startTag, endTag;
     /* istanbul ignore if */
-    if (process.env.NODE_ENV !== 'production' && config.performance && mark) {
+    if ("development" !== 'production' && config.performance && mark) {
       startTag = "vue-perf-start:" + (vm._uid);
       endTag = "vue-perf-end:" + (vm._uid);
       mark(startTag);
@@ -4815,10 +4807,8 @@ function initMixin (Vue) {
       );
     }
     /* istanbul ignore else */
-    if (process.env.NODE_ENV !== 'production') {
+    {
       initProxy(vm);
-    } else {
-      vm._renderProxy = vm;
     }
     // expose real self
     vm._self = vm;
@@ -4832,7 +4822,7 @@ function initMixin (Vue) {
     callHook(vm, 'created');
 
     /* istanbul ignore if */
-    if (process.env.NODE_ENV !== 'production' && config.performance && mark) {
+    if ("development" !== 'production' && config.performance && mark) {
       vm._name = formatComponentName(vm, false);
       mark(endTag);
       measure(("vue " + (vm._name) + " init"), startTag, endTag);
@@ -4923,7 +4913,7 @@ function dedupe (latest, extended, sealed) {
 }
 
 function Vue (options) {
-  if (process.env.NODE_ENV !== 'production' &&
+  if ("development" !== 'production' &&
     !(this instanceof Vue)
   ) {
     warn('Vue is a constructor and should be called with the `new` keyword');
@@ -4992,7 +4982,7 @@ function initExtend (Vue) {
     }
 
     var name = extendOptions.name || Super.options.name;
-    if (process.env.NODE_ENV !== 'production' && name) {
+    if ("development" !== 'production' && name) {
       validateComponentName(name);
     }
 
@@ -5075,7 +5065,7 @@ function initAssetRegisters (Vue) {
         return this.options[type + 's'][id]
       } else {
         /* istanbul ignore if */
-        if (process.env.NODE_ENV !== 'production' && type === 'component') {
+        if ("development" !== 'production' && type === 'component') {
           validateComponentName(id);
         }
         if (type === 'component' && isPlainObject(definition)) {
@@ -5232,7 +5222,7 @@ function initGlobalAPI (Vue) {
   // config
   var configDef = {};
   configDef.get = function () { return config; };
-  if (process.env.NODE_ENV !== 'production') {
+  {
     configDef.set = function () {
       warn(
         'Do not replace the Vue.config object, set individual fields instead.'
@@ -5445,7 +5435,7 @@ var isSVG = makeMap(
   true
 );
 
-
+var isPreTag = function (tag) { return tag === 'pre'; };
 
 var isReservedTag = function (tag) {
   return isHTMLTag(tag) || isSVG(tag)
@@ -5499,7 +5489,7 @@ function query (el) {
   if (typeof el === 'string') {
     var selected = document.querySelector(el);
     if (!selected) {
-      process.env.NODE_ENV !== 'production' && warn(
+      "development" !== 'production' && warn(
         'Cannot find element: ' + el
       );
       return document.createElement('div')
@@ -5762,7 +5752,7 @@ function createPatchFunction (backend) {
     var children = vnode.children;
     var tag = vnode.tag;
     if (isDef(tag)) {
-      if (process.env.NODE_ENV !== 'production') {
+      {
         if (data && data.pre) {
           creatingElmInVPre++;
         }
@@ -5790,7 +5780,7 @@ function createPatchFunction (backend) {
         insert(parentElm, vnode.elm, refElm);
       }
 
-      if (process.env.NODE_ENV !== 'production' && data && data.pre) {
+      if ("development" !== 'production' && data && data.pre) {
         creatingElmInVPre--;
       }
     } else if (isTrue(vnode.isComment)) {
@@ -5877,7 +5867,7 @@ function createPatchFunction (backend) {
 
   function createChildren (vnode, children, insertedVnodeQueue) {
     if (Array.isArray(children)) {
-      if (process.env.NODE_ENV !== 'production') {
+      {
         checkDuplicateKeys(children);
       }
       for (var i = 0; i < children.length; ++i) {
@@ -6011,7 +6001,7 @@ function createPatchFunction (backend) {
     // during leaving transitions
     var canMove = !removeOnly;
 
-    if (process.env.NODE_ENV !== 'production') {
+    {
       checkDuplicateKeys(newCh);
     }
 
@@ -6185,7 +6175,7 @@ function createPatchFunction (backend) {
       return true
     }
     // assert node match
-    if (process.env.NODE_ENV !== 'production') {
+    {
       if (!assertNodeMatch(elm, vnode, inVPre)) {
         return false
       }
@@ -6208,7 +6198,7 @@ function createPatchFunction (backend) {
           if (isDef(i = data) && isDef(i = i.domProps) && isDef(i = i.innerHTML)) {
             if (i !== elm.innerHTML) {
               /* istanbul ignore if */
-              if (process.env.NODE_ENV !== 'production' &&
+              if ("development" !== 'production' &&
                 typeof console !== 'undefined' &&
                 !hydrationBailed
               ) {
@@ -6234,7 +6224,7 @@ function createPatchFunction (backend) {
             // longer than the virtual children list.
             if (!childrenMatch || childNode) {
               /* istanbul ignore if */
-              if (process.env.NODE_ENV !== 'production' &&
+              if ("development" !== 'production' &&
                 typeof console !== 'undefined' &&
                 !hydrationBailed
               ) {
@@ -6309,7 +6299,7 @@ function createPatchFunction (backend) {
             if (hydrate(oldVnode, vnode, insertedVnodeQueue)) {
               invokeInsertHook(vnode, insertedVnodeQueue, true);
               return oldVnode
-            } else if (process.env.NODE_ENV !== 'production') {
+            } else {
               warn(
                 'The client-side rendered virtual DOM tree is not matching ' +
                 'server-rendered content. This is likely caused by incorrect ' +
@@ -6646,47 +6636,588 @@ var klass = {
 
 /*  */
 
+var validDivisionCharRE = /[\w).+\-_$\]]/;
+
+function parseFilters (exp) {
+  var inSingle = false;
+  var inDouble = false;
+  var inTemplateString = false;
+  var inRegex = false;
+  var curly = 0;
+  var square = 0;
+  var paren = 0;
+  var lastFilterIndex = 0;
+  var c, prev, i, expression, filters;
+
+  for (i = 0; i < exp.length; i++) {
+    prev = c;
+    c = exp.charCodeAt(i);
+    if (inSingle) {
+      if (c === 0x27 && prev !== 0x5C) { inSingle = false; }
+    } else if (inDouble) {
+      if (c === 0x22 && prev !== 0x5C) { inDouble = false; }
+    } else if (inTemplateString) {
+      if (c === 0x60 && prev !== 0x5C) { inTemplateString = false; }
+    } else if (inRegex) {
+      if (c === 0x2f && prev !== 0x5C) { inRegex = false; }
+    } else if (
+      c === 0x7C && // pipe
+      exp.charCodeAt(i + 1) !== 0x7C &&
+      exp.charCodeAt(i - 1) !== 0x7C &&
+      !curly && !square && !paren
+    ) {
+      if (expression === undefined) {
+        // first filter, end of expression
+        lastFilterIndex = i + 1;
+        expression = exp.slice(0, i).trim();
+      } else {
+        pushFilter();
+      }
+    } else {
+      switch (c) {
+        case 0x22: inDouble = true; break         // "
+        case 0x27: inSingle = true; break         // '
+        case 0x60: inTemplateString = true; break // `
+        case 0x28: paren++; break                 // (
+        case 0x29: paren--; break                 // )
+        case 0x5B: square++; break                // [
+        case 0x5D: square--; break                // ]
+        case 0x7B: curly++; break                 // {
+        case 0x7D: curly--; break                 // }
+      }
+      if (c === 0x2f) { // /
+        var j = i - 1;
+        var p = (void 0);
+        // find first non-whitespace prev char
+        for (; j >= 0; j--) {
+          p = exp.charAt(j);
+          if (p !== ' ') { break }
+        }
+        if (!p || !validDivisionCharRE.test(p)) {
+          inRegex = true;
+        }
+      }
+    }
+  }
+
+  if (expression === undefined) {
+    expression = exp.slice(0, i).trim();
+  } else if (lastFilterIndex !== 0) {
+    pushFilter();
+  }
+
+  function pushFilter () {
+    (filters || (filters = [])).push(exp.slice(lastFilterIndex, i).trim());
+    lastFilterIndex = i + 1;
+  }
+
+  if (filters) {
+    for (i = 0; i < filters.length; i++) {
+      expression = wrapFilter(expression, filters[i]);
+    }
+  }
+
+  return expression
+}
+
+function wrapFilter (exp, filter) {
+  var i = filter.indexOf('(');
+  if (i < 0) {
+    // _f: resolveFilter
+    return ("_f(\"" + filter + "\")(" + exp + ")")
+  } else {
+    var name = filter.slice(0, i);
+    var args = filter.slice(i + 1);
+    return ("_f(\"" + name + "\")(" + exp + (args !== ')' ? ',' + args : args))
+  }
+}
+
 /*  */
 
+function baseWarn (msg) {
+  console.error(("[Vue compiler]: " + msg));
+}
 
+function pluckModuleFunction (
+  modules,
+  key
+) {
+  return modules
+    ? modules.map(function (m) { return m[key]; }).filter(function (_) { return _; })
+    : []
+}
 
+function addProp (el, name, value) {
+  (el.props || (el.props = [])).push({ name: name, value: value });
+  el.plain = false;
+}
 
-
-
-
-
+function addAttr (el, name, value) {
+  (el.attrs || (el.attrs = [])).push({ name: name, value: value });
+  el.plain = false;
+}
 
 // add a raw attr (use this in preTransforms)
+function addRawAttr (el, name, value) {
+  el.attrsMap[name] = value;
+  el.attrsList.push({ name: name, value: value });
+}
 
+function addDirective (
+  el,
+  name,
+  rawName,
+  value,
+  arg,
+  modifiers
+) {
+  (el.directives || (el.directives = [])).push({ name: name, rawName: rawName, value: value, arg: arg, modifiers: modifiers });
+  el.plain = false;
+}
 
+function addHandler (
+  el,
+  name,
+  value,
+  modifiers,
+  important,
+  warn
+) {
+  modifiers = modifiers || emptyObject;
+  // warn prevent and passive modifier
+  /* istanbul ignore if */
+  if (
+    "development" !== 'production' && warn &&
+    modifiers.prevent && modifiers.passive
+  ) {
+    warn(
+      'passive and prevent can\'t be used together. ' +
+      'Passive handler can\'t prevent default event.'
+    );
+  }
 
+  // check capture modifier
+  if (modifiers.capture) {
+    delete modifiers.capture;
+    name = '!' + name; // mark the event as captured
+  }
+  if (modifiers.once) {
+    delete modifiers.once;
+    name = '~' + name; // mark the event as once
+  }
+  /* istanbul ignore if */
+  if (modifiers.passive) {
+    delete modifiers.passive;
+    name = '&' + name; // mark the event as passive
+  }
 
+  // normalize click.right and click.middle since they don't actually fire
+  // this is technically browser-specific, but at least for now browsers are
+  // the only target envs that have right/middle clicks.
+  if (name === 'click') {
+    if (modifiers.right) {
+      name = 'contextmenu';
+      delete modifiers.right;
+    } else if (modifiers.middle) {
+      name = 'mouseup';
+    }
+  }
 
+  var events;
+  if (modifiers.native) {
+    delete modifiers.native;
+    events = el.nativeEvents || (el.nativeEvents = {});
+  } else {
+    events = el.events || (el.events = {});
+  }
 
+  var newHandler = {
+    value: value.trim()
+  };
+  if (modifiers !== emptyObject) {
+    newHandler.modifiers = modifiers;
+  }
 
+  var handlers = events[name];
+  /* istanbul ignore if */
+  if (Array.isArray(handlers)) {
+    important ? handlers.unshift(newHandler) : handlers.push(newHandler);
+  } else if (handlers) {
+    events[name] = important ? [newHandler, handlers] : [handlers, newHandler];
+  } else {
+    events[name] = newHandler;
+  }
+
+  el.plain = false;
+}
+
+function getBindingAttr (
+  el,
+  name,
+  getStatic
+) {
+  var dynamicValue =
+    getAndRemoveAttr(el, ':' + name) ||
+    getAndRemoveAttr(el, 'v-bind:' + name);
+  if (dynamicValue != null) {
+    return parseFilters(dynamicValue)
+  } else if (getStatic !== false) {
+    var staticValue = getAndRemoveAttr(el, name);
+    if (staticValue != null) {
+      return JSON.stringify(staticValue)
+    }
+  }
+}
 
 // note: this only removes the attr from the Array (attrsList) so that it
 // doesn't get processed by processAttrs.
 // By default it does NOT remove it from the map (attrsMap) because the map is
 // needed during codegen.
+function getAndRemoveAttr (
+  el,
+  name,
+  removeFromMap
+) {
+  var val;
+  if ((val = el.attrsMap[name]) != null) {
+    var list = el.attrsList;
+    for (var i = 0, l = list.length; i < l; i++) {
+      if (list[i].name === name) {
+        list.splice(i, 1);
+        break
+      }
+    }
+  }
+  if (removeFromMap) {
+    delete el.attrsMap[name];
+  }
+  return val
+}
 
 /*  */
 
 /**
  * Cross-platform code generation for component v-model
  */
+function genComponentModel (
+  el,
+  value,
+  modifiers
+) {
+  var ref = modifiers || {};
+  var number = ref.number;
+  var trim = ref.trim;
 
+  var baseValueExpression = '$$v';
+  var valueExpression = baseValueExpression;
+  if (trim) {
+    valueExpression =
+      "(typeof " + baseValueExpression + " === 'string'" +
+      "? " + baseValueExpression + ".trim()" +
+      ": " + baseValueExpression + ")";
+  }
+  if (number) {
+    valueExpression = "_n(" + valueExpression + ")";
+  }
+  var assignment = genAssignmentCode(value, valueExpression);
+
+  el.model = {
+    value: ("(" + value + ")"),
+    expression: ("\"" + value + "\""),
+    callback: ("function (" + baseValueExpression + ") {" + assignment + "}")
+  };
+}
 
 /**
  * Cross-platform codegen helper for generating v-model value assignment code.
  */
+function genAssignmentCode (
+  value,
+  assignment
+) {
+  var res = parseModel(value);
+  if (res.key === null) {
+    return (value + "=" + assignment)
+  } else {
+    return ("$set(" + (res.exp) + ", " + (res.key) + ", " + assignment + ")")
+  }
+}
+
+/**
+ * Parse a v-model expression into a base path and a final key segment.
+ * Handles both dot-path and possible square brackets.
+ *
+ * Possible cases:
+ *
+ * - test
+ * - test[key]
+ * - test[test1[key]]
+ * - test["a"][key]
+ * - xxx.test[a[a].test1[key]]
+ * - test.xxx.a["asa"][test1[key]]
+ *
+ */
+
+var len;
+var str;
+var chr;
+var index$1;
+var expressionPos;
+var expressionEndPos;
+
+
+
+function parseModel (val) {
+  // Fix https://github.com/vuejs/vue/pull/7730
+  // allow v-model="obj.val " (trailing whitespace)
+  val = val.trim();
+  len = val.length;
+
+  if (val.indexOf('[') < 0 || val.lastIndexOf(']') < len - 1) {
+    index$1 = val.lastIndexOf('.');
+    if (index$1 > -1) {
+      return {
+        exp: val.slice(0, index$1),
+        key: '"' + val.slice(index$1 + 1) + '"'
+      }
+    } else {
+      return {
+        exp: val,
+        key: null
+      }
+    }
+  }
+
+  str = val;
+  index$1 = expressionPos = expressionEndPos = 0;
+
+  while (!eof()) {
+    chr = next();
+    /* istanbul ignore if */
+    if (isStringStart(chr)) {
+      parseString(chr);
+    } else if (chr === 0x5B) {
+      parseBracket(chr);
+    }
+  }
+
+  return {
+    exp: val.slice(0, expressionPos),
+    key: val.slice(expressionPos + 1, expressionEndPos)
+  }
+}
+
+function next () {
+  return str.charCodeAt(++index$1)
+}
+
+function eof () {
+  return index$1 >= len
+}
+
+function isStringStart (chr) {
+  return chr === 0x22 || chr === 0x27
+}
+
+function parseBracket (chr) {
+  var inBracket = 1;
+  expressionPos = index$1;
+  while (!eof()) {
+    chr = next();
+    if (isStringStart(chr)) {
+      parseString(chr);
+      continue
+    }
+    if (chr === 0x5B) { inBracket++; }
+    if (chr === 0x5D) { inBracket--; }
+    if (inBracket === 0) {
+      expressionEndPos = index$1;
+      break
+    }
+  }
+}
+
+function parseString (chr) {
+  var stringQuote = chr;
+  while (!eof()) {
+    chr = next();
+    if (chr === stringQuote) {
+      break
+    }
+  }
+}
 
 /*  */
+
+var warn$1;
 
 // in some cases, the event used has to be determined at runtime
 // so we used some reserved tokens during compile.
 var RANGE_TOKEN = '__r';
 var CHECKBOX_RADIO_TOKEN = '__c';
+
+function model (
+  el,
+  dir,
+  _warn
+) {
+  warn$1 = _warn;
+  var value = dir.value;
+  var modifiers = dir.modifiers;
+  var tag = el.tag;
+  var type = el.attrsMap.type;
+
+  {
+    // inputs with type="file" are read only and setting the input's
+    // value will throw an error.
+    if (tag === 'input' && type === 'file') {
+      warn$1(
+        "<" + (el.tag) + " v-model=\"" + value + "\" type=\"file\">:\n" +
+        "File inputs are read only. Use a v-on:change listener instead."
+      );
+    }
+  }
+
+  if (el.component) {
+    genComponentModel(el, value, modifiers);
+    // component v-model doesn't need extra runtime
+    return false
+  } else if (tag === 'select') {
+    genSelect(el, value, modifiers);
+  } else if (tag === 'input' && type === 'checkbox') {
+    genCheckboxModel(el, value, modifiers);
+  } else if (tag === 'input' && type === 'radio') {
+    genRadioModel(el, value, modifiers);
+  } else if (tag === 'input' || tag === 'textarea') {
+    genDefaultModel(el, value, modifiers);
+  } else if (!config.isReservedTag(tag)) {
+    genComponentModel(el, value, modifiers);
+    // component v-model doesn't need extra runtime
+    return false
+  } else {
+    warn$1(
+      "<" + (el.tag) + " v-model=\"" + value + "\">: " +
+      "v-model is not supported on this element type. " +
+      'If you are working with contenteditable, it\'s recommended to ' +
+      'wrap a library dedicated for that purpose inside a custom component.'
+    );
+  }
+
+  // ensure runtime directive metadata
+  return true
+}
+
+function genCheckboxModel (
+  el,
+  value,
+  modifiers
+) {
+  var number = modifiers && modifiers.number;
+  var valueBinding = getBindingAttr(el, 'value') || 'null';
+  var trueValueBinding = getBindingAttr(el, 'true-value') || 'true';
+  var falseValueBinding = getBindingAttr(el, 'false-value') || 'false';
+  addProp(el, 'checked',
+    "Array.isArray(" + value + ")" +
+    "?_i(" + value + "," + valueBinding + ")>-1" + (
+      trueValueBinding === 'true'
+        ? (":(" + value + ")")
+        : (":_q(" + value + "," + trueValueBinding + ")")
+    )
+  );
+  addHandler(el, 'change',
+    "var $$a=" + value + "," +
+        '$$el=$event.target,' +
+        "$$c=$$el.checked?(" + trueValueBinding + "):(" + falseValueBinding + ");" +
+    'if(Array.isArray($$a)){' +
+      "var $$v=" + (number ? '_n(' + valueBinding + ')' : valueBinding) + "," +
+          '$$i=_i($$a,$$v);' +
+      "if($$el.checked){$$i<0&&(" + (genAssignmentCode(value, '$$a.concat([$$v])')) + ")}" +
+      "else{$$i>-1&&(" + (genAssignmentCode(value, '$$a.slice(0,$$i).concat($$a.slice($$i+1))')) + ")}" +
+    "}else{" + (genAssignmentCode(value, '$$c')) + "}",
+    null, true
+  );
+}
+
+function genRadioModel (
+  el,
+  value,
+  modifiers
+) {
+  var number = modifiers && modifiers.number;
+  var valueBinding = getBindingAttr(el, 'value') || 'null';
+  valueBinding = number ? ("_n(" + valueBinding + ")") : valueBinding;
+  addProp(el, 'checked', ("_q(" + value + "," + valueBinding + ")"));
+  addHandler(el, 'change', genAssignmentCode(value, valueBinding), null, true);
+}
+
+function genSelect (
+  el,
+  value,
+  modifiers
+) {
+  var number = modifiers && modifiers.number;
+  var selectedVal = "Array.prototype.filter" +
+    ".call($event.target.options,function(o){return o.selected})" +
+    ".map(function(o){var val = \"_value\" in o ? o._value : o.value;" +
+    "return " + (number ? '_n(val)' : 'val') + "})";
+
+  var assignment = '$event.target.multiple ? $$selectedVal : $$selectedVal[0]';
+  var code = "var $$selectedVal = " + selectedVal + ";";
+  code = code + " " + (genAssignmentCode(value, assignment));
+  addHandler(el, 'change', code, null, true);
+}
+
+function genDefaultModel (
+  el,
+  value,
+  modifiers
+) {
+  var type = el.attrsMap.type;
+
+  // warn if v-bind:value conflicts with v-model
+  // except for inputs with v-bind:type
+  {
+    var value$1 = el.attrsMap['v-bind:value'] || el.attrsMap[':value'];
+    var typeBinding = el.attrsMap['v-bind:type'] || el.attrsMap[':type'];
+    if (value$1 && !typeBinding) {
+      var binding = el.attrsMap['v-bind:value'] ? 'v-bind:value' : ':value';
+      warn$1(
+        binding + "=\"" + value$1 + "\" conflicts with v-model on the same element " +
+        'because the latter already expands to a value binding internally'
+      );
+    }
+  }
+
+  var ref = modifiers || {};
+  var lazy = ref.lazy;
+  var number = ref.number;
+  var trim = ref.trim;
+  var needCompositionGuard = !lazy && type !== 'range';
+  var event = lazy
+    ? 'change'
+    : type === 'range'
+      ? RANGE_TOKEN
+      : 'input';
+
+  var valueExpression = '$event.target.value';
+  if (trim) {
+    valueExpression = "$event.target.value.trim()";
+  }
+  if (number) {
+    valueExpression = "_n(" + valueExpression + ")";
+  }
+
+  var code = genAssignmentCode(value, valueExpression);
+  if (needCompositionGuard) {
+    code = "if($event.target.composing)return;" + code;
+  }
+
+  addProp(el, 'value', ("(" + value + ")"));
+  addHandler(el, event, code, null, true);
+  if (trim || number) {
+    addHandler(el, 'blur', '$forceUpdate()');
+  }
+}
 
 /*  */
 
@@ -7353,7 +7884,7 @@ function enter (vnode, toggleDisplay) {
       : duration
   );
 
-  if (process.env.NODE_ENV !== 'production' && explicitEnterDuration != null) {
+  if ("development" !== 'production' && explicitEnterDuration != null) {
     checkDuration(explicitEnterDuration, 'enter', vnode);
   }
 
@@ -7461,7 +7992,7 @@ function leave (vnode, rm) {
       : duration
   );
 
-  if (process.env.NODE_ENV !== 'production' && isDef(explicitLeaveDuration)) {
+  if ("development" !== 'production' && isDef(explicitLeaveDuration)) {
     checkDuration(explicitLeaveDuration, 'leave', vnode);
   }
 
@@ -7688,7 +8219,7 @@ function actuallySetSelected (el, binding, vm) {
   var value = binding.value;
   var isMultiple = el.multiple;
   if (isMultiple && !Array.isArray(value)) {
-    process.env.NODE_ENV !== 'production' && warn(
+    "development" !== 'production' && warn(
       "<select multiple v-model=\"" + (binding.expression) + "\"> " +
       "expects an Array value for its binding, but got " + (Object.prototype.toString.call(value).slice(8, -1)),
       vm
@@ -7904,7 +8435,7 @@ var Transition = {
     }
 
     // warn multiple elements
-    if (process.env.NODE_ENV !== 'production' && children.length > 1) {
+    if ("development" !== 'production' && children.length > 1) {
       warn(
         '<transition> can only be used on a single element. Use ' +
         '<transition-group> for lists.',
@@ -7915,7 +8446,7 @@ var Transition = {
     var mode = this.mode;
 
     // warn invalid mode
-    if (process.env.NODE_ENV !== 'production' &&
+    if ("development" !== 'production' &&
       mode && mode !== 'in-out' && mode !== 'out-in'
     ) {
       warn(
@@ -8040,7 +8571,7 @@ var TransitionGroup = {
           children.push(c);
           map[c.key] = c
           ;(c.data || (c.data = {})).transition = transitionData;
-        } else if (process.env.NODE_ENV !== 'production') {
+        } else {
           var opts = c.componentOptions;
           var name = opts ? (opts.Ctor.options.name || opts.tag || '') : c.tag;
           warn(("<transition-group> children must be keyed: <" + name + ">"));
@@ -8209,8 +8740,8 @@ if (inBrowser) {
       if (devtools) {
         devtools.emit('init', Vue);
       } else if (
-        process.env.NODE_ENV !== 'production' &&
-        process.env.NODE_ENV !== 'test' &&
+        "development" !== 'production' &&
+        "development" !== 'test' &&
         isChrome
       ) {
         console[console.info ? 'info' : 'log'](
@@ -8219,8 +8750,8 @@ if (inBrowser) {
         );
       }
     }
-    if (process.env.NODE_ENV !== 'production' &&
-      process.env.NODE_ENV !== 'test' &&
+    if ("development" !== 'production' &&
+      "development" !== 'test' &&
       config.productionTip !== false &&
       typeof console !== 'undefined'
     ) {
@@ -8235,216 +8766,2414 @@ if (inBrowser) {
 
 /*  */
 
-/* harmony default export */ __webpack_exports__["a"] = (Vue);
+var defaultTagRE = /\{\{((?:.|\n)+?)\}\}/g;
+var regexEscapeRE = /[-.*+?^${}()|[\]\/\\]/g;
 
-/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(3), __webpack_require__(1), __webpack_require__(15).setImmediate))
+var buildRegex = cached(function (delimiters) {
+  var open = delimiters[0].replace(regexEscapeRE, '\\$&');
+  var close = delimiters[1].replace(regexEscapeRE, '\\$&');
+  return new RegExp(open + '((?:.|\\n)+?)' + close, 'g')
+});
+
+
+
+function parseText (
+  text,
+  delimiters
+) {
+  var tagRE = delimiters ? buildRegex(delimiters) : defaultTagRE;
+  if (!tagRE.test(text)) {
+    return
+  }
+  var tokens = [];
+  var rawTokens = [];
+  var lastIndex = tagRE.lastIndex = 0;
+  var match, index, tokenValue;
+  while ((match = tagRE.exec(text))) {
+    index = match.index;
+    // push text token
+    if (index > lastIndex) {
+      rawTokens.push(tokenValue = text.slice(lastIndex, index));
+      tokens.push(JSON.stringify(tokenValue));
+    }
+    // tag token
+    var exp = parseFilters(match[1].trim());
+    tokens.push(("_s(" + exp + ")"));
+    rawTokens.push({ '@binding': exp });
+    lastIndex = index + match[0].length;
+  }
+  if (lastIndex < text.length) {
+    rawTokens.push(tokenValue = text.slice(lastIndex));
+    tokens.push(JSON.stringify(tokenValue));
+  }
+  return {
+    expression: tokens.join('+'),
+    tokens: rawTokens
+  }
+}
+
+/*  */
+
+function transformNode (el, options) {
+  var warn = options.warn || baseWarn;
+  var staticClass = getAndRemoveAttr(el, 'class');
+  if ("development" !== 'production' && staticClass) {
+    var res = parseText(staticClass, options.delimiters);
+    if (res) {
+      warn(
+        "class=\"" + staticClass + "\": " +
+        'Interpolation inside attributes has been removed. ' +
+        'Use v-bind or the colon shorthand instead. For example, ' +
+        'instead of <div class="{{ val }}">, use <div :class="val">.'
+      );
+    }
+  }
+  if (staticClass) {
+    el.staticClass = JSON.stringify(staticClass);
+  }
+  var classBinding = getBindingAttr(el, 'class', false /* getStatic */);
+  if (classBinding) {
+    el.classBinding = classBinding;
+  }
+}
+
+function genData (el) {
+  var data = '';
+  if (el.staticClass) {
+    data += "staticClass:" + (el.staticClass) + ",";
+  }
+  if (el.classBinding) {
+    data += "class:" + (el.classBinding) + ",";
+  }
+  return data
+}
+
+var klass$1 = {
+  staticKeys: ['staticClass'],
+  transformNode: transformNode,
+  genData: genData
+}
+
+/*  */
+
+function transformNode$1 (el, options) {
+  var warn = options.warn || baseWarn;
+  var staticStyle = getAndRemoveAttr(el, 'style');
+  if (staticStyle) {
+    /* istanbul ignore if */
+    {
+      var res = parseText(staticStyle, options.delimiters);
+      if (res) {
+        warn(
+          "style=\"" + staticStyle + "\": " +
+          'Interpolation inside attributes has been removed. ' +
+          'Use v-bind or the colon shorthand instead. For example, ' +
+          'instead of <div style="{{ val }}">, use <div :style="val">.'
+        );
+      }
+    }
+    el.staticStyle = JSON.stringify(parseStyleText(staticStyle));
+  }
+
+  var styleBinding = getBindingAttr(el, 'style', false /* getStatic */);
+  if (styleBinding) {
+    el.styleBinding = styleBinding;
+  }
+}
+
+function genData$1 (el) {
+  var data = '';
+  if (el.staticStyle) {
+    data += "staticStyle:" + (el.staticStyle) + ",";
+  }
+  if (el.styleBinding) {
+    data += "style:(" + (el.styleBinding) + "),";
+  }
+  return data
+}
+
+var style$1 = {
+  staticKeys: ['staticStyle'],
+  transformNode: transformNode$1,
+  genData: genData$1
+}
+
+/*  */
+
+var decoder;
+
+var he = {
+  decode: function decode (html) {
+    decoder = decoder || document.createElement('div');
+    decoder.innerHTML = html;
+    return decoder.textContent
+  }
+}
+
+/*  */
+
+var isUnaryTag = makeMap(
+  'area,base,br,col,embed,frame,hr,img,input,isindex,keygen,' +
+  'link,meta,param,source,track,wbr'
+);
+
+// Elements that you can, intentionally, leave open
+// (and which close themselves)
+var canBeLeftOpenTag = makeMap(
+  'colgroup,dd,dt,li,options,p,td,tfoot,th,thead,tr,source'
+);
+
+// HTML5 tags https://html.spec.whatwg.org/multipage/indices.html#elements-3
+// Phrasing Content https://html.spec.whatwg.org/multipage/dom.html#phrasing-content
+var isNonPhrasingTag = makeMap(
+  'address,article,aside,base,blockquote,body,caption,col,colgroup,dd,' +
+  'details,dialog,div,dl,dt,fieldset,figcaption,figure,footer,form,' +
+  'h1,h2,h3,h4,h5,h6,head,header,hgroup,hr,html,legend,li,menuitem,meta,' +
+  'optgroup,option,param,rp,rt,source,style,summary,tbody,td,tfoot,th,thead,' +
+  'title,tr,track'
+);
+
+/**
+ * Not type-checking this file because it's mostly vendor code.
+ */
+
+/*!
+ * HTML Parser By John Resig (ejohn.org)
+ * Modified by Juriy "kangax" Zaytsev
+ * Original code by Erik Arvidsson, Mozilla Public License
+ * http://erik.eae.net/simplehtmlparser/simplehtmlparser.js
+ */
+
+// Regular Expressions for parsing tags and attributes
+var attribute = /^\s*([^\s"'<>\/=]+)(?:\s*(=)\s*(?:"([^"]*)"+|'([^']*)'+|([^\s"'=<>`]+)))?/;
+// could use https://www.w3.org/TR/1999/REC-xml-names-19990114/#NT-QName
+// but for Vue templates we can enforce a simple charset
+var ncname = '[a-zA-Z_][\\w\\-\\.]*';
+var qnameCapture = "((?:" + ncname + "\\:)?" + ncname + ")";
+var startTagOpen = new RegExp(("^<" + qnameCapture));
+var startTagClose = /^\s*(\/?)>/;
+var endTag = new RegExp(("^<\\/" + qnameCapture + "[^>]*>"));
+var doctype = /^<!DOCTYPE [^>]+>/i;
+// #7298: escape - to avoid being pased as HTML comment when inlined in page
+var comment = /^<!\--/;
+var conditionalComment = /^<!\[/;
+
+var IS_REGEX_CAPTURING_BROKEN = false;
+'x'.replace(/x(.)?/g, function (m, g) {
+  IS_REGEX_CAPTURING_BROKEN = g === '';
+});
+
+// Special Elements (can contain anything)
+var isPlainTextElement = makeMap('script,style,textarea', true);
+var reCache = {};
+
+var decodingMap = {
+  '&lt;': '<',
+  '&gt;': '>',
+  '&quot;': '"',
+  '&amp;': '&',
+  '&#10;': '\n',
+  '&#9;': '\t'
+};
+var encodedAttr = /&(?:lt|gt|quot|amp);/g;
+var encodedAttrWithNewLines = /&(?:lt|gt|quot|amp|#10|#9);/g;
+
+// #5992
+var isIgnoreNewlineTag = makeMap('pre,textarea', true);
+var shouldIgnoreFirstNewline = function (tag, html) { return tag && isIgnoreNewlineTag(tag) && html[0] === '\n'; };
+
+function decodeAttr (value, shouldDecodeNewlines) {
+  var re = shouldDecodeNewlines ? encodedAttrWithNewLines : encodedAttr;
+  return value.replace(re, function (match) { return decodingMap[match]; })
+}
+
+function parseHTML (html, options) {
+  var stack = [];
+  var expectHTML = options.expectHTML;
+  var isUnaryTag$$1 = options.isUnaryTag || no;
+  var canBeLeftOpenTag$$1 = options.canBeLeftOpenTag || no;
+  var index = 0;
+  var last, lastTag;
+  while (html) {
+    last = html;
+    // Make sure we're not in a plaintext content element like script/style
+    if (!lastTag || !isPlainTextElement(lastTag)) {
+      var textEnd = html.indexOf('<');
+      if (textEnd === 0) {
+        // Comment:
+        if (comment.test(html)) {
+          var commentEnd = html.indexOf('-->');
+
+          if (commentEnd >= 0) {
+            if (options.shouldKeepComment) {
+              options.comment(html.substring(4, commentEnd));
+            }
+            advance(commentEnd + 3);
+            continue
+          }
+        }
+
+        // http://en.wikipedia.org/wiki/Conditional_comment#Downlevel-revealed_conditional_comment
+        if (conditionalComment.test(html)) {
+          var conditionalEnd = html.indexOf(']>');
+
+          if (conditionalEnd >= 0) {
+            advance(conditionalEnd + 2);
+            continue
+          }
+        }
+
+        // Doctype:
+        var doctypeMatch = html.match(doctype);
+        if (doctypeMatch) {
+          advance(doctypeMatch[0].length);
+          continue
+        }
+
+        // End tag:
+        var endTagMatch = html.match(endTag);
+        if (endTagMatch) {
+          var curIndex = index;
+          advance(endTagMatch[0].length);
+          parseEndTag(endTagMatch[1], curIndex, index);
+          continue
+        }
+
+        // Start tag:
+        var startTagMatch = parseStartTag();
+        if (startTagMatch) {
+          handleStartTag(startTagMatch);
+          if (shouldIgnoreFirstNewline(lastTag, html)) {
+            advance(1);
+          }
+          continue
+        }
+      }
+
+      var text = (void 0), rest = (void 0), next = (void 0);
+      if (textEnd >= 0) {
+        rest = html.slice(textEnd);
+        while (
+          !endTag.test(rest) &&
+          !startTagOpen.test(rest) &&
+          !comment.test(rest) &&
+          !conditionalComment.test(rest)
+        ) {
+          // < in plain text, be forgiving and treat it as text
+          next = rest.indexOf('<', 1);
+          if (next < 0) { break }
+          textEnd += next;
+          rest = html.slice(textEnd);
+        }
+        text = html.substring(0, textEnd);
+        advance(textEnd);
+      }
+
+      if (textEnd < 0) {
+        text = html;
+        html = '';
+      }
+
+      if (options.chars && text) {
+        options.chars(text);
+      }
+    } else {
+      var endTagLength = 0;
+      var stackedTag = lastTag.toLowerCase();
+      var reStackedTag = reCache[stackedTag] || (reCache[stackedTag] = new RegExp('([\\s\\S]*?)(</' + stackedTag + '[^>]*>)', 'i'));
+      var rest$1 = html.replace(reStackedTag, function (all, text, endTag) {
+        endTagLength = endTag.length;
+        if (!isPlainTextElement(stackedTag) && stackedTag !== 'noscript') {
+          text = text
+            .replace(/<!\--([\s\S]*?)-->/g, '$1') // #7298
+            .replace(/<!\[CDATA\[([\s\S]*?)]]>/g, '$1');
+        }
+        if (shouldIgnoreFirstNewline(stackedTag, text)) {
+          text = text.slice(1);
+        }
+        if (options.chars) {
+          options.chars(text);
+        }
+        return ''
+      });
+      index += html.length - rest$1.length;
+      html = rest$1;
+      parseEndTag(stackedTag, index - endTagLength, index);
+    }
+
+    if (html === last) {
+      options.chars && options.chars(html);
+      if ("development" !== 'production' && !stack.length && options.warn) {
+        options.warn(("Mal-formatted tag at end of template: \"" + html + "\""));
+      }
+      break
+    }
+  }
+
+  // Clean up any remaining tags
+  parseEndTag();
+
+  function advance (n) {
+    index += n;
+    html = html.substring(n);
+  }
+
+  function parseStartTag () {
+    var start = html.match(startTagOpen);
+    if (start) {
+      var match = {
+        tagName: start[1],
+        attrs: [],
+        start: index
+      };
+      advance(start[0].length);
+      var end, attr;
+      while (!(end = html.match(startTagClose)) && (attr = html.match(attribute))) {
+        advance(attr[0].length);
+        match.attrs.push(attr);
+      }
+      if (end) {
+        match.unarySlash = end[1];
+        advance(end[0].length);
+        match.end = index;
+        return match
+      }
+    }
+  }
+
+  function handleStartTag (match) {
+    var tagName = match.tagName;
+    var unarySlash = match.unarySlash;
+
+    if (expectHTML) {
+      if (lastTag === 'p' && isNonPhrasingTag(tagName)) {
+        parseEndTag(lastTag);
+      }
+      if (canBeLeftOpenTag$$1(tagName) && lastTag === tagName) {
+        parseEndTag(tagName);
+      }
+    }
+
+    var unary = isUnaryTag$$1(tagName) || !!unarySlash;
+
+    var l = match.attrs.length;
+    var attrs = new Array(l);
+    for (var i = 0; i < l; i++) {
+      var args = match.attrs[i];
+      // hackish work around FF bug https://bugzilla.mozilla.org/show_bug.cgi?id=369778
+      if (IS_REGEX_CAPTURING_BROKEN && args[0].indexOf('""') === -1) {
+        if (args[3] === '') { delete args[3]; }
+        if (args[4] === '') { delete args[4]; }
+        if (args[5] === '') { delete args[5]; }
+      }
+      var value = args[3] || args[4] || args[5] || '';
+      var shouldDecodeNewlines = tagName === 'a' && args[1] === 'href'
+        ? options.shouldDecodeNewlinesForHref
+        : options.shouldDecodeNewlines;
+      attrs[i] = {
+        name: args[1],
+        value: decodeAttr(value, shouldDecodeNewlines)
+      };
+    }
+
+    if (!unary) {
+      stack.push({ tag: tagName, lowerCasedTag: tagName.toLowerCase(), attrs: attrs });
+      lastTag = tagName;
+    }
+
+    if (options.start) {
+      options.start(tagName, attrs, unary, match.start, match.end);
+    }
+  }
+
+  function parseEndTag (tagName, start, end) {
+    var pos, lowerCasedTagName;
+    if (start == null) { start = index; }
+    if (end == null) { end = index; }
+
+    if (tagName) {
+      lowerCasedTagName = tagName.toLowerCase();
+    }
+
+    // Find the closest opened tag of the same type
+    if (tagName) {
+      for (pos = stack.length - 1; pos >= 0; pos--) {
+        if (stack[pos].lowerCasedTag === lowerCasedTagName) {
+          break
+        }
+      }
+    } else {
+      // If no tag name is provided, clean shop
+      pos = 0;
+    }
+
+    if (pos >= 0) {
+      // Close all the open elements, up the stack
+      for (var i = stack.length - 1; i >= pos; i--) {
+        if ("development" !== 'production' &&
+          (i > pos || !tagName) &&
+          options.warn
+        ) {
+          options.warn(
+            ("tag <" + (stack[i].tag) + "> has no matching end tag.")
+          );
+        }
+        if (options.end) {
+          options.end(stack[i].tag, start, end);
+        }
+      }
+
+      // Remove the open elements from the stack
+      stack.length = pos;
+      lastTag = pos && stack[pos - 1].tag;
+    } else if (lowerCasedTagName === 'br') {
+      if (options.start) {
+        options.start(tagName, [], true, start, end);
+      }
+    } else if (lowerCasedTagName === 'p') {
+      if (options.start) {
+        options.start(tagName, [], false, start, end);
+      }
+      if (options.end) {
+        options.end(tagName, start, end);
+      }
+    }
+  }
+}
+
+/*  */
+
+var onRE = /^@|^v-on:/;
+var dirRE = /^v-|^@|^:/;
+var forAliasRE = /([^]*?)\s+(?:in|of)\s+([^]*)/;
+var forIteratorRE = /,([^,\}\]]*)(?:,([^,\}\]]*))?$/;
+var stripParensRE = /^\(|\)$/g;
+
+var argRE = /:(.*)$/;
+var bindRE = /^:|^v-bind:/;
+var modifierRE = /\.[^.]+/g;
+
+var decodeHTMLCached = cached(he.decode);
+
+// configurable state
+var warn$2;
+var delimiters;
+var transforms;
+var preTransforms;
+var postTransforms;
+var platformIsPreTag;
+var platformMustUseProp;
+var platformGetTagNamespace;
+
+
+
+function createASTElement (
+  tag,
+  attrs,
+  parent
+) {
+  return {
+    type: 1,
+    tag: tag,
+    attrsList: attrs,
+    attrsMap: makeAttrsMap(attrs),
+    parent: parent,
+    children: []
+  }
+}
+
+/**
+ * Convert HTML string to AST.
+ */
+function parse (
+  template,
+  options
+) {
+  warn$2 = options.warn || baseWarn;
+
+  platformIsPreTag = options.isPreTag || no;
+  platformMustUseProp = options.mustUseProp || no;
+  platformGetTagNamespace = options.getTagNamespace || no;
+
+  transforms = pluckModuleFunction(options.modules, 'transformNode');
+  preTransforms = pluckModuleFunction(options.modules, 'preTransformNode');
+  postTransforms = pluckModuleFunction(options.modules, 'postTransformNode');
+
+  delimiters = options.delimiters;
+
+  var stack = [];
+  var preserveWhitespace = options.preserveWhitespace !== false;
+  var root;
+  var currentParent;
+  var inVPre = false;
+  var inPre = false;
+  var warned = false;
+
+  function warnOnce (msg) {
+    if (!warned) {
+      warned = true;
+      warn$2(msg);
+    }
+  }
+
+  function closeElement (element) {
+    // check pre state
+    if (element.pre) {
+      inVPre = false;
+    }
+    if (platformIsPreTag(element.tag)) {
+      inPre = false;
+    }
+    // apply post-transforms
+    for (var i = 0; i < postTransforms.length; i++) {
+      postTransforms[i](element, options);
+    }
+  }
+
+  parseHTML(template, {
+    warn: warn$2,
+    expectHTML: options.expectHTML,
+    isUnaryTag: options.isUnaryTag,
+    canBeLeftOpenTag: options.canBeLeftOpenTag,
+    shouldDecodeNewlines: options.shouldDecodeNewlines,
+    shouldDecodeNewlinesForHref: options.shouldDecodeNewlinesForHref,
+    shouldKeepComment: options.comments,
+    start: function start (tag, attrs, unary) {
+      // check namespace.
+      // inherit parent ns if there is one
+      var ns = (currentParent && currentParent.ns) || platformGetTagNamespace(tag);
+
+      // handle IE svg bug
+      /* istanbul ignore if */
+      if (isIE && ns === 'svg') {
+        attrs = guardIESVGBug(attrs);
+      }
+
+      var element = createASTElement(tag, attrs, currentParent);
+      if (ns) {
+        element.ns = ns;
+      }
+
+      if (isForbiddenTag(element) && !isServerRendering()) {
+        element.forbidden = true;
+        "development" !== 'production' && warn$2(
+          'Templates should only be responsible for mapping the state to the ' +
+          'UI. Avoid placing tags with side-effects in your templates, such as ' +
+          "<" + tag + ">" + ', as they will not be parsed.'
+        );
+      }
+
+      // apply pre-transforms
+      for (var i = 0; i < preTransforms.length; i++) {
+        element = preTransforms[i](element, options) || element;
+      }
+
+      if (!inVPre) {
+        processPre(element);
+        if (element.pre) {
+          inVPre = true;
+        }
+      }
+      if (platformIsPreTag(element.tag)) {
+        inPre = true;
+      }
+      if (inVPre) {
+        processRawAttrs(element);
+      } else if (!element.processed) {
+        // structural directives
+        processFor(element);
+        processIf(element);
+        processOnce(element);
+        // element-scope stuff
+        processElement(element, options);
+      }
+
+      function checkRootConstraints (el) {
+        {
+          if (el.tag === 'slot' || el.tag === 'template') {
+            warnOnce(
+              "Cannot use <" + (el.tag) + "> as component root element because it may " +
+              'contain multiple nodes.'
+            );
+          }
+          if (el.attrsMap.hasOwnProperty('v-for')) {
+            warnOnce(
+              'Cannot use v-for on stateful component root element because ' +
+              'it renders multiple elements.'
+            );
+          }
+        }
+      }
+
+      // tree management
+      if (!root) {
+        root = element;
+        checkRootConstraints(root);
+      } else if (!stack.length) {
+        // allow root elements with v-if, v-else-if and v-else
+        if (root.if && (element.elseif || element.else)) {
+          checkRootConstraints(element);
+          addIfCondition(root, {
+            exp: element.elseif,
+            block: element
+          });
+        } else {
+          warnOnce(
+            "Component template should contain exactly one root element. " +
+            "If you are using v-if on multiple elements, " +
+            "use v-else-if to chain them instead."
+          );
+        }
+      }
+      if (currentParent && !element.forbidden) {
+        if (element.elseif || element.else) {
+          processIfConditions(element, currentParent);
+        } else if (element.slotScope) { // scoped slot
+          currentParent.plain = false;
+          var name = element.slotTarget || '"default"';(currentParent.scopedSlots || (currentParent.scopedSlots = {}))[name] = element;
+        } else {
+          currentParent.children.push(element);
+          element.parent = currentParent;
+        }
+      }
+      if (!unary) {
+        currentParent = element;
+        stack.push(element);
+      } else {
+        closeElement(element);
+      }
+    },
+
+    end: function end () {
+      // remove trailing whitespace
+      var element = stack[stack.length - 1];
+      var lastNode = element.children[element.children.length - 1];
+      if (lastNode && lastNode.type === 3 && lastNode.text === ' ' && !inPre) {
+        element.children.pop();
+      }
+      // pop stack
+      stack.length -= 1;
+      currentParent = stack[stack.length - 1];
+      closeElement(element);
+    },
+
+    chars: function chars (text) {
+      if (!currentParent) {
+        {
+          if (text === template) {
+            warnOnce(
+              'Component template requires a root element, rather than just text.'
+            );
+          } else if ((text = text.trim())) {
+            warnOnce(
+              ("text \"" + text + "\" outside root element will be ignored.")
+            );
+          }
+        }
+        return
+      }
+      // IE textarea placeholder bug
+      /* istanbul ignore if */
+      if (isIE &&
+        currentParent.tag === 'textarea' &&
+        currentParent.attrsMap.placeholder === text
+      ) {
+        return
+      }
+      var children = currentParent.children;
+      text = inPre || text.trim()
+        ? isTextTag(currentParent) ? text : decodeHTMLCached(text)
+        // only preserve whitespace if its not right after a starting tag
+        : preserveWhitespace && children.length ? ' ' : '';
+      if (text) {
+        var res;
+        if (!inVPre && text !== ' ' && (res = parseText(text, delimiters))) {
+          children.push({
+            type: 2,
+            expression: res.expression,
+            tokens: res.tokens,
+            text: text
+          });
+        } else if (text !== ' ' || !children.length || children[children.length - 1].text !== ' ') {
+          children.push({
+            type: 3,
+            text: text
+          });
+        }
+      }
+    },
+    comment: function comment (text) {
+      currentParent.children.push({
+        type: 3,
+        text: text,
+        isComment: true
+      });
+    }
+  });
+  return root
+}
+
+function processPre (el) {
+  if (getAndRemoveAttr(el, 'v-pre') != null) {
+    el.pre = true;
+  }
+}
+
+function processRawAttrs (el) {
+  var l = el.attrsList.length;
+  if (l) {
+    var attrs = el.attrs = new Array(l);
+    for (var i = 0; i < l; i++) {
+      attrs[i] = {
+        name: el.attrsList[i].name,
+        value: JSON.stringify(el.attrsList[i].value)
+      };
+    }
+  } else if (!el.pre) {
+    // non root node in pre blocks with no attributes
+    el.plain = true;
+  }
+}
+
+function processElement (element, options) {
+  processKey(element);
+
+  // determine whether this is a plain element after
+  // removing structural attributes
+  element.plain = !element.key && !element.attrsList.length;
+
+  processRef(element);
+  processSlot(element);
+  processComponent(element);
+  for (var i = 0; i < transforms.length; i++) {
+    element = transforms[i](element, options) || element;
+  }
+  processAttrs(element);
+}
+
+function processKey (el) {
+  var exp = getBindingAttr(el, 'key');
+  if (exp) {
+    if ("development" !== 'production' && el.tag === 'template') {
+      warn$2("<template> cannot be keyed. Place the key on real elements instead.");
+    }
+    el.key = exp;
+  }
+}
+
+function processRef (el) {
+  var ref = getBindingAttr(el, 'ref');
+  if (ref) {
+    el.ref = ref;
+    el.refInFor = checkInFor(el);
+  }
+}
+
+function processFor (el) {
+  var exp;
+  if ((exp = getAndRemoveAttr(el, 'v-for'))) {
+    var res = parseFor(exp);
+    if (res) {
+      extend(el, res);
+    } else {
+      warn$2(
+        ("Invalid v-for expression: " + exp)
+      );
+    }
+  }
+}
+
+
+
+function parseFor (exp) {
+  var inMatch = exp.match(forAliasRE);
+  if (!inMatch) { return }
+  var res = {};
+  res.for = inMatch[2].trim();
+  var alias = inMatch[1].trim().replace(stripParensRE, '');
+  var iteratorMatch = alias.match(forIteratorRE);
+  if (iteratorMatch) {
+    res.alias = alias.replace(forIteratorRE, '');
+    res.iterator1 = iteratorMatch[1].trim();
+    if (iteratorMatch[2]) {
+      res.iterator2 = iteratorMatch[2].trim();
+    }
+  } else {
+    res.alias = alias;
+  }
+  return res
+}
+
+function processIf (el) {
+  var exp = getAndRemoveAttr(el, 'v-if');
+  if (exp) {
+    el.if = exp;
+    addIfCondition(el, {
+      exp: exp,
+      block: el
+    });
+  } else {
+    if (getAndRemoveAttr(el, 'v-else') != null) {
+      el.else = true;
+    }
+    var elseif = getAndRemoveAttr(el, 'v-else-if');
+    if (elseif) {
+      el.elseif = elseif;
+    }
+  }
+}
+
+function processIfConditions (el, parent) {
+  var prev = findPrevElement(parent.children);
+  if (prev && prev.if) {
+    addIfCondition(prev, {
+      exp: el.elseif,
+      block: el
+    });
+  } else {
+    warn$2(
+      "v-" + (el.elseif ? ('else-if="' + el.elseif + '"') : 'else') + " " +
+      "used on element <" + (el.tag) + "> without corresponding v-if."
+    );
+  }
+}
+
+function findPrevElement (children) {
+  var i = children.length;
+  while (i--) {
+    if (children[i].type === 1) {
+      return children[i]
+    } else {
+      if ("development" !== 'production' && children[i].text !== ' ') {
+        warn$2(
+          "text \"" + (children[i].text.trim()) + "\" between v-if and v-else(-if) " +
+          "will be ignored."
+        );
+      }
+      children.pop();
+    }
+  }
+}
+
+function addIfCondition (el, condition) {
+  if (!el.ifConditions) {
+    el.ifConditions = [];
+  }
+  el.ifConditions.push(condition);
+}
+
+function processOnce (el) {
+  var once$$1 = getAndRemoveAttr(el, 'v-once');
+  if (once$$1 != null) {
+    el.once = true;
+  }
+}
+
+function processSlot (el) {
+  if (el.tag === 'slot') {
+    el.slotName = getBindingAttr(el, 'name');
+    if ("development" !== 'production' && el.key) {
+      warn$2(
+        "`key` does not work on <slot> because slots are abstract outlets " +
+        "and can possibly expand into multiple elements. " +
+        "Use the key on a wrapping element instead."
+      );
+    }
+  } else {
+    var slotScope;
+    if (el.tag === 'template') {
+      slotScope = getAndRemoveAttr(el, 'scope');
+      /* istanbul ignore if */
+      if ("development" !== 'production' && slotScope) {
+        warn$2(
+          "the \"scope\" attribute for scoped slots have been deprecated and " +
+          "replaced by \"slot-scope\" since 2.5. The new \"slot-scope\" attribute " +
+          "can also be used on plain elements in addition to <template> to " +
+          "denote scoped slots.",
+          true
+        );
+      }
+      el.slotScope = slotScope || getAndRemoveAttr(el, 'slot-scope');
+    } else if ((slotScope = getAndRemoveAttr(el, 'slot-scope'))) {
+      /* istanbul ignore if */
+      if ("development" !== 'production' && el.attrsMap['v-for']) {
+        warn$2(
+          "Ambiguous combined usage of slot-scope and v-for on <" + (el.tag) + "> " +
+          "(v-for takes higher priority). Use a wrapper <template> for the " +
+          "scoped slot to make it clearer.",
+          true
+        );
+      }
+      el.slotScope = slotScope;
+    }
+    var slotTarget = getBindingAttr(el, 'slot');
+    if (slotTarget) {
+      el.slotTarget = slotTarget === '""' ? '"default"' : slotTarget;
+      // preserve slot as an attribute for native shadow DOM compat
+      // only for non-scoped slots.
+      if (el.tag !== 'template' && !el.slotScope) {
+        addAttr(el, 'slot', slotTarget);
+      }
+    }
+  }
+}
+
+function processComponent (el) {
+  var binding;
+  if ((binding = getBindingAttr(el, 'is'))) {
+    el.component = binding;
+  }
+  if (getAndRemoveAttr(el, 'inline-template') != null) {
+    el.inlineTemplate = true;
+  }
+}
+
+function processAttrs (el) {
+  var list = el.attrsList;
+  var i, l, name, rawName, value, modifiers, isProp;
+  for (i = 0, l = list.length; i < l; i++) {
+    name = rawName = list[i].name;
+    value = list[i].value;
+    if (dirRE.test(name)) {
+      // mark element as dynamic
+      el.hasBindings = true;
+      // modifiers
+      modifiers = parseModifiers(name);
+      if (modifiers) {
+        name = name.replace(modifierRE, '');
+      }
+      if (bindRE.test(name)) { // v-bind
+        name = name.replace(bindRE, '');
+        value = parseFilters(value);
+        isProp = false;
+        if (modifiers) {
+          if (modifiers.prop) {
+            isProp = true;
+            name = camelize(name);
+            if (name === 'innerHtml') { name = 'innerHTML'; }
+          }
+          if (modifiers.camel) {
+            name = camelize(name);
+          }
+          if (modifiers.sync) {
+            addHandler(
+              el,
+              ("update:" + (camelize(name))),
+              genAssignmentCode(value, "$event")
+            );
+          }
+        }
+        if (isProp || (
+          !el.component && platformMustUseProp(el.tag, el.attrsMap.type, name)
+        )) {
+          addProp(el, name, value);
+        } else {
+          addAttr(el, name, value);
+        }
+      } else if (onRE.test(name)) { // v-on
+        name = name.replace(onRE, '');
+        addHandler(el, name, value, modifiers, false, warn$2);
+      } else { // normal directives
+        name = name.replace(dirRE, '');
+        // parse arg
+        var argMatch = name.match(argRE);
+        var arg = argMatch && argMatch[1];
+        if (arg) {
+          name = name.slice(0, -(arg.length + 1));
+        }
+        addDirective(el, name, rawName, value, arg, modifiers);
+        if ("development" !== 'production' && name === 'model') {
+          checkForAliasModel(el, value);
+        }
+      }
+    } else {
+      // literal attribute
+      {
+        var res = parseText(value, delimiters);
+        if (res) {
+          warn$2(
+            name + "=\"" + value + "\": " +
+            'Interpolation inside attributes has been removed. ' +
+            'Use v-bind or the colon shorthand instead. For example, ' +
+            'instead of <div id="{{ val }}">, use <div :id="val">.'
+          );
+        }
+      }
+      addAttr(el, name, JSON.stringify(value));
+      // #6887 firefox doesn't update muted state if set via attribute
+      // even immediately after element creation
+      if (!el.component &&
+          name === 'muted' &&
+          platformMustUseProp(el.tag, el.attrsMap.type, name)) {
+        addProp(el, name, 'true');
+      }
+    }
+  }
+}
+
+function checkInFor (el) {
+  var parent = el;
+  while (parent) {
+    if (parent.for !== undefined) {
+      return true
+    }
+    parent = parent.parent;
+  }
+  return false
+}
+
+function parseModifiers (name) {
+  var match = name.match(modifierRE);
+  if (match) {
+    var ret = {};
+    match.forEach(function (m) { ret[m.slice(1)] = true; });
+    return ret
+  }
+}
+
+function makeAttrsMap (attrs) {
+  var map = {};
+  for (var i = 0, l = attrs.length; i < l; i++) {
+    if (
+      "development" !== 'production' &&
+      map[attrs[i].name] && !isIE && !isEdge
+    ) {
+      warn$2('duplicate attribute: ' + attrs[i].name);
+    }
+    map[attrs[i].name] = attrs[i].value;
+  }
+  return map
+}
+
+// for script (e.g. type="x/template") or style, do not decode content
+function isTextTag (el) {
+  return el.tag === 'script' || el.tag === 'style'
+}
+
+function isForbiddenTag (el) {
+  return (
+    el.tag === 'style' ||
+    (el.tag === 'script' && (
+      !el.attrsMap.type ||
+      el.attrsMap.type === 'text/javascript'
+    ))
+  )
+}
+
+var ieNSBug = /^xmlns:NS\d+/;
+var ieNSPrefix = /^NS\d+:/;
+
+/* istanbul ignore next */
+function guardIESVGBug (attrs) {
+  var res = [];
+  for (var i = 0; i < attrs.length; i++) {
+    var attr = attrs[i];
+    if (!ieNSBug.test(attr.name)) {
+      attr.name = attr.name.replace(ieNSPrefix, '');
+      res.push(attr);
+    }
+  }
+  return res
+}
+
+function checkForAliasModel (el, value) {
+  var _el = el;
+  while (_el) {
+    if (_el.for && _el.alias === value) {
+      warn$2(
+        "<" + (el.tag) + " v-model=\"" + value + "\">: " +
+        "You are binding v-model directly to a v-for iteration alias. " +
+        "This will not be able to modify the v-for source array because " +
+        "writing to the alias is like modifying a function local variable. " +
+        "Consider using an array of objects and use v-model on an object property instead."
+      );
+    }
+    _el = _el.parent;
+  }
+}
+
+/*  */
+
+/**
+ * Expand input[v-model] with dyanmic type bindings into v-if-else chains
+ * Turn this:
+ *   <input v-model="data[type]" :type="type">
+ * into this:
+ *   <input v-if="type === 'checkbox'" type="checkbox" v-model="data[type]">
+ *   <input v-else-if="type === 'radio'" type="radio" v-model="data[type]">
+ *   <input v-else :type="type" v-model="data[type]">
+ */
+
+function preTransformNode (el, options) {
+  if (el.tag === 'input') {
+    var map = el.attrsMap;
+    if (!map['v-model']) {
+      return
+    }
+
+    var typeBinding;
+    if (map[':type'] || map['v-bind:type']) {
+      typeBinding = getBindingAttr(el, 'type');
+    }
+    if (!map.type && !typeBinding && map['v-bind']) {
+      typeBinding = "(" + (map['v-bind']) + ").type";
+    }
+
+    if (typeBinding) {
+      var ifCondition = getAndRemoveAttr(el, 'v-if', true);
+      var ifConditionExtra = ifCondition ? ("&&(" + ifCondition + ")") : "";
+      var hasElse = getAndRemoveAttr(el, 'v-else', true) != null;
+      var elseIfCondition = getAndRemoveAttr(el, 'v-else-if', true);
+      // 1. checkbox
+      var branch0 = cloneASTElement(el);
+      // process for on the main node
+      processFor(branch0);
+      addRawAttr(branch0, 'type', 'checkbox');
+      processElement(branch0, options);
+      branch0.processed = true; // prevent it from double-processed
+      branch0.if = "(" + typeBinding + ")==='checkbox'" + ifConditionExtra;
+      addIfCondition(branch0, {
+        exp: branch0.if,
+        block: branch0
+      });
+      // 2. add radio else-if condition
+      var branch1 = cloneASTElement(el);
+      getAndRemoveAttr(branch1, 'v-for', true);
+      addRawAttr(branch1, 'type', 'radio');
+      processElement(branch1, options);
+      addIfCondition(branch0, {
+        exp: "(" + typeBinding + ")==='radio'" + ifConditionExtra,
+        block: branch1
+      });
+      // 3. other
+      var branch2 = cloneASTElement(el);
+      getAndRemoveAttr(branch2, 'v-for', true);
+      addRawAttr(branch2, ':type', typeBinding);
+      processElement(branch2, options);
+      addIfCondition(branch0, {
+        exp: ifCondition,
+        block: branch2
+      });
+
+      if (hasElse) {
+        branch0.else = true;
+      } else if (elseIfCondition) {
+        branch0.elseif = elseIfCondition;
+      }
+
+      return branch0
+    }
+  }
+}
+
+function cloneASTElement (el) {
+  return createASTElement(el.tag, el.attrsList.slice(), el.parent)
+}
+
+var model$2 = {
+  preTransformNode: preTransformNode
+}
+
+var modules$1 = [
+  klass$1,
+  style$1,
+  model$2
+]
+
+/*  */
+
+function text (el, dir) {
+  if (dir.value) {
+    addProp(el, 'textContent', ("_s(" + (dir.value) + ")"));
+  }
+}
+
+/*  */
+
+function html (el, dir) {
+  if (dir.value) {
+    addProp(el, 'innerHTML', ("_s(" + (dir.value) + ")"));
+  }
+}
+
+var directives$1 = {
+  model: model,
+  text: text,
+  html: html
+}
+
+/*  */
+
+var baseOptions = {
+  expectHTML: true,
+  modules: modules$1,
+  directives: directives$1,
+  isPreTag: isPreTag,
+  isUnaryTag: isUnaryTag,
+  mustUseProp: mustUseProp,
+  canBeLeftOpenTag: canBeLeftOpenTag,
+  isReservedTag: isReservedTag,
+  getTagNamespace: getTagNamespace,
+  staticKeys: genStaticKeys(modules$1)
+};
+
+/*  */
+
+var isStaticKey;
+var isPlatformReservedTag;
+
+var genStaticKeysCached = cached(genStaticKeys$1);
+
+/**
+ * Goal of the optimizer: walk the generated template AST tree
+ * and detect sub-trees that are purely static, i.e. parts of
+ * the DOM that never needs to change.
+ *
+ * Once we detect these sub-trees, we can:
+ *
+ * 1. Hoist them into constants, so that we no longer need to
+ *    create fresh nodes for them on each re-render;
+ * 2. Completely skip them in the patching process.
+ */
+function optimize (root, options) {
+  if (!root) { return }
+  isStaticKey = genStaticKeysCached(options.staticKeys || '');
+  isPlatformReservedTag = options.isReservedTag || no;
+  // first pass: mark all non-static nodes.
+  markStatic$1(root);
+  // second pass: mark static roots.
+  markStaticRoots(root, false);
+}
+
+function genStaticKeys$1 (keys) {
+  return makeMap(
+    'type,tag,attrsList,attrsMap,plain,parent,children,attrs' +
+    (keys ? ',' + keys : '')
+  )
+}
+
+function markStatic$1 (node) {
+  node.static = isStatic(node);
+  if (node.type === 1) {
+    // do not make component slot content static. this avoids
+    // 1. components not able to mutate slot nodes
+    // 2. static slot content fails for hot-reloading
+    if (
+      !isPlatformReservedTag(node.tag) &&
+      node.tag !== 'slot' &&
+      node.attrsMap['inline-template'] == null
+    ) {
+      return
+    }
+    for (var i = 0, l = node.children.length; i < l; i++) {
+      var child = node.children[i];
+      markStatic$1(child);
+      if (!child.static) {
+        node.static = false;
+      }
+    }
+    if (node.ifConditions) {
+      for (var i$1 = 1, l$1 = node.ifConditions.length; i$1 < l$1; i$1++) {
+        var block = node.ifConditions[i$1].block;
+        markStatic$1(block);
+        if (!block.static) {
+          node.static = false;
+        }
+      }
+    }
+  }
+}
+
+function markStaticRoots (node, isInFor) {
+  if (node.type === 1) {
+    if (node.static || node.once) {
+      node.staticInFor = isInFor;
+    }
+    // For a node to qualify as a static root, it should have children that
+    // are not just static text. Otherwise the cost of hoisting out will
+    // outweigh the benefits and it's better off to just always render it fresh.
+    if (node.static && node.children.length && !(
+      node.children.length === 1 &&
+      node.children[0].type === 3
+    )) {
+      node.staticRoot = true;
+      return
+    } else {
+      node.staticRoot = false;
+    }
+    if (node.children) {
+      for (var i = 0, l = node.children.length; i < l; i++) {
+        markStaticRoots(node.children[i], isInFor || !!node.for);
+      }
+    }
+    if (node.ifConditions) {
+      for (var i$1 = 1, l$1 = node.ifConditions.length; i$1 < l$1; i$1++) {
+        markStaticRoots(node.ifConditions[i$1].block, isInFor);
+      }
+    }
+  }
+}
+
+function isStatic (node) {
+  if (node.type === 2) { // expression
+    return false
+  }
+  if (node.type === 3) { // text
+    return true
+  }
+  return !!(node.pre || (
+    !node.hasBindings && // no dynamic bindings
+    !node.if && !node.for && // not v-if or v-for or v-else
+    !isBuiltInTag(node.tag) && // not a built-in
+    isPlatformReservedTag(node.tag) && // not a component
+    !isDirectChildOfTemplateFor(node) &&
+    Object.keys(node).every(isStaticKey)
+  ))
+}
+
+function isDirectChildOfTemplateFor (node) {
+  while (node.parent) {
+    node = node.parent;
+    if (node.tag !== 'template') {
+      return false
+    }
+    if (node.for) {
+      return true
+    }
+  }
+  return false
+}
+
+/*  */
+
+var fnExpRE = /^([\w$_]+|\([^)]*?\))\s*=>|^function\s*\(/;
+var simplePathRE = /^[A-Za-z_$][\w$]*(?:\.[A-Za-z_$][\w$]*|\['[^']*?']|\["[^"]*?"]|\[\d+]|\[[A-Za-z_$][\w$]*])*$/;
+
+// KeyboardEvent.keyCode aliases
+var keyCodes = {
+  esc: 27,
+  tab: 9,
+  enter: 13,
+  space: 32,
+  up: 38,
+  left: 37,
+  right: 39,
+  down: 40,
+  'delete': [8, 46]
+};
+
+// KeyboardEvent.key aliases
+var keyNames = {
+  esc: 'Escape',
+  tab: 'Tab',
+  enter: 'Enter',
+  space: ' ',
+  // #7806: IE11 uses key names without `Arrow` prefix for arrow keys.
+  up: ['Up', 'ArrowUp'],
+  left: ['Left', 'ArrowLeft'],
+  right: ['Right', 'ArrowRight'],
+  down: ['Down', 'ArrowDown'],
+  'delete': ['Backspace', 'Delete']
+};
+
+// #4868: modifiers that prevent the execution of the listener
+// need to explicitly return null so that we can determine whether to remove
+// the listener for .once
+var genGuard = function (condition) { return ("if(" + condition + ")return null;"); };
+
+var modifierCode = {
+  stop: '$event.stopPropagation();',
+  prevent: '$event.preventDefault();',
+  self: genGuard("$event.target !== $event.currentTarget"),
+  ctrl: genGuard("!$event.ctrlKey"),
+  shift: genGuard("!$event.shiftKey"),
+  alt: genGuard("!$event.altKey"),
+  meta: genGuard("!$event.metaKey"),
+  left: genGuard("'button' in $event && $event.button !== 0"),
+  middle: genGuard("'button' in $event && $event.button !== 1"),
+  right: genGuard("'button' in $event && $event.button !== 2")
+};
+
+function genHandlers (
+  events,
+  isNative,
+  warn
+) {
+  var res = isNative ? 'nativeOn:{' : 'on:{';
+  for (var name in events) {
+    res += "\"" + name + "\":" + (genHandler(name, events[name])) + ",";
+  }
+  return res.slice(0, -1) + '}'
+}
+
+function genHandler (
+  name,
+  handler
+) {
+  if (!handler) {
+    return 'function(){}'
+  }
+
+  if (Array.isArray(handler)) {
+    return ("[" + (handler.map(function (handler) { return genHandler(name, handler); }).join(',')) + "]")
+  }
+
+  var isMethodPath = simplePathRE.test(handler.value);
+  var isFunctionExpression = fnExpRE.test(handler.value);
+
+  if (!handler.modifiers) {
+    if (isMethodPath || isFunctionExpression) {
+      return handler.value
+    }
+    /* istanbul ignore if */
+    return ("function($event){" + (handler.value) + "}") // inline statement
+  } else {
+    var code = '';
+    var genModifierCode = '';
+    var keys = [];
+    for (var key in handler.modifiers) {
+      if (modifierCode[key]) {
+        genModifierCode += modifierCode[key];
+        // left/right
+        if (keyCodes[key]) {
+          keys.push(key);
+        }
+      } else if (key === 'exact') {
+        var modifiers = (handler.modifiers);
+        genModifierCode += genGuard(
+          ['ctrl', 'shift', 'alt', 'meta']
+            .filter(function (keyModifier) { return !modifiers[keyModifier]; })
+            .map(function (keyModifier) { return ("$event." + keyModifier + "Key"); })
+            .join('||')
+        );
+      } else {
+        keys.push(key);
+      }
+    }
+    if (keys.length) {
+      code += genKeyFilter(keys);
+    }
+    // Make sure modifiers like prevent and stop get executed after key filtering
+    if (genModifierCode) {
+      code += genModifierCode;
+    }
+    var handlerCode = isMethodPath
+      ? ("return " + (handler.value) + "($event)")
+      : isFunctionExpression
+        ? ("return (" + (handler.value) + ")($event)")
+        : handler.value;
+    /* istanbul ignore if */
+    return ("function($event){" + code + handlerCode + "}")
+  }
+}
+
+function genKeyFilter (keys) {
+  return ("if(!('button' in $event)&&" + (keys.map(genFilterCode).join('&&')) + ")return null;")
+}
+
+function genFilterCode (key) {
+  var keyVal = parseInt(key, 10);
+  if (keyVal) {
+    return ("$event.keyCode!==" + keyVal)
+  }
+  var keyCode = keyCodes[key];
+  var keyName = keyNames[key];
+  return (
+    "_k($event.keyCode," +
+    (JSON.stringify(key)) + "," +
+    (JSON.stringify(keyCode)) + "," +
+    "$event.key," +
+    "" + (JSON.stringify(keyName)) +
+    ")"
+  )
+}
+
+/*  */
+
+function on (el, dir) {
+  if ("development" !== 'production' && dir.modifiers) {
+    warn("v-on without argument does not support modifiers.");
+  }
+  el.wrapListeners = function (code) { return ("_g(" + code + "," + (dir.value) + ")"); };
+}
+
+/*  */
+
+function bind$1 (el, dir) {
+  el.wrapData = function (code) {
+    return ("_b(" + code + ",'" + (el.tag) + "'," + (dir.value) + "," + (dir.modifiers && dir.modifiers.prop ? 'true' : 'false') + (dir.modifiers && dir.modifiers.sync ? ',true' : '') + ")")
+  };
+}
+
+/*  */
+
+var baseDirectives = {
+  on: on,
+  bind: bind$1,
+  cloak: noop
+}
+
+/*  */
+
+var CodegenState = function CodegenState (options) {
+  this.options = options;
+  this.warn = options.warn || baseWarn;
+  this.transforms = pluckModuleFunction(options.modules, 'transformCode');
+  this.dataGenFns = pluckModuleFunction(options.modules, 'genData');
+  this.directives = extend(extend({}, baseDirectives), options.directives);
+  var isReservedTag = options.isReservedTag || no;
+  this.maybeComponent = function (el) { return !isReservedTag(el.tag); };
+  this.onceId = 0;
+  this.staticRenderFns = [];
+};
+
+
+
+function generate (
+  ast,
+  options
+) {
+  var state = new CodegenState(options);
+  var code = ast ? genElement(ast, state) : '_c("div")';
+  return {
+    render: ("with(this){return " + code + "}"),
+    staticRenderFns: state.staticRenderFns
+  }
+}
+
+function genElement (el, state) {
+  if (el.staticRoot && !el.staticProcessed) {
+    return genStatic(el, state)
+  } else if (el.once && !el.onceProcessed) {
+    return genOnce(el, state)
+  } else if (el.for && !el.forProcessed) {
+    return genFor(el, state)
+  } else if (el.if && !el.ifProcessed) {
+    return genIf(el, state)
+  } else if (el.tag === 'template' && !el.slotTarget) {
+    return genChildren(el, state) || 'void 0'
+  } else if (el.tag === 'slot') {
+    return genSlot(el, state)
+  } else {
+    // component or element
+    var code;
+    if (el.component) {
+      code = genComponent(el.component, el, state);
+    } else {
+      var data = el.plain ? undefined : genData$2(el, state);
+
+      var children = el.inlineTemplate ? null : genChildren(el, state, true);
+      code = "_c('" + (el.tag) + "'" + (data ? ("," + data) : '') + (children ? ("," + children) : '') + ")";
+    }
+    // module transforms
+    for (var i = 0; i < state.transforms.length; i++) {
+      code = state.transforms[i](el, code);
+    }
+    return code
+  }
+}
+
+// hoist static sub-trees out
+function genStatic (el, state) {
+  el.staticProcessed = true;
+  state.staticRenderFns.push(("with(this){return " + (genElement(el, state)) + "}"));
+  return ("_m(" + (state.staticRenderFns.length - 1) + (el.staticInFor ? ',true' : '') + ")")
+}
+
+// v-once
+function genOnce (el, state) {
+  el.onceProcessed = true;
+  if (el.if && !el.ifProcessed) {
+    return genIf(el, state)
+  } else if (el.staticInFor) {
+    var key = '';
+    var parent = el.parent;
+    while (parent) {
+      if (parent.for) {
+        key = parent.key;
+        break
+      }
+      parent = parent.parent;
+    }
+    if (!key) {
+      "development" !== 'production' && state.warn(
+        "v-once can only be used inside v-for that is keyed. "
+      );
+      return genElement(el, state)
+    }
+    return ("_o(" + (genElement(el, state)) + "," + (state.onceId++) + "," + key + ")")
+  } else {
+    return genStatic(el, state)
+  }
+}
+
+function genIf (
+  el,
+  state,
+  altGen,
+  altEmpty
+) {
+  el.ifProcessed = true; // avoid recursion
+  return genIfConditions(el.ifConditions.slice(), state, altGen, altEmpty)
+}
+
+function genIfConditions (
+  conditions,
+  state,
+  altGen,
+  altEmpty
+) {
+  if (!conditions.length) {
+    return altEmpty || '_e()'
+  }
+
+  var condition = conditions.shift();
+  if (condition.exp) {
+    return ("(" + (condition.exp) + ")?" + (genTernaryExp(condition.block)) + ":" + (genIfConditions(conditions, state, altGen, altEmpty)))
+  } else {
+    return ("" + (genTernaryExp(condition.block)))
+  }
+
+  // v-if with v-once should generate code like (a)?_m(0):_m(1)
+  function genTernaryExp (el) {
+    return altGen
+      ? altGen(el, state)
+      : el.once
+        ? genOnce(el, state)
+        : genElement(el, state)
+  }
+}
+
+function genFor (
+  el,
+  state,
+  altGen,
+  altHelper
+) {
+  var exp = el.for;
+  var alias = el.alias;
+  var iterator1 = el.iterator1 ? ("," + (el.iterator1)) : '';
+  var iterator2 = el.iterator2 ? ("," + (el.iterator2)) : '';
+
+  if ("development" !== 'production' &&
+    state.maybeComponent(el) &&
+    el.tag !== 'slot' &&
+    el.tag !== 'template' &&
+    !el.key
+  ) {
+    state.warn(
+      "<" + (el.tag) + " v-for=\"" + alias + " in " + exp + "\">: component lists rendered with " +
+      "v-for should have explicit keys. " +
+      "See https://vuejs.org/guide/list.html#key for more info.",
+      true /* tip */
+    );
+  }
+
+  el.forProcessed = true; // avoid recursion
+  return (altHelper || '_l') + "((" + exp + ")," +
+    "function(" + alias + iterator1 + iterator2 + "){" +
+      "return " + ((altGen || genElement)(el, state)) +
+    '})'
+}
+
+function genData$2 (el, state) {
+  var data = '{';
+
+  // directives first.
+  // directives may mutate the el's other properties before they are generated.
+  var dirs = genDirectives(el, state);
+  if (dirs) { data += dirs + ','; }
+
+  // key
+  if (el.key) {
+    data += "key:" + (el.key) + ",";
+  }
+  // ref
+  if (el.ref) {
+    data += "ref:" + (el.ref) + ",";
+  }
+  if (el.refInFor) {
+    data += "refInFor:true,";
+  }
+  // pre
+  if (el.pre) {
+    data += "pre:true,";
+  }
+  // record original tag name for components using "is" attribute
+  if (el.component) {
+    data += "tag:\"" + (el.tag) + "\",";
+  }
+  // module data generation functions
+  for (var i = 0; i < state.dataGenFns.length; i++) {
+    data += state.dataGenFns[i](el);
+  }
+  // attributes
+  if (el.attrs) {
+    data += "attrs:{" + (genProps(el.attrs)) + "},";
+  }
+  // DOM props
+  if (el.props) {
+    data += "domProps:{" + (genProps(el.props)) + "},";
+  }
+  // event handlers
+  if (el.events) {
+    data += (genHandlers(el.events, false, state.warn)) + ",";
+  }
+  if (el.nativeEvents) {
+    data += (genHandlers(el.nativeEvents, true, state.warn)) + ",";
+  }
+  // slot target
+  // only for non-scoped slots
+  if (el.slotTarget && !el.slotScope) {
+    data += "slot:" + (el.slotTarget) + ",";
+  }
+  // scoped slots
+  if (el.scopedSlots) {
+    data += (genScopedSlots(el.scopedSlots, state)) + ",";
+  }
+  // component v-model
+  if (el.model) {
+    data += "model:{value:" + (el.model.value) + ",callback:" + (el.model.callback) + ",expression:" + (el.model.expression) + "},";
+  }
+  // inline-template
+  if (el.inlineTemplate) {
+    var inlineTemplate = genInlineTemplate(el, state);
+    if (inlineTemplate) {
+      data += inlineTemplate + ",";
+    }
+  }
+  data = data.replace(/,$/, '') + '}';
+  // v-bind data wrap
+  if (el.wrapData) {
+    data = el.wrapData(data);
+  }
+  // v-on data wrap
+  if (el.wrapListeners) {
+    data = el.wrapListeners(data);
+  }
+  return data
+}
+
+function genDirectives (el, state) {
+  var dirs = el.directives;
+  if (!dirs) { return }
+  var res = 'directives:[';
+  var hasRuntime = false;
+  var i, l, dir, needRuntime;
+  for (i = 0, l = dirs.length; i < l; i++) {
+    dir = dirs[i];
+    needRuntime = true;
+    var gen = state.directives[dir.name];
+    if (gen) {
+      // compile-time directive that manipulates AST.
+      // returns true if it also needs a runtime counterpart.
+      needRuntime = !!gen(el, dir, state.warn);
+    }
+    if (needRuntime) {
+      hasRuntime = true;
+      res += "{name:\"" + (dir.name) + "\",rawName:\"" + (dir.rawName) + "\"" + (dir.value ? (",value:(" + (dir.value) + "),expression:" + (JSON.stringify(dir.value))) : '') + (dir.arg ? (",arg:\"" + (dir.arg) + "\"") : '') + (dir.modifiers ? (",modifiers:" + (JSON.stringify(dir.modifiers))) : '') + "},";
+    }
+  }
+  if (hasRuntime) {
+    return res.slice(0, -1) + ']'
+  }
+}
+
+function genInlineTemplate (el, state) {
+  var ast = el.children[0];
+  if ("development" !== 'production' && (
+    el.children.length !== 1 || ast.type !== 1
+  )) {
+    state.warn('Inline-template components must have exactly one child element.');
+  }
+  if (ast.type === 1) {
+    var inlineRenderFns = generate(ast, state.options);
+    return ("inlineTemplate:{render:function(){" + (inlineRenderFns.render) + "},staticRenderFns:[" + (inlineRenderFns.staticRenderFns.map(function (code) { return ("function(){" + code + "}"); }).join(',')) + "]}")
+  }
+}
+
+function genScopedSlots (
+  slots,
+  state
+) {
+  return ("scopedSlots:_u([" + (Object.keys(slots).map(function (key) {
+      return genScopedSlot(key, slots[key], state)
+    }).join(',')) + "])")
+}
+
+function genScopedSlot (
+  key,
+  el,
+  state
+) {
+  if (el.for && !el.forProcessed) {
+    return genForScopedSlot(key, el, state)
+  }
+  var fn = "function(" + (String(el.slotScope)) + "){" +
+    "return " + (el.tag === 'template'
+      ? el.if
+        ? ((el.if) + "?" + (genChildren(el, state) || 'undefined') + ":undefined")
+        : genChildren(el, state) || 'undefined'
+      : genElement(el, state)) + "}";
+  return ("{key:" + key + ",fn:" + fn + "}")
+}
+
+function genForScopedSlot (
+  key,
+  el,
+  state
+) {
+  var exp = el.for;
+  var alias = el.alias;
+  var iterator1 = el.iterator1 ? ("," + (el.iterator1)) : '';
+  var iterator2 = el.iterator2 ? ("," + (el.iterator2)) : '';
+  el.forProcessed = true; // avoid recursion
+  return "_l((" + exp + ")," +
+    "function(" + alias + iterator1 + iterator2 + "){" +
+      "return " + (genScopedSlot(key, el, state)) +
+    '})'
+}
+
+function genChildren (
+  el,
+  state,
+  checkSkip,
+  altGenElement,
+  altGenNode
+) {
+  var children = el.children;
+  if (children.length) {
+    var el$1 = children[0];
+    // optimize single v-for
+    if (children.length === 1 &&
+      el$1.for &&
+      el$1.tag !== 'template' &&
+      el$1.tag !== 'slot'
+    ) {
+      return (altGenElement || genElement)(el$1, state)
+    }
+    var normalizationType = checkSkip
+      ? getNormalizationType(children, state.maybeComponent)
+      : 0;
+    var gen = altGenNode || genNode;
+    return ("[" + (children.map(function (c) { return gen(c, state); }).join(',')) + "]" + (normalizationType ? ("," + normalizationType) : ''))
+  }
+}
+
+// determine the normalization needed for the children array.
+// 0: no normalization needed
+// 1: simple normalization needed (possible 1-level deep nested array)
+// 2: full normalization needed
+function getNormalizationType (
+  children,
+  maybeComponent
+) {
+  var res = 0;
+  for (var i = 0; i < children.length; i++) {
+    var el = children[i];
+    if (el.type !== 1) {
+      continue
+    }
+    if (needsNormalization(el) ||
+        (el.ifConditions && el.ifConditions.some(function (c) { return needsNormalization(c.block); }))) {
+      res = 2;
+      break
+    }
+    if (maybeComponent(el) ||
+        (el.ifConditions && el.ifConditions.some(function (c) { return maybeComponent(c.block); }))) {
+      res = 1;
+    }
+  }
+  return res
+}
+
+function needsNormalization (el) {
+  return el.for !== undefined || el.tag === 'template' || el.tag === 'slot'
+}
+
+function genNode (node, state) {
+  if (node.type === 1) {
+    return genElement(node, state)
+  } if (node.type === 3 && node.isComment) {
+    return genComment(node)
+  } else {
+    return genText(node)
+  }
+}
+
+function genText (text) {
+  return ("_v(" + (text.type === 2
+    ? text.expression // no need for () because already wrapped in _s()
+    : transformSpecialNewlines(JSON.stringify(text.text))) + ")")
+}
+
+function genComment (comment) {
+  return ("_e(" + (JSON.stringify(comment.text)) + ")")
+}
+
+function genSlot (el, state) {
+  var slotName = el.slotName || '"default"';
+  var children = genChildren(el, state);
+  var res = "_t(" + slotName + (children ? ("," + children) : '');
+  var attrs = el.attrs && ("{" + (el.attrs.map(function (a) { return ((camelize(a.name)) + ":" + (a.value)); }).join(',')) + "}");
+  var bind$$1 = el.attrsMap['v-bind'];
+  if ((attrs || bind$$1) && !children) {
+    res += ",null";
+  }
+  if (attrs) {
+    res += "," + attrs;
+  }
+  if (bind$$1) {
+    res += (attrs ? '' : ',null') + "," + bind$$1;
+  }
+  return res + ')'
+}
+
+// componentName is el.component, take it as argument to shun flow's pessimistic refinement
+function genComponent (
+  componentName,
+  el,
+  state
+) {
+  var children = el.inlineTemplate ? null : genChildren(el, state, true);
+  return ("_c(" + componentName + "," + (genData$2(el, state)) + (children ? ("," + children) : '') + ")")
+}
+
+function genProps (props) {
+  var res = '';
+  for (var i = 0; i < props.length; i++) {
+    var prop = props[i];
+    /* istanbul ignore if */
+    {
+      res += "\"" + (prop.name) + "\":" + (transformSpecialNewlines(prop.value)) + ",";
+    }
+  }
+  return res.slice(0, -1)
+}
+
+// #3895, #4268
+function transformSpecialNewlines (text) {
+  return text
+    .replace(/\u2028/g, '\\u2028')
+    .replace(/\u2029/g, '\\u2029')
+}
+
+/*  */
+
+// these keywords should not appear inside expressions, but operators like
+// typeof, instanceof and in are allowed
+var prohibitedKeywordRE = new RegExp('\\b' + (
+  'do,if,for,let,new,try,var,case,else,with,await,break,catch,class,const,' +
+  'super,throw,while,yield,delete,export,import,return,switch,default,' +
+  'extends,finally,continue,debugger,function,arguments'
+).split(',').join('\\b|\\b') + '\\b');
+
+// these unary operators should not be used as property/method names
+var unaryOperatorsRE = new RegExp('\\b' + (
+  'delete,typeof,void'
+).split(',').join('\\s*\\([^\\)]*\\)|\\b') + '\\s*\\([^\\)]*\\)');
+
+// strip strings in expressions
+var stripStringRE = /'(?:[^'\\]|\\.)*'|"(?:[^"\\]|\\.)*"|`(?:[^`\\]|\\.)*\$\{|\}(?:[^`\\]|\\.)*`|`(?:[^`\\]|\\.)*`/g;
+
+// detect problematic expressions in a template
+function detectErrors (ast) {
+  var errors = [];
+  if (ast) {
+    checkNode(ast, errors);
+  }
+  return errors
+}
+
+function checkNode (node, errors) {
+  if (node.type === 1) {
+    for (var name in node.attrsMap) {
+      if (dirRE.test(name)) {
+        var value = node.attrsMap[name];
+        if (value) {
+          if (name === 'v-for') {
+            checkFor(node, ("v-for=\"" + value + "\""), errors);
+          } else if (onRE.test(name)) {
+            checkEvent(value, (name + "=\"" + value + "\""), errors);
+          } else {
+            checkExpression(value, (name + "=\"" + value + "\""), errors);
+          }
+        }
+      }
+    }
+    if (node.children) {
+      for (var i = 0; i < node.children.length; i++) {
+        checkNode(node.children[i], errors);
+      }
+    }
+  } else if (node.type === 2) {
+    checkExpression(node.expression, node.text, errors);
+  }
+}
+
+function checkEvent (exp, text, errors) {
+  var stipped = exp.replace(stripStringRE, '');
+  var keywordMatch = stipped.match(unaryOperatorsRE);
+  if (keywordMatch && stipped.charAt(keywordMatch.index - 1) !== '$') {
+    errors.push(
+      "avoid using JavaScript unary operator as property name: " +
+      "\"" + (keywordMatch[0]) + "\" in expression " + (text.trim())
+    );
+  }
+  checkExpression(exp, text, errors);
+}
+
+function checkFor (node, text, errors) {
+  checkExpression(node.for || '', text, errors);
+  checkIdentifier(node.alias, 'v-for alias', text, errors);
+  checkIdentifier(node.iterator1, 'v-for iterator', text, errors);
+  checkIdentifier(node.iterator2, 'v-for iterator', text, errors);
+}
+
+function checkIdentifier (
+  ident,
+  type,
+  text,
+  errors
+) {
+  if (typeof ident === 'string') {
+    try {
+      new Function(("var " + ident + "=_"));
+    } catch (e) {
+      errors.push(("invalid " + type + " \"" + ident + "\" in expression: " + (text.trim())));
+    }
+  }
+}
+
+function checkExpression (exp, text, errors) {
+  try {
+    new Function(("return " + exp));
+  } catch (e) {
+    var keywordMatch = exp.replace(stripStringRE, '').match(prohibitedKeywordRE);
+    if (keywordMatch) {
+      errors.push(
+        "avoid using JavaScript keyword as property name: " +
+        "\"" + (keywordMatch[0]) + "\"\n  Raw expression: " + (text.trim())
+      );
+    } else {
+      errors.push(
+        "invalid expression: " + (e.message) + " in\n\n" +
+        "    " + exp + "\n\n" +
+        "  Raw expression: " + (text.trim()) + "\n"
+      );
+    }
+  }
+}
+
+/*  */
+
+function createFunction (code, errors) {
+  try {
+    return new Function(code)
+  } catch (err) {
+    errors.push({ err: err, code: code });
+    return noop
+  }
+}
+
+function createCompileToFunctionFn (compile) {
+  var cache = Object.create(null);
+
+  return function compileToFunctions (
+    template,
+    options,
+    vm
+  ) {
+    options = extend({}, options);
+    var warn$$1 = options.warn || warn;
+    delete options.warn;
+
+    /* istanbul ignore if */
+    {
+      // detect possible CSP restriction
+      try {
+        new Function('return 1');
+      } catch (e) {
+        if (e.toString().match(/unsafe-eval|CSP/)) {
+          warn$$1(
+            'It seems you are using the standalone build of Vue.js in an ' +
+            'environment with Content Security Policy that prohibits unsafe-eval. ' +
+            'The template compiler cannot work in this environment. Consider ' +
+            'relaxing the policy to allow unsafe-eval or pre-compiling your ' +
+            'templates into render functions.'
+          );
+        }
+      }
+    }
+
+    // check cache
+    var key = options.delimiters
+      ? String(options.delimiters) + template
+      : template;
+    if (cache[key]) {
+      return cache[key]
+    }
+
+    // compile
+    var compiled = compile(template, options);
+
+    // check compilation errors/tips
+    {
+      if (compiled.errors && compiled.errors.length) {
+        warn$$1(
+          "Error compiling template:\n\n" + template + "\n\n" +
+          compiled.errors.map(function (e) { return ("- " + e); }).join('\n') + '\n',
+          vm
+        );
+      }
+      if (compiled.tips && compiled.tips.length) {
+        compiled.tips.forEach(function (msg) { return tip(msg, vm); });
+      }
+    }
+
+    // turn code into functions
+    var res = {};
+    var fnGenErrors = [];
+    res.render = createFunction(compiled.render, fnGenErrors);
+    res.staticRenderFns = compiled.staticRenderFns.map(function (code) {
+      return createFunction(code, fnGenErrors)
+    });
+
+    // check function generation errors.
+    // this should only happen if there is a bug in the compiler itself.
+    // mostly for codegen development use
+    /* istanbul ignore if */
+    {
+      if ((!compiled.errors || !compiled.errors.length) && fnGenErrors.length) {
+        warn$$1(
+          "Failed to generate render function:\n\n" +
+          fnGenErrors.map(function (ref) {
+            var err = ref.err;
+            var code = ref.code;
+
+            return ((err.toString()) + " in\n\n" + code + "\n");
+        }).join('\n'),
+          vm
+        );
+      }
+    }
+
+    return (cache[key] = res)
+  }
+}
+
+/*  */
+
+function createCompilerCreator (baseCompile) {
+  return function createCompiler (baseOptions) {
+    function compile (
+      template,
+      options
+    ) {
+      var finalOptions = Object.create(baseOptions);
+      var errors = [];
+      var tips = [];
+      finalOptions.warn = function (msg, tip) {
+        (tip ? tips : errors).push(msg);
+      };
+
+      if (options) {
+        // merge custom modules
+        if (options.modules) {
+          finalOptions.modules =
+            (baseOptions.modules || []).concat(options.modules);
+        }
+        // merge custom directives
+        if (options.directives) {
+          finalOptions.directives = extend(
+            Object.create(baseOptions.directives || null),
+            options.directives
+          );
+        }
+        // copy other options
+        for (var key in options) {
+          if (key !== 'modules' && key !== 'directives') {
+            finalOptions[key] = options[key];
+          }
+        }
+      }
+
+      var compiled = baseCompile(template, finalOptions);
+      {
+        errors.push.apply(errors, detectErrors(compiled.ast));
+      }
+      compiled.errors = errors;
+      compiled.tips = tips;
+      return compiled
+    }
+
+    return {
+      compile: compile,
+      compileToFunctions: createCompileToFunctionFn(compile)
+    }
+  }
+}
+
+/*  */
+
+// `createCompilerCreator` allows creating compilers that use alternative
+// parser/optimizer/codegen, e.g the SSR optimizing compiler.
+// Here we just export a default compiler using the default parts.
+var createCompiler = createCompilerCreator(function baseCompile (
+  template,
+  options
+) {
+  var ast = parse(template.trim(), options);
+  if (options.optimize !== false) {
+    optimize(ast, options);
+  }
+  var code = generate(ast, options);
+  return {
+    ast: ast,
+    render: code.render,
+    staticRenderFns: code.staticRenderFns
+  }
+});
+
+/*  */
+
+var ref$1 = createCompiler(baseOptions);
+var compileToFunctions = ref$1.compileToFunctions;
+
+/*  */
+
+// check whether current browser encodes a char inside attribute values
+var div;
+function getShouldDecode (href) {
+  div = div || document.createElement('div');
+  div.innerHTML = href ? "<a href=\"\n\"/>" : "<div a=\"\n\"/>";
+  return div.innerHTML.indexOf('&#10;') > 0
+}
+
+// #3663: IE encodes newlines inside attribute values while other browsers don't
+var shouldDecodeNewlines = inBrowser ? getShouldDecode(false) : false;
+// #6828: chrome encodes content in a[href]
+var shouldDecodeNewlinesForHref = inBrowser ? getShouldDecode(true) : false;
+
+/*  */
+
+var idToTemplate = cached(function (id) {
+  var el = query(id);
+  return el && el.innerHTML
+});
+
+var mount = Vue.prototype.$mount;
+Vue.prototype.$mount = function (
+  el,
+  hydrating
+) {
+  el = el && query(el);
+
+  /* istanbul ignore if */
+  if (el === document.body || el === document.documentElement) {
+    "development" !== 'production' && warn(
+      "Do not mount Vue to <html> or <body> - mount to normal elements instead."
+    );
+    return this
+  }
+
+  var options = this.$options;
+  // resolve template/el and convert to render function
+  if (!options.render) {
+    var template = options.template;
+    if (template) {
+      if (typeof template === 'string') {
+        if (template.charAt(0) === '#') {
+          template = idToTemplate(template);
+          /* istanbul ignore if */
+          if ("development" !== 'production' && !template) {
+            warn(
+              ("Template element not found or is empty: " + (options.template)),
+              this
+            );
+          }
+        }
+      } else if (template.nodeType) {
+        template = template.innerHTML;
+      } else {
+        {
+          warn('invalid template option:' + template, this);
+        }
+        return this
+      }
+    } else if (el) {
+      template = getOuterHTML(el);
+    }
+    if (template) {
+      /* istanbul ignore if */
+      if ("development" !== 'production' && config.performance && mark) {
+        mark('compile');
+      }
+
+      var ref = compileToFunctions(template, {
+        shouldDecodeNewlines: shouldDecodeNewlines,
+        shouldDecodeNewlinesForHref: shouldDecodeNewlinesForHref,
+        delimiters: options.delimiters,
+        comments: options.comments
+      }, this);
+      var render = ref.render;
+      var staticRenderFns = ref.staticRenderFns;
+      options.render = render;
+      options.staticRenderFns = staticRenderFns;
+
+      /* istanbul ignore if */
+      if ("development" !== 'production' && config.performance && mark) {
+        mark('compile end');
+        measure(("vue " + (this._name) + " compile"), 'compile', 'compile end');
+      }
+    }
+  }
+  return mount.call(this, el, hydrating)
+};
+
+/**
+ * Get outerHTML of elements, taking care
+ * of SVG elements in IE as well.
+ */
+function getOuterHTML (el) {
+  if (el.outerHTML) {
+    return el.outerHTML
+  } else {
+    var container = document.createElement('div');
+    container.appendChild(el.cloneNode(true));
+    return container.innerHTML
+  }
+}
+
+Vue.compile = compileToFunctions;
+
+return Vue;
+
+})));
+
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1), __webpack_require__(17).setImmediate))
 
 /***/ }),
 /* 3 */
-/***/ (function(module, exports) {
-
-// shim for using process in browser
-var process = module.exports = {};
-
-// cached from whatever global is present so that test runners that stub it
-// don't break things.  But we need to wrap it in a try catch in case it is
-// wrapped in strict mode code which doesn't define any globals.  It's inside a
-// function because try/catches deoptimize in certain engines.
-
-var cachedSetTimeout;
-var cachedClearTimeout;
-
-function defaultSetTimout() {
-    throw new Error('setTimeout has not been defined');
-}
-function defaultClearTimeout () {
-    throw new Error('clearTimeout has not been defined');
-}
-(function () {
-    try {
-        if (typeof setTimeout === 'function') {
-            cachedSetTimeout = setTimeout;
-        } else {
-            cachedSetTimeout = defaultSetTimout;
-        }
-    } catch (e) {
-        cachedSetTimeout = defaultSetTimout;
-    }
-    try {
-        if (typeof clearTimeout === 'function') {
-            cachedClearTimeout = clearTimeout;
-        } else {
-            cachedClearTimeout = defaultClearTimeout;
-        }
-    } catch (e) {
-        cachedClearTimeout = defaultClearTimeout;
-    }
-} ())
-function runTimeout(fun) {
-    if (cachedSetTimeout === setTimeout) {
-        //normal enviroments in sane situations
-        return setTimeout(fun, 0);
-    }
-    // if setTimeout wasn't available but was latter defined
-    if ((cachedSetTimeout === defaultSetTimout || !cachedSetTimeout) && setTimeout) {
-        cachedSetTimeout = setTimeout;
-        return setTimeout(fun, 0);
-    }
-    try {
-        // when when somebody has screwed with setTimeout but no I.E. maddness
-        return cachedSetTimeout(fun, 0);
-    } catch(e){
-        try {
-            // When we are in I.E. but the script has been evaled so I.E. doesn't trust the global object when called normally
-            return cachedSetTimeout.call(null, fun, 0);
-        } catch(e){
-            // same as above but when it's a version of I.E. that must have the global object for 'this', hopfully our context correct otherwise it will throw a global error
-            return cachedSetTimeout.call(this, fun, 0);
-        }
-    }
-
-
-}
-function runClearTimeout(marker) {
-    if (cachedClearTimeout === clearTimeout) {
-        //normal enviroments in sane situations
-        return clearTimeout(marker);
-    }
-    // if clearTimeout wasn't available but was latter defined
-    if ((cachedClearTimeout === defaultClearTimeout || !cachedClearTimeout) && clearTimeout) {
-        cachedClearTimeout = clearTimeout;
-        return clearTimeout(marker);
-    }
-    try {
-        // when when somebody has screwed with setTimeout but no I.E. maddness
-        return cachedClearTimeout(marker);
-    } catch (e){
-        try {
-            // When we are in I.E. but the script has been evaled so I.E. doesn't  trust the global object when called normally
-            return cachedClearTimeout.call(null, marker);
-        } catch (e){
-            // same as above but when it's a version of I.E. that must have the global object for 'this', hopfully our context correct otherwise it will throw a global error.
-            // Some versions of I.E. have different rules for clearTimeout vs setTimeout
-            return cachedClearTimeout.call(this, marker);
-        }
-    }
-
-
-
-}
-var queue = [];
-var draining = false;
-var currentQueue;
-var queueIndex = -1;
-
-function cleanUpNextTick() {
-    if (!draining || !currentQueue) {
-        return;
-    }
-    draining = false;
-    if (currentQueue.length) {
-        queue = currentQueue.concat(queue);
-    } else {
-        queueIndex = -1;
-    }
-    if (queue.length) {
-        drainQueue();
-    }
-}
-
-function drainQueue() {
-    if (draining) {
-        return;
-    }
-    var timeout = runTimeout(cleanUpNextTick);
-    draining = true;
-
-    var len = queue.length;
-    while(len) {
-        currentQueue = queue;
-        queue = [];
-        while (++queueIndex < len) {
-            if (currentQueue) {
-                currentQueue[queueIndex].run();
-            }
-        }
-        queueIndex = -1;
-        len = queue.length;
-    }
-    currentQueue = null;
-    draining = false;
-    runClearTimeout(timeout);
-}
-
-process.nextTick = function (fun) {
-    var args = new Array(arguments.length - 1);
-    if (arguments.length > 1) {
-        for (var i = 1; i < arguments.length; i++) {
-            args[i - 1] = arguments[i];
-        }
-    }
-    queue.push(new Item(fun, args));
-    if (queue.length === 1 && !draining) {
-        runTimeout(drainQueue);
-    }
-};
-
-// v8 likes predictible objects
-function Item(fun, array) {
-    this.fun = fun;
-    this.array = array;
-}
-Item.prototype.run = function () {
-    this.fun.apply(null, this.array);
-};
-process.title = 'browser';
-process.browser = true;
-process.env = {};
-process.argv = [];
-process.version = ''; // empty string to avoid regexp issues
-process.versions = {};
-
-function noop() {}
-
-process.on = noop;
-process.addListener = noop;
-process.once = noop;
-process.off = noop;
-process.removeListener = noop;
-process.removeAllListeners = noop;
-process.emit = noop;
-process.prependListener = noop;
-process.prependOnceListener = noop;
-
-process.listeners = function (name) { return [] }
-
-process.binding = function (name) {
-    throw new Error('process.binding is not supported');
-};
-
-process.cwd = function () { return '/' };
-process.chdir = function (dir) {
-    throw new Error('process.chdir is not supported');
-};
-process.umask = function() { return 0; };
-
-
-/***/ }),
-/* 4 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__data_projects_json__ = __webpack_require__(19);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__data_projects_json__ = __webpack_require__(22);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__data_projects_json___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__data_projects_json__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__MegaFilter_vue__ = __webpack_require__(20);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ListItem_vue__ = __webpack_require__(22);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__CheckFilter_vue__ = __webpack_require__(24);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__ProductsFilter_vue__ = __webpack_require__(46);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__FeaturesFilter_vue__ = __webpack_require__(51);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__SmallGridItem_vue__ = __webpack_require__(27);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__LargeGridItem_vue__ = __webpack_require__(29);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__util_bus__ = __webpack_require__(10);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__MegaFilter_vue__ = __webpack_require__(23);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ListItem_vue__ = __webpack_require__(25);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__CheckFilter_vue__ = __webpack_require__(28);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__ProductsFilter_vue__ = __webpack_require__(31);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__FeaturesFilter_vue__ = __webpack_require__(34);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__SmallGridItem_vue__ = __webpack_require__(37);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__LargeGridItem_vue__ = __webpack_require__(39);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__util_bus__ = __webpack_require__(11);
+//
+//
+//
+//
 //
 //
 //
@@ -9402,7 +12131,7 @@ process.umask = function() { return 0; };
 });
 
 /***/ }),
-/* 5 */
+/* 4 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -9632,7 +12361,7 @@ process.umask = function() { return 0; };
 /* harmony default export */ __webpack_exports__["a"] = ({});
 
 /***/ }),
-/* 6 */
+/* 5 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -9749,33 +12478,70 @@ process.umask = function() { return 0; };
 //
 
 /* harmony default export */ __webpack_exports__["a"] = ({
-  props: ["resource"],
-  data: function data() {
-    return {
-      image: this.imgUrlFormat(this.resource.Image1)
-    };
-  },
-
-  methods: {
-    imgUrlFormat: function imgUrlFormat(filename) {
-      // <img src="http://solar.localhost/wp-content/uploads/000_1163_500.jpg">
-
-
-      var path = "https://solarinnovations.com/wp-content/uploads/";
-      return path.concat(filename);
-      // .concat("-")
-      // .concat(num)
-      // .concat(".jpg");
+    props: ["resource"],
+    data: function data() {
+        return {
+            image: this.imgUrlFormat(this.resource.Image1),
+            images: [{
+                src: this.imgUrlFormat(this.resource.Image1)
+            }, {
+                src: this.imgUrlFormat(this.resource.Image2)
+            }, {
+                src: this.imgUrlFormat(this.resource.Image3)
+            }, {
+                src: this.imgUrlFormat(this.resource.Image4)
+            }],
+            options: {
+                closeText: '<i class="fas fa-times"></i>',
+                loop: true
+            }
+        };
     },
-    imgHover: function imgHover(image) {
-      this.image = image;
-    }
-  },
-  computed: {}
+
+    methods: {
+        show: function show(imgUrl) {
+            this.$modal.show({
+                template: '\n                <img style=\'width:100%\' src=\'' + this.imgUrlFormat(imgUrl) + '\'>\n            ',
+                props: ['text']
+            }, {
+                text: 'This text is passed as a property'
+            }, {
+                // draggable: true,
+                adaptive: true,
+                draggable: true,
+                height: 'auto'
+            }, {
+                'before-close': function beforeClose(event) {
+                    console.log('this will be called before the modal closes');
+                },
+                'opened': function opened(event) {
+                    console.log('this will be called after the modal opens');
+                }
+            });
+        },
+        hide: function hide() {
+            this.$modal.hide('hello-world');
+        },
+        imgUrlFormat: function imgUrlFormat(filename) {
+            // <img src="http://solar.localhost/wp-content/uploads/000_1163_500.jpg">
+
+
+            var path = "https://solarinnovations.com/wp-content/uploads/";
+            return path.concat(filename);
+            // .concat("-")
+            // .concat(num)
+            // .concat(".jpg");
+        },
+        imgHover: function imgHover(image) {
+            this.image = image;
+        }
+    },
+    computed: {}
+
 });
 
 /***/ }),
-/* 7 */
+/* 6 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -9816,7 +12582,101 @@ process.umask = function() { return 0; };
 });
 
 /***/ }),
+/* 7 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+/* harmony default export */ __webpack_exports__["a"] = ({
+  data: function data() {
+    return {
+      checked: []
+    };
+  },
+
+  props: ["list", "subhead", "category"],
+  methods: {
+    checkFilter: function checkFilter(category, name) {
+      if (this.checked.indexOf(name) != -1) {
+        this.checked.splice(this.checked.indexOf(name), 1);
+        this.$bus.$emit("check-filter", category, name, false);
+      } else {
+        this.checked.push(name);
+        this.$bus.$emit("check-filter", category, name, true);
+      }
+      // this.checked = !this.checked;
+    }
+  }
+});
+
+/***/ }),
 /* 8 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+/* harmony default export */ __webpack_exports__["a"] = ({
+  data: function data() {
+    return {
+      checked: []
+    };
+  },
+
+  props: ["list", "products", "category", "show", "sqf", "hideHeaders"],
+  methods: {
+    checkFilter: function checkFilter(category, name) {
+      if (this.checked.indexOf(name) != -1) {
+        this.checked.splice(this.checked.indexOf(name), 1);
+        this.$bus.$emit("check-filter", category, name, false);
+      } else {
+        this.checked.push(name);
+        this.$bus.$emit("check-filter", category, name, true);
+      }
+    }
+  }
+});
+
+/***/ }),
+/* 9 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -9849,7 +12709,7 @@ process.umask = function() { return 0; };
 });
 
 /***/ }),
-/* 9 */
+/* 10 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -9904,7 +12764,7 @@ process.umask = function() { return 0; };
 });
 
 /***/ }),
-/* 10 */
+/* 11 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -9941,7 +12801,7 @@ function setDay(day) {
 
 
 /***/ }),
-/* 11 */
+/* 12 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -9962,21 +12822,26 @@ function setDay(day) {
 });
 
 /***/ }),
-/* 12 */
+/* 13 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_lodash__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_lodash__ = __webpack_require__(14);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_lodash___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_lodash__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vue__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_Resources_vue__ = __webpack_require__(17);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_Greet_vue__ = __webpack_require__(32);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__util_bus__ = __webpack_require__(10);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__sass_app_scss__ = __webpack_require__(35);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__sass_app_scss___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5__sass_app_scss__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vue_js_modal__ = __webpack_require__(16);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vue_js_modal___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_vue_js_modal__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vue__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_Resources_vue__ = __webpack_require__(20);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__components_Greet_vue__ = __webpack_require__(42);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__util_bus__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__sass_app_scss__ = __webpack_require__(45);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__sass_app_scss___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6__sass_app_scss__);
 
 // import moment from "moment"
+
+
 
 // import jQuery from 'jquery';
 // window.$ = window.JQuery = jQuery;
@@ -9986,15 +12851,18 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 
-__WEBPACK_IMPORTED_MODULE_1_vue__["a" /* default */].config.devtools = true;
+
+__WEBPACK_IMPORTED_MODULE_2_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_1_vue_js_modal___default.a, { dynamic: true, injectModalsContainer: true });
+
+__WEBPACK_IMPORTED_MODULE_2_vue___default.a.config.devtools = true;
 var APPS = {
-  Resources: __WEBPACK_IMPORTED_MODULE_2__components_Resources_vue__["a" /* default */],
-  Greet: __WEBPACK_IMPORTED_MODULE_3__components_Greet_vue__["a" /* default */]
+  Resources: __WEBPACK_IMPORTED_MODULE_3__components_Resources_vue__["a" /* default */],
+  Greet: __WEBPACK_IMPORTED_MODULE_4__components_Greet_vue__["a" /* default */]
 };
 
 // Vue.config.devtools = true
-var bus = new __WEBPACK_IMPORTED_MODULE_1_vue__["a" /* default */]();
-Object.defineProperty(__WEBPACK_IMPORTED_MODULE_1_vue__["a" /* default */].prototype, "$bus", {
+var bus = new __WEBPACK_IMPORTED_MODULE_2_vue___default.a();
+Object.defineProperty(__WEBPACK_IMPORTED_MODULE_2_vue___default.a.prototype, "$bus", {
   get: function get() {
     return this.$root.bus;
   }
@@ -10009,7 +12877,7 @@ function renderAppInElement(el) {
 
   var props = Object.assign({}, el.dataset);
   // console.log(props)
-  new __WEBPACK_IMPORTED_MODULE_1_vue__["a" /* default */]({
+  new __WEBPACK_IMPORTED_MODULE_2_vue___default.a({
     el: el,
     data: {
       bus: bus
@@ -10029,7 +12897,7 @@ function renderAppInElement(el) {
 document.querySelectorAll('.__vue-root').forEach(renderAppInElement);
 
 /***/ }),
-/* 13 */
+/* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global, module) {var __WEBPACK_AMD_DEFINE_RESULT__;/**
@@ -27139,10 +30007,10 @@ document.querySelectorAll('.__vue-root').forEach(renderAppInElement);
   }
 }.call(this));
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1), __webpack_require__(14)(module)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1), __webpack_require__(15)(module)))
 
 /***/ }),
-/* 14 */
+/* 15 */
 /***/ (function(module, exports) {
 
 module.exports = function(module) {
@@ -27170,7 +30038,990 @@ module.exports = function(module) {
 
 
 /***/ }),
-/* 15 */
+/* 16 */
+/***/ (function(module, exports, __webpack_require__) {
+
+!function(root, factory) {
+     true ? module.exports = factory() : "function" == typeof define && define.amd ? define([], factory) : "object" == typeof exports ? exports["vue-js-modal"] = factory() : root["vue-js-modal"] = factory();
+}(this, function() {
+    return function(modules) {
+        function __webpack_require__(moduleId) {
+            if (installedModules[moduleId]) return installedModules[moduleId].exports;
+            var module = installedModules[moduleId] = {
+                i: moduleId,
+                l: !1,
+                exports: {}
+            };
+            return modules[moduleId].call(module.exports, module, module.exports, __webpack_require__), 
+            module.l = !0, module.exports;
+        }
+        var installedModules = {};
+        return __webpack_require__.m = modules, __webpack_require__.c = installedModules, 
+        __webpack_require__.i = function(value) {
+            return value;
+        }, __webpack_require__.d = function(exports, name, getter) {
+            __webpack_require__.o(exports, name) || Object.defineProperty(exports, name, {
+                configurable: !1,
+                enumerable: !0,
+                get: getter
+            });
+        }, __webpack_require__.n = function(module) {
+            var getter = module && module.__esModule ? function() {
+                return module.default;
+            } : function() {
+                return module;
+            };
+            return __webpack_require__.d(getter, "a", getter), getter;
+        }, __webpack_require__.o = function(object, property) {
+            return Object.prototype.hasOwnProperty.call(object, property);
+        }, __webpack_require__.p = "/dist/", __webpack_require__(__webpack_require__.s = 3);
+    }([ function(module, exports) {
+        module.exports = function(rawScriptExports, compiledTemplate, scopeId, cssModules) {
+            var esModule, scriptExports = rawScriptExports = rawScriptExports || {}, type = typeof rawScriptExports.default;
+            "object" !== type && "function" !== type || (esModule = rawScriptExports, scriptExports = rawScriptExports.default);
+            var options = "function" == typeof scriptExports ? scriptExports.options : scriptExports;
+            if (compiledTemplate && (options.render = compiledTemplate.render, options.staticRenderFns = compiledTemplate.staticRenderFns), 
+            scopeId && (options._scopeId = scopeId), cssModules) {
+                var computed = options.computed || (options.computed = {});
+                Object.keys(cssModules).forEach(function(key) {
+                    var module = cssModules[key];
+                    computed[key] = function() {
+                        return module;
+                    };
+                });
+            }
+            return {
+                esModule: esModule,
+                exports: scriptExports,
+                options: options
+            };
+        };
+    }, function(module, exports) {
+        module.exports = function() {
+            var list = [];
+            return list.toString = function() {
+                for (var result = [], i = 0; i < this.length; i++) {
+                    var item = this[i];
+                    item[2] ? result.push("@media " + item[2] + "{" + item[1] + "}") : result.push(item[1]);
+                }
+                return result.join("");
+            }, list.i = function(modules, mediaQuery) {
+                "string" == typeof modules && (modules = [ [ null, modules, "" ] ]);
+                for (var alreadyImportedModules = {}, i = 0; i < this.length; i++) {
+                    var id = this[i][0];
+                    "number" == typeof id && (alreadyImportedModules[id] = !0);
+                }
+                for (i = 0; i < modules.length; i++) {
+                    var item = modules[i];
+                    "number" == typeof item[0] && alreadyImportedModules[item[0]] || (mediaQuery && !item[2] ? item[2] = mediaQuery : mediaQuery && (item[2] = "(" + item[2] + ") and (" + mediaQuery + ")"), 
+                    list.push(item));
+                }
+            }, list;
+        };
+    }, function(module, exports, __webpack_require__) {
+        function addStylesToDom(styles) {
+            for (var i = 0; i < styles.length; i++) {
+                var item = styles[i], domStyle = stylesInDom[item.id];
+                if (domStyle) {
+                    domStyle.refs++;
+                    for (var j = 0; j < domStyle.parts.length; j++) domStyle.parts[j](item.parts[j]);
+                    for (;j < item.parts.length; j++) domStyle.parts.push(addStyle(item.parts[j]));
+                    domStyle.parts.length > item.parts.length && (domStyle.parts.length = item.parts.length);
+                } else {
+                    for (var parts = [], j = 0; j < item.parts.length; j++) parts.push(addStyle(item.parts[j]));
+                    stylesInDom[item.id] = {
+                        id: item.id,
+                        refs: 1,
+                        parts: parts
+                    };
+                }
+            }
+        }
+        function createStyleElement() {
+            var styleElement = document.createElement("style");
+            return styleElement.type = "text/css", head.appendChild(styleElement), styleElement;
+        }
+        function addStyle(obj) {
+            var update, remove, styleElement = document.querySelector('style[data-vue-ssr-id~="' + obj.id + '"]');
+            if (styleElement) {
+                if (isProduction) return noop;
+                styleElement.parentNode.removeChild(styleElement);
+            }
+            if (isOldIE) {
+                var styleIndex = singletonCounter++;
+                styleElement = singletonElement || (singletonElement = createStyleElement()), update = applyToSingletonTag.bind(null, styleElement, styleIndex, !1), 
+                remove = applyToSingletonTag.bind(null, styleElement, styleIndex, !0);
+            } else styleElement = createStyleElement(), update = applyToTag.bind(null, styleElement), 
+            remove = function() {
+                styleElement.parentNode.removeChild(styleElement);
+            };
+            return update(obj), function(newObj) {
+                if (newObj) {
+                    if (newObj.css === obj.css && newObj.media === obj.media && newObj.sourceMap === obj.sourceMap) return;
+                    update(obj = newObj);
+                } else remove();
+            };
+        }
+        function applyToSingletonTag(styleElement, index, remove, obj) {
+            var css = remove ? "" : obj.css;
+            if (styleElement.styleSheet) styleElement.styleSheet.cssText = replaceText(index, css); else {
+                var cssNode = document.createTextNode(css), childNodes = styleElement.childNodes;
+                childNodes[index] && styleElement.removeChild(childNodes[index]), childNodes.length ? styleElement.insertBefore(cssNode, childNodes[index]) : styleElement.appendChild(cssNode);
+            }
+        }
+        function applyToTag(styleElement, obj) {
+            var css = obj.css, media = obj.media, sourceMap = obj.sourceMap;
+            if (media && styleElement.setAttribute("media", media), sourceMap && (css += "\n/*# sourceURL=" + sourceMap.sources[0] + " */", 
+            css += "\n/*# sourceMappingURL=data:application/json;base64," + btoa(unescape(encodeURIComponent(JSON.stringify(sourceMap)))) + " */"), 
+            styleElement.styleSheet) styleElement.styleSheet.cssText = css; else {
+                for (;styleElement.firstChild; ) styleElement.removeChild(styleElement.firstChild);
+                styleElement.appendChild(document.createTextNode(css));
+            }
+        }
+        var hasDocument = "undefined" != typeof document;
+        if ("undefined" != typeof DEBUG && DEBUG && !hasDocument) throw new Error("vue-style-loader cannot be used in a non-browser environment. Use { target: 'node' } in your Webpack config to indicate a server-rendering environment.");
+        var listToStyles = __webpack_require__(24), stylesInDom = {}, head = hasDocument && (document.head || document.getElementsByTagName("head")[0]), singletonElement = null, singletonCounter = 0, isProduction = !1, noop = function() {}, isOldIE = "undefined" != typeof navigator && /msie [6-9]\b/.test(navigator.userAgent.toLowerCase());
+        module.exports = function(parentId, list, _isProduction) {
+            isProduction = _isProduction;
+            var styles = listToStyles(parentId, list);
+            return addStylesToDom(styles), function(newList) {
+                for (var mayRemove = [], i = 0; i < styles.length; i++) {
+                    var item = styles[i], domStyle = stylesInDom[item.id];
+                    domStyle.refs--, mayRemove.push(domStyle);
+                }
+                newList ? (styles = listToStyles(parentId, newList), addStylesToDom(styles)) : styles = [];
+                for (var i = 0; i < mayRemove.length; i++) {
+                    var domStyle = mayRemove[i];
+                    if (0 === domStyle.refs) {
+                        for (var j = 0; j < domStyle.parts.length; j++) domStyle.parts[j]();
+                        delete stylesInDom[domStyle.id];
+                    }
+                }
+            };
+        };
+        var replaceText = function() {
+            var textStore = [];
+            return function(index, replacement) {
+                return textStore[index] = replacement, textStore.filter(Boolean).join("\n");
+            };
+        }();
+    }, function(module, exports, __webpack_require__) {
+        "use strict";
+        function _interopRequireDefault(obj) {
+            return obj && obj.__esModule ? obj : {
+                default: obj
+            };
+        }
+        Object.defineProperty(exports, "__esModule", {
+            value: !0
+        });
+        var _Modal = __webpack_require__(6), _Modal2 = _interopRequireDefault(_Modal), _Dialog = __webpack_require__(5), _Dialog2 = _interopRequireDefault(_Dialog), _ModalsContainer = __webpack_require__(7), _ModalsContainer2 = _interopRequireDefault(_ModalsContainer), Plugin = {
+            install: function(Vue) {
+                var options = arguments.length > 1 && void 0 !== arguments[1] ? arguments[1] : {};
+                if (!this.installed && (this.installed = !0, this.event = new Vue(), this.dynamicContainer = null, 
+                this.componentName = options.componentName || "modal", Vue.prototype.$modal = {
+                    _setDynamicContainer: function(dynamicContainer) {
+                        Plugin.dynamicContainer = dynamicContainer;
+                    },
+                    show: function(modal, paramsOrProps, params) {
+                        var events = arguments.length > 3 && void 0 !== arguments[3] ? arguments[3] : {};
+                        "string" == typeof modal ? Plugin.event.$emit("toggle", modal, !0, paramsOrProps) : null === Plugin.dynamicContainer ? console.warn("[vue-js-modal] In order to render dynamic modals, a <modals-container> component must be present on the page") : Plugin.dynamicContainer.add(modal, paramsOrProps, params, events);
+                    },
+                    hide: function(name, params) {
+                        Plugin.event.$emit("toggle", name, !1, params);
+                    },
+                    toggle: function(name, params) {
+                        Plugin.event.$emit("toggle", name, void 0, params);
+                    }
+                }, Vue.component(this.componentName, _Modal2.default), options.dialog && Vue.component("v-dialog", _Dialog2.default), 
+                options.dynamic)) if (options.injectModalsContainer) {
+                    var modalsContainer = document.createElement("div");
+                    document.body.appendChild(modalsContainer), new Vue({
+                        render: function(h) {
+                            return h(_ModalsContainer2.default);
+                        }
+                    }).$mount(modalsContainer);
+                } else Vue.component("modals-container", _ModalsContainer2.default);
+            }
+        };
+        exports.default = Plugin;
+    }, function(module, exports, __webpack_require__) {
+        "use strict";
+        Object.defineProperty(exports, "__esModule", {
+            value: !0
+        });
+        var inRange = exports.inRange = function(from, to, value) {
+            return value < from ? from : value > to ? to : value;
+        };
+        exports.default = {
+            inRange: inRange
+        };
+    }, function(module, exports, __webpack_require__) {
+        __webpack_require__(21);
+        var Component = __webpack_require__(0)(__webpack_require__(8), __webpack_require__(18), null, null);
+        Component.options.__file = "/Users/yev.vlasenko2/Projects/vue/vue-js-modal/src/Dialog.vue", 
+        Component.esModule && Object.keys(Component.esModule).some(function(key) {
+            return "default" !== key && "__esModule" !== key;
+        }) && console.error("named exports are not supported in *.vue files."), Component.options.functional && console.error("[vue-loader] Dialog.vue: functional components are not supported with templates, they should use render functions."), 
+        module.exports = Component.exports;
+    }, function(module, exports, __webpack_require__) {
+        __webpack_require__(22);
+        var Component = __webpack_require__(0)(__webpack_require__(9), __webpack_require__(19), null, null);
+        Component.options.__file = "/Users/yev.vlasenko2/Projects/vue/vue-js-modal/src/Modal.vue", 
+        Component.esModule && Object.keys(Component.esModule).some(function(key) {
+            return "default" !== key && "__esModule" !== key;
+        }) && console.error("named exports are not supported in *.vue files."), Component.options.functional && console.error("[vue-loader] Modal.vue: functional components are not supported with templates, they should use render functions."), 
+        module.exports = Component.exports;
+    }, function(module, exports, __webpack_require__) {
+        var Component = __webpack_require__(0)(__webpack_require__(10), __webpack_require__(17), null, null);
+        Component.options.__file = "/Users/yev.vlasenko2/Projects/vue/vue-js-modal/src/ModalsContainer.vue", 
+        Component.esModule && Object.keys(Component.esModule).some(function(key) {
+            return "default" !== key && "__esModule" !== key;
+        }) && console.error("named exports are not supported in *.vue files."), Component.options.functional && console.error("[vue-loader] ModalsContainer.vue: functional components are not supported with templates, they should use render functions."), 
+        module.exports = Component.exports;
+    }, function(module, exports, __webpack_require__) {
+        "use strict";
+        Object.defineProperty(exports, "__esModule", {
+            value: !0
+        }), exports.default = {
+            name: "VueJsDialog",
+            props: {
+                width: {
+                    type: [ Number, String ],
+                    default: 400
+                },
+                clickToClose: {
+                    type: Boolean,
+                    default: !0
+                },
+                transition: {
+                    type: String,
+                    default: "fade"
+                }
+            },
+            data: function() {
+                return {
+                    params: {},
+                    defaultButtons: [ {
+                        title: "CLOSE"
+                    } ]
+                };
+            },
+            computed: {
+                buttons: function() {
+                    return this.params.buttons || this.defaultButtons;
+                },
+                buttonStyle: function() {
+                    return {
+                        flex: "1 1 " + 100 / this.buttons.length + "%"
+                    };
+                }
+            },
+            methods: {
+                beforeOpened: function(event) {
+                    window.addEventListener("keyup", this.onKeyUp), this.params = event.params || {}, 
+                    this.$emit("before-opened", event);
+                },
+                beforeClosed: function(event) {
+                    window.removeEventListener("keyup", this.onKeyUp), this.params = {}, this.$emit("before-closed", event);
+                },
+                click: function(i, event) {
+                    var source = arguments.length > 2 && void 0 !== arguments[2] ? arguments[2] : "click", button = this.buttons[i];
+                    button && "function" == typeof button.handler ? button.handler(i, event, {
+                        source: source
+                    }) : this.$modal.hide("dialog");
+                },
+                onKeyUp: function(event) {
+                    if (13 === event.which && this.buttons.length > 0) {
+                        var buttonIndex = 1 === this.buttons.length ? 0 : this.buttons.findIndex(function(button) {
+                            return button.default;
+                        });
+                        -1 !== buttonIndex && this.click(buttonIndex, event, "keypress");
+                    }
+                }
+            }
+        };
+    }, function(module, exports, __webpack_require__) {
+        "use strict";
+        function _interopRequireDefault(obj) {
+            return obj && obj.__esModule ? obj : {
+                default: obj
+            };
+        }
+        Object.defineProperty(exports, "__esModule", {
+            value: !0
+        });
+        var _index = __webpack_require__(3), _index2 = _interopRequireDefault(_index), _Resizer = __webpack_require__(16), _Resizer2 = _interopRequireDefault(_Resizer), _util = __webpack_require__(4), _parser = __webpack_require__(12);
+        exports.default = {
+            name: "VueJsModal",
+            props: {
+                name: {
+                    required: !0,
+                    type: String
+                },
+                delay: {
+                    type: Number,
+                    default: 0
+                },
+                resizable: {
+                    type: Boolean,
+                    default: !1
+                },
+                adaptive: {
+                    type: Boolean,
+                    default: !1
+                },
+                draggable: {
+                    type: [ Boolean, String ],
+                    default: !1
+                },
+                scrollable: {
+                    type: Boolean,
+                    default: !1
+                },
+                reset: {
+                    type: Boolean,
+                    default: !1
+                },
+                transition: {
+                    type: String
+                },
+                clickToClose: {
+                    type: Boolean,
+                    default: !0
+                },
+                classes: {
+                    type: [ String, Array ],
+                    default: "v--modal"
+                },
+                minWidth: {
+                    type: Number,
+                    default: 0,
+                    validator: function(value) {
+                        return value >= 0;
+                    }
+                },
+                minHeight: {
+                    type: Number,
+                    default: 0,
+                    validator: function(value) {
+                        return value >= 0;
+                    }
+                },
+                maxWidth: {
+                    type: Number,
+                    default: 1 / 0
+                },
+                maxHeight: {
+                    type: Number,
+                    default: 1 / 0
+                },
+                width: {
+                    type: [ Number, String ],
+                    default: 600,
+                    validator: _parser.validateNumber
+                },
+                height: {
+                    type: [ Number, String ],
+                    default: 300,
+                    validator: function(value) {
+                        return "auto" === value || (0, _parser.validateNumber)(value);
+                    }
+                },
+                pivotX: {
+                    type: Number,
+                    default: .5,
+                    validator: function(value) {
+                        return value >= 0 && value <= 1;
+                    }
+                },
+                pivotY: {
+                    type: Number,
+                    default: .5,
+                    validator: function(value) {
+                        return value >= 0 && value <= 1;
+                    }
+                }
+            },
+            components: {
+                Resizer: _Resizer2.default
+            },
+            data: function() {
+                return {
+                    visible: !1,
+                    visibility: {
+                        modal: !1,
+                        overlay: !1
+                    },
+                    shift: {
+                        left: 0,
+                        top: 0
+                    },
+                    modal: {
+                        width: 0,
+                        widthType: "px",
+                        height: 0,
+                        heightType: "px",
+                        renderedHeight: 0
+                    },
+                    window: {
+                        width: 0,
+                        height: 0
+                    },
+                    mutationObserver: null
+                };
+            },
+            watch: {
+                visible: function(value) {
+                    var _this = this;
+                    value ? (this.visibility.overlay = !0, setTimeout(function() {
+                        _this.visibility.modal = !0, _this.$nextTick(function() {
+                            _this.addDraggableListeners(), _this.callAfterEvent(!0);
+                        });
+                    }, this.delay)) : (this.visibility.modal = !1, setTimeout(function() {
+                        _this.visibility.overlay = !1, _this.$nextTick(function() {
+                            _this.removeDraggableListeners(), _this.callAfterEvent(!1);
+                        });
+                    }, this.delay));
+                }
+            },
+            created: function() {
+                this.setInitialSize();
+            },
+            beforeMount: function() {
+                var _this2 = this;
+                if (_index2.default.event.$on("toggle", function(name, state, params) {
+                    name === _this2.name && (void 0 === state && (state = !_this2.visible), _this2.toggle(state, params));
+                }), window.addEventListener("resize", this.onWindowResize), this.onWindowResize(), 
+                this.scrollable && !this.isAutoHeight && console.warn('Modal "' + this.name + '" has scrollable flag set to true but height is not "auto" (' + this.height + ")"), 
+                this.isAutoHeight) {
+                    var MutationObserver = function() {
+                        for (var prefixes = [ "", "WebKit", "Moz", "O", "Ms" ], i = 0; i < prefixes.length; i++) {
+                            var name = prefixes[i] + "MutationObserver";
+                            if (name in window) return window[name];
+                        }
+                        return !1;
+                    }();
+                    MutationObserver && (this.mutationObserver = new MutationObserver(function(mutations) {
+                        _this2.updateRenderedHeight();
+                    }));
+                }
+                this.clickToClose && window.addEventListener("keyup", this.onEscapeKeyUp);
+            },
+            beforeDestroy: function() {
+                window.removeEventListener("resize", this.onWindowResize), this.clickToClose && window.removeEventListener("keyup", this.onEscapeKeyUp);
+            },
+            computed: {
+                isAutoHeight: function() {
+                    return "auto" === this.modal.heightType;
+                },
+                position: function() {
+                    var window = this.window, shift = this.shift, pivotX = this.pivotX, pivotY = this.pivotY, trueModalWidth = this.trueModalWidth, trueModalHeight = this.trueModalHeight, maxLeft = window.width - trueModalWidth, maxTop = window.height - trueModalHeight, left = shift.left + pivotX * maxLeft, top = shift.top + pivotY * maxTop;
+                    return {
+                        left: (0, _util.inRange)(0, maxLeft, left),
+                        top: (0, _util.inRange)(0, maxTop, top)
+                    };
+                },
+                trueModalWidth: function() {
+                    var window = this.window, modal = this.modal, adaptive = this.adaptive, minWidth = this.minWidth, maxWidth = this.maxWidth, value = "%" === modal.widthType ? window.width / 100 * modal.width : modal.width, max = Math.min(window.width, maxWidth);
+                    return adaptive ? (0, _util.inRange)(minWidth, max, value) : value;
+                },
+                trueModalHeight: function() {
+                    var window = this.window, modal = this.modal, isAutoHeight = this.isAutoHeight, adaptive = this.adaptive, maxHeight = this.maxHeight, value = "%" === modal.heightType ? window.height / 100 * modal.height : modal.height;
+                    if (isAutoHeight) return this.modal.renderedHeight;
+                    var max = Math.min(window.height, maxHeight);
+                    return adaptive ? (0, _util.inRange)(this.minHeight, max, value) : value;
+                },
+                overlayClass: function() {
+                    return {
+                        "v--modal-overlay": !0,
+                        scrollable: this.scrollable && this.isAutoHeight
+                    };
+                },
+                backgroundClickClass: function() {
+                    return [ "v--modal-background-click" ];
+                },
+                modalClass: function() {
+                    return [ "v--modal-box", this.classes ];
+                },
+                modalStyle: function() {
+                    return {
+                        top: this.position.top + "px",
+                        left: this.position.left + "px",
+                        width: this.trueModalWidth + "px",
+                        height: this.isAutoHeight ? "auto" : this.trueModalHeight + "px"
+                    };
+                }
+            },
+            methods: {
+                setInitialSize: function() {
+                    var modal = this.modal, width = (0, _parser.parseNumber)(this.width), height = (0, 
+                    _parser.parseNumber)(this.height);
+                    modal.width = width.value, modal.widthType = width.type, modal.height = height.value, 
+                    modal.heightType = height.type;
+                },
+                onEscapeKeyUp: function(event) {
+                    27 === event.which && this.visible && this.$modal.hide(this.name);
+                },
+                onWindowResize: function() {
+                    this.window.width = window.innerWidth, this.window.height = window.innerHeight;
+                },
+                genEventObject: function(params) {
+                    var eventData = {
+                        name: this.name,
+                        timestamp: Date.now(),
+                        canceled: !1,
+                        ref: this.$refs.modal
+                    };
+                    return Object.assign(eventData, params || {});
+                },
+                onModalResize: function(event) {
+                    this.modal.widthType = "px", this.modal.width = event.size.width, this.modal.heightType = "px", 
+                    this.modal.height = event.size.height;
+                    var size = this.modal.size, resizeEvent = this.genEventObject({
+                        size: size
+                    });
+                    this.$emit("resize", resizeEvent);
+                },
+                toggle: function(state, params) {
+                    var reset = this.reset, scrollable = this.scrollable, visible = this.visible;
+                    if (visible !== state) {
+                        var beforeEventName = visible ? "before-close" : "before-open";
+                        "before-open" === beforeEventName ? (document.activeElement && "function" == typeof document.activeElement.blur && document.activeElement.blur(), 
+                        reset && (this.setInitialSize(), this.shift.left = 0, this.shift.top = 0), scrollable && (document.getElementsByTagName("html")[0].classList.add("v--modal-block-scroll"), 
+                        document.body.classList.add("v--modal-block-scroll"))) : scrollable && (document.getElementsByTagName("html")[0].classList.remove("v--modal-block-scroll"), 
+                        document.body.classList.remove("v--modal-block-scroll"));
+                        var stopEventExecution = !1, stop = function() {
+                            stopEventExecution = !0;
+                        }, beforeEvent = this.genEventObject({
+                            stop: stop,
+                            state: state,
+                            params: params
+                        });
+                        this.$emit(beforeEventName, beforeEvent), stopEventExecution || (this.visible = state);
+                    }
+                },
+                getDraggableElement: function() {
+                    var selector = "string" != typeof this.draggable ? ".v--modal-box" : this.draggable;
+                    if (selector) {
+                        var handler = this.$refs.overlay.querySelector(selector);
+                        if (handler) return handler;
+                    }
+                },
+                onBackgroundClick: function() {
+                    this.clickToClose && this.toggle(!1);
+                },
+                addDraggableListeners: function() {
+                    var _this3 = this;
+                    if (this.draggable) {
+                        var dragger = this.getDraggableElement();
+                        if (dragger) {
+                            var startX = 0, startY = 0, cachedShiftX = 0, cachedShiftY = 0, getPosition = function(event) {
+                                return event.touches && event.touches.length > 0 ? event.touches[0] : event;
+                            }, mousedown = function(event) {
+                                var target = event.target;
+                                if (!target || "INPUT" !== target.nodeName) {
+                                    var _getPosition = getPosition(event), clientX = _getPosition.clientX, clientY = _getPosition.clientY;
+                                    document.addEventListener("mousemove", _mousemove), document.addEventListener("mouseup", _mouseup), 
+                                    document.addEventListener("touchmove", _mousemove), document.addEventListener("touchend", _mouseup), 
+                                    startX = clientX, startY = clientY, cachedShiftX = _this3.shift.left, cachedShiftY = _this3.shift.top;
+                                }
+                            }, _mousemove = function(event) {
+                                var _getPosition2 = getPosition(event), clientX = _getPosition2.clientX, clientY = _getPosition2.clientY;
+                                _this3.shift.left = cachedShiftX + clientX - startX, _this3.shift.top = cachedShiftY + clientY - startY, 
+                                event.preventDefault();
+                            }, _mouseup = function _mouseup(event) {
+                                document.removeEventListener("mousemove", _mousemove), document.removeEventListener("mouseup", _mouseup), 
+                                document.removeEventListener("touchmove", _mousemove), document.removeEventListener("touchend", _mouseup), 
+                                event.preventDefault();
+                            };
+                            dragger.addEventListener("mousedown", mousedown), dragger.addEventListener("touchstart", mousedown);
+                        }
+                    }
+                },
+                removeDraggableListeners: function() {},
+                callAfterEvent: function(state) {
+                    state ? this.connectObserver() : this.disconnectObserver();
+                    var eventName = state ? "opened" : "closed", event = this.genEventObject({
+                        state: state
+                    });
+                    this.$emit(eventName, event);
+                },
+                updateRenderedHeight: function() {
+                    this.$refs.modal && (this.modal.renderedHeight = this.$refs.modal.getBoundingClientRect().height);
+                },
+                connectObserver: function() {
+                    this.mutationObserver && this.mutationObserver.observe(this.$refs.modal, {
+                        childList: !0,
+                        attributes: !0,
+                        subtree: !0
+                    });
+                },
+                disconnectObserver: function() {
+                    this.mutationObserver && this.mutationObserver.disconnect();
+                }
+            }
+        };
+    }, function(module, exports, __webpack_require__) {
+        "use strict";
+        Object.defineProperty(exports, "__esModule", {
+            value: !0
+        }), exports.default = {
+            data: function() {
+                return {
+                    uid: 0,
+                    modals: []
+                };
+            },
+            created: function() {
+                this.$modal._setDynamicContainer(this);
+            },
+            methods: {
+                add: function(modal, params, config, events) {
+                    var _this = this, id = this.uid++;
+                    config = config ? Object.assign({}, config) : {}, config.name || (config.name = "_dynamic-modal-" + id), 
+                    this.modals.push({
+                        id: id,
+                        component: modal,
+                        params: params || {},
+                        config: config,
+                        events: events
+                    }), this.$nextTick(function() {
+                        _this.$modal.show(config.name);
+                    });
+                },
+                remove: function(id) {
+                    for (var i in this.modals) if (this.modals[i].id === id) return void this.modals.splice(i, 1);
+                }
+            }
+        };
+    }, function(module, exports, __webpack_require__) {
+        "use strict";
+        Object.defineProperty(exports, "__esModule", {
+            value: !0
+        });
+        var _util = __webpack_require__(4);
+        exports.default = {
+            name: "VueJsModalResizer",
+            props: {
+                minHeight: {
+                    type: Number,
+                    default: 0
+                },
+                minWidth: {
+                    type: Number,
+                    default: 0
+                }
+            },
+            data: function() {
+                return {
+                    clicked: !1,
+                    size: {}
+                };
+            },
+            mounted: function() {
+                this.$el.addEventListener("mousedown", this.start, !1);
+            },
+            computed: {
+                className: function() {
+                    return {
+                        "vue-modal-resizer": !0,
+                        clicked: this.clicked
+                    };
+                }
+            },
+            methods: {
+                start: function(event) {
+                    this.clicked = !0, window.addEventListener("mousemove", this.mousemove, !1), window.addEventListener("mouseup", this.stop, !1), 
+                    event.stopPropagation(), event.preventDefault();
+                },
+                stop: function() {
+                    this.clicked = !1, window.removeEventListener("mousemove", this.mousemove, !1), 
+                    window.removeEventListener("mouseup", this.stop, !1), this.$emit("resize-stop", {
+                        element: this.$el.parentElement,
+                        size: this.size
+                    });
+                },
+                mousemove: function(event) {
+                    this.resize(event);
+                },
+                resize: function(event) {
+                    var el = this.$el.parentElement;
+                    if (el) {
+                        var width = event.clientX - el.offsetLeft, height = event.clientY - el.offsetTop;
+                        width = (0, _util.inRange)(this.minWidth, window.innerWidth, width), height = (0, 
+                        _util.inRange)(this.minHeight, window.innerHeight, height), this.size = {
+                            width: width,
+                            height: height
+                        }, el.style.width = width + "px", el.style.height = height + "px", this.$emit("resize", {
+                            element: el,
+                            size: this.size
+                        });
+                    }
+                }
+            }
+        };
+    }, function(module, exports, __webpack_require__) {
+        "use strict";
+        Object.defineProperty(exports, "__esModule", {
+            value: !0
+        });
+        var _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function(obj) {
+            return typeof obj;
+        } : function(obj) {
+            return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
+        }, types = [ {
+            name: "px",
+            regexp: new RegExp("^[-+]?[0-9]*.?[0-9]+px$")
+        }, {
+            name: "%",
+            regexp: new RegExp("^[-+]?[0-9]*.?[0-9]+%$")
+        }, {
+            name: "px",
+            regexp: new RegExp("^[-+]?[0-9]*.?[0-9]+$")
+        } ], getType = function(value) {
+            if ("auto" === value) return {
+                type: value,
+                value: 0
+            };
+            for (var i = 0; i < types.length; i++) {
+                var type = types[i];
+                if (type.regexp.test(value)) return {
+                    type: type.name,
+                    value: parseFloat(value)
+                };
+            }
+            return {
+                type: "",
+                value: value
+            };
+        }, parseNumber = exports.parseNumber = function(value) {
+            switch (void 0 === value ? "undefined" : _typeof(value)) {
+              case "number":
+                return {
+                    type: "px",
+                    value: value
+                };
+
+              case "string":
+                return getType(value);
+
+              default:
+                return {
+                    type: "",
+                    value: value
+                };
+            }
+        };
+        exports.validateNumber = function(value) {
+            if ("string" == typeof value) {
+                var _value = parseNumber(value);
+                return ("%" === _value.type || "px" === _value.type) && _value.value > 0;
+            }
+            return value >= 0;
+        };
+    }, function(module, exports, __webpack_require__) {
+        exports = module.exports = __webpack_require__(1)(), exports.push([ module.i, "\n.vue-dialog div {\n  box-sizing: border-box;\n}\n.vue-dialog .dialog-flex {\n  width: 100%;\n  height: 100%;\n}\n.vue-dialog .dialog-content {\n  flex: 1 0 auto;\n  width: 100%;\n  padding: 15px;\n  font-size: 14px;\n}\n.vue-dialog .dialog-c-title {\n  font-weight: 600;\n  padding-bottom: 15px;\n}\n.vue-dialog .dialog-c-text {\n}\n.vue-dialog .vue-dialog-buttons {\n  display: flex;\n  flex: 0 1 auto;\n  width: 100%;\n  border-top: 1px solid #eee;\n}\n.vue-dialog .vue-dialog-buttons-none {\n  width: 100%;\n  padding-bottom: 15px;\n}\n.vue-dialog-button {\n  font-size: 12px !important;\n  background: transparent;\n  padding: 0;\n  margin: 0;\n  border: 0;\n  cursor: pointer;\n  box-sizing: border-box;\n  line-height: 40px;\n  height: 40px;\n  color: inherit;\n  font: inherit;\n  outline: none;\n}\n.vue-dialog-button:hover {\n  background: rgba(0, 0, 0, 0.01);\n}\n.vue-dialog-button:active {\n  background: rgba(0, 0, 0, 0.025);\n}\n.vue-dialog-button:not(:first-of-type) {\n  border-left: 1px solid #eee;\n}\n", "" ]);
+    }, function(module, exports, __webpack_require__) {
+        exports = module.exports = __webpack_require__(1)(), exports.push([ module.i, "\n.v--modal-block-scroll {\n  overflow: hidden;\n  width: 100vw;\n}\n.v--modal-overlay {\n  position: fixed;\n  box-sizing: border-box;\n  left: 0;\n  top: 0;\n  width: 100%;\n  height: 100vh;\n  background: rgba(0, 0, 0, 0.2);\n  z-index: 999;\n  opacity: 1;\n}\n.v--modal-overlay.scrollable {\n  height: 100%;\n  min-height: 100vh;\n  overflow-y: auto;\n  -webkit-overflow-scrolling: touch;\n}\n.v--modal-overlay .v--modal-background-click {\n  min-height: 100%;\n  width: 100%;\n  padding-bottom: 10px;\n}\n.v--modal-overlay .v--modal-box {\n  position: relative;\n  overflow: hidden;\n  box-sizing: border-box;\n}\n.v--modal-overlay.scrollable .v--modal-box {\n  margin-bottom: 2px;\n  /* transition: top 0.2s ease; */\n}\n.v--modal {\n  background-color: white;\n  text-align: left;\n  border-radius: 3px;\n  box-shadow: 0 20px 60px -2px rgba(27, 33, 58, 0.4);\n  padding: 0;\n}\n.v--modal.v--modal-fullscreen {\n  width: 100vw;\n  height: 100vh;\n  margin: 0;\n  left: 0;\n  top: 0;\n}\n.v--modal-top-right {\n  display: block;\n  position: absolute;\n  right: 0;\n  top: 0;\n}\n.overlay-fade-enter-active,\n.overlay-fade-leave-active {\n  transition: all 0.2s;\n}\n.overlay-fade-enter,\n.overlay-fade-leave-active {\n  opacity: 0;\n}\n.nice-modal-fade-enter-active,\n.nice-modal-fade-leave-active {\n  transition: all 0.4s;\n}\n.nice-modal-fade-enter,\n.nice-modal-fade-leave-active {\n  opacity: 0;\n  transform: translateY(-20px);\n}\n", "" ]);
+    }, function(module, exports, __webpack_require__) {
+        exports = module.exports = __webpack_require__(1)(), exports.push([ module.i, "\n.vue-modal-resizer {\n  display: block;\n  overflow: hidden;\n  position: absolute;\n  width: 12px;\n  height: 12px;\n  right: 0;\n  bottom: 0;\n  z-index: 9999999;\n  background: transparent;\n  cursor: se-resize;\n}\n.vue-modal-resizer::after {\n  display: block;\n  position: absolute;\n  content: '';\n  background: transparent;\n  left: 0;\n  top: 0;\n  width: 0;\n  height: 0;\n  border-bottom: 10px solid #ddd;\n  border-left: 10px solid transparent;\n}\n.vue-modal-resizer.clicked::after {\n  border-bottom: 10px solid #369be9;\n}\n", "" ]);
+    }, function(module, exports, __webpack_require__) {
+        __webpack_require__(23);
+        var Component = __webpack_require__(0)(__webpack_require__(11), __webpack_require__(20), null, null);
+        Component.options.__file = "/Users/yev.vlasenko2/Projects/vue/vue-js-modal/src/Resizer.vue", 
+        Component.esModule && Object.keys(Component.esModule).some(function(key) {
+            return "default" !== key && "__esModule" !== key;
+        }) && console.error("named exports are not supported in *.vue files."), Component.options.functional && console.error("[vue-loader] Resizer.vue: functional components are not supported with templates, they should use render functions."), 
+        module.exports = Component.exports;
+    }, function(module, exports, __webpack_require__) {
+        module.exports = {
+            render: function() {
+                var _vm = this, _h = _vm.$createElement, _c = _vm._self._c || _h;
+                return _c("div", {
+                    attrs: {
+                        id: "modals-container"
+                    }
+                }, _vm._l(_vm.modals, function(modal) {
+                    return _c("modal", _vm._g(_vm._b({
+                        key: modal.id,
+                        on: {
+                            closed: function($event) {
+                                _vm.remove(modal.id);
+                            }
+                        }
+                    }, "modal", modal.config, !1), modal.events), [ _c(modal.component, _vm._g(_vm._b({
+                        tag: "component",
+                        on: {
+                            close: function($event) {
+                                _vm.$modal.hide(modal.config.name);
+                            }
+                        }
+                    }, "component", modal.params, !1), _vm.$listeners)) ], 1);
+                }));
+            },
+            staticRenderFns: []
+        }, module.exports.render._withStripped = !0;
+    }, function(module, exports, __webpack_require__) {
+        module.exports = {
+            render: function() {
+                var _vm = this, _h = _vm.$createElement, _c = _vm._self._c || _h;
+                return _c("modal", {
+                    attrs: {
+                        name: "dialog",
+                        height: "auto",
+                        classes: [ "v--modal", "vue-dialog", this.params.class ],
+                        width: _vm.width,
+                        "pivot-y": .3,
+                        adaptive: !0,
+                        clickToClose: _vm.clickToClose,
+                        transition: _vm.transition
+                    },
+                    on: {
+                        "before-open": _vm.beforeOpened,
+                        "before-close": _vm.beforeClosed,
+                        opened: function($event) {
+                            _vm.$emit("opened", $event);
+                        },
+                        closed: function($event) {
+                            _vm.$emit("closed", $event);
+                        }
+                    }
+                }, [ _c("div", {
+                    staticClass: "dialog-content"
+                }, [ _vm.params.title ? _c("div", {
+                    staticClass: "dialog-c-title",
+                    domProps: {
+                        innerHTML: _vm._s(_vm.params.title || "")
+                    }
+                }) : _vm._e(), _vm._v(" "), _c("div", {
+                    staticClass: "dialog-c-text",
+                    domProps: {
+                        innerHTML: _vm._s(_vm.params.text || "")
+                    }
+                }) ]), _vm._v(" "), _vm.buttons ? _c("div", {
+                    staticClass: "vue-dialog-buttons"
+                }, _vm._l(_vm.buttons, function(button, i) {
+                    return _c("button", {
+                        key: i,
+                        class: button.class || "vue-dialog-button",
+                        style: _vm.buttonStyle,
+                        attrs: {
+                            type: "button"
+                        },
+                        domProps: {
+                            innerHTML: _vm._s(button.title)
+                        },
+                        on: {
+                            click: function($event) {
+                                $event.stopPropagation(), _vm.click(i, $event);
+                            }
+                        }
+                    }, [ _vm._v("\n      " + _vm._s(button.title) + "\n    ") ]);
+                })) : _c("div", {
+                    staticClass: "vue-dialog-buttons-none"
+                }) ]);
+            },
+            staticRenderFns: []
+        }, module.exports.render._withStripped = !0;
+    }, function(module, exports, __webpack_require__) {
+        module.exports = {
+            render: function() {
+                var _vm = this, _h = _vm.$createElement, _c = _vm._self._c || _h;
+                return _c("transition", {
+                    attrs: {
+                        name: "overlay-fade"
+                    }
+                }, [ _vm.visibility.overlay ? _c("div", {
+                    ref: "overlay",
+                    class: _vm.overlayClass,
+                    attrs: {
+                        "aria-expanded": _vm.visible.toString(),
+                        "data-modal": _vm.name
+                    }
+                }, [ _c("div", {
+                    class: _vm.backgroundClickClass,
+                    on: {
+                        mousedown: function($event) {
+                            $event.stopPropagation(), _vm.onBackgroundClick($event);
+                        },
+                        touchstart: function($event) {
+                            $event.stopPropagation(), _vm.onBackgroundClick($event);
+                        }
+                    }
+                }, [ _c("div", {
+                    staticClass: "v--modal-top-right"
+                }, [ _vm._t("top-right") ], 2), _vm._v(" "), _c("transition", {
+                    attrs: {
+                        name: _vm.transition
+                    }
+                }, [ _vm.visibility.modal ? _c("div", {
+                    ref: "modal",
+                    class: _vm.modalClass,
+                    style: _vm.modalStyle,
+                    on: {
+                        mousedown: function($event) {
+                            $event.stopPropagation();
+                        },
+                        touchstart: function($event) {
+                            $event.stopPropagation();
+                        }
+                    }
+                }, [ _vm._t("default"), _vm._v(" "), _vm.resizable && !_vm.isAutoHeight ? _c("resizer", {
+                    attrs: {
+                        "min-width": _vm.minWidth,
+                        "min-height": _vm.minHeight
+                    },
+                    on: {
+                        resize: _vm.onModalResize
+                    }
+                }) : _vm._e() ], 2) : _vm._e() ]) ], 1) ]) : _vm._e() ]);
+            },
+            staticRenderFns: []
+        }, module.exports.render._withStripped = !0;
+    }, function(module, exports, __webpack_require__) {
+        module.exports = {
+            render: function() {
+                var _vm = this, _h = _vm.$createElement;
+                return (_vm._self._c || _h)("div", {
+                    class: _vm.className
+                });
+            },
+            staticRenderFns: []
+        }, module.exports.render._withStripped = !0;
+    }, function(module, exports, __webpack_require__) {
+        var content = __webpack_require__(13);
+        "string" == typeof content && (content = [ [ module.i, content, "" ] ]), content.locals && (module.exports = content.locals);
+        __webpack_require__(2)("237a7ca4", content, !1);
+    }, function(module, exports, __webpack_require__) {
+        var content = __webpack_require__(14);
+        "string" == typeof content && (content = [ [ module.i, content, "" ] ]), content.locals && (module.exports = content.locals);
+        __webpack_require__(2)("2790b368", content, !1);
+    }, function(module, exports, __webpack_require__) {
+        var content = __webpack_require__(15);
+        "string" == typeof content && (content = [ [ module.i, content, "" ] ]), content.locals && (module.exports = content.locals);
+        __webpack_require__(2)("02ec91af", content, !1);
+    }, function(module, exports) {
+        module.exports = function(parentId, list) {
+            for (var styles = [], newStyles = {}, i = 0; i < list.length; i++) {
+                var item = list[i], id = item[0], css = item[1], media = item[2], sourceMap = item[3], part = {
+                    id: parentId + ":" + i,
+                    css: css,
+                    media: media,
+                    sourceMap: sourceMap
+                };
+                newStyles[id] ? newStyles[id].parts.push(part) : styles.push(newStyles[id] = {
+                    id: id,
+                    parts: [ part ]
+                });
+            }
+            return styles;
+        };
+    } ]);
+});
+
+/***/ }),
+/* 17 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {var scope = (typeof global !== "undefined" && global) ||
@@ -27226,7 +31077,7 @@ exports._unrefActive = exports.active = function(item) {
 };
 
 // setimmediate attaches itself to the global object
-__webpack_require__(16);
+__webpack_require__(18);
 // On some exotic environments, it's not clear which object `setimmediate` was
 // able to install onto.  Search each possibility in the same order as the
 // `setimmediate` library.
@@ -27240,7 +31091,7 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ }),
-/* 16 */
+/* 18 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global, process) {(function (global, undefined) {
@@ -27430,20 +31281,210 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
     attachTo.clearImmediate = clearImmediate;
 }(typeof self === "undefined" ? typeof global === "undefined" ? this : global : self));
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1), __webpack_require__(3)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1), __webpack_require__(19)))
 
 /***/ }),
-/* 17 */
+/* 19 */
+/***/ (function(module, exports) {
+
+// shim for using process in browser
+var process = module.exports = {};
+
+// cached from whatever global is present so that test runners that stub it
+// don't break things.  But we need to wrap it in a try catch in case it is
+// wrapped in strict mode code which doesn't define any globals.  It's inside a
+// function because try/catches deoptimize in certain engines.
+
+var cachedSetTimeout;
+var cachedClearTimeout;
+
+function defaultSetTimout() {
+    throw new Error('setTimeout has not been defined');
+}
+function defaultClearTimeout () {
+    throw new Error('clearTimeout has not been defined');
+}
+(function () {
+    try {
+        if (typeof setTimeout === 'function') {
+            cachedSetTimeout = setTimeout;
+        } else {
+            cachedSetTimeout = defaultSetTimout;
+        }
+    } catch (e) {
+        cachedSetTimeout = defaultSetTimout;
+    }
+    try {
+        if (typeof clearTimeout === 'function') {
+            cachedClearTimeout = clearTimeout;
+        } else {
+            cachedClearTimeout = defaultClearTimeout;
+        }
+    } catch (e) {
+        cachedClearTimeout = defaultClearTimeout;
+    }
+} ())
+function runTimeout(fun) {
+    if (cachedSetTimeout === setTimeout) {
+        //normal enviroments in sane situations
+        return setTimeout(fun, 0);
+    }
+    // if setTimeout wasn't available but was latter defined
+    if ((cachedSetTimeout === defaultSetTimout || !cachedSetTimeout) && setTimeout) {
+        cachedSetTimeout = setTimeout;
+        return setTimeout(fun, 0);
+    }
+    try {
+        // when when somebody has screwed with setTimeout but no I.E. maddness
+        return cachedSetTimeout(fun, 0);
+    } catch(e){
+        try {
+            // When we are in I.E. but the script has been evaled so I.E. doesn't trust the global object when called normally
+            return cachedSetTimeout.call(null, fun, 0);
+        } catch(e){
+            // same as above but when it's a version of I.E. that must have the global object for 'this', hopfully our context correct otherwise it will throw a global error
+            return cachedSetTimeout.call(this, fun, 0);
+        }
+    }
+
+
+}
+function runClearTimeout(marker) {
+    if (cachedClearTimeout === clearTimeout) {
+        //normal enviroments in sane situations
+        return clearTimeout(marker);
+    }
+    // if clearTimeout wasn't available but was latter defined
+    if ((cachedClearTimeout === defaultClearTimeout || !cachedClearTimeout) && clearTimeout) {
+        cachedClearTimeout = clearTimeout;
+        return clearTimeout(marker);
+    }
+    try {
+        // when when somebody has screwed with setTimeout but no I.E. maddness
+        return cachedClearTimeout(marker);
+    } catch (e){
+        try {
+            // When we are in I.E. but the script has been evaled so I.E. doesn't  trust the global object when called normally
+            return cachedClearTimeout.call(null, marker);
+        } catch (e){
+            // same as above but when it's a version of I.E. that must have the global object for 'this', hopfully our context correct otherwise it will throw a global error.
+            // Some versions of I.E. have different rules for clearTimeout vs setTimeout
+            return cachedClearTimeout.call(this, marker);
+        }
+    }
+
+
+
+}
+var queue = [];
+var draining = false;
+var currentQueue;
+var queueIndex = -1;
+
+function cleanUpNextTick() {
+    if (!draining || !currentQueue) {
+        return;
+    }
+    draining = false;
+    if (currentQueue.length) {
+        queue = currentQueue.concat(queue);
+    } else {
+        queueIndex = -1;
+    }
+    if (queue.length) {
+        drainQueue();
+    }
+}
+
+function drainQueue() {
+    if (draining) {
+        return;
+    }
+    var timeout = runTimeout(cleanUpNextTick);
+    draining = true;
+
+    var len = queue.length;
+    while(len) {
+        currentQueue = queue;
+        queue = [];
+        while (++queueIndex < len) {
+            if (currentQueue) {
+                currentQueue[queueIndex].run();
+            }
+        }
+        queueIndex = -1;
+        len = queue.length;
+    }
+    currentQueue = null;
+    draining = false;
+    runClearTimeout(timeout);
+}
+
+process.nextTick = function (fun) {
+    var args = new Array(arguments.length - 1);
+    if (arguments.length > 1) {
+        for (var i = 1; i < arguments.length; i++) {
+            args[i - 1] = arguments[i];
+        }
+    }
+    queue.push(new Item(fun, args));
+    if (queue.length === 1 && !draining) {
+        runTimeout(drainQueue);
+    }
+};
+
+// v8 likes predictible objects
+function Item(fun, array) {
+    this.fun = fun;
+    this.array = array;
+}
+Item.prototype.run = function () {
+    this.fun.apply(null, this.array);
+};
+process.title = 'browser';
+process.browser = true;
+process.env = {};
+process.argv = [];
+process.version = ''; // empty string to avoid regexp issues
+process.versions = {};
+
+function noop() {}
+
+process.on = noop;
+process.addListener = noop;
+process.once = noop;
+process.off = noop;
+process.removeListener = noop;
+process.removeAllListeners = noop;
+process.emit = noop;
+process.prependListener = noop;
+process.prependOnceListener = noop;
+
+process.listeners = function (name) { return [] }
+
+process.binding = function (name) {
+    throw new Error('process.binding is not supported');
+};
+
+process.cwd = function () { return '/' };
+process.chdir = function (dir) {
+    throw new Error('process.chdir is not supported');
+};
+process.umask = function() { return 0; };
+
+
+/***/ }),
+/* 20 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_Resources_vue__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_Resources_vue__ = __webpack_require__(3);
 /* unused harmony namespace reexport */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_c7b149ea_hasScoped_true_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_Resources_vue__ = __webpack_require__(31);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_c7b149ea_hasScoped_true_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_Resources_vue__ = __webpack_require__(41);
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(18)
+  __webpack_require__(21)
 }
 var normalizeComponent = __webpack_require__(0)
 /* script */
@@ -27489,25 +31530,25 @@ if (false) {(function () {
 
 
 /***/ }),
-/* 18 */
+/* 21 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
 
 /***/ }),
-/* 19 */
+/* 22 */
 /***/ (function(module, exports) {
 
 module.exports = [{"ProjectID":"07-02-026","Date":200702026,"Products":[{"ProductName":"Architectural Enhancement","GeoType1":["Dormers"],"GeoType2":[]},{"ProductName":"Decorative Elements","GeoType1":["Finials","Ridge Cresting"],"GeoType2":[]},{"ProductName":"Pool Enclosure","GeoType1":["Conservatory Nose","Straight Eave Double Pitch"],"GeoType2":["751-1000 SQF. Glass"]}],"Description":"Straight eave double pitch pool enclosure with one 10-sided conservatory nose, one gable end and dormer.","Image1":"000_1164_500.jpg","Image2":"000_1163_500.jpg","Image3":"000_1161_500.jpg","Image4":"000_1165_500.jpg","ExtColor":["Natural Clay"],"IntColor":["Natural Clay"],"LengthProjection":"29 ft 6L","RidgeHeight":"13 ft 8 in","Location":"Canada","Width":"20 ft 5 in","Application":["Residential","Sporting"],"Glazes":["Clear"]},{"ProjectID":"06-10-005","Date":200610005,"Products":[{"ProductName":"Architectural Enhancement","GeoType1":["Ridge Vent","Transom"],"GeoType2":[]},{"ProductName":"Door","GeoType1":["In-System French Door"],"GeoType2":[]},{"ProductName":"Pool Enclosure","GeoType1":["Straight Eave Double Pitch"],"GeoType2":[]}],"Description":"One straight eave double pitch pool house  with two gable ends and one projected straight eave double pitch dormer with one gable end. Unit features ridge cresting, finial, gable rake, ridge vents, sliding doors, transoms, and casement windows.","Image1":"andersen-pool-house0050.jpg","Image2":"AndersonPE0019.jpg","Image3":"AndersonPE0013.jpg","Image4":"AndersonPE0017.jpg","ExtColor":["Bronze","AAMA 2603"],"IntColor":["Bronze","AAMA 2603"],"LengthProjection":"21 ft","RidgeHeight":"14 ft","Location":"Illinois","Width":"28 ft","Application":["Living Space","Residential"],"Glazes":["LoE 340"]},{"ProjectID":"07-01-020","Date":200701020,"Products":[{"ProductName":"Decorative Elements","GeoType1":["Grids","SDLs"],"GeoType2":[]},{"ProductName":"Door","GeoType1":[],"GeoType2":[]},{"ProductName":"Folding Glass Wall","GeoType1":["Windows"],"GeoType2":["251-500 SQF. Glass","All Wall"]},{"ProductName":"Window","GeoType1":["Folding"],"GeoType2":"51-100 SQF. Glass"}],"Description":"Nineteen all wall folding glass wall systems with SDLs, Two French Doors, and Two Curtain Walls consisting of Four bays each","Image1":"atlantic-fgw-altered-2_500x375.jpg","Image2":"atlanticfgw041008-11_500x375.jpg","Image3":"atlanticfgw041008-13_500x375.jpg","Image4":"atlanticfgw041008-18_500x375.jpg","ExtColor":["White","AAMA 2603"],"IntColor":["White","AAMA 2603"],"LengthProjection":"-","RidgeHeight":"varies per unit","Location":"Rhode Island","Width":"varies per unit","Application":["Commercial","Dining"],"Glazes":["LoE 272","Clear"]},{"ProjectID":"04-06-003","Date":200406003,"Products":[{"ProductName":"Decorative Elements","GeoType1":["Grids"],"GeoType2":[]},{"ProductName":"Door","GeoType1":[],"GeoType2":[]},{"ProductName":"Folding Glass Wall","GeoType1":["Windows"],"GeoType2":["101-250 SQF. Glass","All Wall"]},{"ProductName":"Window","GeoType1":["Folding"],"GeoType2":["51-100 SQF. Glass"]}],"Description":"All wall folding glass walls and windows, fixed vertical curtain walls, and terrace doors featuring decorative grids.","Image1":"0030671-R1-017-7_1_500_1.jpg","Image2":"0030671-R1-005-1_1.jpg","Image3":"0030671-R1-023-10_1.jpg","Image4":"0030671-R1-029-13_1.jpg","ExtColor":["Black","AAMA 2603"],"IntColor":["Black","AAMA 2603"],"LengthProjection":"-","RidgeHeight":"varies per unit","Location":"New York","Width":"varies per unit","Application":["Commercial","Dining"],"Glazes":["Clear","Tempered"]},{"ProjectID":"08-10-191","Date":200810191,"Products":[{"ProductName":"Decorative Elements","GeoType1":["Grids"],"GeoType2":[]},{"ProductName":"Folding Glass Wall","GeoType1":["Door"],"GeoType2":["101-250 SQF. Glass","All Wall"]},{"ProductName":"Screen","GeoType1":["Folding"],"GeoType2":[]}],"Description":"Three folding glass wall systems: two single door systems and one all wall system. One system has grids, one systems has screens and wood veneer, and two systems are Sandstone finish.","Image1":"barrington_06122009-5_500.jpg","Image2":"barrington_06122009-4_5001.jpg","Image3":"barrington_06122009-20_500.jpg","Image4":"barrington_06122009-7_5001.jpg","ExtColor":["White","AAMA 2603"],"IntColor":["Wood Veneer","Sapele Mahogany"],"LengthProjection":"-","RidgeHeight":"varies per unit","Location":"Rhode Island","Width":"varies per unit","Application":["Living Space","Residential"],"Glazes":["Clear","Tempered"]},{"ProjectID":"06-12-020","Date":200612020,"Products":[{"ProductName":"Folding Glass Wall","GeoType1":["Door"],"GeoType2":["101-250 SQF. Glass","Split Wall No Floating Jamb"]}],"Description":"Eight Commercial, Split Wall Folding Glass Walls featuring Custom Red Finish.","Image1":"fgw-bearcreek-020408-7_500.jpg","Image2":"bearcreek121707-10_5002.jpg","Image3":"fgw-bearcreek-020408-5_5001.jpg","Image4":"fgw-bearcreek-020408-19_5001.jpg","ExtColor":["Custom Color"],"IntColor":["Custom Color"],"LengthProjection":"-","RidgeHeight":"varies per unit","Location":"Pennsylvania","Width":"varies per unit","Application":["Banquets","Commercial","Dining"],"Glazes":["LoE 272"]},{"ProjectID":"05-03-034","Date":200503034,"Products":[{"ProductName":"Decorative Elements","GeoType1":["Grids","Gutter","Ridge Cresting","SDLs"],"GeoType2":[]},{"ProductName":"Skylight","GeoType1":["Hip End","Irregular / Custom","Polygonal"],"GeoType2":["251-500 SQF. Glass"]}],"Description":"Straight eave double pitch skylight with one conservatory nose, copper clad exterior and mahogany wood interior.","Image1":"Scan0084.jpg","Image2":"Scan0078.jpg","Image3":"Copy-of-Scan0092.jpg","Image4":"Copy-of-Scan00811.jpg","ExtColor":["Copper"],"IntColor":["Sapele Mahogany","Wood"],"LengthProjection":"13 ft","RidgeHeight":"3 ft","Location":"Pennsylvania","Width":"11 ft","Application":["Living Space","Residential"],"Glazes":["Clear"]},{"ProjectID":"06-06-046","Date":200606046,"Products":[{"ProductName":"Complete Glazing Packages","GeoType1":["Complete Glazing Packages"],"GeoType2":["2001+ SQF. Glass","0 SQF. Glass"]},{"ProductName":"Curtain Wall","GeoType1":["Vertical Curtain Wall"],"GeoType2":["2001+ SQF. Glass"]},{"ProductName":"Folding Glass Wall","GeoType1":["Door"],"GeoType2":["2001+ SQF. Glass","1-50 SQF. Glass","Split Wall Floating Jamb"]},{"ProductName":"Sliding Door","GeoType1":["Door"],"GeoType2":["251-500 SQF. Glass","Multi-Track"]}],"Description":"Six curtain wall systems, three folding glass walls, and six sliding glass doors all in Bronze frame finish and utilizing 272 glass.","Image1":"beckett_residence_030609-8_500x375.jpg","Image2":"beckett_residence_030609-15_500x375.jpg","Image3":"beckett_residence_030609-18_500x350.jpg","Image4":"beckett_residence_030609-12_500x359.jpg","ExtColor":["Bronze","AAMA 2603"],"IntColor":["Bronze","AAMA 2603"],"LengthProjection":"-","RidgeHeight":"varies per unit","Location":"Rhode Island","Width":"varies per unit","Application":["Living Space","Residential"],"Glazes":["LoE 272"]},{"ProjectID":"05-03-035","Date":200503035,"Products":[{"ProductName":"Architectural Enhancement","GeoType1":["Eave Vent","Ridge Vent"],"GeoType2":["251-500 SQF. Glass"]},{"ProductName":"Decorative Elements","GeoType1":["Ridge Cresting"],"GeoType2":[]},{"ProductName":"Greenhouse","GeoType1":["Straight Eave Double Pitch"],"GeoType2":["2001+ SQF. Glass","1-50 SQF. Glass","Restoration System"]},{"ProductName":"Greenhouse Accessory","GeoType1":["Storage"],"GeoType2":["Metal Mesh Top Bench"]}],"Description":"Straight eave, double pitch greenhouse with one glass partition. Attached double pitch greenhouse. Restoration System.","Image1":"a5003.jpg","Image2":"a5011.jpg","Image3":"a5021.jpg","Image4":"a5041.jpg","ExtColor":["White","AAMA 2603"],"IntColor":["White","AAMA 2603"],"LengthProjection":"50 ft","RidgeHeight":"12 ft","Location":"Connecticut","Width":"24 ft","Application":["Commercial"],"Glazes":["Clear"]},{"ProjectID":"06-01-027","Date":200601027,"Products":[{"ProductName":"Decorative Elements","GeoType1":["Grids"],"GeoType2":[]},{"ProductName":"Folding Glass Wall","GeoType1":["Door"],"GeoType2":["51-100 SQF. Glass","All Wall"]}],"Description":"One all wall system, bottom load, fold out, 3 panels fold left, 0 panels fold right, recessed sill, set up for 1 inches glazing with interior muntins. Framing color is Solar Innovations standard white duracron finish. Glazing is clear low-e. Black hardware.","Image1":"11-26-2006-073.jpg","Image2":"HPIM5346_500.jpg","Image3":"HPIM5335_500.jpg","Image4":"11-26-2006-064.jpg","ExtColor":["White","AAMA 2603"],"IntColor":["White","AAMA 2603"],"LengthProjection":"-","RidgeHeight":"7 ft","Location":"Illinois","Width":"10 ft","Application":["Living Space","Residential"],"Glazes":["Clear"]},{"ProjectID":"05-10-031","Date":200510031,"Products":[{"ProductName":"Folding Glass Wall","GeoType1":["Door"],"GeoType2":["101-250 SQF. Glass","All Wall"]}],"Description":"Solar Innovations folding wall system, all wall configuration,  Panels fold-in, four panels fold left. Framing color is a custom  silver 3-coat metallic frame finish.","Image1":"ballroom-elephant-doors-002.jpg","Image2":"ballroom-elephant-doors-006.jpg","Image3":"ballroom-elephant-doors-007.jpg","Image4":"ballroom-elephant-doors-006_2.jpg","ExtColor":["Custom Color"],"IntColor":["Custom Color"],"LengthProjection":"-","RidgeHeight":"7 ft 6 in","Location":"Massachusetts","Width":"9 ft 6 in","Application":["Living Space","Residential"],"Glazes":["Custom Color"]},{"ProjectID":"07-10-025","Date":200710025,"Products":[{"ProductName":"Skylight","GeoType1":["Single Slope"],"GeoType2":["1-50 SQF. Glass","Curb Mount"]}],"Description":"Single slope, curb mount skylight with exterior copper cladding.  The skylight was shipped pre-assembled to the job site.","Image1":"2012/07/DSCN0778_500.jpg","Image2":"Bro500.jpg","Image3":"bro501.jpg","Image4":"bro502.jpg","ExtColor":["Copper","Metal Cladding"],"IntColor":["White","AAMA 2603"],"LengthProjection":"15 ft","RidgeHeight":"3 ft","Location":"New York","Width":"3 ft","Application":["Residential"],"Glazes":["LoE 272"]},{"ProjectID":"07-06-051","Date":200706051,"Products":[{"ProductName":"Curtain Wall","GeoType1":["Vertical Curtain Wall"],"GeoType2":["251-500 SQF. Glass"]}],"Description":"Vertical curtain wall system constructed with 4 1/2 inch aluminum system, includes columns with decorative faux covers.","Image1":"ca500.jpg","Image2":"ca502.jpg","Image3":"ca501.jpg","Image4":"ca503.jpg","ExtColor":["White","AAMA 2603"],"IntColor":["White","AAMA 2603"],"LengthProjection":"-","RidgeHeight":"varies per section","Location":"Virginia","Width":"varies per section","Application":["Living Space","Residential"],"Glazes":["Clear"]},{"ProjectID":"04-12-014","Date":200412014,"Products":[{"ProductName":"Folding Glass Wall","GeoType1":["Door"],"GeoType2":["251-500 SQF. Glass","All Wall"]}],"Description":"Two folding wall systems.  6 panels, double door midwall configuration.  Skylight above folding walls with two bay ridge vent.","Image1":"cal500.jpg","Image2":"cal501.jpg","Image3":"cal502.jpg","Image4":"cal503.jpg","ExtColor":["White","AAMA 2603"],"IntColor":["White","AAMA 2603"],"LengthProjection":"-","RidgeHeight":"6 ft","Location":"Colorado","Width":"10 ft","Application":["Living Space","Residential"],"Glazes":["Custom Color"]},{"ProjectID":"06-06-049","Date":200606049,"Products":[{"ProductName":"Canopy","GeoType1":["Segmented Barrel Vault"],"GeoType2":["2001+ SQF. Glass","1-50 SQF. Glass"]}],"Description":"Commercial Segmented, barrel vault canopy at Eden Resort","Image1":"Eden_23_500x333.jpg","Image2":"Eden-4_500x333.jpg","Image3":"eden-resort-18_500x375.jpg","Image4":"eden-resort_500x375.jpg","ExtColor":["Custom Color"],"IntColor":["Custom Color"],"LengthProjection":"40 ft","RidgeHeight":"2 ft","Location":"Pennsylvania","Width":"18 ft","Application":["Commercial"],"Glazes":["Clear"]},{"ProjectID":"05-09-055","Date":200509055,"Products":[{"ProductName":"Canopy","GeoType1":["Single Slope"],"GeoType2":["101-250 SQF. Glass"]}],"Description":"Trapezoid shaped canopy with corner knockouts at attaching side.","Image1":"IMG_0044_500x375.jpg","Image2":"IMG_0043_500x375.jpg","Image3":"IMG_0039_500x3751.jpg","Image4":"IMG_0049_500x375.jpg","ExtColor":["Clear Anodized","Class I Anodized"],"IntColor":["Clear Anodized","Class I Anodized"],"LengthProjection":"9 ft","RidgeHeight":"0 ft","Location":"Virginia","Width":"25 ft 2 in","Application":["Commercial"],"Glazes":["Clear"]},{"ProjectID":"07-03-040","Date":200703040,"Products":[{"ProductName":"Complete Glazing Packages","GeoType1":["Complete Glazing Packages"],"GeoType2":["2001+ SQF. Glass","1-50 SQF. Glass"]},{"ProductName":"Curtain Wall","GeoType1":["Vertical Curtain Wall"],"GeoType2":["51-100 SQF. Glass"]},{"ProductName":"Folding Glass Wall","GeoType1":["Door"],"GeoType2":["101-250 SQF. Glass","All Wall"]},{"ProductName":"Screen","GeoType1":["P-Series"],"GeoType2":["Vertical Retractable"]}],"Description":"Folding glass wall and window systems, residential terrace door, and curtain walls. Framing is Clear Anodized finished and hardware is Clear Anodized and Chrome. P Series vertically retractable screen system used in conjunction with a folding wall unit. Out of system residential terrace doors, some with integrated transoms above.","Image1":"clark-120509-2_big.jpg","Image2":"fgw_clark_090408-12_500x375.jpg","Image3":"fgw_clark_090408-6.jpg","Image4":"fgw_clark_090408-2-7.jpg","ExtColor":["Clear Anodized","Class I Anodized"],"IntColor":["Clear Anodized","Class I Anodized"],"LengthProjection":"-","RidgeHeight":"varies per unit","Location":"Maryland","Width":"varies per unit","Application":["Residential"],"Glazes":["LoE 272","Clear","Tempered"]},{"ProjectID":"05-03-011","Date":200503011,"Products":[{"ProductName":"Decorative Elements","GeoType1":["Ridge Cresting"],"GeoType2":[]},{"ProductName":"Pool Enclosure","GeoType1":["Conservatory Nose","Straight Eave Double Pitch"],"GeoType2":["101-250 SQF. Glass"]}],"Description":"Straight eave double pitch enclosure with straight eave double pitch breezeway and projecting conservatory nose enclosure.","Image1":"IMG_0075_4_500x375.jpg","Image2":"IMG_0079_5_500x375.jpg","Image3":"Domenikus_500x375.jpg","Image4":"IMG_0073_2_500x375.jpg","ExtColor":["Clear Anodized","Class I Anodized"],"IntColor":["Clear Anodized","Class I Anodized"],"LengthProjection":"22 ft","RidgeHeight":"17 ft","Location":"Massachusetts","Width":"17 ft","Application":["Living Space","Residential","Sporting"],"Glazes":["Clear"]},{"ProjectID":"05-12-033","Date":200512033,"Products":[{"ProductName":"Conservatory","GeoType1":["Conservatory Nose"],"GeoType2":["751-1000 SQF. Glass"]},{"ProductName":"Polycarbonate","GeoType1":["Polycarbonate Sunroom"],"GeoType2":[]}],"Description":"Straight eave lean to sunroom with attached straight eave double pitch with irregular conservatory nose.","Image1":"DSCN5157_500x375.jpg","Image2":"DSCN5156_500x375.jpg","Image3":"DSCN5154_500x375.jpg","Image4":"00231_500x333.jpg","ExtColor":["White","AAMA 2603"],"IntColor":["White","AAMA 2603"],"LengthProjection":"16 ft","RidgeHeight":"11 ft","Location":"Pennsylvania","Width":"24 ft","Application":["Residential"],"Glazes":["Clear"]},{"ProjectID":"05-07-024","Date":200507024,"Products":[{"ProductName":"Architectural Enhancement","GeoType1":["Transom"],"GeoType2":["51-100 SQF. Glass"]},{"ProductName":"Conservatory","GeoType1":["Conservatory Nose"],"GeoType2":["251-500 SQF. Glass"]},{"ProductName":"Decorative Elements","GeoType1":["Ridge Cresting"],"GeoType2":[]}],"Description":"Straight eave, double pitch conservatory with bull  nose including transoms, grid work, gutter, finial, and ridge cresting.","Image1":"IMG_4293_500x375.jpg","Image2":"IMG_4284_500x375.jpg","Image3":"IMG_4290_500x375.jpg","Image4":"IMG_4287_500x375.jpg","ExtColor":["Black","AAMA 2603"],"IntColor":["Black","AAMA 2603"],"LengthProjection":"14 ft","RidgeHeight":"10 ft","Location":"Virginia","Width":"15 ft","Application":["Residential"],"Glazes":["Clear"]},{"ProjectID":"05-08-044","Date":200508044,"Products":[{"ProductName":"Architectural Enhancement","GeoType1":["Lantern","Transom"],"GeoType2":["51-100 SQF. Glass"]},{"ProductName":"Conservatory","GeoType1":["Irregular / Custom"],"GeoType2":["501-750 SQF. Glass","Urban / High Rise"]},{"ProductName":"Decorative Elements","GeoType1":["Finials","Ridge Cresting"],"GeoType2":["Traditional Grid"]}],"Description":"Straight eave, double pitch conservatory with Natural Clay aluminum exterior/Mahogany interior, lantern, ridge cresting, finial, and transoms.","Image1":"100_2730-2_500x316.jpg","Image2":"Cropped_second-2.jpg","Image3":"DSCN4872_500x330.jpg","Image4":"100_0100(2).jpg","ExtColor":["Natural Clay","AAMA 2603"],"IntColor":["Sapele Mahogany","Wood"],"LengthProjection":"16 ft","RidgeHeight":"16 ft","Location":"Michigan","Width":"18 ft","Application":["Residential"],"Glazes":["Custom Color"]},{"ProjectID":"04-12-013","Date":200412013,"Products":[{"ProductName":"Architectural Enhancement","GeoType1":["Dormers","Gable End","Ridge Vent","Transom"],"GeoType2":["51-100 SQF. Glass"]},{"ProductName":"Conservatory","GeoType1":["Straight Eave Double Pitch"],"GeoType2":["251-500 SQF. Glass"]},{"ProductName":"Decorative Elements","GeoType1":["Finials","Palladin Arches","Ridge Cresting"],"GeoType2":[]}],"Description":"Straight eave double pitch conservatory with aluminum exterior/Mahogany interior, arched fan light pediment in dormer, grids in windows, ridge cresting, operable ridge vent, and finial.","Image1":"Northern-Lights-low-res.jpg","Image2":"Northern-Lights-004.jpg","Image3":"Northern-Lights-001.jpg","Image4":"Northern-Lights-003.jpg","ExtColor":["White","AAMA 2603"],"IntColor":["Sapele Mahogany","Wood"],"LengthProjection":"6 ft","RidgeHeight":"15 ft 2 in","Location":"Virginia","Width":"14 ft","Application":["Residential"],"Glazes":["Clear"]},{"ProjectID":"05-06-020","Date":200506020,"Products":[{"ProductName":"Door","GeoType1":[],"GeoType2":[]},{"ProductName":"Sunroom","GeoType1":["Straight Eave Double Pitch"],"GeoType2":["251-500 SQF. Glass"]}],"Description":"Straight eave double pitch sunroom featuring Sliding Windows, French Doors, and a Finial.","Image1":"100_0493.jpg","Image2":"100_0493-EW.jpg","Image3":"100_0493EW1.jpg","Image4":"100_0493EW2.jpg","ExtColor":["White","AAMA 2603"],"IntColor":["White","AAMA 2603"],"LengthProjection":"20 ft","RidgeHeight":"16 ft","Location":"Michigan","Width":"10 ft","Application":["Residential"],"Glazes":["Bronze"]},{"ProjectID":"04-04-020","Date":200404020,"Products":[{"ProductName":"Architectural Enhancement","GeoType1":["Transom"],"GeoType2":[]},{"ProductName":"Curtain Wall","GeoType1":["Vertical Curtain Wall"],"GeoType2":[]},{"ProductName":"Sunroom","GeoType1":["Straight Eave Double Pitch"],"GeoType2":["2001+ SQF. Glass","1-50 SQF. Glass"]}],"Description":"Straight eave double pitch sunroom with two irregular hip ends, and three (3) curtain walls.","Image1":"photo-002.jpg","Image2":"photo-005.jpg","Image3":"photo-003.jpg","Image4":"photo-001.jpg","ExtColor":["Bronze","AAMA 2603"],"IntColor":["Bronze","AAMA 2603"],"LengthProjection":"27 ft","RidgeHeight":"13 ft","Location":"Europe","Width":"16 ft","Application":["Residential"],"Glazes":["Clear"]},{"ProjectID":"05-05-017","Date":200505017,"Products":[{"ProductName":"Architectural Enhancement","GeoType1":["Transom"],"GeoType2":[]},{"ProductName":"Conservatory","GeoType1":["Hip End"],"GeoType2":["501-750 SQF. Glass"]},{"ProductName":"Decorative Elements","GeoType1":["Base Panels","Decorative Trims","Grids","Ridge Cresting","SDLs"],"GeoType2":[]},{"ProductName":"Window","GeoType1":["Projected"],"GeoType2":["51-100 SQF. Glass","Awning"]}],"Description":"Two-tone, straight eave, hip end conservatory with sandstone color simulated divided lites (SDLs) fixed and operable windows and transom, ridge cresting,  finial and base panel.","Image1":"BR2_500x375.jpg","Image2":"Conservatory-Interior_500x375.jpg","Image3":"OK2_500x375.jpg","Image4":"OutsideGood1_500x375.jpg","ExtColor":["Bronze","AAMA 2603"],"IntColor":["Bronze","AAMA 2603"],"LengthProjection":"14 ft","RidgeHeight":"13 ft","Location":"Pennsylvania","Width":"20 ft","Application":["Residential"],"Glazes":["Clear"]},{"ProjectID":"09-03-379","Date":200903379,"Products":[{"ProductName":"Folding Glass Wall","GeoType1":["Windows"],"GeoType2":["101-250 SQF. Glass","All Wall"]},{"ProductName":"Window","GeoType1":["Folding"],"GeoType2":["51-100 SQF. Glass"]},{"ProductName":"Folding Glass Wall","GeoType1":["Door"],"GeoType2":["2001+ SQF. Glass","1-50 SQF. Glass","All Wall"]}],"Description":"Four all wall folding glass wall systems in all wall configurations.  Flush mount sill and 1/4 in monolithic glazing.","Image1":"fgw-coppin-state-5.25-foot-121809-(3).jpg","Image2":"fgw-coppin-state-5.25-foot-121809-(5).jpg","Image3":"fgw-coppin-state-5.25-foot-121809-(7).jpg","Image4":"fgw-coppin-state-5.25-foot-121809-(2).jpg","ExtColor":["Clear Anodized","Class I Anodized"],"IntColor":["Clear Anodized","Class I Anodized"],"LengthProjection":"varies per unit","RidgeHeight":"varies per unit","Location":"Maryland","Width":"varies per unit","Application":["Educational","Institutional","Sporting"],"Glazes":["Clear"]},{"ProjectID":"05-05-001","Date":200505001,"Products":[{"ProductName":"Curtain Wall","GeoType1":["Vertical Curtain Wall"],"GeoType2":["101-250 SQF. Glass"]},{"ProductName":"Door","GeoType1":[],"GeoType2":[]}],"Description":"Three curtain wall sections, awning windows, a terrace door, and transoms.","Image1":"general-1006.jpg","Image2":"curt-wall-cacioppo.jpg","Image3":"general-988.jpg","Image4":"general-994.jpg","ExtColor":["Natural Clay","AAMA 2603"],"IntColor":["Natural Clay","AAMA 2603"],"LengthProjection":"-","RidgeHeight":"varies per unit","Location":"Ohio","Width":"varies per unit","Application":["Residential"],"Glazes":["Clear"]},{"ProjectID":"09-01-329","Date":200901329,"Products":[{"ProductName":"Door","GeoType1":[],"GeoType2":[]},{"ProductName":"Folding Glass Wall","GeoType1":["Door"],"GeoType2":["101-250 SQF. Glass"]},{"ProductName":"Window","GeoType1":["Projected"],"GeoType2":["Awning","Casement"]}],"Description":"Folding Glass Walls, Casement Windows, Awning Windows, and french doors.","Image1":"MG_0826.jpg","Image2":"MG_0693_500x333.jpg","Image3":"MG_0846_500x333.jpg","Image4":"MG_0795_500x333.jpg","ExtColor":["Clear Anodized","Class I Anodized"],"IntColor":["Clear Anodized","Class I Anodized"],"LengthProjection":"Units Vary","RidgeHeight":"Units Vary","Location":"California","Width":"Units Vary","Application":["Home","Residential"],"Glazes":["Clear"]},{"ProjectID":"07-06-006","Date":200706006,"Products":[{"ProductName":"Architectural Enhancement","GeoType1":["Dormers","Ridge Vent","Transom"],"GeoType2":[]},{"ProductName":"Decorative Elements","GeoType1":["Finials","Grids","Ridge Cresting","Base Panels"],"GeoType2":[]},{"ProductName":"Greenhouse","GeoType1":["Conservatory Nose","Irregular / Custom"],"GeoType2":[]},{"ProductName":"Shades","GeoType1":["Exterior Fixed"],"GeoType2":["HVHZ / Miami-Dade Rated"]}],"Description":"Straight eave, double pitch orchid greenhouse with conservatory nose, partial lean-to roof section, ridge cresting, finials, and grids.","Image1":"DSCF4150_500x3751.jpg","Image2":"IMG_1885.jpg","Image3":"IMG_1937.jpg","Image4":"IMG_1914.jpg","ExtColor":["Custom Color"],"IntColor":["Custom Color"],"LengthProjection":"22 ft","RidgeHeight":"15 ft","Location":"Georgia","Width":"28 ft","Application":["Residential"],"Glazes":["Clear"]},{"ProjectID":"11-11-255","Date":201111255,"Products":[{"ProductName":"Architectural Enhancement","GeoType1":["Gable End","Ridge Vent"],"GeoType2":[]},{"ProductName":"Door","GeoType1":[],"GeoType2":[]},{"ProductName":"Sunroom","GeoType1":["Hip End","Straight Eave Lean-To"],"GeoType2":["251-500 SQF. Glass"]}],"Description":"Straight eave lean to enclosure with a 90 corner on 1 side and attaching to a hip valley structure with 2 partial gable ends.","Image1":"IMG_1101_500x375.jpg","Image2":"door8.jpg","Image3":"DSCN0281-edited.jpg","Image4":"DSCN0282.jpg","ExtColor":["Green (Hartford)","AAMA 2603"],"IntColor":["Green (Hartford)","AAMA 2603"],"LengthProjection":"6 ft","RidgeHeight":"8 ft 11 in","Location":"Connecticut","Width":"23 ft 6 in","Application":["Residential"],"Glazes":["Clear"]},{"ProjectID":"07-07-038","Date":200707038,"Products":[{"ProductName":"Canopy","GeoType1":["Pyramid"],"GeoType2":[]},{"ProductName":"Skylight","GeoType1":["Pyramid"],"GeoType2":["501-750 SQF. Glass"]}],"Description":"Pyramid skylight acting as canopy. Framing system is 3x6 aluminum system in Dark Bronze Anodized frame finish. Glazing is Sol-I-Guard 272.","Image1":"Ephrata-Skylight-5_500x375.jpg","Image2":"Ephrata-Skylight-13_500x375.jpg","Image3":"Ephrata-Skylight-15_500x375.jpg","Image4":"ephratahospital_010708_500x375.jpg","ExtColor":["Dark Bronze Anodized","Bronze","Class I Anodized"],"IntColor":["Dark Bronze Anodized","Bronze","Class I Anodized"],"LengthProjection":"20 ft","RidgeHeight":"5 ft","Location":"Pennsylvania","Width":"21 ft","Application":["Commercial","Health Centers"],"Glazes":["LoE 272"]},{"ProjectID":"06-07-035","Date":200607035,"Products":[{"ProductName":"Folding Glass Wall","GeoType1":["Door"],"GeoType2":["51-100 SQF. Glass","Single Door End Jamb"]},{"ProductName":"Pivot","GeoType1":[],"GeoType2":[]},{"ProductName":"Window","GeoType1":["Mulled"],"GeoType2":["1-50 SQF. Glass","Fixed"]}],"Description":"One single door folding wall system, 3 panels fold left; framing color is clear anodized, mulled window system, and pivot door.","Image1":"Erbe-Alan-Doors-(2).jpg","Image2":"Erbe-Alan-Doors-(3).jpg","Image3":"Erbe-Alan-Doors.jpg","Image4":"IMG00237-20110215-1242_edited.jpg","ExtColor":["Clear Anodized","Class I Anodized"],"IntColor":["Clear Anodized","Class I Anodized"],"LengthProjection":"8 ft","RidgeHeight":"7 ft","Location":"Maryland","Width":"-","Application":["Residential"],"Glazes":["LoE 272"]},{"ProjectID":"10-03-533","Date":201003533,"Products":[{"ProductName":"Decorative Elements","GeoType1":["Grids"],"GeoType2":[]},{"ProductName":"Folding Glass Wall","GeoType1":["Door"],"GeoType2":["101-250 SQF. Glass","Double Door Mid Wall"]}],"Description":"Double Door (mid wall), Bottom Load , Fold Out, 3 Panels Fold Left, 3 Panels Fold Right, Recessed Sill","Image1":"IMG_3527_500x375.jpg","Image2":"IMG_3530_500x375.jpg","Image3":"IMG_3531-fixed_500x375.jpg","Image4":"IMG_3518_500x375.jpg","ExtColor":["Natural Clay","AAMA 2603"],"IntColor":["Natural Clay","AAMA 2603"],"LengthProjection":"16 ft","RidgeHeight":"7 ft","Location":"New Jersey","Width":"-","Application":["Residential"],"Glazes":["Clear"]},{"ProjectID":"05-03-007","Date":200503007,"Products":[{"ProductName":"Folding Glass Wall","GeoType1":["Door"],"GeoType2":["101-250 SQF. Glass","All Wall"]}],"Description":"All Wall, Top Load, Fold Out, 4 Panels Fold Left, 4 Panels Fold Right, Recessed Sill","Image1":"Image003.jpg","Image2":"Image018.jpg","Image3":"Image014.jpg","Image4":"Image017.jpg","ExtColor":["Bronze"],"IntColor":["Southern Yellow Pine","Wood Veneer"],"LengthProjection":"11 ft","RidgeHeight":"8 ft","Location":"North Carolina","Width":"-","Application":["Residential"],"Glazes":["Clear"]},{"ProjectID":"07-10-036","Date":200710036,"Products":[{"ProductName":"Folding Glass Wall","GeoType1":["Door"],"GeoType2":["251-500 SQF. Glass","All Wall"]}],"Description":"Single Door (hinge jamb), Top Load , Fold Out, 3 Panels Fold Left, 1 Panels Fold Right, Recessed Sill","Image1":"IMG_0550_500x375.jpg","Image2":"IMG_0547_500x375.jpg","Image3":"IMG_0552_500x375.jpg","Image4":"keeney-touch-up_500x375.jpg","ExtColor":["Clear Anodized","Class I Anodized"],"IntColor":["Clear Anodized","Class I Anodized"],"LengthProjection":"12 ft","RidgeHeight":"8 ft","Location":"Colorado","Width":"-","Application":["Residential"],"Glazes":["Clear"]},{"ProjectID":"10-07-206","Date":201007206,"Products":[{"ProductName":"Folding Glass Wall","GeoType1":["Windows"],"GeoType2":["51-100 SQF. Glass","All Wall"]},{"ProductName":"Screen","GeoType1":["Folding"],"GeoType2":[]},{"ProductName":"Window","GeoType1":["Folding"],"GeoType2":[]}],"Description":"Two units: in fold, bottom load, folding glass window system. First unit has three panels folding left, second unit has seven panels folding right. Units utilize folding screens.","Image1":"000_0243_500x375.jpg","Image2":"lakehouse.jpg","Image3":"000_0244-low-res_500x374.jpg","Image4":"000_0246_500x375.jpg","ExtColor":["White","AAMA 2603"],"IntColor":["White","AAMA 2603"],"LengthProjection":"19 ft 7 in","RidgeHeight":"5 ft","Location":"Other","Width":"-","Application":["Residential"],"Glazes":["Clear"]},{"ProjectID":"06-01-017","Date":200601017,"Products":[{"ProductName":"Folding Glass Wall","GeoType1":["Door"],"GeoType2":["51-100 SQF. Glass","Single Door Last Panel"]}],"Description":"Single Door, Top Load, Fold Out, 5 Panels Fold Left, Flush Sill, Sill Cover Plate.","Image1":"IMG_4212_500x375.jpg","Image2":"IMG_4215_500x375.jpg","Image3":"IMG_4210_500x375.jpg","Image4":"IMG_4214_500x375.jpg","ExtColor":["Sandstone","AAMA 2603"],"IntColor":["Sandstone","AAMA 2603"],"LengthProjection":"-","RidgeHeight":"11 ft","Location":"Rhode Island","Width":"6 ft","Application":["Commercial"],"Glazes":["Clear"]},{"ProjectID":"05-10-034","Date":200510034,"Products":[{"ProductName":"Folding Glass Wall","GeoType1":["Door"],"GeoType2":["51-100 SQF. Glass","Single Door Last Panel"]},{"ProductName":"Glazing","GeoType1":["Specialty Glazing"],"GeoType2":[]}],"Description":"Folding wall system, single door hinge jamb configuration with one operable panel. The wall is interior, used with an office, and features specialty acid etch","Image1":"IMG_0075_500x375.jpg","Image2":"IMG_0073.jpg","Image3":"IMG_0070_500x375.jpg","Image4":"IMG_3695_500x375.jpg","ExtColor":["Clear Anodized","Class I Anodized"],"IntColor":["Clear Anodized","Class I Anodized"],"LengthProjection":"11 ft","RidgeHeight":"8 ft","Location":"New York","Width":"-","Application":["Dining","Home","Living Space","Office Space","Residential"],"Glazes":["Clear"]},{"ProjectID":"07-06-020","Date":200706020,"Products":[{"ProductName":"Folding Glass Wall","GeoType1":["Door"],"GeoType2":["51-100 SQF. Glass","Split Wall No Floating Jamb"]}],"Description":"Split Wall, Bottom Load, Fold Out, 2 Panels Fold Left, 3 Panels Fold Right, Recessed Sill.","Image1":"New-Light-Cemetery-017(1).jpg","Image2":"New-Light-Cemetery-022(1).jpg","Image3":"New-Light-Cemetery-017(1)-EW.jpg","Image4":"New-Light-Cemetery-022(1)--EW.jpg","ExtColor":["Sandstone","AAMA 2603"],"IntColor":["Sandstone","AAMA 2603"],"LengthProjection":"15 ft","RidgeHeight":"7 ft","Location":"Illinois","Width":"-","Application":["Ecclesiastical"],"Glazes":["Clear"]},{"ProjectID":"05-01-017","Date":200501017,"Products":[{"ProductName":"Folding Glass Wall","GeoType1":["Door"],"GeoType2":["51-100 SQF. Glass","All Wall"]},{"ProductName":"Folding Glass Wall","GeoType1":["Door"],"GeoType2":["51-100 SQF. Glass","Single Door End Jamb"]},{"ProductName":"Screen","GeoType1":["P-Series","Sliding"],"GeoType2":["Horizontal Retractable"]}],"Description":"All Wall, Bottom Load, Fold Out, 4 panels fold left, standard sill.","Image1":"2012/06/Northern-Pool-fgw-lightened.jpg","Image2":"2012/07/Northern-Pool-Spa-EDIT_500x371.jpg","Image3":"2012/07/100_1478_500x371.jpg","Image4":"2012/07/Northern-Pool-fgw-lightened-EW.jpg","ExtColor":["Dark Bronze Anodized","Bronze","Class I Anodized"],"IntColor":["Dark Bronze Anodized","Bronze","Class I Anodized"],"LengthProjection":"12 ft","RidgeHeight":"8 ft","Location":"New Hampshire","Width":"-","Application":["Residential"],"Glazes":["Clear"]},{"ProjectID":"06-04-034","Date":200604034,"Products":[{"ProductName":"Architectural Enhancement","GeoType1":["Eave Vent","Ridge Vent"],"GeoType2":[]},{"ProductName":"Greenhouse","GeoType1":["Irregular / Custom","Straight Eave Double Pitch"],"GeoType2":["Decorative Corner Hangar01 - Tiered Bench","2001+ SQF. Glass"]},{"ProductName":"Greenhouse Accessory","GeoType1":["Environmental Control Systems","Storage"],"GeoType2":["Circulation Fans","Metal Mesh Top Bench"]},{"ProductName":"Shades","GeoType1":["Interior Folding / Roman Pleated"],"GeoType2":["HVHZ / Miami-Dade Rated"]}],"Description":"Straight eave double pitch greenhouse with lantern and interior walls. Framing is aluminum restoration system with 3x8 portal framing, set up for 1/4 inches glazing. Institutional Greenhouse.","Image1":"DSCN028111_500x281.jpg","Image2":"fm-shades_500x375.jpg","Image3":"microgro-1_500x375.jpg","Image4":"DSCN0385.jpg","ExtColor":["White"],"IntColor":["White"],"LengthProjection":"85 ft","RidgeHeight":"21 ft","Location":"Pennsylvania","Width":"23 ft","Application":["Educational","Institutional","Research"],"Glazes":["Clear"]},{"ProjectID":"07-08-037","Date":200708037,"Products":[{"ProductName":"Door","GeoType1":[],"GeoType2":[]},{"ProductName":"Folding Glass Wall","GeoType1":["Door"],"GeoType2":["101-250 SQF. Glass","All Wall"]},{"ProductName":"Glazing","GeoType1":["Specialty Glazing"],"GeoType2":[]}],"Description":"Two folding glass wall units and one residential inswing door. First folding glass wall is four panels that fold left. Second folding glass wall is six panels that fold right. All glazing is gray laminated and framing is White Duracron.","Image1":"Friendship-Villa-030308-222.jpg","Image2":"Friendship-Villa-030308.jpg","Image3":"Friendship-Villa-030308-1.jpg","Image4":"Friendship-Villa-030308-2_500x332.jpg","ExtColor":["White"],"IntColor":["White"],"LengthProjection":"15 ft","RidgeHeight":"10 ft","Location":"Florida","Width":"-","Application":["Commercial"],"Glazes":["Gray","Laminated","Custom Color"]},{"ProjectID":"08-09-257","Date":200809257,"Products":[{"ProductName":"Stacking Glass Wall","GeoType1":["Doors"],"GeoType2":["101-250 SQF. Glass","Parallel Stack"]}],"Description":"Two curtain wall systems and a stacking glass wall system in Clear Anodized frame finish with 272 glass.","Image1":"GM092009-8_500x375.jpg","Image2":"GM_06122009_stackingglasswalls-12_500x375.jpg","Image3":"GM_06122009_stackingglasswalls-11_500x375.jpg","Image4":"GM_06122009_stackingglasswalls-6_500x375.jpg","ExtColor":["Clear Anodized","Class I Anodized"],"IntColor":["Clear Anodized","Class I Anodized"],"LengthProjection":"varies per unit","RidgeHeight":"varies per unit","Location":"New Jersey","Width":"varies per unit","Application":["Commercial","Dining"],"Glazes":["LoE 272"]},{"ProjectID":"07-10-044","Date":200710044,"Products":[{"ProductName":"Garden Window","GeoType1":["Garden Windows"],"GeoType2":[]}],"Description":"Straight eave, lean-to garden window.","Image1":"IMG_0633_500x375.jpg","Image2":"IMG_0634_500x375.jpg","Image3":"IMG_0639_500x375.jpg","Image4":"IMG_0638_500x375.jpg","ExtColor":["Bronze","AAMA 2603"],"IntColor":["Bronze","AAMA 2603"],"LengthProjection":"1 ft","RidgeHeight":"3 ft","Location":"Pennsylvania","Width":"6 ft","Application":["Residential"],"Glazes":["LoE 272"]},{"ProjectID":"07-09-031","Date":200709031,"Products":[{"ProductName":"Decorative Elements","GeoType1":["Finials"],"GeoType2":[]},{"ProductName":"Skylight","GeoType1":["Hip End"],"GeoType2":["101-250 SQF. Glass"]}],"Description":"One straight eave double pitch skylight with two hip ends, finial, and exterior is Copper Cladding.","Image1":"sl_titus_012808-17_500x375.jpg","Image2":"sl_titus_012808-2_500x375.jpg","Image3":"sl_titus_012808-5_500x375.jpg","Image4":"sl_titus_012808-15_500x375.jpg","ExtColor":["Copper","Metal Cladding"],"IntColor":["Bronze","AAMA 2603"],"LengthProjection":"14 ft","RidgeHeight":"2 ft 6 in","Location":"Pennsylvania","Width":"8 ft","Application":["Residential"],"Glazes":["LoE 340"]},{"ProjectID":"08-04-164","Date":200804164,"Products":[{"ProductName":"Door","GeoType1":[],"GeoType2":[]},{"ProductName":"Greenhouse","GeoType1":["Curved Eave Double Pitch"],"GeoType2":[]},{"ProductName":"Greenhouse Accessory","GeoType1":["Greenhouse Benches","Storage","Temperature Control"],"GeoType2":["Circulation Fans","Metal Mesh Top Bench"]},{"ProductName":"Window","GeoType1":["Projected"],"GeoType2":["Awning"]}],"Description":"Curved eave, double pitch greenhouse with operable ridge vents, awning windows, terrace door.  The interior of the greenhouse features a structural truss system, fixed benches with metal mesh tops, a humdifier and circulation fans.","Image1":"DSCN0153_500x3751.jpg","Image2":"Scan1618_500x3301.jpg","Image3":"gh-cedp-Greenewalt-benches-1-pcd_500x3751.jpg","Image4":"gh-cedp-greenewalt-benches-2_500x3751.jpg","ExtColor":["Bronze","AAMA 2603"],"IntColor":["Bronze","AAMA 2603"],"LengthProjection":"23 ft","RidgeHeight":"13 ft","Location":"Pennsylvania","Width":"16 ft","Application":["Residential"],"Glazes":["Clear"]},{"ProjectID":"04-04-031","Date":200404031,"Products":[{"ProductName":"Decorative Elements","GeoType1":["Ring and Collar Ties"],"GeoType2":[]},{"ProductName":"Greenhouse","GeoType1":["Conservatory Nose"],"GeoType2":["751-1000 SQF. Glass"]},{"ProductName":"Greenhouse Accessory","GeoType1":["Greenhouse Benches","Storage","Temperature Control"],"GeoType2":["Circulation Fans","Evaporative Coolers","Metal Mesh Top Bench"]},{"ProductName":"Shades","GeoType1":["Exterior Fixed"],"GeoType2":[]}],"Description":"Straight eave double pitch with one conservatory nose, awning windows, exterior shades, and french doors.  Decorative elements include arch style gridwork, gutter, ring and collar, ridge cresting, and finial.","Image1":"OHara-Job-002_500x332.jpg","Image2":"OHara-Job-005_500x332.jpg","Image3":"OHara-Job-006_500x332.jpg","Image4":"OHara-Job-003.jpg","ExtColor":["Green (Hartford)","AAMA 2603"],"IntColor":["Green (Hartford)","AAMA 2603"],"LengthProjection":"30 ft 2 in","RidgeHeight":"11 ft 5 in","Location":"Missouri","Width":"18 ft","Application":["Residential"],"Glazes":["Clear"]},{"ProjectID":"10-12-218","Date":201012218,"Products":[{"ProductName":"Architectural Enhancement","GeoType1":["Eave Vent","Ridge Vent"],"GeoType2":[]},{"ProductName":"Door","GeoType1":[],"GeoType2":[]},{"ProductName":"Greenhouse","GeoType1":["Straight Eave Lean-To"],"GeoType2":["501-750 SQF. Glass"]}],"Description":"Straight eave, double pitch greenhouse with operable ridge and eave vents.","Image1":"IMG_0196-2_500x375.jpg","Image2":"Intersecting-arm-rod-with-gusset-2_500x375.jpg","Image3":"IMG_0197-2_500x375.jpg","Image4":"Intersecting-arm-rod-with-gusset_500x375.jpg","ExtColor":["Clear Anodized","Class I Anodized"],"IntColor":["Clear Anodized","Class I Anodized"],"LengthProjection":"25 ft","RidgeHeight":"7 in","Location":"Pennsylvania","Width":"25 ft","Application":["Institutional"],"Glazes":["Clear"]},{"ProjectID":"10-12-160","Date":201012160,"Products":[{"ProductName":"Architectural Enhancement","GeoType1":["Dormers","Ridge Vent"],"GeoType2":[]},{"ProductName":"Hobby Greenhouse","GeoType1":["Straight Eave Double Pitch"],"GeoType2":["501-750 SQF. Glass"]},{"ProductName":"Window","GeoType1":["Projected"],"GeoType2":["Awning"]}],"Description":"Straight eave double pitch greenhouse with projected dormer, awning windows, ridge vents, and terrace door.","Image1":"SEDP-Delaney-Ext_500x3271.jpg","Image2":"IMG_0813_500x375.jpg","Image3":"IMG_1069.jpg","Image4":"SEDP-Delaney-Ext_500x327.jpg","ExtColor":["Bronze","AAMA 2603"],"IntColor":["Bronze","AAMA 2603"],"LengthProjection":"18 ft","RidgeHeight":"12 ft","Location":"Pennsylvania","Width":"13 ft","Application":["Residential"],"Glazes":["Clear"]},{"ProjectID":"10-11-183","Date":201011183,"Products":[{"ProductName":"Door","GeoType1":[],"GeoType2":[]},{"ProductName":"Greenhouse","GeoType1":["Straight Eave Double Pitch"],"GeoType2":["501-750 SQF. Glass"]},{"ProductName":"Greenhouse Accessory","GeoType1":["Storage"],"GeoType2":["Circulation Fans","Wood Top Bench"]},{"ProductName":"Shades","GeoType1":["Exterior Operable"],"GeoType2":["HVHZ / Miami-Dade Rated"]}],"Description":"Straight eave, double pitch greenhouse with operable ridge vent.","Image1":"shade_ers2-e1342192358444.jpg","Image2":"Herrin-R1-13.jpg","Image3":"Herrin-R1-9.jpg","Image4":"Herrin-R1-7_500x338.jpg","ExtColor":["White","AAMA 2603"],"IntColor":["White","AAMA 2603"],"LengthProjection":"18 ft","RidgeHeight":"11 ft","Location":"Other","Width":"16 ft","Application":["Educational","Institutional","Research"],"Glazes":["Clear"]},{"ProjectID":"11-03-349","Date":201103349,"Products":[{"ProductName":"Greenhouse","GeoType1":["Straight Eave Double Pitch"],"GeoType2":["501-750 SQF. Glass"]},{"ProductName":"Polycarbonate","GeoType1":["Poly Greenhouses"],"GeoType2":[]}],"Description":"Straight eave, double pitch greenhouse with polycarbonate.","Image1":"gh-inst-Mt.-Lake-High-ext-pcd.jpg","Image2":"gh-Mt.-Lake-High-int.jpg","Image3":"gh-mt-lake-EW-vents_500x280.jpg","Image4":"EW-rev-gh-inst-Mt.-Lake-High-ext-pcd_500x244.jpg","ExtColor":["White","AAMA 2603"],"IntColor":["White","AAMA 2603"],"LengthProjection":"30 ft","RidgeHeight":"16 ft","Location":"Washington","Width":"26 ft","Application":["Educational","Institutional","Research"],"Glazes":["Polycarbonate"]},{"ProjectID":"08-05-131","Date":200805131,"Products":[{"ProductName":"Architectural Enhancement","GeoType1":["Eave Vent","Ridge Vent"],"GeoType2":[]},{"ProductName":"Greenhouse","GeoType1":["Straight Eave Double Pitch"],"GeoType2":["751-1000 SQF. Glass"]},{"ProductName":"Greenhouse Accessory","GeoType1":["Temperature Control"],"GeoType2":["Circulation Fans","Metal Mesh Top Bench"]},{"ProductName":"Shades","GeoType1":["Interior Folding / Roman Pleated"],"GeoType2":[]}],"Description":"Straight eave double pitch greenhouse with operable ridge and eave vents and interior operable shades.","Image1":"gh-sedp-ojr-ext-pcd_500x338.jpg","Image2":"eave-ventww.jpg","Image3":"Scan1296.jpg","Image4":"gh-sedp-Owen-J-Rob-int-benches-pcd_500x344.jpg","ExtColor":["White","AAMA 2603"],"IntColor":["White","AAMA 2603"],"LengthProjection":"36 ft","RidgeHeight":"12 ft","Location":"Pennsylvania","Width":"29 ft","Application":["Educational","Institutional","Research"],"Glazes":["Clear"]},{"ProjectID":"04-06-019","Date":200406019,"Products":[{"ProductName":"Architectural Enhancement","GeoType1":["Knee Walls","Ridge Vent"],"GeoType2":[]},{"ProductName":"Hobby Greenhouse","GeoType1":["Straight Eave Double Pitch"],"GeoType2":["Aluminum Tube System","101-250 SQF. Glass"]},{"ProductName":"Architectural Enhancement","GeoType1":["Dormers"],"GeoType2":[]}],"Description":"Freestanding straight eave double pitch greenhouse with awning windows, ridge vents, and Palladian arch in gable ends.","Image1":"Scan1634_500x326.jpg","Image2":"kirk-2.jpg","Image3":"gh-sedp-kirk-fixed.jpg","Image4":"","ExtColor":["White","AAMA 2603"],"IntColor":["White","AAMA 2603"],"LengthProjection":"16 ft","RidgeHeight":"4 ft 4 in","Location":"Colorado","Width":"12 ft","Application":["Residential"],"Glazes":["Custom Color"]},{"ProjectID":"06-07-016","Date":200607016,"Products":[{"ProductName":"Decorative Elements","GeoType1":["Base Panels"],"GeoType2":[]},{"ProductName":"Greenhouse","GeoType1":["Irregular / Custom","Straight Eave Double Pitch"],"GeoType2":[]},{"ProductName":"Hobby Greenhouse","GeoType1":["Straight Eave Double Pitch"],"GeoType2":["501-750 SQF. Glass"]},{"ProductName":"Window","GeoType1":["Projected"],"GeoType2":["Awning"]}],"Description":"Straight eave, double pitch greenhouse with attached lean-to, operable ridge vent, and awning windows.","Image1":"000_0626_500x375.jpg","Image2":"ridge-vent-motor_500x375.jpg","Image3":"Larouche-Wright-Ext.jpg","Image4":"000_0628_500x375.jpg","ExtColor":["Bronze","AAMA 2603"],"IntColor":["Bronze","AAMA 2603"],"LengthProjection":"9 ft","RidgeHeight":"9 ft 1 in","Location":"New Hampshire","Width":"15 ft","Application":["Residential"],"Glazes":["Clear"]},{"ProjectID":"05-04-022","Date":200504022,"Products":[{"ProductName":"Door","GeoType1":[],"GeoType2":[]},{"ProductName":"Hobby Greenhouse","GeoType1":["Straight Eave Double Pitch"],"GeoType2":["251-500 SQF. Glass"]},{"ProductName":"Window","GeoType1":["Projected"],"GeoType2":["1-50 SQF. Glass","Awning"]}],"Description":"Straight Eave Double Pitch Greenhouse with one Gable end, awning windows and terrace door.","Image1":"GreenHouseOverall2.jpg","Image2":"gh-sedp-Lippa_500x375.jpg","Image3":"lippa-window.jpg","Image4":"lippa-door_500x375.jpg","ExtColor":["Bronze","AAMA 2603"],"IntColor":["Bronze","AAMA 2603"],"LengthProjection":"9 ft 10 in","RidgeHeight":"8 ft 7 in","Location":"Wisconsin","Width":"13 ft","Application":["Residential"],"Glazes":["Clear"]},{"ProjectID":"07-05-038","Date":200705038,"Products":[{"ProductName":"Architectural Enhancement","GeoType1":["Ridge Vent"],"GeoType2":[]},{"ProductName":"Greenhouse","GeoType1":["Straight Eave Double Pitch"],"GeoType2":["751-1000 SQF. Glass"]},{"ProductName":"Greenhouse Accessory","GeoType1":["Temperature Control"],"GeoType2":["Flat Metal Shelf Support","Metal Mesh Top Bench","Tiered Bench"]},{"ProductName":"Shades","GeoType1":["Exterior Fixed","Exterior Roll-up"],"GeoType2":["HVHZ / Miami-Dade Rated"]}],"Description":"Straight eave, double pitch greenhouse with ridge cresting, finial, eave vents, and exterior greenhouse shades.","Image1":"Lozanoff-ext.jpg","Image2":"gh-Lozanoff-ext.jpg","Image3":"Lozanoff-ext_22.jpg","Image4":"Lozanoff-benches.jpg","ExtColor":["Green (Hartford)","AAMA 2603"],"IntColor":["Green (Hartford)","AAMA 2603"],"LengthProjection":"25 ft","RidgeHeight":"12 ft","Location":"Ohio","Width":"16 ft","Application":["Residential"],"Glazes":["Clear"]},{"ProjectID":"04-05-020","Date":200405020,"Products":[{"ProductName":"Architectural Enhancement","GeoType1":["Eave Vent","Ridge Vent"],"GeoType2":[]},{"ProductName":"Door","GeoType1":[],"GeoType2":[]},{"ProductName":"Greenhouse","GeoType1":["Straight Eave Double Pitch"],"GeoType2":["751-1000 SQF. Glass"]},{"ProductName":"Greenhouse Accessory","GeoType1":["Storage"],"GeoType2":[]}],"Description":"Straight eave, double pitch greenhouse with operable ridge, eave vents, and two gable ends.","Image1":"Mullen_500x337.jpg","Image2":"Mullen-bench.jpg","Image3":"Mullen2.jpg","Image4":"mullen5_500x330.jpg","ExtColor":["Bronze","AAMA 2603"],"IntColor":["Bronze","AAMA 2603"],"LengthProjection":"19 ft","RidgeHeight":"12 ft","Location":"Pennsylvania","Width":"16 ft","Application":["Residential"],"Glazes":["Clear"]},{"ProjectID":"3588","Date":203588,"Products":[{"ProductName":"Decorative Elements","GeoType1":["Finials","Ridge Cresting"],"GeoType2":[]},{"ProductName":"Greenhouse","GeoType1":["Straight Eave Double Pitch"],"GeoType2":["501-750 SQF. Glass"]},{"ProductName":"Greenhouse Accessory","GeoType1":["Storage","Temperature Control"],"GeoType2":["Circulation Fans","Wood Top Bench"]},{"ProductName":"Hobby Greenhouse","GeoType1":["Straight Eave Double Pitch"],"GeoType2":["501-750 SQF. Glass"]}],"Description":"Straight eave, double pitch greenhouse with operable ridge vents, ridge cresting, and finial.","Image1":"gh-sedp-Paley-1-pcd-Copy_500x375.jpg","Image2":"Scan0490.jpg","Image3":"Scan0492_500x331.jpg","Image4":"DSCN0404-Copy_500x375.jpg","ExtColor":["White","AAMA 2603"],"IntColor":["White","AAMA 2603"],"LengthProjection":"16 ft","RidgeHeight":"10 ft","Location":"Virginia","Width":"10 ft","Application":["Residential"],"Glazes":["Clear"]},{"ProjectID":"04-04-033","Date":200404033,"Products":[{"ProductName":"Architectural Enhancement","GeoType1":["Dormers","Ridge Vent"],"GeoType2":[]},{"ProductName":"Decorative Elements","GeoType1":["Finials","Ridge Cresting"],"GeoType2":[]},{"ProductName":"Door","GeoType1":["In-System Terrace Door"],"GeoType2":[]},{"ProductName":"Greenhouse","GeoType1":["Straight Eave Double Pitch"],"GeoType2":["751-1000 SQF. Glass"]}],"Description":"Straight eave, double pitch greenhouse with dormer, operable ridge vents, ridge cresting, and finials.","Image1":"gh-sedp-w-dormer-fortin-touch-up_500x375.jpg","Image2":"IMG_3762_500x375.jpg","Image3":"gh-sedp-w-dormer-fortin-touch-up-e1342201286806.jpg","Image4":"IMG_3762-e1342201473447.jpg","ExtColor":["Bronze","AAMA 2603"],"IntColor":["Bronze","AAMA 2603"],"LengthProjection":"25 ft","RidgeHeight":"11 ft","Location":"Washington","Width":"10 ft","Application":["Residential"],"Glazes":["Clear"]},{"ProjectID":"11-07-259","Date":201107259,"Products":[{"ProductName":"Architectural Enhancement","GeoType1":["Ridge Vent"],"GeoType2":[]},{"ProductName":"Door","GeoType1":[],"GeoType2":[]},{"ProductName":"Greenhouse","GeoType1":["Irregular / Custom"],"GeoType2":["101-250 SQF. Glass"]},{"ProductName":"Window","GeoType1":["Projected"],"GeoType2":["Awning"]}],"Description":"Custom, Residential double pitch greenhouse built to match an existing garden shed structure.","Image1":"gh-selt-custom-Berwind_500x331.jpg","Image2":"Scan0396-2_500x335.jpg","Image3":"Scan1541-2_1.jpg","Image4":"Scan1542_2.jpg","ExtColor":["Sandstone","AAMA 2603","Custom Color"],"IntColor":["Sandstone","AAMA 2603","Custom Color"],"LengthProjection":"10 ft","RidgeHeight":"11 ft","Location":"Pennsylvania","Width":"9 ft","Application":["Residential"],"Glazes":["Clear"]},{"ProjectID":"4501","Date":204501,"Products":[{"ProductName":"Architectural Enhancement","GeoType1":["Ridge Vent"],"GeoType2":[]},{"ProductName":"Greenhouse","GeoType1":["Straight Eave Double Pitch"],"GeoType2":["2001+ SQF. Glass","1-50 SQF. Glass"]},{"ProductName":"Greenhouse Accessory","GeoType1":["Environmental Control Systems","Temperature Control"],"GeoType2":["Evaporative Coolers","Heaters"]}],"Description":"Institutional Straight eave, double pitch greenhouse with operable ridge vent and enviromental control systems.","Image1":"IMG_0130_500x375.jpg","Image2":"DSCN0125_500x375.jpg","Image3":"DSCN0127-2_500x375.jpg","Image4":"DSCN0130_500x375.jpg","ExtColor":["Clear Anodized","Class I Anodized"],"IntColor":["Clear Anodized","Class I Anodized"],"LengthProjection":"26 ft","RidgeHeight":"14 ft","Location":"Pennsylvania","Width":"14 ft","Application":["Commercial","Institutional","Research"],"Glazes":["Clear"]},{"ProjectID":"05-11-029","Date":200511029,"Products":[{"ProductName":"Architectural Enhancement","GeoType1":["Ridge Vent"],"GeoType2":[]},{"ProductName":"Greenhouse Accessory","GeoType1":["Temperature Control"],"GeoType2":["Circulation Fans","Heaters"]},{"ProductName":"Hobby Greenhouse","GeoType1":["Straight Eave Lean-To"],"GeoType2":["Aluminum Tube System","101-250 SQF. Glass"]},{"ProductName":"Window","GeoType1":["Projected"],"GeoType2":["1-50 SQF. Glass","Awning"]}],"Description":"Straight eave, lean-to greenhouse with operable ridge vent, awning windows and heater.","Image1":"DSCN5206_500x375.jpg","Image2":"DSCN5205.jpg","Image3":"DSCN5207_500x375.jpg","Image4":"kressh.jpg","ExtColor":["Sandstone","AAMA 2603"],"IntColor":["Sandstone","AAMA 2603"],"LengthProjection":"4 ft 6 in","RidgeHeight":"5 ft 10 in","Location":"New York","Width":"9 ft","Application":["Residential"],"Glazes":["Clear"]},{"ProjectID":"04-04-035","Date":200404035,"Products":[{"ProductName":"Greenhouse","GeoType1":["Straight Eave Lean-To"],"GeoType2":["251-500 SQF. Glass"]},{"ProductName":"Greenhouse Accessory","GeoType1":["Greenhouse Benches"],"GeoType2":["Seeding Bench"]},{"ProductName":"Hobby Greenhouse","GeoType1":["Straight Eave Lean-To"],"GeoType2":["251-500 SQF. Glass"]},{"ProductName":"Shades","GeoType1":["Interior Folding / Roman Pleated"],"GeoType2":[]}],"Description":"Straight eave lean to greenhouse located on a balcony in an urban environment.  Greenhouse has a custom designed potting bench and tiered bench along with a specialty raised floor used for storage.  Accessories include operable shading, circulation fan and awning windows.","Image1":"IMG_2588.jpg","Image2":"IMG_2583_500x375.jpg","Image3":"DSCN8383.jpg","Image4":"IMG_2584.jpg","ExtColor":["Bronze","AAMA 2603"],"IntColor":["Bronze","AAMA 2603"],"LengthProjection":"8 ft","RidgeHeight":"10 ft","Location":"New York","Width":"12 ft","Application":["Home","Residential"],"Glazes":["Clear"]},{"ProjectID":"10-03-413","Date":201003413,"Products":[{"ProductName":"Architectural Enhancement","GeoType1":["Ridge Vent"],"GeoType2":[]},{"ProductName":"Door","GeoType1":[],"GeoType2":[]},{"ProductName":"Greenhouse","GeoType1":["Irregular / Custom","Straight Eave Lean-To"],"GeoType2":["251-500 SQF. Glass"]}],"Description":"L-shaped, straight eave, lean-to greenhouse with operable ridge vents.","Image1":"gh-selt-Price_500x331.jpg","Image2":"Scan0265_500x332.jpg","Image3":"Scan0260_500x329.jpg","Image4":"Scan0264_500x334.jpg","ExtColor":["Green (Hartford)","AAMA 2603"],"IntColor":["Green (Hartford)","AAMA 2603"],"LengthProjection":"8 ft","RidgeHeight":"5 ft","Location":"Massachusetts","Width":"16 ft","Application":["Commercial"],"Glazes":["Clear"]},{"ProjectID":"05-12-026","Date":200512026,"Products":[{"ProductName":"Conservatory","GeoType1":["Conservatory Nose"],"GeoType2":["751-1000 SQF. Glass"]},{"ProductName":"Decorative Elements","GeoType1":["Finials","Grids","Ridge Cresting"],"GeoType2":[]}],"Description":"Straight eave double pitch conservatory with one conservatory nose and one lantern section. Framing to be Solar Innovations standard aluminum exterior with mahogany interior. Decorative accessories include transoms, grid work, fixed window frames, ring and collar,  finial,and  ridge cresting.","Image1":"giammarino121407-28_500x281.jpg","Image2":"giammarino121407-27_500x281.jpg","Image3":"giammarino121407-45_500x281.jpg","Image4":"giammarino121407-49_500x281.jpg","ExtColor":["Natural Clay","AAMA 2603"],"IntColor":["Sapele Mahogany","Wood"],"LengthProjection":"20 ft","RidgeHeight":"7 ft","Location":"New Jersey","Width":"16 ft","Application":["Residential"],"Glazes":["Clear"]},{"ProjectID":"05-04-030","Date":200504030,"Products":[{"ProductName":"Sunroom","GeoType1":["Straight Eave Lean-To"],"GeoType2":["101-250 SQF. Glass"]}],"Description":"Straight eave lean-to sunroom with no gable ends, including a yellow pine interior.","Image1":"1454990-R3-021-9-e1342448410338.jpg","Image2":"Philips-(98).jpg","Image3":"philips-(21).jpg","Image4":"philips-(28).jpg","ExtColor":["Green (Hartford)","AAMA 2603"],"IntColor":["Green (Hartford)","AAMA 2603"],"LengthProjection":"9 ft","RidgeHeight":"8 ft","Location":"Vermont","Width":"17 ft","Application":["Residential"],"Glazes":["Clear"]},{"ProjectID":"07-05-002","Date":200705002,"Products":[{"ProductName":"Walkway","GeoType1":["Irregular / Custom","Straight Eave Double Pitch","Straight Eave Lean-To"],"GeoType2":["2001+ SQF. Glass","1-50 SQF. Glass"]}],"Description":"One straight eave lean to walkway constructed with 7 inches aluminum system in white floropolymer finish. Glazing is Evergreen Low-E glass.","Image1":"Goldsborob-City-Hall-2.27.08-3_500x375.jpg","Image2":"Goldsborob-City-Hall-2.27.08-1_500x375.jpg","Image3":"Goldsborob-City-Hall-2.27.08-4_500x375.jpg","Image4":"Goldsborob-City-Hall-2.27.08-2.jpg","ExtColor":["White"],"IntColor":["White"],"LengthProjection":"38 ft","RidgeHeight":"9 ft","Location":"North Carolina","Width":"10 ft","Application":["Commercial"],"Glazes":["Custom Color"]},{"ProjectID":"06-02-021","Date":200602021,"Products":[{"ProductName":"Folding Glass Wall","GeoType1":["Door"],"GeoType2":["501-750 SQF. Glass","All Wall"]}],"Description":"4 Units of Outfold Folding Glass Walls.","Image1":"DSCN0336-2_500x375.jpg","Image2":"DSCN0342-2_500x375.jpg","Image3":"DSCN0408_500x375.jpg","Image4":"DSCN0378_2_500x375.jpg","ExtColor":["Natural Clay","AAMA 2603"],"IntColor":["Natural Clay","AAMA 2603"],"LengthProjection":"22 ft","RidgeHeight":"9 ft","Location":"Pennsylvania","Width":"-","Application":["Commercial","Sporting"],"Glazes":["LoE 272"]},{"ProjectID":"07-04-024","Date":200704024,"Products":[{"ProductName":"Architectural Enhancement","GeoType1":["Gable End"],"GeoType2":[]},{"ProductName":"Conservatory","GeoType1":["Straight Eave Double Pitch"],"GeoType2":["251-500 SQF. Glass"]},{"ProductName":"Decorative Elements","GeoType1":["Decorative Gable Pediment","Grids","Palladin Arches"],"GeoType2":[]},{"ProductName":"Greenhouse","GeoType1":["Straight Eave Double Pitch"],"GeoType2":["251-500 SQF. Glass"]}],"Description":"Straight eave, double pitch greenhouse with one gable end and two attached, projected straight eave double pitch dormers.  Palladian arch in gable end, ridge cresting, finial, pilasters, grid work, crown molding, and gutter.","Image1":"Goodwin-2.22.08-2_500x375.jpg","Image2":"Goodwin-3.21.08-5_500x375.jpg","Image3":"Goodwin-3.21.08-8_500x375.jpg","Image4":"Goodwin-3.21.08-10_500x375.jpg","ExtColor":["White","AAMA 2603"],"IntColor":["White","AAMA 2603"],"LengthProjection":"19 ft 3 in","RidgeHeight":"11 ft 7 in","Location":"New York","Width":"12 ft 7 in","Application":["Residential"],"Glazes":["Clear"]},{"ProjectID":"09-04-378","Date":200904378,"Products":[{"ProductName":"Architectural Enhancement","GeoType1":["Dormers"],"GeoType2":[]},{"ProductName":"Skylight","GeoType1":["Straight Eave Lean-To"],"GeoType2":["251-500 SQF. Glass"]}],"Description":"Straight eave lean to skylight with a straight eave double pitch dormer and ridge vents.","Image1":"greenburg_080909-20_500x375.jpg","Image2":"greenburg_080909-3_500x375.jpg","Image3":"greenburg_080909-5_500x375.jpg","Image4":"greenburg_080909-11_500x375.jpg","ExtColor":["Bronze"],"IntColor":["Bronze"],"LengthProjection":"16 ft 6 in","RidgeHeight":"3 ft 6 in","Location":"Connecticut","Width":"20 ft 9 in","Application":["Residential"],"Glazes":["Clear"]},{"ProjectID":"06-04-028","Date":200604028,"Products":[{"ProductName":"Operable / Retractable Skylights","GeoType1":["Retractable Skylight / Roof"],"GeoType2":["251-500 SQF. Glass"]},{"ProductName":"Skylight","GeoType1":["Straight Eave Double Pitch"],"GeoType2":["251-500 SQF. Glass"]}],"Description":"Straight Eave Double Pitch Skylight with Retractable Roof Vents and Insulated Glazing","Image1":"haber073108-7.jpg","Image2":"haber073108-9.jpg","Image3":"haber-85_500x375.jpg","Image4":"IMG_0439.jpg","ExtColor":["Bronze","AAMA 2603"],"IntColor":["Bronze","AAMA 2603"],"LengthProjection":"19 ft 6 in","RidgeHeight":"5 ft","Location":"New York","Width":"18 ft","Application":["Residential"],"Glazes":["Clear"]},{"ProjectID":"06-04-028 (2)","Date":200604029,"Products":[{"ProductName":"Door","GeoType1":["In-System French Door"],"GeoType2":[]},{"ProductName":"Sunroom","GeoType1":["Straight Eave Lean-To"],"GeoType2":["251-500 SQF. Glass"]}],"Description":"Straight eave lean to sunroom with 0 gable ends.  Unit includes gutter and downspout, three sets of French doors and grids.","Image1":"haber073108-19.jpg","Image2":"haber073108-18.jpg","Image3":"haber073108-13.jpg","Image4":"haber073108-22.jpg","ExtColor":["Bronze"],"IntColor":["Bronze"],"LengthProjection":"6 ft","RidgeHeight":"10 ft 9 in","Location":"New York","Width":"16 ft 6 in","Application":["Residential"],"Glazes":["LoE 340","LoE 272"]},{"ProjectID":"08-09-248","Date":200809248,"Products":[{"ProductName":"Folding Glass Wall","GeoType1":["Door"],"GeoType2":["101-250 SQF. Glass","Double Door Mid Wall"]}],"Description":"One ten-panel folding glass wall system, double door midwall. Black frame finish.","Image1":"fgw_hacc_gettysburgh-16_500x375.jpg","Image2":"fgw_hacc_gettysburgh-19_500x375.jpg","Image3":"fgw_hacc_gettysburgh-11_500x375.jpg","Image4":"fgw_hacc_gettysburgh-15_500x375.jpg","ExtColor":["Black","AAMA 2603"],"IntColor":["Black","AAMA 2603"],"LengthProjection":"-","RidgeHeight":"8 ft","Location":"Pennsylvania","Width":"27 ft","Application":["Educational","Institutional"],"Glazes":["Clear"]},{"ProjectID":"09-11-917","Date":200911917,"Products":[{"ProductName":"Conservatory","GeoType1":["Irregular / Custom","Straight Eave Double Pitch"],"GeoType2":["2001+ SQF. Glass"]},{"ProductName":"Decorative Elements","GeoType1":["Base Panels","Decorative Trims","Finials","Ring and Collar Ties"],"GeoType2":["Corner Trim","Traditional Grid"]},{"ProductName":"Greenhouse","GeoType1":["Irregular / Custom","Straight Eave Double Pitch"],"GeoType2":["2001+ SQF. Glass"]}],"Description":"Straight eave double pitch greenhouse with two gable ends utilizing a restoration system and presented in custom Black Forest Green frame finish.","Image1":"021.jpg","Image2":"007.jpg","Image3":"009.jpg","Image4":"011.jpg","ExtColor":["Custom Color"],"IntColor":["Custom Color"],"LengthProjection":"70 ft","RidgeHeight":"10 ft 6 in","Location":"Rhode Island","Width":"19 ft","Application":["Residential"],"Glazes":["LoE 366"]},{"ProjectID":"05-03-025","Date":200503025,"Products":[{"ProductName":"Architectural Enhancement","GeoType1":["Gable End"],"GeoType2":[]},{"ProductName":"Decorative Elements","GeoType1":["Finials","Grids","Ridge Cresting"],"GeoType2":[]},{"ProductName":"Sunroom","GeoType1":["Straight Eave Double Pitch"],"GeoType2":["501-750 SQF. Glass"]}],"Description":"Straight eave double pitch Sunroom with one gable end. Aluminum exterior/mahogany interior.Two tone window frames, ridge cresting, finial, arched grids in gable.","Image1":"P1010230(2).jpg","Image2":"P1020016.jpg","Image3":"P1020023.jpg","Image4":"iPhotoiPhoto-mailtmp-2.jpg","ExtColor":["Natural Clay","AAMA 2603"],"IntColor":["Sapele Mahogany","Wood"],"LengthProjection":"11 ft","RidgeHeight":"12 ft","Location":"Pennsylvania","Width":"24 ft","Application":["Commercial"],"Glazes":["Clear"]},{"ProjectID":"08-10-270","Date":200810270,"Products":[{"ProductName":"Architectural Enhancement","GeoType1":["Gable End","Ridge Vent"],"GeoType2":[]},{"ProductName":"Greenhouse","GeoType1":["Straight Eave Double Pitch"],"GeoType2":["2001+ SQF. Glass","1-50 SQF. Glass"]},{"ProductName":"Shades","GeoType1":["Interior Roll-up"],"GeoType2":[]}],"Description":"Straight eave double pitch I-Beam greenhouse with two gable ends; includes French door, operable ridge vents, evaporation coolers, shutter fan, and greenhouse benches.","Image1":"harwood-greenhouse-05152009-3_500x375.jpg","Image2":"harwoodgreenhoues-05152009-7.jpg","Image3":"harwoodgreenhoues-05152009-9_500x375.jpg","Image4":"harwood-greenhouse-05152009-2_500x375.jpg","ExtColor":["Mill Aluminum"],"IntColor":["Mill Aluminum"],"LengthProjection":"31 ft 6 in","RidgeHeight":"10 ft","Location":"Maryland","Width":"17 ft 6 in","Application":["Residential"],"Glazes":["Clear"]},{"ProjectID":"04-11-022","Date":200411022,"Products":[{"ProductName":"Polycarbonate","GeoType1":["Poly Pool Enclosure"],"GeoType2":[]},{"ProductName":"Pool Enclosure","GeoType1":["Hip End","Straight Eave Double Pitch"],"GeoType2":["2001+ SQF. Glass"]}],"Description":"Straight eave, double pitch pool enclosure with hip end and lean-to connector walkway.","Image1":"IMG_2564_500x375.jpg","Image2":"IMG_2577_500x375.jpg","Image3":"polycarbonate2_500x375.jpg","Image4":"polycarbonate3_500x375.jpg","ExtColor":["White","AAMA 2603"],"IntColor":["White","AAMA 2603"],"LengthProjection":"64 ft","RidgeHeight":"19 ft","Location":"Pennsylvania","Width":"34 ft","Application":["Commercial","Sporting"],"Glazes":["Polycarbonate"]},{"ProjectID":"07-02-020","Date":200702020,"Products":[{"ProductName":"Door","GeoType1":[],"GeoType2":[]},{"ProductName":"Folding Glass Wall","GeoType1":["Door"],"GeoType2":["251-500 SQF. Glass","Split Wall No Floating Jamb"]}],"Description":"Five split wall folding glass wall systems with floating jambs, bottom load, fold in, two panels fold left, two panels fold right, standard sill, set up for 1 inches insulated glazing, douglas fir wood veneer interior. One single door folding glass wall system","Image1":"fixed-winery-with-sky-e1342458947171.jpg","Image2":"000_1189-e1342458986185.jpg","Image3":"FGW-Hillebrand-Winery-1-e1342459068588.jpg","Image4":"FGW-Hillebrand-Winery-2-e1342459106512.jpg","ExtColor":["Bronze","AAMA 2603"],"IntColor":["Wood Veneer"],"LengthProjection":"11 ft","RidgeHeight":"7 ft","Location":"New York","Width":"-","Application":["Commercial","Retail Sales"],"Glazes":["LoE 272"]},{"ProjectID":"06-08-028","Date":200608028,"Products":[{"ProductName":"Architectural Enhancement","GeoType1":["Eave Vent"],"GeoType2":[]},{"ProductName":"Canopy","GeoType1":["Hip End","Straight Eave Double Pitch"],"GeoType2":[]}],"Description":"Straight eave double pitch skylight canopy with two hip ends. Framing is hartford green duracron and is set up for 1/4 inches glazing.","Image1":"IMG_2164_500x375.jpg","Image2":"2162altered_500x375.jpg","Image3":"IMG_2166.jpg","Image4":"IMG_2167.jpg","ExtColor":["Green (Hartford)","AAMA 2603"],"IntColor":["Green (Hartford)","AAMA 2603"],"LengthProjection":"26 ft","RidgeHeight":"3 ft","Location":"New York","Width":"8 ft","Application":["Commercial"],"Glazes":["Clear"]},{"ProjectID":"07-05-056","Date":200705056,"Products":[{"ProductName":"Architectural Enhancement","GeoType1":["Gable End","Ridge Vent"],"GeoType2":[]},{"ProductName":"Decorative Elements","GeoType1":["Crown Molding","Finials","Grids","Gutter","Ridge Cresting"],"GeoType2":["Gothic Grid"]},{"ProductName":"Greenhouse","GeoType1":["Straight Eave Double Pitch"],"GeoType2":["501-750 SQF. Glass"]}],"Description":"Straight eave double pitch greenhouse with one gable end.  Structure includes ridge cresting, finial, crown molding, true leaded double gothic grids, ridge vents, and gutter.","Image1":"hondros-residence-12_500x281.jpg","Image2":"hondros-residence-15_500x281.jpg","Image3":"hondros-residence-24.jpg","Image4":"hondros-residence-20_500x281.jpg","ExtColor":["Bronze","AAMA 2603"],"IntColor":["Bronze","AAMA 2603"],"LengthProjection":"16 ft 10 in","RidgeHeight":"9 ft 8 in","Location":"Pennsylvania","Width":"12 ft 8 in","Application":["Residential"],"Glazes":["Clear"]},{"ProjectID":"07-05-065","Date":200705065,"Products":[{"ProductName":"Operable / Retractable Skylights","GeoType1":["Single Slope"],"GeoType2":["101-250 SQF. Glass"]},{"ProductName":"Skylight","GeoType1":["Single Slope"],"GeoType2":["101-250 SQF. Glass"]}],"Description":"Retractable flat skylight used on a residential home.","Image1":"sl_huber_012808-10_500x375.jpg","Image2":"101507-huber-10_500x375.jpg","Image3":"sept-2007-huber-27_500x375.jpg","Image4":"101507-huber-11_500x375.jpg","ExtColor":["Bronze"],"IntColor":["Bronze"],"LengthProjection":"22 ft","RidgeHeight":"-","Location":"Florida","Width":"11 ft","Application":["Residential"],"Glazes":["Clear"]},{"ProjectID":"07-08-041","Date":200708041,"Products":[{"ProductName":"Skylight","GeoType1":["Barrel Vault"],"GeoType2":["51-100 SQF. Glass"]}],"Description":"One radius barrel vault skylight framed in 4 1/2 inches frame system. Interior and exterior finish is Natural Clay Duracron.","Image1":"sl-barv-jims-120707-7_500x281.jpg","Image2":"sl-barv-jims-120707-7_500x2811.jpg","Image3":"sl-barv-jims-120707-12_500x281.jpg","Image4":"sl-barv-jims-120707-1.jpg","ExtColor":["Natural Clay","AAMA 2603"],"IntColor":["Natural Clay","AAMA 2603"],"LengthProjection":"7 ft","RidgeHeight":"2 ft","Location":"Pennsylvania","Width":"8 ft","Application":["Residential"],"Glazes":["Clear"]},{"ProjectID":"09-12-001","Date":200912001,"Products":[{"ProductName":"Folding Glass Wall","GeoType1":["Door"],"GeoType2":["51-100 SQF. Glass","Double Door Mid Wall"]},{"ProductName":"Screen","GeoType1":["Sliding"],"GeoType2":[]},{"ProductName":"Architectural Enhancement","GeoType1":["Entryway / Vestibule"],"GeoType2":[]},{"ProductName":"Decorative Elements","GeoType1":["Grids"],"GeoType2":["Low Profile Grid"]},{"ProductName":"Folding Glass Wall","GeoType1":["Door"],"GeoType2":["51-100 SQF. Glass","Double Door Mid Wall"]},{"ProductName":"Screen","GeoType1":["P-Series"],"GeoType2":[]}],"Description":"Three panel folding glass wall system with double door and screen system. Six-panel Double Door, mid wall system with low profile grids and an interior P Series retractable screen.","Image1":"2012/07/Resize-of-IMGP3843_500x375.jpg","Image2":"Resize-of-IMGP3844_500x375.jpg","Image3":"Resize-of-IMGP3846_500x375.jpg","Image4":"2012/10/Resize-of-IMGP3848.jpg","ExtColor":["Sandstone","AAMA 2603"],"IntColor":["Sandstone","AAMA 2603"],"LengthProjection":"12 ft 6 in","RidgeHeight":"6 ft 8 in","Location":"Pennsylvania","Width":"12 ft 6 in","Application":["Residential"],"Glazes":["LoE 272","Clear"]},{"ProjectID":"04-08-012","Date":200408012,"Products":[{"ProductName":"Operable / Retractable Skylights","GeoType1":["Operable Skylight"],"GeoType2":["101-250 SQF. Glass"]},{"ProductName":"Pool Enclosure","GeoType1":["Irregular / Custom","Straight Eave Lean-To"],"GeoType2":["101-250 SQF. Glass"]}],"Description":"Straight eave, lean-to pool enclosure with five retractable roof panels.","Image1":"IMG_2626_500x375.jpg","Image2":"kellog-5_edited_500x375.jpg","Image3":"IMG_2631_500x375.jpg","Image4":"IMG_2779_500x375.jpg","ExtColor":["Bronze","AAMA 2603"],"IntColor":["Bronze","AAMA 2603"],"LengthProjection":"19 ft","RidgeHeight":"11 ft","Location":"Connecticut","Width":"29 ft","Application":["Residential"],"Glazes":["Clear"]},{"ProjectID":"07-04-054","Date":200704054,"Products":[{"ProductName":"Curtain Wall","GeoType1":["Vertical Curtain Wall"],"GeoType2":["251-500 SQF. Glass"]},{"ProductName":"Door","GeoType1":[],"GeoType2":[]}],"Description":"Five curtain wall systems, four casement windows, three residential doors, seven vent windows in 4 1/2 inches aluminum system in Bronze Duracron. Measurements vary. Glazing is 272 Sol-I-Guard.","Image1":"Kenneth-young-020408-4_500x375.jpg","Image2":"DSCN1128.jpg","Image3":"Kenneth-young-020408-1_500x375.jpg","Image4":"DSCN1125_500x375.jpg","ExtColor":["Bronze","AAMA 2603"],"IntColor":["Bronze","AAMA 2603"],"LengthProjection":"-","RidgeHeight":"7 ft","Location":"New York","Width":"10 ft","Application":["Commercial"],"Glazes":["LoE 272"]},{"ProjectID":"08-09-045","Date":200809045,"Products":[{"ProductName":"Architectural Enhancement","GeoType1":["Dormers","Entryway / Vestibule"],"GeoType2":[]},{"ProductName":"Decorative Elements","GeoType1":["Ridge Cresting","SDLs"],"GeoType2":[]},{"ProductName":"Door","GeoType1":[],"GeoType2":[]},{"ProductName":"Sunroom","GeoType1":["Straight Eave Lean-To"],"GeoType2":["101-250 SQF. Glass"]}],"Description":"Straight eave lean-to sunroom with straight eave double pitch dormer, ridge cresting, a finial, SDLs, and a residential door.","Image1":"kent_place_school_062309-5.jpg","Image2":"kent_place_school_030209-13.jpg","Image3":"kent_place_school_030209-161.jpg","Image4":"kent_place_school_062309-3-978x1024.jpg","ExtColor":["Dark Bronze Anodized","Bronze","Class I Anodized"],"IntColor":["Dark Bronze Anodized","Bronze","Class I Anodized"],"LengthProjection":"6 ft","RidgeHeight":"8 ft","Location":"New Jersey","Width":"10 ft","Application":["Educational"],"Glazes":["LoE 272"]},{"ProjectID":"07-08-036","Date":200708036,"Products":[{"ProductName":"Architectural Enhancement","GeoType1":["Transom"],"GeoType2":[]},{"ProductName":"Decorative Elements","GeoType1":["Base Panels","Column","Grids","Gutter"],"GeoType2":[]},{"ProductName":"Door","GeoType1":["In-System French Door"],"GeoType2":[]},{"ProductName":"Conservatory","GeoType1":["Ridge Vent","Gable End"],"GeoType2":[]}],"Description":"Straight eave pyramid-roofed conservatory in Hartford Green Duracron. Accessories include 8 residential french doors, 16 decorative base panels with traditional grids, 20 decorative rosette appliques, and 16 decorative columns. Glazing is 366 Sol-I-Guard.","Image1":"kramer_penthouse_010708-11_500x281.jpg","Image2":"kramer122707-7_500x375.jpg","Image3":"kramer_penthouse_010708-15_finial_500x281.jpg","Image4":"kramer_penthouse_081908-21_500x375.jpg","ExtColor":["Green (Hartford)","AAMA 2603"],"IntColor":["Green (Hartford)","AAMA 2603"],"LengthProjection":"15 ft","RidgeHeight":"13 ft 1 in","Location":"New York","Width":"15 ft","Application":["Residential"],"Glazes":["LoE 366"]},{"ProjectID":"07-04-036","Date":200704036,"Products":[{"ProductName":"Sliding Door","GeoType1":["Door"],"GeoType2":["51-100 SQF. Glass","Multi-Track"]}],"Description":"One multi track  sliding door system, two panels slide left, standard black flush mount hardware with keyed lock and standard black finger pulls.","Image1":"IMG_0016_500x375.jpg","Image2":"IMG_0012_500x375.jpg","Image3":"IMG_0013_500x375.jpg","Image4":"IMG_0014_500x375.jpg","ExtColor":["White","AAMA 2603"],"IntColor":["White","AAMA 2603"],"LengthProjection":"9 ft","RidgeHeight":"8 ft","Location":"Washington DC","Width":"-","Application":["NEED ENTRY"],"Glazes":["Clear"]},{"ProjectID":"07-03-039","Date":200703039,"Products":[{"ProductName":"Folding Glass Wall","GeoType1":["Door"],"GeoType2":["251-500 SQF. Glass","Split Wall Floating Jamb"]}],"Description":"One split wall system, top load, fold out, 3 panels fold left, 3 panels fold right, recessed sill with ada sill coverplate, set up for 1 inches insulated glazing. Framing color is Solar Innovations standard natural clay duracron.","Image1":"linx-110207-22_500x375.jpg","Image2":"linx-110207-14_500x375.jpg","Image3":"linx-110207-8_500x375.jpg","Image4":"linx-110207-10_500x375.jpg","ExtColor":["Natural Clay","AAMA 2603"],"IntColor":["Natural Clay","AAMA 2603"],"LengthProjection":"19 ft","RidgeHeight":"8 ft 6 in","Location":"Other","Width":"-","Application":["Sporting"],"Glazes":["Clear"]},{"ProjectID":"06-11-010","Date":200611010,"Products":[{"ProductName":"Curtain Wall","GeoType1":["Vertical Curtain Wall"],"GeoType2":[]},{"ProductName":"Window","GeoType1":["Hung"],"GeoType2":["Fixed"]}],"Description":"Cornerless windows, part of six vertical wall units, all presented in White Duracron","Image1":"Longman-Ross-1_500x375.jpg","Image2":"Longman-Ross.jpg","Image3":"longman-ross-CURT-020408-24_500x375.jpg","Image4":"longman-ross-CURT-020408-18_500x375.jpg","ExtColor":["White","AAMA 2603"],"IntColor":["White","AAMA 2603"],"LengthProjection":"-","RidgeHeight":"20 ft","Location":"New York","Width":"5 ft","Application":["Residential"],"Glazes":["LoE 272"]},{"ProjectID":"07-12-021","Date":200712021,"Products":[{"ProductName":"Architectural Enhancement","GeoType1":["Ridge Vent"],"GeoType2":[]},{"ProductName":"Decorative Elements","GeoType1":["Decorative Trims","Finials","Ridge Cresting"],"GeoType2":[]},{"ProductName":"Skylight","GeoType1":["Hip End"],"GeoType2":["251-500 SQF. Glass"]}],"Description":"Straight eave double pitch, five sided conservatory nose skylight. Accessories include two 3-bay operable ridge vents, ridge cresting, decorative aluminum gutters, decorative Ogee on interior rafters.","Image1":"SL-HE-Lufkin-Glass-Roof-3.14.08-5_500x375.jpg","Image2":"SL-HE-Lufkin-Glass-Roof-3.14.08-13.jpg","Image3":"SL-HE-Lufkin-Glass-Roof-3.14.08-24_500x375.jpg","Image4":"SL-HE-Lufkin-Glass-Roof-3.14.jpg","ExtColor":["White","AAMA 2603"],"IntColor":["White","AAMA 2603"],"LengthProjection":"17.5 ft","RidgeHeight":"4 ft 6 in","Location":"Connecticut","Width":"12 ft","Application":["Residential"],"Glazes":["LoE 272"]},{"ProjectID":"08-04-163","Date":200804163,"Products":[{"ProductName":"Skylight","GeoType1":["Polygonal"],"GeoType2":[]}],"Description":"Irregular Polygon Curb Mount Skylight. 8 Facets","Image1":"Scan0071.jpg","Image2":"Scan1012.jpg","Image3":"Scan0072.jpg","Image4":"Scan1011_500x337.jpg","ExtColor":["White","AAMA 2603"],"IntColor":["Green (Hartford)","AAMA 2603"],"LengthProjection":"-","RidgeHeight":"9 ft 6 in","Location":"Pennsylvania","Width":"6 ft 1 in","Application":["Home","Living Space","Residential"],"Glazes":["Clear"]},{"ProjectID":"09-02-345","Date":200902345,"Products":[{"ProductName":"Folding Glass Wall","GeoType1":["Door"],"GeoType2":["101-250 SQF. Glass","All Wall"]}],"Description":"Two folding glass wall units, one with six panels folding left, the other with four panels folding right, standard sill.","Image1":"fgw-MACCOSS-7-foot-122109-7_500x375.jpg","Image2":"fgw-MACCOSS-7-foot-122109-11_500x375.jpg","Image3":"fgw-MACCOSS-7-foot-122109-4_500x375.jpg","Image4":"fgw-MACCOSS-7-foot-122109_500x375.jpg","ExtColor":["Sandstone","AAMA 2603"],"IntColor":["Custom Color"],"LengthProjection":"-","RidgeHeight":"7 ft 3 in","Location":"South Carolina","Width":"17 ft 7 in","Application":["Residential"],"Glazes":["Clear"]},{"ProjectID":"04-10-017","Date":200410017,"Products":[{"ProductName":"Conservatory","GeoType1":["Straight Eave Double Pitch"],"GeoType2":["501-750 SQF. Glass"]},{"ProductName":"Decorative Elements","GeoType1":["Decorative Corners","Palladin Arches","Ridge Cresting"],"GeoType2":[]},{"ProductName":"Sunroom","GeoType1":["Straight Eave Double Pitch"],"GeoType2":["501-750 SQF. Glass"]}],"Description":"Straight eave double pitch conservatory with a finial, ridge cresting, gable pediment, and decorative corners.","Image1":"Scan0354.jpg","Image2":"Scan0355.jpg","Image3":"Scan1573.jpg","Image4":"Scan0357.jpg","ExtColor":["White"],"IntColor":["Sapele Mahogany","Wood"],"LengthProjection":"15 ft","RidgeHeight":"24 ft","Location":"New Hampshire","Width":"-","Application":["Residential"],"Glazes":["Clear"]},{"ProjectID":"12-10-065","Date":201210065,"Products":[{"ProductName":"Skylight","GeoType1":["Straight Eave Double Pitch"],"GeoType2":["51-100 SQF. Glass"]}],"Description":"Straight eave, double pitch skylight with Mahogany interior.","Image1":"IMG_1622_500x375.jpg","Image2":"IMG_1629_500x375.jpg","Image3":"IMG_1631_500x375.jpg","Image4":"larchmont_500x375.jpg","ExtColor":["White","AAMA 2603"],"IntColor":["Sapele Mahogany","Wood"],"LengthProjection":"11 ft","RidgeHeight":"2 ft","Location":"New York","Width":"8 ft","Application":["Commercial"],"Glazes":["Clear"]},{"ProjectID":"10-04-330","Date":201004330,"Products":[{"ProductName":"Architectural Enhancement","GeoType1":["Ridge Vent"],"GeoType2":[]},{"ProductName":"Door","GeoType1":[],"GeoType2":[]},{"ProductName":"Sunroom","GeoType1":["Straight Eave Double Pitch"],"GeoType2":["101-250 SQF. Glass"]},{"ProductName":"Window","GeoType1":["Projected"],"GeoType2":["Awning"]}],"Description":"Straight eave double pitch sunroom with one gable end, aluminum exterior with a mahogany wood interior, ridge vents and terrace door.","Image1":"galena-touch-up_500x375.jpg","Image2":"Galena_500x375.jpg","Image3":"IMG_2747.jpg","Image4":"IMG_1547.jpg","ExtColor":["White","AAMA 2603"],"IntColor":["Sapele Mahogany","Wood"],"LengthProjection":"11 ft","RidgeHeight":"10 ft","Location":"Maryland","Width":"20 ft","Application":["NEED ENTRY"],"Glazes":["Clear"]},{"ProjectID":"05-09-017","Date":200509017,"Products":[{"ProductName":"Shades","GeoType1":["Pinoleum"],"GeoType2":[]}],"Description":"Interior Folding/Roman Pleated Shades","Image1":"shade-1_500x375.jpg","Image2":"Shades-1_500x375.jpg","Image3":"Shades-3_500x375.jpg","Image4":"Shades_500x375.jpg","ExtColor":[],"IntColor":[],"LengthProjection":"n/a","RidgeHeight":"-","Location":"Maryland","Width":"n/a","Application":["Commercial"],"Glazes":""},{"ProjectID":"06-05-025","Date":200605025,"Products":[{"ProductName":"Sunroom","GeoType1":["Straight Eave Lean-To"],"GeoType2":["101-250 SQF. Glass"]}],"Description":"Straight eave, lean-to sunroom.","Image1":"Manucharian019_500x375.jpg","Image2":"Manucharian-011.jpg","Image3":"Manucharian-018.jpg","Image4":"Manucharian014_500x375.jpg","ExtColor":["Dark Bronze Anodized","Bronze","Class I Anodized"],"IntColor":["Dark Bronze Anodized","Bronze","Class I Anodized"],"LengthProjection":"25 ft","RidgeHeight":"6 ft","Location":"New York","Width":"4 ft 6 in","Application":["Residential"],"Glazes":["Bronze"]},{"ProjectID":"09-03-372","Date":200903372,"Products":[{"ProductName":"Skylight","GeoType1":["Pyramid"],"GeoType2":["251-500 SQF. Glass"]},{"ProductName":"Door","GeoType1":["In-System Terrace Door"],"GeoType2":[]}],"Description":"Welded curb pyramid skylight.","Image1":"2012/07/manuscript_wrexham_062309-13_500x375.jpg","Image2":"manuscript_wrexham_062309-15_500x375.jpg","Image3":"manuscript_wrexham_062309-3_500x375.jpg","Image4":"manuscript_wrexham_062309-12_500x375.jpg","ExtColor":["Black","AAMA 2603"],"IntColor":["Black","AAMA 2603"],"LengthProjection":"16 ft 7 in","RidgeHeight":"5 ft 2 in","Location":"Connecticut","Width":"16 ft 7 in","Application":["Commercial"],"Glazes":["LoE 272"]},{"ProjectID":"06-02-035","Date":200602035,"Products":[{"ProductName":"Folding Glass Wall","GeoType1":["Door","Windows"],"GeoType2":["2001+ SQF. Glass","1-50 SQF. Glass","All Wall"]}],"Description":"All Wall, Top Load, Fold Out, 4 Panels Fold Left, Standard Sill.","Image1":"DSCN1501_500x375.jpg","Image2":"DSCN1525.jpg","Image3":"DSCN1528_500x375.jpg","Image4":"DSCN1531_500x375.jpg","ExtColor":["White","AAMA 2603"],"IntColor":["White","AAMA 2603"],"LengthProjection":"12 ft","RidgeHeight":"7 ft","Location":"Virginia","Width":"-","Application":["Commercial","Home","Residential","Retail Sales"],"Glazes":["Clear"]},{"ProjectID":"04-07-018","Date":200407018,"Products":[{"ProductName":"Decorative Elements","GeoType1":["Decorative Trims","Finials","King Post","Palladin Arches","Ridge Cresting","Ring and Collar Ties"],"GeoType2":[]},{"ProductName":"Door","GeoType1":["In-System Terrace Door"],"GeoType2":[]},{"ProductName":"Greenhouse","GeoType1":["Straight Eave Double Pitch"],"GeoType2":["501-750 SQF. Glass","Aluminum Tube System"]},{"ProductName":"Hobby Greenhouse","GeoType1":["Straight Eave Double Pitch"],"GeoType2":["501-750 SQF. Glass"]}],"Description":"Free standing straight eave double pitch greenhouse with 2 gable ends, terrace door, king post, gutter, ridge cresting and interior ring and collars.","Image1":"IMG_2377.jpg","Image2":"MARSHALL-Int.jpg","Image3":"IMG_2378.jpg","Image4":"IMG_2384.jpg","ExtColor":["White","AAMA 2603"],"IntColor":["White","AAMA 2603"],"LengthProjection":"20 ft","RidgeHeight":"11 ft","Location":"Connecticut","Width":"12 ft","Application":["Residential"],"Glazes":["Clear"]},{"ProjectID":"07-04-018","Date":200704018,"Products":[{"ProductName":"Conservatory","GeoType1":["Conservatory Nose","Irregular / Custom"],"GeoType2":["2001+ SQF. Glass","1-50 SQF. Glass"]},{"ProductName":"Decorative Elements","GeoType1":["Crown Molding","Decorative Trims","Ridge Cresting","Ring and Collar Ties"],"GeoType2":[]},{"ProductName":"Door","GeoType1":[],"GeoType2":[]},{"ProductName":"Sunroom","GeoType1":["Conservatory Nose","Irregular / Custom","Straight Eave Double Pitch"],"GeoType2":["2001+ SQF. Glass","1-50 SQF. Glass"]}],"Description":"Straight eave double pitch sunroom with one partial gable end, and an attached conservatory nose dormer.  The sunroom also features ridge cresting, finial, gutter, down spout, and ridge vents.","Image1":"Mattern-1.jpg","Image2":"Mattern-5.jpg","Image3":"mattern_111108-3.jpg","Image4":"matteren121707-17.jpg","ExtColor":["Natural Clay","AAMA 2603"],"IntColor":["Natural Clay","AAMA 2603"],"LengthProjection":"23 ft","RidgeHeight":"20 ft","Location":"Pennsylvania","Width":"27 ft","Application":["Residential"],"Glazes":["LoE 340"]},{"ProjectID":"07-09-024","Date":200709024,"Products":[{"ProductName":"Architectural Enhancement","GeoType1":["Knee Walls"],"GeoType2":[]},{"ProductName":"Conservatory","GeoType1":["Conservatory Nose"],"GeoType2":["501-750 SQF. Glass"]},{"ProductName":"Decorative Elements","GeoType1":["Finials","Grids","Ridge Cresting","SDLs","Transoms"],"GeoType2":[]},{"ProductName":"Door","GeoType1":[],"GeoType2":[]}],"Description":"Straight Eave Double Pitch conservatory with one Conservatory nose, finial, ridge cresting, gridwork and transoms with a mahogany interior.","Image1":"IMG_32211.jpg","Image2":"chandelier.jpg","Image3":"IMG_3224.jpg","Image4":"IMG_3128.jpg","ExtColor":[],"IntColor":["Sapele Mahogany","Wood"],"LengthProjection":"18 ft","RidgeHeight":"17 ft","Location":"Maryland","Width":"17 ft","Application":["Residential"],"Glazes":["Clear"]},{"ProjectID":"06-06-050","Date":200606050,"Products":[{"ProductName":"Door","GeoType1":["In-System Terrace Door"],"GeoType2":[]},{"ProductName":"Sunroom","GeoType1":["Straight Eave Lean-To"],"GeoType2":["101-250 SQF. Glass"]}],"Description":"Straight eave lean-to sunroom used to a cover a staircase, including a casement, terrace door and ridge vent","Image1":"DSCN4572_500x3751.jpg","Image2":"DSCN4570_500x3751.jpg","Image3":"DSCN4568_500x3751.jpg","Image4":"DSCN4569_500x3751.jpg","ExtColor":["Clear Anodized","Class I Anodized"],"IntColor":["Clear Anodized","Class I Anodized"],"LengthProjection":"11 ft","RidgeHeight":"11 ft","Location":"New York","Width":"6 ft","Application":["Living Space","Residential"],"Glazes":["Clear"]},{"ProjectID":"05-09-009","Date":200509009,"Products":[{"ProductName":"Architectural Enhancement","GeoType1":["Gable End","Lantern","Ridge Vent"],"GeoType2":[]},{"ProductName":"Decorative Elements","GeoType1":["Decorative Trims","Finials","Ridge Cresting"],"GeoType2":[]},{"ProductName":"Skylight","GeoType1":["Hip End","Pyramid","Straight Eave Double Pitch"],"GeoType2":["751-1000 SQF. Glass"]}],"Description":"Straight eave double pitch sunroom and a lantern with two hip ends, ridge cresting, finials and ridge vents.  The job also features a pyramid skylight.","Image1":"sl-he-lantern-Mellott-ext-single-touch-up_500x329.jpg","Image2":"Scan0824.jpg","Image3":"sl-he-Mellott-ext-2-pcd_500x336.jpg","Image4":"sl-small-lantern-Mellott-ext-pcd_500x334.jpg","ExtColor":["Sandstone","AAMA 2603"],"IntColor":["Sandstone","AAMA 2603"],"LengthProjection":"varies","RidgeHeight":"varies","Location":"Pennsylvania","Width":"varies","Application":["Residential"],"Glazes":""},{"ProjectID":"05-08-062","Date":200508062,"Products":[{"ProductName":"Architectural Enhancement","GeoType1":[],"GeoType2":[]},{"ProductName":"Conservatory","GeoType1":["Hip End","Irregular / Custom"],"GeoType2":["2001+ SQF. Glass","1-50 SQF. Glass"]},{"ProductName":"Decorative Elements","GeoType1":["Crown Molding","Decorative Trims","Finials","Grids","Ridge Cresting"],"GeoType2":[]},{"ProductName":"Window","GeoType1":[],"GeoType2":[]}],"Description":"Straight eave double pitch conservatory with 2 hip ends, 2 double pitch dormers. Ridge vents, fixed windows, operable windows. Ridge cresting, finials, window grids and interior pilasters.","Image1":"DSCN0256_500x375.jpg","Image2":"DSCN0259_500x375.jpg","Image3":"DSCN0249_500x375.jpg","Image4":"DSCN0254_500x375.jpg","ExtColor":["Sandstone","AAMA 2603"],"IntColor":["Sandstone","AAMA 2603"],"LengthProjection":"42 ft","RidgeHeight":"13 ft 10 in","Location":"New Jersey","Width":"15 ft 6 in","Application":["Residential"],"Glazes":["Clear"]},{"ProjectID":"07-05-005","Date":200705005,"Products":[{"ProductName":"Architectural Enhancement","GeoType1":["Ridge Vent"],"GeoType2":[]},{"ProductName":"Conservatory","GeoType1":["Straight Eave Lean-To"],"GeoType2":["251-500 SQF. Glass"]},{"ProductName":"Decorative Elements","GeoType1":["Grids"],"GeoType2":[]},{"ProductName":"Door","GeoType1":["In-System French Door"],"GeoType2":[]}],"Description":"Straight eave lean to sunroom with natural clay duracron exterior and western red cedar interior. Has residential french door, 1 five-bay operable ridge vent, single vent windows, gothic grid patterns, decorative aluminum gutter. Wood Interior.","Image1":"Sol-Selt-Mitchell-Residence1_500x375.jpg","Image2":"Sol-Selt-Mitchell-Residence-3_500x375.jpg","Image3":"Sol-Selt-Mitchell-Residence-6_500x375.jpg","Image4":"Sol-Selt-Mitchell-Residence-1.jpg","ExtColor":["Natural Clay","AAMA 2603"],"IntColor":["Wood","Western Red Cedar"],"LengthProjection":"8 ft","RidgeHeight":"9 ft","Location":"Pennsylvania","Width":"20 ft","Application":["Residential"],"Glazes":["Clear"]},{"ProjectID":"04-03-004","Date":200403004,"Products":[{"ProductName":"Architectural Enhancement","GeoType1":["Ridge Vent"],"GeoType2":[]},{"ProductName":"Door","GeoType1":[],"GeoType2":[]},{"ProductName":"Greenhouse","GeoType1":["Straight Eave Double Pitch"],"GeoType2":["2001+ SQF. Glass","1-50 SQF. Glass"]},{"ProductName":"Window","GeoType1":["Projected"],"GeoType2":["Awning"]}],"Description":"Straight eave double pitch greenhouse. Features awning windows, terrace door and ridge vents.","Image1":"montauk_500x375.jpg","Image2":"montauk-4_500x375.jpg","Image3":"montauk-5_500x375.jpg","Image4":"montauk-6_500x375.jpg","ExtColor":["Black","AAMA 2603"],"IntColor":["Black","AAMA 2603"],"LengthProjection":"29 ft","RidgeHeight":"9 ft","Location":"New York","Width":"16 ft","Application":["Educational"],"Glazes":["Clear"]},{"ProjectID":"04-06-005","Date":200406005,"Products":[{"ProductName":"Canopy","GeoType1":["Straight Eave Double Pitch"],"GeoType2":[]},{"ProductName":"Skylight","GeoType1":["Straight Eave Double Pitch"],"GeoType2":["1-50 SQF. Glass"]},{"ProductName":"Sliding Door","GeoType1":["Door"],"GeoType2":["51-100 SQF. Glass","Dual Track","Multi-Track"]},{"ProductName":"Sunroom","GeoType1":["Straight Eave Lean-To"],"GeoType2":["251-500 SQF. Glass"]}],"Description":"OXXO dual track sliding door & multi-track sliding door system with Bronze interior and exterior finish, skylight with operable ridge vents, canopy,  and curtain walls","Image1":"32-Montgomery.jpg","Image2":"DSCN0061_500x375.jpg","Image3":"IMG_0528_500x375.jpg","Image4":"DSCN0022_500x375.jpg","ExtColor":["Bronze","AAMA 2603"],"IntColor":["Bronze","AAMA 2603"],"LengthProjection":"Units vary","RidgeHeight":"Units Vary","Location":"New York","Width":"Units vary","Application":["Commercial"],"Glazes":["Clear"]},{"ProjectID":"07-07-004","Date":200707004,"Products":[{"ProductName":"Folding Glass Wall","GeoType1":["Door"],"GeoType2":["2001+ SQF. Glass","1-50 SQF. Glass","Split Wall Floating Jamb"]}],"Description":"Fifteen four panel folding glass wall systems, thirteen are split wall systems and two are single door systems. All systems are Bronze with black hardware and have Sol-I-Guard 272 glass. Single door systems are fully equipped with panic hardware.","Image1":"MT-Princeton-Resort-4.18.08-3_500x331.jpg","Image2":"MT-Princeton-Resort-4.18.08-1_500x313.jpg","Image3":"MT-Princeton-Resort-4.18.08-2_500x325.jpg","Image4":"MT-Princeton-Resort-4.18.08-5_500x325.jpg","ExtColor":["Bronze","AAMA 2603"],"IntColor":["Bronze","AAMA 2603"],"LengthProjection":"-","RidgeHeight":"8 ft","Location":"Colorado","Width":"13 ft","Application":["Banquets","Commercial"],"Glazes":["LoE 272"]},{"ProjectID":"08-10-265","Date":200810265,"Products":[{"ProductName":"Folding Glass Wall","GeoType1":["Door"],"GeoType2":["101-250 SQF. Glass","Segmented Radius"]}],"Description":"One 10 panel, out-fold, bottom load, segmented radius folding glass wall unit.","Image1":"DSC_0203-vi-EW_500x334.jpg","Image2":"DSC_0224-vi-EW_500x345.jpg","Image3":"DSC_0227-vi_500x334.jpg","Image4":"DSC_0248-vi_500x334.jpg","ExtColor":["Bronze","AAMA 2603"],"IntColor":["Bronze","AAMA 2603"],"LengthProjection":"27 ft 6 in","RidgeHeight":"8 ft","Location":"Nevada","Width":"-","Application":["Commercial"],"Glazes":["Clear"]},{"ProjectID":"06-01-023","Date":200601023,"Products":[{"ProductName":"Architectural Enhancement","GeoType1":["Ridge Vent"],"GeoType2":[]},{"ProductName":"Conservatory","GeoType1":["Conservatory Nose"],"GeoType2":["251-500 SQF. Glass"]},{"ProductName":"Decorative Elements","GeoType1":["Gutter","Ring and Collar Ties"],"GeoType2":[]},{"ProductName":"Door","GeoType1":["In-System French Door"],"GeoType2":[]}],"Description":"Straight eave double pitch conservatory with one conservatory nose, styled unit used for a breakfast nook.","Image1":"0704-Homa-06-014.jpg","Image2":"Interior-Shot-Cropped.jpg","Image3":"0704-Homa-06-009.jpg","Image4":"0704-Homa-06-004.jpg","ExtColor":["White"],"IntColor":["White"],"LengthProjection":"8 ft","RidgeHeight":"12 ft","Location":"New York","Width":"14 ft","Application":["Dining","Living Space","Residential"],"Glazes":["Clear","Custom Color"]},{"ProjectID":"08-02-103","Date":200802103,"Products":[{"ProductName":"Sunroom","GeoType1":["Conservatory Nose","Irregular / Custom"],"GeoType2":["251-500 SQF. Glass"]},{"ProductName":"Tilt Turn","GeoType1":["Tilt Turn Window"],"GeoType2":[]}],"Description":"An irregular conservatory nose sunroom with seven tilt turn windows, and four decorative pilasters.","Image1":"nil-21_500x375.jpg","Image2":"millaltered-copy.jpg","Image3":"DSC_00044.jpg","Image4":"nil-22_500x375.jpg","ExtColor":["White","AAMA 2603"],"IntColor":["White","AAMA 2603"],"LengthProjection":"11 ft","RidgeHeight":"10 ft","Location":"New York","Width":"14 ft","Application":["Home","Residential"],"Glazes":["LoE 272"]},{"ProjectID":"05-08-020","Date":200508020,"Products":[{"ProductName":"Door","GeoType1":[],"GeoType2":[]},{"ProductName":"Pool Enclosure","GeoType1":["Straight Eave Lean-To"],"GeoType2":["251-500 SQF. Glass"]},{"ProductName":"Window","GeoType1":["Projected"],"GeoType2":["1-50 SQF. Glass"]}],"Description":"Straight eave, lean-to pool enclosure with awning windows and French doors","Image1":"IMG_0011_edited_cleanup_500x375.jpg","Image2":"IMG_0008_500x375.jpg","Image3":"IMG_0012-2.jpg","Image4":"IMG_4219_500x375.jpg","ExtColor":["White","AAMA 2603"],"IntColor":["White","AAMA 2603"],"LengthProjection":"12 ft","RidgeHeight":"12 ft","Location":"Pennsylvania","Width":"27 ft","Application":["Home","Residential","Sporting"],"Glazes":["Clear"]},{"ProjectID":"07-12-016","Date":200712016,"Products":[{"ProductName":"Decorative Elements","GeoType1":["Finials","Ridge Cresting"],"GeoType2":[]},{"ProductName":"Greenhouse","GeoType1":["Straight Eave Double Pitch"],"GeoType2":["2001+ SQF. Glass","1-50 SQF. Glass"]},{"ProductName":"Greenhouse Accessory","GeoType1":["Storage"],"GeoType2":["Cold Frames","Rolling Bench"]}],"Description":"Straight eave, double pitch greenhouse with dormer, ridge cresting, and finial. Restoration System with cold frame.","Image1":"gh_sedp_dormer_nyyc_080408.jpg","Image2":"gh-newyorkyachtclub-061608-8.jpg","Image3":"New-York-Yacht-Club-6.13.jpg","Image4":"GH-SEDP-dormer-new-york-yacht-club-52808-9.jpg","ExtColor":["White","AAMA 2603"],"IntColor":["White","AAMA 2603"],"LengthProjection":"59 ft","RidgeHeight":"7 ft","Location":"Rhode Island","Width":"20 ft","Application":["Commercial","Historical","Institutional","Living Space"],"Glazes":["Clear"]},{"ProjectID":"07-01-028","Date":200701028,"Products":[{"ProductName":"Skylight","GeoType1":["Irregular / Custom","Pyramid"],"GeoType2":["2001+ SQF. Glass"]}],"Description":"Irregular Pyramid Skylight used in an Institutional/Educational application.","Image1":"PA-Academy-of-Music_500x331.jpg","Image2":"XV4M1170_500x331.jpg","Image3":"XV4M1171_500x331.jpg","Image4":"XV4M1134.jpg","ExtColor":["Clear Anodized","Class I Anodized"],"IntColor":["Clear Anodized","Class I Anodized"],"LengthProjection":"41 ft 6 in","RidgeHeight":"10 ft 3 in","Location":"Pennsylvania","Width":"49 ft 9 in","Application":["Commercial","Educational","Institutional"],"Glazes":["Clear"]},{"ProjectID":"06-05-049","Date":200605049,"Products":[{"ProductName":"Pool Enclosure","GeoType1":["Straight Eave Double Pitch"],"GeoType2":["501-750 SQF. Glass"]},{"ProductName":"Sliding Door","GeoType1":["Door"],"GeoType2":["Dual Track"]}],"Description":"Straight eave, double pitch pool enclosure with structural portal frames on eight foot centers. Unit includes ridge vents and sliding doors.","Image1":"IMG_0831_500x375.jpg","Image2":"IMG_0836_500x375.jpg","Image3":"pe-sedp-Kreuger-ext-pcd_500x375.jpg","Image4":"pe-sedp-Kreuger-int-pcd_500x3751.jpg","ExtColor":["Green (Hartford)","AAMA 2603"],"IntColor":["Green (Hartford)","AAMA 2603"],"LengthProjection":"44 ft","RidgeHeight":"15 ft","Location":"New Jersey","Width":"26 ft","Application":["Residential"],"Glazes":["Clear"]},{"ProjectID":"11-11-171","Date":201111171,"Products":[{"ProductName":"Polycarbonate","GeoType1":["Poly Pool Enclosure"],"GeoType2":[]},{"ProductName":"Pool Enclosure","GeoType1":["Straight Eave Lean-To"],"GeoType2":["251-500 SQF. Glass"]}],"Description":"Straight eave, lean-to lap pool enclosure.","Image1":"hutchins_edited_500x375.jpg","Image2":"IMG_1041-2_500x375.jpg","Image3":"IMG_1052.jpg","Image4":"IMG_1053_500x375.jpg","ExtColor":["Bronze","AAMA 2603"],"IntColor":["Bronze","AAMA 2603"],"LengthProjection":"4 ft","RidgeHeight":"8 ft","Location":"New Hampshire","Width":"42 ft","Application":["Residential"],"Glazes":["Clear"]},{"ProjectID":"07-09-007","Date":200709007,"Products":[{"ProductName":"Canopy","GeoType1":["Straight Eave Double Pitch"],"GeoType2":["251-500 SQF. Glass"]}],"Description":"One straight eave double pitch canopy with one gable end. Constructed with Dark Bronze Anodized 3 3/4 inches aluminum system and bronze heat strengthened glass.","Image1":"Penn-Ave-2.26.08-31_500x375.jpg","Image2":"Penn-Ave-2.26.08-36_500x375.jpg","Image3":"Penn-Ave-2.26.08-28_500x375.jpg","Image4":"Penn-Ave-2.26.08-24.jpg","ExtColor":["Dark Bronze Anodized","Bronze","Class I Anodized"],"IntColor":["Dark Bronze Anodized","Bronze","Class I Anodized"],"LengthProjection":"21 ft","RidgeHeight":"3 ft","Location":"Pennsylvania","Width":"11 ft","Application":["Commercial","Retail Sales"],"Glazes":["Bronze"]},{"ProjectID":"11-04-126","Date":201104126,"Products":[{"ProductName":"Sliding Door","GeoType1":["Door"],"GeoType2":["101-250 SQF. Glass","Dual Track"]}],"Description":"PXXXXP dual track sliding, stacking door system with pocket.","Image1":"poolhouse6_500x375.jpg","Image2":"handles-poolhouse4.jpg","Image3":"poolhouse4_500x375.jpg","Image4":"poolhouse5_500x375.jpg","ExtColor":["White","AAMA 2603"],"IntColor":["White","AAMA 2603"],"LengthProjection":"-","RidgeHeight":"8 ft","Location":"Arizona","Width":"18 ft","Application":["Residential"],"Glazes":["LoE 272"]},{"ProjectID":"06-02-025","Date":200602025,"Products":[{"ProductName":"Folding Glass Wall","GeoType1":["Door"],"GeoType2":["251-500 SQF. Glass","Single Door Last Panel"]}],"Description":"Two folding wall systems. One unit has an all wall configuration and the second is a single door last panel; standard sill.","Image1":"prince-112408-2_500x333.jpg","Image2":"prince-112408-3_500x348.jpg","Image3":"Prince_edit_500x333.jpg","Image4":"prince-112408_500x333.jpg","ExtColor":["Mill Aluminum"],"IntColor":["Mill Aluminum"],"LengthProjection":"-","RidgeHeight":"9 ft","Location":"Pennsylvania","Width":"24 ft","Application":["Living Space","Residential"],"Glazes":["Clear"]},{"ProjectID":"08-09-195","Date":200809195,"Products":[{"ProductName":"Sliding Door","GeoType1":["Door"],"GeoType2":["101-250 SQF. Glass","Dual Track"]},{"ProductName":"Walkway","GeoType1":["Straight Eave Lean-To"],"GeoType2":["751-1000 SQF. Glass"]}],"Description":"The Quadrant Plastic project includes a walkway and sliding glass doors. Finished in Dark Bronze Anodized frame finish, the straight eave, double pitch walkway with one partial gable end also features two commercial doors.","Image1":"quadrant_021609-4_500x375.jpg","Image2":"quadrant_021609-5_500x375-e1342635610891.jpg","Image3":"quadrant_021609-6_500x375.jpg","Image4":"quadrant_021609_500x375.jpg","ExtColor":["Dark Bronze Anodized","Bronze","Class I Anodized"],"IntColor":["Dark Bronze Anodized","Bronze","Class I Anodized"],"LengthProjection":"23 ft 6 in","RidgeHeight":"15 ft","Location":"Pennsylvania","Width":"7 ft","Application":["Commercial"],"Glazes":["Bronze"]},{"ProjectID":"07-05-051","Date":200705051,"Products":[{"ProductName":"Architectural Enhancement","GeoType1":["Lantern"],"GeoType2":[]},{"ProductName":"Skylight","GeoType1":["Hip End"],"GeoType2":[]},{"ProductName":"Sunroom","GeoType1":["Conservatory Nose"],"GeoType2":["751-1000 SQF. Glass"]}],"Description":"Straight eave, double pitch skylight with a conservatory nose and a decorative Bull Nose Lantern.","Image1":"sl-cons-Gantz_500x338.jpg","Image2":"sl-cons-Gantz-2_500x342.jpg","Image3":"sl-cons-Gantz-3_500x335.jpg","Image4":"sl-cons-Gantz-1_500x339.jpg","ExtColor":["Bronze","AAMA 2603"],"IntColor":["Bronze","AAMA 2603"],"LengthProjection":"33 ft","RidgeHeight":"15 ft","Location":"Connecticut","Width":"21 ft","Application":["Residential"],"Glazes":["Clear"]},{"ProjectID":"06-06-019","Date":200606019,"Products":[{"ProductName":"Skylight","GeoType1":["Dome"],"GeoType2":["1-50 SQF. Glass"]}],"Description":"True radius dome skylight with segmented sills. Facets: 16","Image1":"jamison-dome-sl-2_500x375.jpg","Image2":"jamison-dome-sl_500x375.jpg","Image3":"IMG_3950_500x375.jpg","Image4":"IMG_3937_500x375.jpg","ExtColor":["Bronze","AAMA 2603"],"IntColor":["Bronze","AAMA 2603"],"LengthProjection":"-","RidgeHeight":"6 ft","Location":"North Carolina","Width":"16 ft","Application":["Residential"],"Glazes":["Clear"]},{"ProjectID":"06-09-036","Date":200609036,"Products":[{"ProductName":"Decorative Elements","GeoType1":["Finials"],"GeoType2":[]},{"ProductName":"Skylight","GeoType1":["Dome"],"GeoType2":["1-50 SQF. Glass"]}],"Description":"Sixteen bay, radius dome with finial.","Image1":"Scan1148_22.jpg","Image2":"Scan1150.jpg","Image3":"Scan1148_500x334.jpg","Image4":"32-Lot-1-Longview.jpg","ExtColor":["Custom Color"],"IntColor":["White","AAMA 2603"],"LengthProjection":"-","RidgeHeight":"4 ft","Location":"North Carolina","Width":"8 ft","Application":["Residential"],"Glazes":["Clear"]},{"ProjectID":"04-08-040","Date":200408040,"Products":[{"ProductName":"Skylight","GeoType1":["Ridge Mounted","Straight Eave Double Pitch"],"GeoType2":["251-500 SQF. Glass"]}],"Description":"Ridge mounted straight eave, double pitch skylight with no gable ends.","Image1":"IMG_2742_500x375.jpg","Image2":"IMG_2745_500x375.jpg","Image3":"IMG_2743_500x375.jpg","Image4":"000_0246_500x3751.jpg","ExtColor":["White","AAMA 2603"],"IntColor":["White","AAMA 2603"],"LengthProjection":"22 ft","RidgeHeight":"3 ft","Location":"Pennsylvania","Width":"12 ft","Application":["Educational","Institutional"],"Glazes":["Bronze"]},{"ProjectID":"07-03-022","Date":200703022,"Products":[{"ProductName":"Architectural Enhancement","GeoType1":["Lantern"],"GeoType2":[]},{"ProductName":"Skylight","GeoType1":["Pyramid"],"GeoType2":["1-50 SQF. Glass"]}],"Description":"Curb-mount lantern pyramid skylight with 24 inches side walls.","Image1":"IMG_1300_500x375.jpg","Image2":"IMG_1303_500x375.jpg","Image3":"IMG_1304_500x375.jpg","Image4":"IMG_1303_2.jpg","ExtColor":["White","AAMA 2603"],"IntColor":["White","AAMA 2603"],"LengthProjection":"6 ft","RidgeHeight":"4 ft","Location":"New York","Width":"6 ft","Application":["Commercial"],"Glazes":["Clear"]},{"ProjectID":"4448","Date":204448,"Products":[{"ProductName":"Conservatory","GeoType1":["Hip End"],"GeoType2":["501-750 SQF. Glass"]},{"ProductName":"Decorative Elements","GeoType1":["Ridge Cresting"],"GeoType2":["Colonial Grid","Traditional Grid"]}],"Description":"Straight eave, hip end conservatory with decorative ridge cresting and finials. Features narrow bay design for a more traditional look.","Image1":"IMG_1041-2_500x3751.jpg","Image2":"Carlton-Hotel-2_500x375.jpg","Image3":"IMG_1031-2_500x375.jpg","Image4":"IMG_1023-2_500x375.jpg","ExtColor":["White","AAMA 2603"],"IntColor":["White","AAMA 2603"],"LengthProjection":"26 ft","RidgeHeight":"5 ft","Location":"North Carolina","Width":"14 ft","Application":["Commercial"],"Glazes":["Clear"]},{"ProjectID":"07-07-036","Date":200707036,"Products":[{"ProductName":"Architectural Enhancement","GeoType1":["Dormers","Lantern","Ridge Vent","Transom"],"GeoType2":[]},{"ProductName":"Decorative Elements","GeoType1":["Finials","Ridge Cresting"],"GeoType2":[]},{"ProductName":"Skylight","GeoType1":["Hip End"],"GeoType2":["751-1000 SQF. Glass"]}],"Description":"Straight eave double pitch skylight with two conservatory noses, and a straight eave double pitch lantern with two conservatory noses and Conservatory lantern with decorative lead transoms, ridge cresting, and finials.  Job also features a straight eave double pitch dormer with a finial and ridge cresting.","Image1":"00024-2_500x375.jpg","Image2":"00123-2_500x375.jpg","Image3":"00151-2_500x375.jpg","Image4":"IMG_0237-2_500x375.jpg","ExtColor":["Bronze","AAMA 2603"],"IntColor":["Sandstone","AAMA 2603"],"LengthProjection":"33 ft","RidgeHeight":"10 ft","Location":"New Jersey","Width":"24 ft","Application":["Residential"],"Glazes":["Clear"]},{"ProjectID":"04-04-009","Date":200404009,"Products":[{"ProductName":"Skylight","GeoType1":["Straight Eave Double Pitch"],"GeoType2":["51-100 SQF. Glass"]}],"Description":"Straight eave, double pitch skylight.","Image1":"IMG_1527-2_500x375.jpg","Image2":"IMG_1528_2.jpg","Image3":"IMG_1526-2_500x375.jpg","Image4":"IMG_1528_21.jpg","ExtColor":["Bronze","AAMA 2603"],"IntColor":["Bronze","AAMA 2603"],"LengthProjection":"10 ft","RidgeHeight":"1 ft","Location":"Maryland","Width":"4 ft","Application":["Commercial"],"Glazes":["Clear"]},{"ProjectID":"05-02-007","Date":200502007,"Products":[{"ProductName":"Architectural Enhancement","GeoType1":["Ridge Vent"],"GeoType2":[]},{"ProductName":"Skylight","GeoType1":["Straight Eave Double Pitch"],"GeoType2":["751-1000 SQF. Glass"]},{"ProductName":"Window","GeoType1":["Projected"],"GeoType2":["Awning"]}],"Description":"Straight eave, double pitch skylight with ridge vents and awning windows.","Image1":"IMG_2509_500x375.jpg","Image2":"IMG_2510_500x375.jpg","Image3":"IMG_2505_500x375.jpg","Image4":"IMG_2506_500x375.jpg","ExtColor":["Custom Color"],"IntColor":["Custom Color"],"LengthProjection":"29 ft","RidgeHeight":"8 ft","Location":"Pennsylvania","Width":"18 ft","Application":["Residential"],"Glazes":["Clear"]},{"ProjectID":"13-01-136","Date":201301136,"Products":[{"ProductName":"Skylight","GeoType1":["Straight Eave Double Pitch"],"GeoType2":["101-250 SQF. Glass"]}],"Description":"Double pitch skylight aligned over structural steel sub frame.","Image1":"Scan0358_500x331.jpg","Image2":"Scan0359_500x330.jpg","Image3":"Scan0360_500x330.jpg","Image4":"sl-sedp-faith-church-1_500x327.jpg","ExtColor":["White","AAMA 2603"],"IntColor":["White","AAMA 2603"],"LengthProjection":"32 ft","RidgeHeight":"-","Location":"Pennsylvania","Width":"8 ft","Application":["Ecclesiastical"],"Glazes":["Clear"]},{"ProjectID":"04-04-003","Date":200404003,"Products":[{"ProductName":"Skylight","GeoType1":["Straight Eave Double Pitch"],"GeoType2":["2001+ SQF. Glass"]}],"Description":"Straight eave, double pitch skylight.","Image1":"Scan1783_500x332.jpg","Image2":"fire-protection_500x375.jpg","Image3":"IMG_4260_500x375.jpg","Image4":"IMG_4272.jpg","ExtColor":["White","AAMA 2603"],"IntColor":["White","AAMA 2603"],"LengthProjection":"54 ft","RidgeHeight":"16 ft","Location":"Pennsylvania","Width":"44 ft","Application":["Commercial","Educational","Institutional"],"Glazes":["Clear"]},{"ProjectID":"06-02-024","Date":200602024,"Products":[{"ProductName":"Skylight","GeoType1":["Straight Eave Double Pitch"],"GeoType2":["751-1000 SQF. Glass"]}],"Description":"Straight eave, double pitch skylight.","Image1":"IMG_4450_500x375.jpg","Image2":"IMG_4158_500x375.jpg","Image3":"IMG_4163_500x375.jpg","Image4":"IMG_4447.jpg","ExtColor":["Bronze","AAMA 2603"],"IntColor":["Bronze","AAMA 2603"],"LengthProjection":"35 ft","RidgeHeight":"6 ft","Location":"New York","Width":"16 ft","Application":["Ecclesiastical"],"Glazes":["Clear"]},{"ProjectID":"04-06-001","Date":200406001,"Products":[{"ProductName":"Skylight","GeoType1":["Straight Eave Double Pitch"],"GeoType2":["101-250 SQF. Glass"]}],"Description":"Straight eave, double pitch skylight with copper clad exterior/Mahogany interior.","Image1":"IMG_1648_500x375.jpg","Image2":"IMG_1646_500x375.jpg","Image3":"IMG_1650_500x375.jpg","Image4":"IMG_1645.jpg","ExtColor":["Copper","Metal Cladding"],"IntColor":["Sapele Mahogany","Wood"],"LengthProjection":"31 ft","RidgeHeight":"1 ft","Location":"New Jersey","Width":"3 ft","Application":["Commercial"],"Glazes":["Clear"]},{"ProjectID":"04-02-002","Date":200402002,"Products":[{"ProductName":"Skylight","GeoType1":["Single Slope","Straight Eave Lean-To"],"GeoType2":["101-250 SQF. Glass"]}],"Description":"Straight eave lean to single slope with no gable ends.","Image1":"39-1-20-06_0004-2_500x333.jpg","Image2":"39-1-20-06_0006-2_500x333.jpg","Image3":"39-1-20-06_0007_500x333.jpg","Image4":"39-1-20-06_0004_2-1.jpg","ExtColor":["White","AAMA 2603"],"IntColor":["White"],"LengthProjection":"4 ft","RidgeHeight":"4 ft 6 in","Location":"Maryland","Width":"11 ft 9 in","Application":["Living Space","Residential"],"Glazes":["Clear"]},{"ProjectID":"05-08-017","Date":200508017,"Products":[{"ProductName":"Skylight","GeoType1":["Single Slope","Straight Eave Lean-To"],"GeoType2":["251-500 SQF. Glass"]}],"Description":"Commercial L shaped, single slope skylight.","Image1":"DSCN4966_touchup-2_500x375.jpg","Image2":"DSCN4964_touchup-2_500x375.jpg","Image3":"applegarth-ss-sl-2_touchup_2.jpg","Image4":"applegarth-ss-sl-2_touchup_500x375.jpg","ExtColor":["Bronze","AAMA 2603"],"IntColor":["Bronze","AAMA 2603"],"LengthProjection":"30 ft","RidgeHeight":"7 ft","Location":"New Jersey","Width":"30 ft","Application":["Commercial"],"Glazes":["Clear"]},{"ProjectID":"05-06-029","Date":200506029,"Products":[{"ProductName":"Operable / Retractable Skylights","GeoType1":[],"GeoType2":["1-50 SQF. Glass"]},{"ProductName":"Skylight","GeoType1":["Irregular / Custom","Single Slope"],"GeoType2":[]}],"Description":"Operable skylight with a manual hatch and one gable end.","Image1":"IMG_4470_500x375.jpg","Image2":"dsc00076_500x375.jpg","Image3":"dsc00078_500x375.jpg","Image4":"dsc00106_500x375.jpg","ExtColor":["Clear Anodized","Class I Anodized"],"IntColor":["Clear Anodized","Class I Anodized"],"LengthProjection":"4 ft","RidgeHeight":"1 ft","Location":"Pennsylvania","Width":"8 ft","Application":["Commercial"],"Glazes":["Clear"]},{"ProjectID":"05-05-020","Date":200505020,"Products":[{"ProductName":"Conservatory","GeoType1":[],"GeoType2":["101-250 SQF. Glass"]},{"ProductName":"Curtain Wall","GeoType1":["Vertical Curtain Wall"],"GeoType2":["51-100 SQF. Glass"]}],"Description":"Lean to skylight with 1 hip corner, 1 gable end and a rear wall, and straight ever lean to sunroom with folding glass walls.","Image1":"Scan0310-2_500x3301.jpg","Image2":"Scan1643-2.jpg","Image3":"Scan1421-2_500x330.jpg","Image4":"Scan1422-2_500x331.jpg","ExtColor":["White","Bronze","AAMA 2603"],"IntColor":["White","Bronze","AAMA 2603"],"LengthProjection":"varies per section","RidgeHeight":"varies per section","Location":"Other","Width":"varies per section","Application":["Residential"],"Glazes":["Bronze","Clear","Custom Color"]},{"ProjectID":"04-05-015","Date":200405015,"Products":[{"ProductName":"Architectural Enhancement","GeoType1":["Dormers"],"GeoType2":[]},{"ProductName":"Skylight","GeoType1":["Straight Eave Double Pitch"],"GeoType2":["101-250 SQF. Glass"]}],"Description":"Straight eave, double pitch skylight with dormer and painted Mahogany interior.","Image1":"00673-2_500x375.jpg","Image2":"00676-2_500x375.jpg","Image3":"00674-2_500x375.jpg","Image4":"00675-2_500x375.jpg","ExtColor":["White","AAMA 2603"],"IntColor":["White","AAMA 2603"],"LengthProjection":"23 ft","RidgeHeight":"5 ft","Location":"Ohio","Width":"23 ft","Application":["Residential"],"Glazes":["Clear"]},{"ProjectID":"06-04-044","Date":200604044,"Products":[{"ProductName":"Decorative Elements","GeoType1":["Gutter","Ring and Collar Ties"],"GeoType2":[]},{"ProductName":"Screen","GeoType1":["Sliding","Stacking"],"GeoType2":["Manual","Roller Screens"]}],"Description":"Multi-Track Sliding Stacking Screen System with no pocket, top load 3 panels sliding left (OXXX) as viewed from the outside, standard sill, Sliding screen system with gray fiberglass screen all hardware to be black","Image1":"unedited-sliding-door-possible-Orr-Lake_500x375.jpg","Image2":"Orr-Lake-1.jpg","Image3":"Orr-Lake_500x375.jpg","Image4":"Orr_500x375.jpg","ExtColor":["White","AAMA 2603"],"IntColor":["White","AAMA 2603"],"LengthProjection":"13 ft","RidgeHeight":"7 ft 7 in","Location":"Other","Width":"-","Application":["Living Space","Residential"],"Glazes":["Custom Color"]},{"ProjectID":"05-08-013","Date":200508013,"Products":[{"ProductName":"Sliding Door","GeoType1":["Door"],"GeoType2":[]}],"Description":"Curved eave, lean-to sunroom with two hip corners.","Image1":"DSCN1102_500x375.jpg","Image2":"DSCN1096_500x375.jpg","Image3":"DSCN1098_500x375.jpg","Image4":"DSCN1100_500x375.jpg","ExtColor":["Custom Color"],"IntColor":["Custom Color"],"LengthProjection":"2 ft","RidgeHeight":"10 ft","Location":"Other","Width":"16 ft","Application":["Commercial","Retail Sales"],"Glazes":["Bronze"]},{"ProjectID":"06-04-046","Date":200604046,"Products":[{"ProductName":"Architectural Enhancement","GeoType1":["Gable End"],"GeoType2":[]},{"ProductName":"Sunroom","GeoType1":["Curved Eave Lean-To"],"GeoType2":[]}],"Description":"Curved Eave Lean to Sunroom with 2 gable ends.","Image1":"Picture-0014.jpg","Image2":"Picture-0024.jpg","Image3":"Picture-0034copyright_500x366.jpg","Image4":"Picture-0034copyright_500x3661.jpg","ExtColor":["Bronze","AAMA 2603"],"IntColor":["Bronze","AAMA 2603"],"LengthProjection":"2 ft 7 in","RidgeHeight":"7 ft","Location":"Virginia","Width":"15 ft","Application":["Commercial"],"Glazes":["Clear"]},{"ProjectID":"05-12-035","Date":200512035,"Products":[{"ProductName":"Sunroom","GeoType1":["Curved Eave Lean-To"],"GeoType2":[]}],"Description":"Curved eave lean-to sunroom with sliding door.","Image1":"Harris1.jpg","Image2":"Harris-3_500x375.jpg","Image3":"Harris-3_500x3752.jpg","Image4":"Harris-6_500x375.jpg","ExtColor":["Custom Color"],"IntColor":["Custom Color"],"LengthProjection":"13 ft","RidgeHeight":"8 ft","Location":"Connecticut","Width":"13 ft","Application":["Living Space","Residential"],"Glazes":["Clear"]},{"ProjectID":" 05-12-012","Date":200512012,"Products":[{"ProductName":"Architectural Enhancement","GeoType1":["Gable End"],"GeoType2":[]},{"ProductName":"Sunroom","GeoType1":["Curved Eave Lean-To"],"GeoType2":["501-750 SQF. Glass"]},{"ProductName":"Window","GeoType1":["Projected"],"GeoType2":["Awning"]}],"Description":"Curved Eave Lean-to Sunroom with two gable ends, awning windows, and ridge vents","Image1":"DSC00527_500x333.jpg","Image2":"DSC00528_22.jpg","Image3":"DSC00527_22.jpg","Image4":"DSC00528_500x333.jpg","ExtColor":["White","AAMA 2603"],"IntColor":["White","AAMA 2603"],"LengthProjection":"10 ft","RidgeHeight":"7 ft 6 in","Location":"Indiana","Width":"12 ft","Application":["Living Space","Residential"],"Glazes":["Clear"]},{"ProjectID":"04-06-016","Date":200406016,"Products":[{"ProductName":"Sliding Door","GeoType1":["Door"],"GeoType2":["Dual Track"]},{"ProductName":"Sunroom","GeoType1":["Curved Eave Lean-To"],"GeoType2":["251-500 SQF. Glass"]}],"Description":"Curved eave Lean-to sunroom with sliding windows-","Image1":"IMG_1916_500x375.jpg","Image2":"IMG_1912_500x375.jpg","Image3":"IMG_1913_500x375.jpg","Image4":"IMG_1914_500x375.jpg","ExtColor":["Custom Color"],"IntColor":["Custom Color"],"LengthProjection":"34 ft","RidgeHeight":"7 ft","Location":"Pennsylvania","Width":"10 ft","Application":["Residential"],"Glazes":["Clear"]},{"ProjectID":"04-08-011","Date":200408011,"Products":[{"ProductName":"Door","GeoType1":["In-System Terrace Door"],"GeoType2":[]},{"ProductName":"Sliding Door","GeoType1":["Door"],"GeoType2":["Dual Track"]},{"ProductName":"Sunroom","GeoType1":["Straight Eave Lean-To"],"GeoType2":["101-250 SQF. Glass"]}],"Description":"Straight eave sunroom with no gable ends, sliding doors and a rear curtain wall with solid panel.","Image1":"sol-se-Nicholas_500x375.jpg","Image2":"IMG_2040_500x375.jpg","Image3":"IMG_2044_500x375.jpg","Image4":"IMG_2046_500x375.jpg","ExtColor":["Bronze","AAMA 2603"],"IntColor":["Bronze","AAMA 2603"],"LengthProjection":"22 ft","RidgeHeight":"10 ft","Location":"New York","Width":"19 ft","Application":["Residential"],"Glazes":["Clear"]},{"ProjectID":"11-04-054","Date":201104054,"Products":[{"ProductName":"Architectural Enhancement","GeoType1":["Gable End"],"GeoType2":[]},{"ProductName":"Door","GeoType1":[],"GeoType2":[]},{"ProductName":"Greenhouse","GeoType1":["Straight Eave Double Pitch"],"GeoType2":["251-500 SQF. Glass"]}],"Description":"Insulated Straight Eave Double Pitch Greenhouse with one Gable end and terrace door.","Image1":"IMG_0080_500x375.jpg","Image2":"IMG_0081_500x375.jpg","Image3":"IMG_0082_500x375.jpg","Image4":"IMG_0078_500x375.jpg","ExtColor":["Black","AAMA 2603"],"IntColor":["Black","AAMA 2603"],"LengthProjection":"16 ft 0 in","RidgeHeight":"9 ft 9 in","Location":"Pennsylvania","Width":"10 ft","Application":["Residential"],"Glazes":["Clear"]},{"ProjectID":"05-06-010","Date":200506010,"Products":[{"ProductName":"Door","GeoType1":[],"GeoType2":[]},{"ProductName":"Sunroom","GeoType1":["Straight Eave Double Pitch"],"GeoType2":["501-750 SQF. Glass"]},{"ProductName":"Window","GeoType1":["Projected"],"GeoType2":["Awning"]}],"Description":"Straight eave, double pitch sunroom with ridge vents, french doors, decorative gutters, and awning windows.","Image1":"P10100033_500x375.jpg","Image2":"116_500x375.jpg","Image3":"P10100073_500x375.jpg","Image4":"P10100062_500x375.jpg","ExtColor":["Sandstone","AAMA 2603"],"IntColor":["Sandstone","AAMA 2603"],"LengthProjection":"16 ft","RidgeHeight":"12 ft","Location":"New York","Width":"16 ft","Application":["Residential"],"Glazes":["Bronze"]},{"ProjectID":"04-11-041","Date":200411041,"Products":[{"ProductName":"Conservatory","GeoType1":["Straight Eave Double Pitch"],"GeoType2":["251-500 SQF. Glass"]},{"ProductName":"Decorative Elements","GeoType1":["Finials","Ridge Cresting"],"GeoType2":[]},{"ProductName":"Hobby Greenhouse","GeoType1":["Straight Eave Double Pitch"],"GeoType2":[]},{"ProductName":"Sunroom","GeoType1":["Straight Eave Double Pitch"],"GeoType2":[]}],"Description":"Straight eave double pitch sunroom with finial, ridge cresting and awning windows.","Image1":"IMG_0406_500x375.jpg","Image2":"Molle1206-001_500x375.jpg","Image3":"IMG_04041_500x375.jpg","Image4":"Molle1206-004_500x375.jpg","ExtColor":["Sandstone","AAMA 2603"],"IntColor":["Sandstone","AAMA 2603"],"LengthProjection":"13 ft","RidgeHeight":"10 ft","Location":"Michigan","Width":"13 ft","Application":["Residential"],"Glazes":["Clear"]},{"ProjectID":"04-09-045","Date":200409045,"Products":[{"ProductName":"Architectural Enhancement","GeoType1":["Ridge Vent"],"GeoType2":[]},{"ProductName":"Decorative Elements","GeoType1":["Gutter"],"GeoType2":[]},{"ProductName":"Door","GeoType1":[],"GeoType2":[]},{"ProductName":"Sunroom","GeoType1":["Straight Eave Double Pitch"],"GeoType2":["751-1000 SQF. Glass"]}],"Description":"Straight eave, double pitch sunroom with operable ridge vent, terrace door, and decorative gutters.","Image1":"Parker-001_500x375.jpg","Image2":"Parker-002_500x375.jpg","Image3":"Parker-003_500x375.jpg","Image4":"Parker-004_500x375.jpg","ExtColor":["White","AAMA 2603"],"IntColor":["White","AAMA 2603"],"LengthProjection":"25 ft","RidgeHeight":"19 ft","Location":"New Jersey","Width":"18 ft","Application":["Residential"],"Glazes":["Custom Color"]},{"ProjectID":"04-08-027","Date":200408027,"Products":[{"ProductName":"Architectural Enhancement","GeoType1":["Ridge Vent"],"GeoType2":[]},{"ProductName":"Sliding Door","GeoType1":["Door"],"GeoType2":["Dual Track"]},{"ProductName":"Sunroom","GeoType1":["Straight Eave Lean-To"],"GeoType2":["2001+ SQF. Glass"]},{"ProductName":"Walkway","GeoType1":["Straight Eave Lean-To"],"GeoType2":[]}],"Description":"Straight eave, lean-to sunroom and attached lean-to walkway with operable ridge vents and sliding door","Image1":"sol-selt-casa-grande-touch-up-2_500x350.jpg","Image2":"IMG_0229-2_500x375.jpg","Image3":"IMG_0231-2_500x375.jpg","Image4":"IMG_0234-2_500x375.jpg","ExtColor":["Natural Clay","AAMA 2603"],"IntColor":["Natural Clay","AAMA 2603"],"LengthProjection":"26 ft","RidgeHeight":"15 ft","Location":"Pennsylvania","Width":"47 ft","Application":["Commercial","Dining","Retail Sales"],"Glazes":["Clear"]},{"ProjectID":"05-11-011","Date":200511011,"Products":[{"ProductName":"Sunroom","GeoType1":["Straight Eave Lean-To"],"GeoType2":["101-250 SQF. Glass"]}],"Description":"Residential Straight eave, lean-to sunroom located in Canada.","Image1":"000_0255-2_500x375.jpg","Image2":"000_0260_500x375.jpg","Image3":"000_0262-2_500x375.jpg","Image4":"sol-selt-chandos-lake0395-touch-up-2_500x375.jpg","ExtColor":["Bronze","AAMA 2603"],"IntColor":["Bronze","AAMA 2603"],"LengthProjection":"8 ft","RidgeHeight":"11 ft","Location":"Canada","Width":"19 ft","Application":["Commercial"],"Glazes":["Clear"]},{"ProjectID":"04-07-021","Date":200407021,"Products":[{"ProductName":"Architectural Enhancement","GeoType1":["Gable End","Knee Walls"],"GeoType2":[]},{"ProductName":"Greenhouse","GeoType1":["Straight Eave Lean-To"],"GeoType2":["101-250 SQF. Glass"]},{"ProductName":"Greenhouse Accessory","GeoType1":["Storage"],"GeoType2":["Seeding Bench"]}],"Description":"Insulated, straight eave, lean to, greenhouse, with two (2) gable ends.","Image1":"IMG_1866_500x375.jpg","Image2":"IMG_1861_500x375.jpg","Image3":"IMG_1863_500x375.jpg","Image4":"IMG_1864_500x375.jpg","ExtColor":["White","AAMA 2603"],"IntColor":["White","AAMA 2603"],"LengthProjection":"3 ft","RidgeHeight":"6 ft 2 in","Location":"Pennsylvania","Width":"12 ft","Application":["Residential"],"Glazes":["Clear"]},{"ProjectID":"05-05-025","Date":200505025,"Products":[{"ProductName":"Sunroom","GeoType1":["Straight Eave Lean-To"],"GeoType2":["251-500 SQF. Glass"]},{"ProductName":"Window","GeoType1":["Projected"],"GeoType2":["Awning"]}],"Description":"Straight eave, lean to, sunroom, with one (1) gable end and removed lower wall area.","Image1":"IMG_3645_500x375.jpg","Image2":"IMG_3662_500x375.jpg","Image3":"IMG_3621_500x375.jpg","Image4":"IMG_3632_500x375.jpg","ExtColor":["White","AAMA 2603"],"IntColor":["White","AAMA 2603"],"LengthProjection":"6 ft","RidgeHeight":"9 ft 9 in","Location":"Other","Width":"17 ft","Application":["Residential"],"Glazes":["Clear"]},{"ProjectID":"04-05-009","Date":200405009,"Products":[{"ProductName":"Folding Glass Wall","GeoType1":["Door","Windows"],"GeoType2":["All Wall"]},{"ProductName":"Sunroom","GeoType1":["Irregular / Custom","Straight Eave Lean-To"],"GeoType2":["501-750 SQF. Glass"]}],"Description":"Straight eave, lean-to sunroom with a fifteen panel, in fold, bottom load, folding glass window system.","Image1":"1.jpg","Image2":"21.jpg","Image3":"3.jpg","Image4":"4.jpg","ExtColor":["Sandstone","AAMA 2603"],"IntColor":["Sandstone","AAMA 2603"],"LengthProjection":"14 ft","RidgeHeight":"8 ft","Location":"Other","Width":"40 ft","Application":["Residential"],"Glazes":["Clear"]},{"ProjectID":"04-05-026","Date":200405026,"Products":[{"ProductName":"Door","GeoType1":[],"GeoType2":[]},{"ProductName":"Sunroom","GeoType1":["Straight Eave Lean-To"],"GeoType2":["51-100 SQF. Glass"]},{"ProductName":"Walkway","GeoType1":["Straight Eave Lean-To"],"GeoType2":["51-100 SQF. Glass"]}],"Description":"Straight eave lean-to sunroom used as the entrance to a residential row home.  The sunroom features no gable ends and a terrace door.","Image1":"IMG_1841.jpg","Image2":"IMG_1840.jpg","Image3":"IMG_1845_500x375.jpg","Image4":"IMG_1843.jpg","ExtColor":["Clear Anodized","Class I Anodized"],"IntColor":["Clear Anodized","Class I Anodized"],"LengthProjection":"14 ft","RidgeHeight":"12 ft","Location":"Washington DC","Width":"5 ft","Application":["Residential"],"Glazes":["Clear"]},{"ProjectID":"09-04-362","Date":200904362,"Products":[{"ProductName":"Sunroom","GeoType1":["Straight Eave Lean-To"],"GeoType2":["2001+ SQF. Glass"]}],"Description":"Straight eave lean-to sunroom used as a cafeteria extension at a college.  The sunroom features two gable ends and solid panel in various portions of the roof.","Image1":"DSCN0422_500x375.jpg","Image2":"IMG_1680_500x375.jpg","Image3":"DSCN0419_500x375.jpg","Image4":"Scan1778_500x338.jpg","ExtColor":["White","AAMA 2603"],"IntColor":["White","AAMA 2603"],"LengthProjection":"30 ft","RidgeHeight":"16 ft","Location":"Pennsylvania","Width":"123 ft","Application":["Educational"],"Glazes":["Gray"]},{"ProjectID":"05-04-020","Date":200504020,"Products":[{"ProductName":"Architectural Enhancement","GeoType1":["Knee Walls"],"GeoType2":[]},{"ProductName":"Decorative Elements","GeoType1":["Decorative Trims","Grids"],"GeoType2":[]},{"ProductName":"Sunroom","GeoType1":["Straight Eave Lean-To"],"GeoType2":["251-500 SQF. Glass"]}],"Description":"Straight eave, lean-to sunroom no gable ends, and operable ridge vents.","Image1":"IMG_1214_500x375.jpg","Image2":"IMG_1211_500x375.jpg","Image3":"IMG_1206_500x375.jpg","Image4":"IMG_1223_500x375.jpg","ExtColor":["Bronze","AAMA 2603"],"IntColor":["Bronze","AAMA 2603"],"LengthProjection":"6 ft","RidgeHeight":"10 ft","Location":"Pennsylvania","Width":"31 ft","Application":["Residential"],"Glazes":["Clear"]},{"ProjectID":"04-11-036","Date":200411036,"Products":[{"ProductName":"Decorative Elements","GeoType1":["Gutter"],"GeoType2":[]},{"ProductName":"Door","GeoType1":["In-System French Door"],"GeoType2":[]},{"ProductName":"Sunroom","GeoType1":["Straight Eave Lean-To"],"GeoType2":["501-750 SQF. Glass"]}],"Description":"Straight eave lean to sunroom with two gable ends and exterior mounted sun shade system.","Image1":"IMG_0252_500x375.jpg","Image2":"IMG_0507_500x375.jpg","Image3":"IMG_0254_500x375.jpg","Image4":"IMG_0253_500x375.jpg","ExtColor":["Green (Hartford)","AAMA 2603"],"IntColor":["Green (Hartford)","AAMA 2603"],"LengthProjection":"24 ft","RidgeHeight":"9 ft","Location":"Maryland","Width":"16 ft","Application":["Residential"],"Glazes":["Clear"]},{"ProjectID":"05-01-008","Date":200501008,"Products":[{"ProductName":"Sliding Door","GeoType1":["Door"],"GeoType2":["Dual Track"]},{"ProductName":"Sunroom","GeoType1":["Straight Eave Lean-To"],"GeoType2":["251-500 SQF. Glass"]}],"Description":"Straight eave, lean-to sunroom with a sliding door and sliding windows.","Image1":"sol-selt-miller_500x375.jpg","Image2":"IMG_2394_500x375.jpg","Image3":"IMG_2512_500x375.jpg","Image4":"IMG_2521-sliding-windows-low-res_500x375.jpg","ExtColor":["White","AAMA 2603"],"IntColor":["White","AAMA 2603"],"LengthProjection":"11 ft 2 in","RidgeHeight":"10 ft 2 in","Location":"Pennsylvania","Width":"20 ft 3 in","Application":["Residential"],"Glazes":["Clear"]},{"ProjectID":"04-04-028","Date":200404028,"Products":[{"ProductName":"Curtain Wall","GeoType1":["Vertical Curtain Wall"],"GeoType2":["751-1000 SQF. Glass"]},{"ProductName":"Skylight","GeoType1":["Barrel Vault"],"GeoType2":["2001+ SQF. Glass"]}],"Description":"Segmented barrel vault skylight with interior curtain wall below, used as a Storefront.","Image1":"Scan0544-2_500x329.jpg","Image2":"Scan0543-2_500x333.jpg","Image3":"DSCN0098-2.jpg","Image4":"DSCN0101-2.jpg","ExtColor":["Custom Color","Clear Anodized","Class I Anodized"],"IntColor":["Custom Color","Clear Anodized","Class I Anodized"],"LengthProjection":"130 ft","RidgeHeight":"6 ft","Location":"Washington DC","Width":"16 ft","Application":["Commercial","Retail Sales"],"Glazes":["Clear"]},{"ProjectID":"hq-3524","Date":2001354,"Products":[{"ProductName":"Walkway","GeoType1":["Straight Eave Lean-To"],"GeoType2":["2001+ SQF. Glass","1-50 SQF. Glass"]}],"Description":"Lean-to skylight used as walkway in New York City","Image1":"Scan0031_500x331.jpg","Image2":"walk-Equinox_500x336.jpg","Image3":"Equinox-1_500x330.jpg","Image4":"Equinox_500x332.jpg","ExtColor":["Clear Anodized","Class I Anodized"],"IntColor":["Clear Anodized","Class I Anodized"],"LengthProjection":"200 ft","RidgeHeight":"11 ft","Location":"New York","Width":"-","Application":["Commercial"],"Glazes":["Clear"]},{"ProjectID":"04-09-003","Date":200409003,"Products":[{"ProductName":"Walkway","GeoType1":["Straight Eave Double Pitch"],"GeoType2":["251-500 SQF. Glass"]}],"Description":"Straight eave double pitch entranceway with no gable ends.","Image1":"graphic-partners.jpg","Image2":"File0001.jpg","Image3":"File0002.jpg","Image4":"File0004.jpg","ExtColor":["Green (Hartford)","AAMA 2603"],"IntColor":["Green (Hartford)","AAMA 2603"],"LengthProjection":"10 ft","RidgeHeight":"8 ft","Location":"Other","Width":"5 ft","Application":["Commercial"],"Glazes":["Clear"]},{"ProjectID":"10-08-260","Date":201008260,"Products":[{"ProductName":"Pivot","GeoType1":["Door"],"GeoType2":[]}],"Description":"Pivot Door used in a Residential Application","Image1":"IMG00237-20110215-1242_edited_500.jpg","Image2":"IMG00243-20110215-1501_500.jpg","Image3":"IMG00244-20110215-1501_500_2.jpg","Image4":"IMG00243-20110215-1501_500_3.jpg","ExtColor":["Clear Anodized","Class I Anodized"],"IntColor":["Clear Anodized","Class I Anodized"],"LengthProjection":"-","RidgeHeight":"8 ft","Location":"Virginia","Width":"6 ft","Application":["Home","Residential"],"Glazes":["LoE 272"]},{"ProjectID":"08-09-188","Date":200809188,"Products":[{"ProductName":"Pool Enclosure","GeoType1":["Curved Eave Lean-To"],"GeoType2":["751-1000 SQF. Glass"]}],"Description":"Curved Eave Lean-to spa enclosure, used to protect the customer's spa from the elements.","Image1":"glass-room-and-girls051_500_11.jpg","Image2":"glass-room-and-girls049_500_2.jpg","Image3":"glass-room-and-girls001_edited_500_3.jpg","Image4":"glass-room-and-girls012_500_4.jpg","ExtColor":[],"IntColor":[],"LengthProjection":"14 ft 10 in","RidgeHeight":"16 ft 6 in","Location":"Maine","Width":"18 ft 3 in","Application":["Living Space","Residential"],"Glazes":""},{"ProjectID":"10-02-437","Date":201002437,"Products":[{"ProductName":"Pivot","GeoType1":["Door","Curved Barrel Vault","Transom"],"GeoType2":[]}],"Description":"Pivot Door for Residential Use in Florida","Image1":"DSC_0402_500.jpg","Image2":"DSC_0403_500_2.jpg","Image3":"DSC_0400_500_2.jpg","Image4":"DSC_0399_500_3.jpg","ExtColor":["White"],"IntColor":["White"],"LengthProjection":"-","RidgeHeight":"6 ft 5 in","Location":"Florida","Width":"5 ft","Application":["Home","Residential"],"Glazes":["Clear"]},{"ProjectID":"11-08-428","Date":201108428,"Products":[{"ProductName":"Operable / Retractable Skylights","GeoType1":["Lantern","90 Degree Operable"],"GeoType2":["101-250 SQF. Glass","Hand Pump","Hydraulic Operation","Manual"]}],"Description":"Operable 90 degree skylight used for ecclesiastical purposes.","Image1":"500_1.jpg","Image2":"IMG_0327_500.jpg","Image3":"IMG_0328_colorbalance_500.jpg","Image4":"IMG_0319_500.jpg","ExtColor":[],"IntColor":[],"LengthProjection":"11 ft 2 in","RidgeHeight":"2 ft","Location":"New York","Width":"11 ft 5 in","Application":["Ecclesiastical","Home"],"Glazes":""},{"ProjectID":"11-01-119","Date":201101119,"Products":[{"ProductName":"Operable / Retractable Skylights","GeoType1":["90 Degree Operable","Operable Skylight","Retractable Skylight / Roof"],"GeoType2":["51-100 SQF. Glass","Hydraulic Operation","Manual"]}],"Description":"Operable Succah Skylight located in New York and used for Ecclesiastical purposes","Image1":"Skylighttouchup_5001.jpg","Image2":"Skylight8_touchup_500.jpg","Image3":"Skylight15touch_500.jpg","Image4":"Skylight25_500.jpg","ExtColor":["Dark Bronze Anodized","Bronze","Class I Anodized"],"IntColor":[],"LengthProjection":"12 ft 3 in","RidgeHeight":"2 ft","Location":"New York","Width":"13 ft 8 in","Application":["Ecclesiastical","Home"],"Glazes":["LoE 272"]},{"ProjectID":"11-01-333","Date":201101333,"Products":[{"ProductName":"Folding Glass Wall","GeoType1":["Door","Monster Wall"],"GeoType2":["251-500 SQF. Glass","All Wall"]}],"Description":"Double door mid wall folding system, 5 PANELS FOLD LEFT, 5 PANELS FOLD RIGHT, RECESSED SILL WITH ADJUSTABLE RAMP","Image1":"radio-station-06272012_touchup_500.jpg","Image2":"radio-station-06272012-2_500.jpg","Image3":"radio-station-06272012-3_touchup_500.jpg","Image4":"radio-station-06272012-4_500.jpg","ExtColor":["Clear Anodized","Class I Anodized"],"IntColor":["Clear Anodized","Class I Anodized"],"LengthProjection":"12 ft 2 in","RidgeHeight":"-","Location":"Missouri","Width":"30 ft","Application":["Commercial","Office Space"],"Glazes":["Clear"]},{"ProjectID":"PZ-01-001","Date":200201001,"Products":[{"ProductName":"Conservatory","GeoType1":["Wood Conservatories"],"GeoType2":["501-750 SQF. Glass"]}],"Description":"Custom bespoke wooden conservatory shape with terrace door, window grids, ridge vent, dentil molding, pilasters, transoms, finials and Palladian arches in gable ends","Image1":"P1000752_500.jpg","Image2":"P1000754_500.jpg","Image3":"P1000756_500.jpg","Image4":"P1000757_500.jpg","ExtColor":[],"IntColor":[],"LengthProjection":"14 ft","RidgeHeight":"21 ft 10 in","Location":"Virginia","Width":"23 ft 9 in","Application":["Residential"],"Glazes":""},{"ProjectID":"PZ-02-002","Date":200202002,"Products":[{"ProductName":"Conservatory","GeoType1":["Wood Conservatories"],"GeoType2":["501-750 SQF. Glass","English"]}],"Description":"Straight Eave Double Pitch Wood Conservatory featuring: Ridge vents, finials, transoms, French doors, window grids, corner pilasters","Image1":"DSC01312_500.jpg","Image2":"Interior_500.jpg","Image3":"Side_500.jpg","Image4":"Snow_500.jpg","ExtColor":["Custom Color"],"IntColor":["Wood"],"LengthProjection":"20 ft 1 inch","RidgeHeight":"14 ft 11 in","Location":"Connecticut","Width":"20 ft 1 inch","Application":["Banquets","Residential"],"Glazes":["Clear"]},{"ProjectID":"PZ-03-003","Date":200203003,"Products":[{"ProductName":"Conservatory","GeoType1":["Wood Conservatories"],"GeoType2":["501-750 SQF. Glass"]}],"Description":"Conservatory nose configuration with roof lantern, finial, transoms with Palladian arch  grid pattern, pilasters, operable windows with traditional style grid pattern, French doors","Image1":"Sandhu-1_500.jpg","Image2":"sandu1-high-29-01-08_5001.jpg","Image3":"Sandhu-close-2_5002.jpg","Image4":"/////","ExtColor":["Custom Color"],"IntColor":["Wood"],"LengthProjection":"14 ft 4 in","RidgeHeight":"29 ft","Location":"Connecticut","Width":"20 ft 2 in","Application":["Residential"],"Glazes":["Clear"]},{"ProjectID":"PZ-04-004","Date":200204004,"Products":[{"ProductName":"Conservatory","GeoType1":["Wood Conservatories"],"GeoType2":["251-500 SQF. Glass"]}],"Description":"Custom designed wood conservatory with hip end roof lines, pilasters, transoms, French doors, gutter, roof lantern, finial, dormer and interior Pinoleum blinds.","Image1":"DSC01052a-RichardsLarge_500.jpg","Image2":"Richards_500.jpg","Image3":"Richards-3_500.jpg","Image4":"Richards-2_500.jpg","ExtColor":["Custom Color"],"IntColor":["Wood"],"LengthProjection":"33 ft 3 in","RidgeHeight":"17 ft 11 in","Location":"Massachusetts","Width":"20 ft 6 in","Application":["Living Space","Residential"],"Glazes":["Clear"]},{"ProjectID":"11-01-369","Date":201101369,"Products":[{"ProductName":"Lift Slide","GeoType1":["Dual Panel","Multi Panel"],"GeoType2":["251-500 SQF. Glass"]}],"Description":"Lift Slide Doors used in a residential setting.","Image1":"IMG00635-20120309-1243_500.jpg","Image2":"IMG00636-20120309-1243_500.jpg","Image3":"IMG00637-20120309-1245-2_500.jpg","Image4":"IMG00639-20120309-1303-2_500.jpg","ExtColor":["Black","AAMA 2603"],"IntColor":["AAMA 2603"],"LengthProjection":"34 ft ","RidgeHeight":"11 ft","Location":"New York","Width":"-","Application":["Residential"],"Glazes":["Clear","Tempered"]},{"ProjectID":"11-06-298","Date":201106298,"Products":[{"ProductName":"Clear Glass Walls","GeoType1":["Clear Glass Wall"],"GeoType2":["51-100 SQF. Glass"]}],"Description":"Interior 5-Panel Clear Wall System with Clear Monolithic Glazing","Image1":"2012/08/IMG_20120119_091644_touchup_500.jpg","Image2":"2012/08/IMG_20120119_091448_touchup_5001.jpg","Image3":"2012/08/IMG_20120119_091644_500.jpg","Image4":"2012/08/IMG_20120119_091705_touchup_500.jpg","ExtColor":["White"],"IntColor":["White"],"LengthProjection":"-","RidgeHeight":"7 ft 6 in","Location":"Virginia","Width":"12 ft","Application":["Commercial","Office Space","Sporting"],"Glazes":["Clear","Monolithic Glass"]},{"ProjectID":"10-02-333","Date":201002333,"Products":[{"ProductName":"Decorative Elements","GeoType1":["Base Panels"],"GeoType2":[]},{"ProductName":"Sunroom","GeoType1":["Curved Eave Double Pitch"],"GeoType2":["2001+ SQF. Glass","1-50 SQF. Glass"]}],"Description":"Curved Eave Double Pitch Sunroom(Ogee style) located in New York City's Central Park West District. NYC traffic was re-routed for install and the project was featured on DIY Network's  inMillion Dollar Contractor in.  The sunroom features a finial, solid base panels, and interior roof mounted shades.","Image1":"225-central-park-west-12-09-25-2013-edited-500-small.jpg","Image2":"225-central-park-west-7-09-25-2013-500-small-edited.jpg","Image3":"225-central-park-west-13-09-25-2013-500-small-web.jpg","Image4":"225-central-park-west-9-09-25-2013-web-big-msall-500-web.jpg","ExtColor":["Custom Color"],"IntColor":["AAMA 2603"],"LengthProjection":"14 ft","RidgeHeight":"7 ft ","Location":"New York","Width":"25 ft 9 in","Application":["Living Space","Residential"],"Glazes":["Clear","Tempered"]},{"ProjectID":"10-07-278","Date":201007278,"Products":[{"ProductName":"Sliding Door","GeoType1":["Door","Monster Wall"],"GeoType2":["101-250 SQF. Glass","Dual Track","G2"]}],"Description":"Multi track sliding glass doors with crescent style handle, and low performing wind load sill.","Image1":"Death-Valley-Visitor-Center-1_500.jpg","Image2":"Death-Valley-Visitor-Center-2_500.jpg","Image3":"Death-Valley-Theater_500.jpg","Image4":"Death-Valley-Visitor-Center-2_500.jpg","ExtColor":["Clear Anodized","Class I Anodized"],"IntColor":["Clear Anodized","Class I Anodized"],"LengthProjection":"-","RidgeHeight":"8 ft 5 in","Location":"California","Width":"16 ft 5 in","Application":["Commercial","Educational"],"Glazes":["Clear"]},{"ProjectID":"09-04-363","Date":200904363,"Products":[{"ProductName":"Wood Curtain Wall","GeoType1":["Vertical"],"GeoType2":["2001+ SQF. Glass"]}],"Description":"Impact Certified Wood Curtain Wall used in Medical Center.","Image1":"ShoreMemorial4.jpg","Image2":"ShoreMemorial1.jpg","Image3":"ShoreMemorial3.jpg","Image4":"ShoreMemorial2.jpg","ExtColor":["Custom Color"],"IntColor":["Doulgas Fir"],"LengthProjection":"varies per unit","RidgeHeight":"varies per unit","Location":"New Jersey","Width":"varies per unit","Application":["Commercial","Health Centers","Institutional"],"Glazes":["Heat Strengthened Laminated","Custom Color"]},{"ProjectID":"06-06-024","Date":200606024,"Products":[{"ProductName":"Architectural Enhancement","GeoType1":[],"GeoType2":[]},{"ProductName":"Decorative Elements","GeoType1":["Column","Decorative Trims","Eave Cornice","Finials","Grids","King Post","Ridge Cresting","Transoms"],"GeoType2":[]},{"ProductName":"Conservatory","GeoType1":["Straight Eave Double Pitch"],"GeoType2":["251-500 SQF. Glass"]},{"ProductName":"Greenhouse","GeoType1":["Straight Eave Double Pitch"],"GeoType2":["251-500 SQF. Glass"]}],"Description":"Straight eave double pitch greenhouse with one gable end and partial side wall. Decorative accessories include a king post, ridge cresting, gable rake molding, gutter, fixed windows, grid work, transoms and exterior corner posts.","Image1":"2012/09/Eave-Corner-11.jpg","Image2":"Eave-Cornice.jpg","Image3":"Eave-Corners-31.jpg","Image4":"Eave-Corners-21.jpg","ExtColor":["Green (Hartford)"],"IntColor":["Custom Color","Custom Color"],"LengthProjection":"9 ft","RidgeHeight":"13 ft 7 in","Location":"Connecticut","Width":"11 ft 4 in","Application":["Residential"],"Glazes":["Custom Color"]},{"ProjectID":"10-12-282","Date":201012282,"Products":[{"ProductName":"Greenhouse","GeoType1":["Straight Eave Double Pitch"],"GeoType2":["751-1000 SQF. Glass"]},{"ProductName":"Hobby Greenhouse","GeoType1":["Straight Eave Double Pitch"],"GeoType2":["751-1000 SQF. Glass"]}],"Description":"Straight eave, double pitch greenhouse with operable ridge vents, awning windows, ridge cresting, and finial.","Image1":"Reilly1.jpg","Image2":"Reilly2.jpg","Image3":"Reilly3.jpg","Image4":"Reilly4.jpg","ExtColor":["Dark Bronze Anodized","Bronze","Class I Anodized"],"IntColor":["Dark Bronze Anodized","Bronze","Class I Anodized"],"LengthProjection":"Units Vary","RidgeHeight":"Units Vary","Location":"Pennsylvania","Width":"Units Vary","Application":["Residential"],"Glazes":["Clear"]},{"ProjectID":"07-07-041","Date":200707041,"Products":[{"ProductName":"Architectural Enhancement","GeoType1":["Knee Walls"],"GeoType2":[]},{"ProductName":"Decorative Elements","GeoType1":["Ridge Cresting","Ring and Collar Ties"],"GeoType2":[]},{"ProductName":"Greenhouse","GeoType1":["Curved Eave Double Pitch"],"GeoType2":["2001+ SQF. Glass","1-50 SQF. Glass"]}],"Description":"Curved eave double pitch greenhouse with two gable ends and a curved eave double pitch dormer with one gable end. Features operable ridge vent,  decorative alumnim ridge cresting, terrace door and interior ring and collar.","Image1":"gmC293.jpg","Image2":"gm12A7.jpg","Image3":"gmB299.jpg","Image4":"gmD294.jpg","ExtColor":["Bronze","AAMA 2603"],"IntColor":["Bronze","AAMA 2603"],"LengthProjection":"25 ft 8 in","RidgeHeight":"9 ft","Location":"Pennsylvania","Width":"20 ft","Application":["Commercial"],"Glazes":["LoE 272"]},{"ProjectID":"07-09-014","Date":200709014,"Products":[{"ProductName":"Decorative Elements","GeoType1":["Ridge Cresting"],"GeoType2":[]},{"ProductName":"Skylight","GeoType1":["Straight Eave Double Pitch"],"GeoType2":["2001+ SQF. Glass","1-50 SQF. Glass"]}],"Description":"Straight eave double pitch skylight with two straight eave double pitch dormers with ridge cresting, constructed with 7 inches aluminum system.","Image1":"Rinaldi1.jpg","Image2":"Rinaldi2.jpg","Image3":"Rinaldi3.jpg","Image4":"Rinaldi4.jpg","ExtColor":["Black","AAMA 2603"],"IntColor":["Black","AAMA 2603"],"LengthProjection":"27 ft","RidgeHeight":"12 ft","Location":"New Jersey","Width":"22 ft","Application":["Residential"],"Glazes":["LoE 272"]},{"ProjectID":"04-04-037","Date":200404037,"Products":[{"ProductName":"Folding Glass Wall","GeoType1":["Door"],"GeoType2":["51-100 SQF. Glass","All Wall"]}],"Description":"Six panel, in fold, top load, folding glass wall used in restaurant application.","Image1":"riverinn1.jpg","Image2":"riverinn2.jpg","Image3":"riverinn3.jpg","Image4":"riverinn4.jpg","ExtColor":["Bronze","AAMA 2603"],"IntColor":["Bronze","AAMA 2603"],"LengthProjection":"17 ft","RidgeHeight":"5 ft","Location":"Maryland","Width":"-","Application":["Commercial","Dining","Retail Sales"],"Glazes":["Clear"]},{"ProjectID":"11-11-188","Date":201111188,"Products":[{"ProductName":"Car Wash","GeoType1":["Stairway Covers"],"GeoType2":["251-500 SQF. Glass"]}],"Description":"Straight eave, lean-to sunroom with exterior applied muntins.","Image1":"rivera1.jpg","Image2":"rivera2.jpg","Image3":"rivera3.jpg","Image4":"rivera4.jpg","ExtColor":["Green (Hartford)","AAMA 2603"],"IntColor":["Green (Hartford)","AAMA 2603"],"LengthProjection":"6 ft","RidgeHeight":"10 ft","Location":"New York","Width":"12 ft","Application":["Commercial","Educational"],"Glazes":["Clear"]},{"ProjectID":"08-03-165","Date":200803165,"Products":[{"ProductName":"Architectural Enhancement","GeoType1":["Transom"],"GeoType2":[]},{"ProductName":"Decorative Elements","GeoType1":["Finials","Ridge Cresting"],"GeoType2":["Colonial Grid","Ogee Grid"]}],"Description":"Straight eave, hip end conservatory with transoms, ridge cresting,  and finials.","Image1":"robinhill1.jpg","Image2":"robinhill2.jpg","Image3":"robinhill3.jpg","Image4":"robinhill4.jpg","ExtColor":["White","AAMA 2603"],"IntColor":["White","AAMA 2603"],"LengthProjection":"23 ft","RidgeHeight":"11 ft","Location":"Pennsylvania","Width":"14 ft","Application":["Home","Living Space","Residential","Retirement"],"Glazes":["Clear"]},{"ProjectID":"11-12-125","Date":201112125,"Products":[{"ProductName":"Decorative Elements","GeoType1":["Finials","Ridge Cresting"],"GeoType2":[]},{"ProductName":"Door","GeoType1":["In-System French Door"],"GeoType2":[]},{"ProductName":"Greenhouse","GeoType1":["Straight Eave Double Pitch"],"GeoType2":["251-500 SQF. Glass"]},{"ProductName":"Hobby Greenhouse","GeoType1":["Straight Eave Double Pitch"],"GeoType2":[]}],"Description":"Straight eave, double pitch greenhouse with ridge vents, ridge cresting, finial and French doors.","Image1":"ronjones1.jpg","Image2":"ronjones2.jpg","Image3":"ronjones3.jpg","Image4":"ronjones4.jpg","ExtColor":["Bronze","AAMA 2603"],"IntColor":["Bronze","AAMA 2603"],"LengthProjection":"15 ft","RidgeHeight":"13 ft","Location":"Canada","Width":"12 ft","Application":["Residential"],"Glazes":["Clear"]},{"ProjectID":"05-08-024","Date":200508024,"Products":[{"ProductName":"Greenhouse","GeoType1":["Straight Eave Lean-To"],"GeoType2":["501-750 SQF. Glass"]}],"Description":"Straight eave, lean-to greenhouse with operable ridge vent.","Image1":"rosshill3.jpg","Image2":"rosshill2.jpg","Image3":"Exterior-View2.jpg","Image4":"rosshill4.jpg","ExtColor":["Clear Anodized","Class I Anodized"],"IntColor":["Clear Anodized","Class I Anodized"],"LengthProjection":"13 ft","RidgeHeight":"10 ft","Location":"Pennsylvania","Width":"24 ft","Application":["Residential"],"Glazes":["Clear"]},{"ProjectID":"07-06-056","Date":200706056,"Products":[{"ProductName":"Folding Glass Wall","GeoType1":["Door"],"GeoType2":["Split Wall No Floating Jamb"]},{"ProductName":"Pool Enclosure","GeoType1":["Straight Eave Lean-To"],"GeoType2":["2001+ SQF. Glass"]}],"Description":"Straight eave lean-to pool enclosure with partial gable end, one filler gable end, ridge line connection, and attached straight eave lean-to. Includes operable ridge vents, a multiple track sliding glass door, and a split wall folding glass wall.","Image1":"rouse1.jpg","Image2":"rouse2.jpg","Image3":"rouse3.jpg","Image4":"rouse4.jpg","ExtColor":["Custom Color"],"IntColor":["Custom Color"],"LengthProjection":"23 ft 5 in","RidgeHeight":"14 ft 10 in","Location":"Virginia","Width":"69 ft","Application":["NEED ENTRY"],"Glazes":["LoE 272"]},{"ProjectID":"05-08-043","Date":200508043,"Products":[{"ProductName":"Architectural Enhancement","GeoType1":["Eave Vent","Ridge Vent"],"GeoType2":[]},{"ProductName":"Door","GeoType1":[],"GeoType2":[]},{"ProductName":"Greenhouse","GeoType1":["Hip End","Irregular / Custom","Straight Eave Double Pitch"],"GeoType2":["2001+ SQF. Glass"]},{"ProductName":"Shades","GeoType1":["Interior Folding / Roman Pleated","Interior Operable"],"GeoType2":[]}],"Description":"Three straight eave double pitch structures attached to a central hip end greenhouse constructed with Bronze seven inch aluminum system, includes six French doors, ten operable ridge vents, and eight operable eave vents.","Image1":"RRRT_edited.jpg","Image2":"rrt.jpg","Image3":"rrt2.jpg","Image4":"RRTshades.jpg","ExtColor":["Bronze","AAMA 2603"],"IntColor":["Bronze","AAMA 2603"],"LengthProjection":"85 ft","RidgeHeight":"25 ft","Location":"Virginia","Width":"44 ft","Application":["Residential"],"Glazes":["LoE 272"]},{"ProjectID":"07-05-044","Date":200705044,"Products":[{"ProductName":"Skylight","GeoType1":["Straight Eave Lean-To"],"GeoType2":["501-750 SQF. Glass"]}],"Description":"Straight-eave lean to skylight in application at a Condo complex.","Image1":"2012/08/sl_stasaph1.jpg","Image2":"2012/08/sl_stasaph2.jpg","Image3":"2012/08/sl_stasaph3.jpg","Image4":"2012/08/sl_stasaph4.jpg","ExtColor":["Dark Bronze Anodized","Bronze","Class I Anodized"],"IntColor":["Dark Bronze Anodized","Bronze","Class I Anodized"],"LengthProjection":"6 ft 10 in","RidgeHeight":"5 ft 7 in","Location":"Virginia","Width":"39 ft 8 in","Application":["Commercial","Home","Residential"],"Glazes":["Clear"]},{"ProjectID":"10-02-487","Date":201002487,"Products":[{"ProductName":"Walkway","GeoType1":["Curved Barrel Vault"],"GeoType2":["251-500 SQF. Glass"]}],"Description":"Barrel vault walkway cover.","Image1":"Solar_SampsonCollege_x1400.jpg","Image2":"sam1.jpg","Image3":"sam.jpg","Image4":"sam3-1024x953.jpg","ExtColor":["Dark Bronze Anodized","Bronze","Class I Anodized"],"IntColor":["Dark Bronze Anodized","Bronze","Class I Anodized"],"LengthProjection":"47 ft","RidgeHeight":"8 ft","Location":"South Carolina","Width":"12 ft","Application":["Educational","Institutional"],"Glazes":["Bronze"]},{"ProjectID":"07-10-046","Date":200710046,"Products":[{"ProductName":"Decorative Elements","GeoType1":["Gutter"],"GeoType2":[]},{"ProductName":"Skylight","GeoType1":["Hip End"],"GeoType2":["101-250 SQF. Glass"]}],"Description":"Straight eave, hip end skylight with copper clad exterior/mahogany interior and decorative gutter.","Image1":"schade1.jpg","Image2":"schade2.jpg","Image3":"schade3.jpg","Image4":"schade.jpg","ExtColor":["Copper"],"IntColor":["Sapele Mahogany","Wood"],"LengthProjection":"8 ft 7 in","RidgeHeight":"5 ft 8 in","Location":"Pennsylvania","Width":"18 ft 10 in","Application":["Home","Residential"],"Glazes":["Clear"]},{"ProjectID":"11-03-036","Date":201103036,"Products":[{"ProductName":"Decorative Elements","GeoType1":["Finials","Ridge Cresting"],"GeoType2":[]},{"ProductName":"Door","GeoType1":[],"GeoType2":[]},{"ProductName":"Sunroom","GeoType1":["Straight Eave Double Pitch"],"GeoType2":["101-250 SQF. Glass"]}],"Description":"Straight Eave double pitch sunroom with one gable end. Features a terrace door, awning windows, a finial, and ridge cresting","Image1":"Schaef1.jpg","Image2":"Schaef2.jpg","Image3":"Schaef3.jpg","Image4":"Schaef4.jpg","ExtColor":["White"],"IntColor":["White"],"LengthProjection":"5 ft","RidgeHeight":"9 ft","Location":"Pennsylvania","Width":"9 ft","Application":["Home","Residential"],"Glazes":["Clear"]},{"ProjectID":"09-04-392","Date":200904392,"Products":[{"ProductName":"Folding Glass Wall","GeoType1":["Door","Monster Wall"],"GeoType2":["251-500 SQF. Glass","Double Door Mid Wall"]}],"Description":"Two six-panel double door (mid-wall) systems finished in Natural Clay Duracron.  These two systems have panels that are 12 ft tall and span over 23 ft openings.","Image1":"image2-Web-500.jpg","Image2":"fgw-schmidt-doors-12-foot-111609-5.jpg","Image3":"Schmidt-Doors-5.jpg","Image4":"image-Web500.jpg","ExtColor":["AAMA 2603","Natural Clay"],"IntColor":["AAMA 2603","Natural Clay"],"LengthProjection":"-","RidgeHeight":"12 ft","Location":"Pennsylvania","Width":"23 ft 10 in","Application":["Home","Residential"],"Glazes":["LoE 272"]},{"ProjectID":"07-04-038","Date":200704038,"Products":[{"ProductName":"Architectural Enhancement","GeoType1":["Lantern","Ridge Vent"],"GeoType2":[]},{"ProductName":"Conservatory","GeoType1":["Conservatory Nose"],"GeoType2":["751-1000 SQF. Glass"]},{"ProductName":"Decorative Elements","GeoType1":["Finials","Ridge Cresting"],"GeoType2":["Low Profile Grid","Traditional Grid"]}],"Description":"Straight eave double pitch conservatory with one conservatory nose and one straight eave double pitch lantern with conservatory nose. Accessories include ridge cresting, finial, and two four-bay operable ridge vent.","Image1":"Scotts1.jpg","Image2":"Scotts2.jpg","Image3":"Scotts-Pool-House-4.25.jpg","Image4":"Scotts4.jpg","ExtColor":["Bronze","AAMA 2603"],"IntColor":["Bronze","AAMA 2603"],"LengthProjection":"15 ft","RidgeHeight":"16 ft","Location":"North Carolina","Width":"20 ft","Application":["Residential"],"Glazes":["LoE 340"]},{"ProjectID":"04-03-002","Date":200403002,"Products":[{"ProductName":"Greenhouse","GeoType1":["Conservatory Nose","Irregular / Custom"],"GeoType2":["2001+ SQF. Glass"]},{"ProductName":"Walkway","GeoType1":["Straight Eave Double Pitch"],"GeoType2":[]}],"Description":"Custom conservatory nose greenhouse with a connecting walkway used at a visitor's stop in Vermont.  Interior greenhouse has a raised platform for viewing plants.  Greenhouse includes eave vents and a finial.","Image1":"DSCN4546-edited.jpg","Image2":"sharon.jpg","Image3":"sharon2.jpg","Image4":"sharon3.jpg","ExtColor":["Dark Bronze Anodized","Bronze","Class I Anodized"],"IntColor":["AAMA 2603","White"],"LengthProjection":"-","RidgeHeight":"21 ft","Location":"Vermont","Width":"42 ft","Application":["Commercial","Retail Sales"],"Glazes":["Clear"]},{"ProjectID":"05-08-021","Date":200508021,"Products":[{"ProductName":"Conservatory","GeoType1":["Conservatory Nose","Irregular / Custom"],"GeoType2":["101-250 SQF. Glass"]}],"Description":"Complex conservatory nose with aluminum exterior/Mahogany interior.","Image1":"Sherli1.jpg","Image2":"Sherli2.jpg","Image3":"Sherli3.jpg","Image4":"Sherli4.jpg","ExtColor":["Natural Clay","AAMA 2603"],"IntColor":["Sapele Mahogany","Wood"],"LengthProjection":"5 ft","RidgeHeight":"9 ft","Location":"Pennsylvania","Width":"11 ft","Application":["Residential"],"Glazes":["Clear"]},{"ProjectID":"04-08-019","Date":200408019,"Products":[{"ProductName":"Architectural Enhancement","GeoType1":["Ridge Vent"],"GeoType2":[]},{"ProductName":"Pool Enclosure","GeoType1":["Straight Eave Double Pitch"],"GeoType2":[]},{"ProductName":"Skylight","GeoType1":["Straight Eave Double Pitch"],"GeoType2":["2001+ SQF. Glass","1-50 SQF. Glass"]}],"Description":"Straight eave double pitch skylight in 7 inches frame system in Bronze Duracron. Accessories include 2 four-bay ridge vent and shutter fan with thermostat -- Used to cover a residential Pool.","Image1":"shimmer3.jpg","Image2":"shimmer4.jpg","Image3":"shimmer2.jpg","Image4":"shimmer.jpg","ExtColor":["Bronze","AAMA 2603"],"IntColor":["Bronze","AAMA 2603"],"LengthProjection":"37 ft","RidgeHeight":"4 ft","Location":"Pennsylvania","Width":"27 ft","Application":["Home","Living Space","Residential","Sporting"],"Glazes":["Clear"]},{"ProjectID":"06-09-020","Date":200609020,"Products":[{"ProductName":"Conservatory","GeoType1":["Straight Eave Double Pitch"],"GeoType2":["501-750 SQF. Glass"]},{"ProductName":"Decorative Elements","GeoType1":["Base Panels","Decorative Corners","Finials","Gutter"],"GeoType2":["Standard Gutter","Traditional Gutter"]},{"ProductName":"Greenhouse","GeoType1":["Straight Eave Double Pitch"],"GeoType2":["501-750 SQF. Glass"]},{"ProductName":"Hobby Greenhouse","GeoType1":["Straight Eave Double Pitch"],"GeoType2":[]}],"Description":"Straight eave double pitch, conservatory greenhouse with decorative base panels and operable ridge vents.","Image1":"Silverman2.jpg","Image2":"Silverman.jpg","Image3":"silver3.jpg","Image4":"Decerative-corner.jpg","ExtColor":["Green (Hartford)","AAMA 2603"],"IntColor":["Green (Hartford)","AAMA 2603"],"LengthProjection":"10 ft","RidgeHeight":"11 ft","Location":"New Jersey","Width":"14 ft","Application":["Residential"],"Glazes":["Clear"]},{"ProjectID":"06-05-048","Date":200605048,"Products":[{"ProductName":"Conservatory","GeoType1":["Straight Eave Double Pitch"],"GeoType2":["501-750 SQF. Glass"]},{"ProductName":"Decorative Elements","GeoType1":["Base Panels"],"GeoType2":[]},{"ProductName":"Sliding Door","GeoType1":["Door"],"GeoType2":["501-750 SQF. Glass","Dual Track"]}],"Description":"Straight eave double pitch greenhouse with decorative corner post; exterior is standard hartford green duracron and interior is standard white duracron. Unit has operable ridge vents, fixed windows, casement windows, and multi-track sliding/stack.","Image1":"skelton1.jpg","Image2":"skelton2.jpg","Image3":"skelton3.jpg","Image4":"skelton4.jpg","ExtColor":["AAMA 2603","Green (Hartford)"],"IntColor":["AAMA 2603","White"],"LengthProjection":"10 ft","RidgeHeight":"10 ft","Location":"New York","Width":"21 ft","Application":["Residential"],"Glazes":["LoE 272"]},{"ProjectID":"09-03-370","Date":200903370,"Products":[{"ProductName":"Skylight","GeoType1":["Dome"],"GeoType2":["51-100 SQF. Glass"]}],"Description":"Fourteen sided dome skylight with copper clad exterior.","Image1":"smith1.jpg","Image2":"smith2.jpg","Image3":"smith3.jpg","Image4":"smith4.jpg","ExtColor":["Copper","Metal Cladding"],"IntColor":["Custom Color"],"LengthProjection":"-","RidgeHeight":"4 in","Location":"Pennsylvania","Width":"8 in","Application":["Residential"],"Glazes":["Clear"]},{"ProjectID":"08-11-255","Date":200811255,"Products":[{"ProductName":"Architectural Enhancement","GeoType1":["Gable End"],"GeoType2":[]},{"ProductName":"Conservatory","GeoType1":["Irregular / Custom"],"GeoType2":["2001+ SQF. Glass","1-50 SQF. Glass"]},{"ProductName":"Decorative Elements","GeoType1":["Base Panels"],"GeoType2":["Corner Trim"]}],"Description":"Custom Sunroom configuration: (1) straight eave double pitch and (1) straight eave lean-to Sunroom connected by an enclosed walkway.  Decorative elements include: radius arch in gable end, solid base panel, gutter, and downspouts.","Image1":"smithgall1.jpg","Image2":"smithgall2.jpg","Image3":"smithgall3.jpg","Image4":"smithgall4.jpg","ExtColor":["Bronze","AAMA 2603"],"IntColor":["Bronze","AAMA 2603"],"LengthProjection":"17 ft","RidgeHeight":"13 ft","Location":"Pennsylvania","Width":"16 ft","Application":["Residential"],"Glazes":["Clear"]},{"ProjectID":"08-05-205","Date":200805205,"Products":[{"ProductName":"Sunroom","GeoType1":["Curved Eave Lean-To"],"GeoType2":["101-250 SQF. Glass"]}],"Description":"Curved eave, lean-to sunroom with operable ridge vent.","Image1":"smithville1.jpg","Image2":"smithville2.jpg","Image3":"smithville3.jpg","Image4":"smithville4.jpg","ExtColor":["White","AAMA 2603"],"IntColor":["White","AAMA 2603"],"LengthProjection":"6 ft","RidgeHeight":"11 ft","Location":"New Jersey","Width":"13 ft","Application":["Residential"],"Glazes":["Clear"]},{"ProjectID":"07-01-005","Date":200701005,"Products":[{"ProductName":"Architectural Enhancement","GeoType1":["Entryway / Vestibule"],"GeoType2":[]},{"ProductName":"Curtain Wall","GeoType1":["Vertical with Integrated Slope"],"GeoType2":["2001+ SQF. Glass","1-50 SQF. Glass"]},{"ProductName":"Door","GeoType1":["Commercial Terrace & French Doors","In-System French Door"],"GeoType2":[]}],"Description":"Straight eave double pitch entryway with an irregular conservatory nose. Framin is dark bronze anodized and glazing is Solar Ban 60. Accessories are commericial door and hardware.","Image1":"snyders3.jpg","Image2":"snyders2.jpg","Image3":"cons-snyders-120707-13.jpg","Image4":"snyders4.jpg","ExtColor":["Bronze","AAMA 2603"],"IntColor":["Bronze","AAMA 2603"],"LengthProjection":"8 ft","RidgeHeight":"37 ft","Location":"Pennsylvania","Width":"25 ft","Application":["Commercial","Office Space"],"Glazes":["Custom Color"]},{"ProjectID":"05-0-001","Date":2005001,"Products":[{"ProductName":"Greenhouse","GeoType1":["Straight Eave Double Pitch"],"GeoType2":["501-750 SQF. Glass"]},{"ProductName":"Greenhouse Accessory","GeoType1":["Temperature Control"],"GeoType2":["Circulation Fans","Grow Lights","Rolling Bench"]},{"ProductName":"Shades","GeoType1":["Interior Roll-up"],"GeoType2":[]}],"Description":"Straight eave, double pitch greenhouse with operable ridge vents, lights,  fans, and retractable shades.","Image1":"sprauge1.jpg","Image2":"sprauge2.jpg","Image3":"sprauge3.jpg","Image4":"sprauge4.jpg","ExtColor":["Sandstone","AAMA 2603"],"IntColor":["Sandstone","AAMA 2603"],"LengthProjection":"19 ft","RidgeHeight":"14 ft","Location":"Pennsylvania","Width":"16 ft","Application":["Home","Residential"],"Glazes":["Clear"]},{"ProjectID":"08-04-154","Date":200804154,"Products":[{"ProductName":"Architectural Enhancement","GeoType1":["Ridge Vent","Transom"],"GeoType2":[]},{"ProductName":"Conservatory","GeoType1":["Conservatory Nose"],"GeoType2":["2001+ SQF. Glass"]},{"ProductName":"Decorative Elements","GeoType1":["Gutter","Ring and Collar Ties"],"GeoType2":["Low Profile Grid","Traditional Grid"]},{"ProductName":"Door","GeoType1":["In-System French Door"],"GeoType2":[]}],"Description":"Straight eave, double pitch Commercial Conservatory with a conservatory nose, transoms, and dormer. Accessories include: French Doors, Ridge Vents with Screens, Finial, Aluminum Extruded Gutter and Trim, and a Decorative Ring and Collar for structural support.","Image1":"spring.jpg","Image2":"spring2.jpg","Image3":"spring3.jpg","Image4":"spring4.jpg","ExtColor":["Sandstone","AAMA 2603"],"IntColor":["Sandstone","AAMA 2603"],"LengthProjection":"48 ft","RidgeHeight":"19 ft","Location":"Pennsylvania","Width":"32 ft","Application":["Banquets","Commercial","Dining"],"Glazes":["LoE 272"]},{"ProjectID":"08-04-197","Date":200804197,"Products":[{"ProductName":"Folding Glass Wall","GeoType1":["Door"],"GeoType2":["101-250 SQF. Glass","Double Door Mid Wall"]}],"Description":"Double Door (mid wall), Bottom Load, Fold In, 5 Panels Fold Left, 5 Panels Fold Right,  Standard Sill, and Sill Cover Plate residential Folding Glass Wall.","Image1":"steve.jpg","Image2":"steve2.jpg","Image3":"steve3.jpg","Image4":"steve4.jpg","ExtColor":["White","AAMA 2603"],"IntColor":["White","AAMA 2603"],"LengthProjection":"30 ft","RidgeHeight":"8 ft","Location":"New York","Width":"-","Application":["Home","Residential"],"Glazes":["Bronze"]},{"ProjectID":"04-08-026","Date":200408026,"Products":[{"ProductName":"Canopy","GeoType1":["Curved Barrel Vault","Ridge Mounted"],"GeoType2":["251-500 SQF. Glass"]}],"Description":"Curved eave canopy in a commercial application.","Image1":"StevePoint1.jpg","Image2":"StevePoint2.jpg","Image3":"StevePoint3.jpg","Image4":"StevePoint4.jpg","ExtColor":["Dark Bronze Anodized","Bronze","Class I Anodized"],"IntColor":["Dark Bronze Anodized","Bronze","Class I Anodized"],"LengthProjection":"14 ft","RidgeHeight":"2 ft","Location":"Wisconsin","Width":"80 ft","Application":["Commercial"],"Glazes":["Custom Color"]},{"ProjectID":"06-01-029","Date":200601029,"Products":[{"ProductName":"Pool Enclosure","GeoType1":["Hip End","Irregular / Custom"],"GeoType2":["2001+ SQF. Glass"]}],"Description":"Straight-eave double pitch pool enclosure with two hip ends, one irregular hip corner, two full sidewalls, and one partial end wall. Unit includes awning windows, ridge cresting, finial and terrace door.","Image1":"stouffer4.jpg","Image2":"stouffer2.jpg","Image3":"stouffer3.jpg","Image4":"stouffer1.jpg","ExtColor":["Sandstone","AAMA 2603"],"IntColor":["Sandstone","AAMA 2603"],"LengthProjection":"43 ft","RidgeHeight":"18 ft","Location":"Pennsylvania","Width":"40 ft","Application":["Residential"],"Glazes":["Clear"]},{"ProjectID":"05-07-013","Date":200507013,"Products":[{"ProductName":"Folding Glass Wall","GeoType1":["Door"],"GeoType2":["101-250 SQF. Glass","Single Door End Jamb"]}],"Description":"Single Door (hinge jamb), Bottom Load, Fold Out, 4 Panels Fold Left, 1 Panels Fold Right, Flush Sill, Horizontal Mullion at 34 inches.","Image1":"IMG_4306.jpg","Image2":"IMG_4309.jpg","Image3":"IMG_4310.jpg","Image4":"IMG_4303.jpg","ExtColor":["Custom Color"],"IntColor":["Custom Color"],"LengthProjection":"15 ft","RidgeHeight":"9 ft","Location":"Pennsylvania","Width":"-","Application":["Commercial","Dining","Retail Sales"],"Glazes":["Clear"]},{"ProjectID":"04-07-034","Date":200407034,"Products":[{"ProductName":"Folding Glass Wall","GeoType1":[],"GeoType2":["101-250 SQF. Glass","All Wall"]}],"Description":"All Wall, Bottom Load,  In fold Folding Glass wall located in Russia.","Image1":"tre2.jpg","Image2":"tre1.jpg","Image3":"tre3.jpg","Image4":"tre4.jpg","ExtColor":["Clear Anodized","Class I Anodized"],"IntColor":["Clear Anodized","Class I Anodized"],"LengthProjection":"9 ft 8 in","RidgeHeight":"-","Location":"Europe","Width":"27 ft 4 in","Application":["Home","Living Space","Residential"],"Glazes":["Clear"]},{"ProjectID":"08-10-001","Date":200810001,"Products":[{"ProductName":"Skylight","GeoType1":["Polygonal"],"GeoType2":["101-250 SQF. Glass"]}],"Description":"12 sided polygon skylight constructed with four and one half inch aluminum system.","Image1":"sltribute1.jpg","Image2":"sltribute2.jpg","Image3":"sltribute3.jpg","Image4":"sltribute4.jpg","ExtColor":["Custom Color"],"IntColor":["Custom Color"],"LengthProjection":"11 ft","RidgeHeight":"3 ft","Location":"Canada","Width":"11 ft 6 in","Application":["Commercial"],"Glazes":["Bronze","Heat Strengthened Laminated"]},{"ProjectID":"04-05-019","Date":200405019,"Products":[{"ProductName":"Skylight","GeoType1":["Irregular / Custom","Pyramid"],"GeoType2":["101-250 SQF. Glass"]}],"Description":"Irregular pyramid skylight.","Image1":"trinity1.jpg","Image2":"trinity2.jpg","Image3":"trinity3.jpg","Image4":"trinity4.jpg","ExtColor":["Bronze","AAMA 2603"],"IntColor":["Bronze","AAMA 2603"],"LengthProjection":"11 ft","RidgeHeight":"5 ft","Location":"Maryland","Width":"11 ft","Application":["Ecclesiastical"],"Glazes":["Clear"]},{"ProjectID":"08-09-253","Date":200809253,"Products":[{"ProductName":"Sunroom","GeoType1":["Straight Eave Lean-To"],"GeoType2":["251-500 SQF. Glass"]}],"Description":"Straight eave lean-to sunroom in sandstone built on a school in New Jersey..","Image1":"Uptown1.jpg","Image2":"Uptown2.jpg","Image3":"Uptown3.jpg","Image4":"Uptown4.jpg","ExtColor":["Sandstone","AAMA 2603"],"IntColor":["Sandstone","AAMA 2603"],"LengthProjection":"6 ft","RidgeHeight":"5 ft","Location":"New Jersey","Width":"32 ft","Application":["Educational","Institutional"],"Glazes":["LoE 272"]},{"ProjectID":"11-08-050","Date":201108050,"Products":[{"ProductName":"Folding Glass Wall","GeoType1":["Door"],"GeoType2":["101-250 SQF. Glass","Split Wall Floating Jamb"]}],"Description":"One split wall system  with six panels three folding in each direction.","Image1":"utendzone1.jpg","Image2":"utendzone2.jpg","Image3":"utendzone3.jpg","Image4":"utendzone4.jpg","ExtColor":["Clear Anodized","Class I Anodized"],"IntColor":["Clear Anodized","Class I Anodized"],"LengthProjection":"11 ft","RidgeHeight":"-","Location":"Texas","Width":"17 ft","Application":["Educational","Institutional","Sporting"],"Glazes":["Clear"]},{"ProjectID":"04-07-020","Date":200407020,"Products":[{"ProductName":"Curtain Wall","GeoType1":["Vertical Curtain Wall"],"GeoType2":["251-500 SQF. Glass"]}],"Description":"Three curtain walls with interior grids located in Russia","Image1":"vernon31.jpg","Image2":"verada.jpg","Image3":"vernon4.jpg","Image4":"Vanderhorst4.jpg","ExtColor":["Bronze","AAMA 2603"],"IntColor":["Bronze","AAMA 2603","Wood"],"LengthProjection":"6 ft","RidgeHeight":"7 ft","Location":"Other","Width":"-","Application":["Residential"],"Glazes":["Clear"]},{"ProjectID":"04-10-025","Date":200410025,"Products":[{"ProductName":"Architectural Enhancement","GeoType1":["Dormers"],"GeoType2":[]},{"ProductName":"Conservatory","GeoType1":["Straight Eave Lean-To"],"GeoType2":["2001+ SQF. Glass","1-50 SQF. Glass","Modern / Contemporary","Urban / High Rise"]}],"Description":"Straight eave, lean-to conservatory with double pitch dormer and aluminum exterior/Southern Yellow Pine Glulam interior.","Image1":"verazin1.jpg","Image2":"verazin2.jpg","Image3":"verazin3.jpg","Image4":"verazin4.jpg","ExtColor":["Bronze"],"IntColor":["Glulam","Southern Yellow Pine","Wood"],"LengthProjection":"19 ft","RidgeHeight":"10 ft","Location":"Pennsylvania","Width":"23 ft","Application":["Residential"],"Glazes":["Clear"]},{"ProjectID":"07-09-030","Date":200709030,"Products":[{"ProductName":"Screen","GeoType1":["Sliding"],"GeoType2":[]}],"Description":"Two-bay sliding, stacking screen system with Bronze interior and exterior frame finish","Image1":"wegmanslider4.jpg","Image2":"wegmanslider2.jpg","Image3":"wegmanslider3.jpg","Image4":"wegmanslider1.jpg","ExtColor":["Bronze","AAMA 2603"],"IntColor":["Bronze","AAMA 2603"],"LengthProjection":"-","RidgeHeight":"9 ft","Location":"Pennsylvania","Width":"7 ft","Application":["Home","Residential"],"Glazes":["Clear"]},{"ProjectID":"07-04-039","Date":200704039,"Products":[{"ProductName":"Architectural Enhancement","GeoType1":["Dormers"],"GeoType2":[]},{"ProductName":"Decorative Elements","GeoType1":["Column","Decorative Trims"],"GeoType2":[]},{"ProductName":"Greenhouse","GeoType1":["Straight Eave Double Pitch"],"GeoType2":["751-1000 SQF. Glass","Aluminum Tube System"]},{"ProductName":"Hobby Greenhouse","GeoType1":["Straight Eave Double Pitch"],"GeoType2":["751-1000 SQF. Glass"]}],"Description":"Straight eave double pitch greenhouse with a straight eave double pitch dormer with copper cladding on exterior.","Image1":"wellsley1.jpg","Image2":"wellsley2.jpg","Image3":"wellsley-110207-6.jpg","Image4":"wellsley-110207-2.jpg","ExtColor":["Black","Copper"],"IntColor":["AAMA 2603"],"LengthProjection":"15 ft","RidgeHeight":"10 ft","Location":"Massachusetts","Width":"22 ft","Application":["Home","Residential"],"Glazes":["Clear"]},{"ProjectID":"06-07-004","Date":200607004,"Products":[{"ProductName":"Pool Enclosure","GeoType1":["Conservatory Nose","Straight Eave Double Pitch"],"GeoType2":["2001+ SQF. Glass"]},{"ProductName":"Walkway","GeoType1":["Straight Eave Double Pitch"],"GeoType2":[]},{"ProductName":"Window","GeoType1":["Hung","Projected"],"GeoType2":["Awning"]}],"Description":"A straight eave double pitch pool enclosure with two conservatory noses and one straight eave double pitch walkway. Uses 4 1/2 and 7 inch aluminum systems, has awning windows, operable ridge vents, and a sliding glass door.","Image1":"willies-pool-122208-5.jpg","Image2":"willies-pool-122208-8.jpg","Image3":"willies-pool-122208-10-touchup.jpg","Image4":"willies-pool-122208-14.jpg","ExtColor":["Bronze","AAMA 2603"],"IntColor":["Bronze","AAMA 2603"],"LengthProjection":"50 ft","RidgeHeight":"13 ft","Location":"Pennsylvania","Width":"34 ft","Application":["Home","Residential","Sporting"],"Glazes":["LoE 272"]},{"ProjectID":"04-06-022","Date":200406022,"Products":[{"ProductName":"Skylight","GeoType1":["Straight Eave Double Pitch"],"GeoType2":["2001+ SQF. Glass","1-50 SQF. Glass"]}],"Description":"Restoration design, double pitch skylight with lead coated copper exterior.","Image1":"Winterthur1.jpg","Image2":"IMG_1689.jpg","Image3":"Winterthur3.jpg","Image4":"Winterthur4.jpg","ExtColor":["Metal Cladding","Simulated Lead Coated Copper","Copper","Custom Color"],"IntColor":["Metal Cladding","Simulated Lead Coated Copper","Copper","Custom Color"],"LengthProjection":"50 ft","RidgeHeight":"4 ft","Location":"Pennsylvania","Width":"22 ft","Application":["Residential"],"Glazes":["Clear"]},{"ProjectID":"07-03-026","Date":200703026,"Products":[{"ProductName":"Pool Enclosure","GeoType1":["Straight Eave Lean-To"],"GeoType2":["751-1000 SQF. Glass"]}],"Description":"Straight eave, lean-to pool enclosure with structural aluminum trusses, sliding doors and sliding windows","Image1":"wolf1.jpg","Image2":"wolf2.jpg","Image3":"wolf3.jpg","Image4":"wolf4.jpg","ExtColor":["Bronze","AAMA 2603"],"IntColor":["Bronze","AAMA 2603"],"LengthProjection":"30 ft","RidgeHeight":"14 ft","Location":"North Carolina","Width":"35 ft","Application":["Residential","Sporting"],"Glazes":["Clear"]},{"ProjectID":"05-06-039","Date":200506039,"Products":[{"ProductName":"Folding Glass Wall","GeoType1":["Door"],"GeoType2":["101-250 SQF. Glass","All Wall"]}],"Description":"All wall, bottom load, in-fold,  4 panels fold left featuring a standard sill.","Image1":"Yac1.jpg","Image2":"Yac2.jpg","Image3":"Yac3.jpg","Image4":"Yac4.jpg","ExtColor":["White"],"IntColor":["Southern Yellow Pine","Wood"],"LengthProjection":"-","RidgeHeight":"6 ft","Location":"New Jersey","Width":"15 ft","Application":["Residential"],"Glazes":["Clear"]},{"ProjectID":"05-12-021","Date":200512021,"Products":[{"ProductName":"Architectural Enhancement","GeoType1":["Dormers","Eave Vent","Ridge Vent"],"GeoType2":[]},{"ProductName":"Decorative Elements","GeoType1":["Finials","Grids","Ridge Cresting"],"GeoType2":[]},{"ProductName":"Greenhouse","GeoType1":["Straight Eave Double Pitch"],"GeoType2":["2001+ SQF. Glass","Restoration System"]},{"ProductName":"Greenhouse Accessory","GeoType1":["Environmental Control Systems","Temperature Control"],"GeoType2":["Circulation Fans"]}],"Description":"Institutional straight eave, double pitch greenhouse constructed with the restoration system.  Unit includes a dormer and entrance with ridge cresting and finials.","Image1":"yale2.jpg","Image2":"Yale.jpg","Image3":"DSCN0089.jpg","Image4":"yale4.jpg","ExtColor":["White","AAMA 2603"],"IntColor":["White","AAMA 2603"],"LengthProjection":"60 ft","RidgeHeight":"12 ft","Location":"Connecticut","Width":"24 ft","Application":["Educational","Institutional"],"Glazes":["Clear"]},{"ProjectID":"10-07-300","Date":201007300,"Products":[{"ProductName":"Sunroom","GeoType1":["Straight Eave Double Pitch"],"GeoType2":["751-1000 SQF. Glass"]}],"Description":"Residential Straight eave double pitch sunroom.","Image1":"Scan0252.jpg","Image2":"Scan0258.jpg","Image3":"Scan0260.jpg","Image4":"Scan0265.jpg","ExtColor":["Black"],"IntColor":["Wood"],"LengthProjection":"varies","RidgeHeight":"varies","Location":"Pennsylvania","Width":"varies","Application":["Residential"],"Glazes":["Custom Color"]},{"ProjectID":"12-06-007","Date":201206007,"Products":[{"ProductName":"Skylight","GeoType1":["Straight Eave Double Pitch"],"GeoType2":["501-750 SQF. Glass"]}],"Description":"Straight eave, double pitch, Mahogany interior/aluminum exterior skylight with custom gable end.","Image1":"Youngs1.jpg","Image2":"Youngs-Plant-Farm-012710-3.jpg","Image3":"youngs.jpg","Image4":"Youngs4.jpg","ExtColor":["Custom Color"],"IntColor":["Sapele Mahogany","Wood"],"LengthProjection":"24 ft","RidgeHeight":"6 ft","Location":"Alabama","Width":"14 ft","Application":["Residential"],"Glazes":["Clear"]},{"ProjectID":"08-06-200","Date":200806200,"Products":[{"ProductName":"Screen","GeoType1":["Sliding"],"GeoType2":[]},{"ProductName":"Sliding Door","GeoType1":["Door"],"GeoType2":["101-250 SQF. Glass","Dual Track"]}],"Description":"Dual track sliding glass door with screens.","Image1":"Zenner1.jpg","Image2":"Zenner2.jpg","Image3":"Zenner3.jpg","Image4":"slid-Zenner-042909-MUST-PURCHASE-FOR-USE3.jpg","ExtColor":["Clear Anodized","Class I Anodized"],"IntColor":["Clear Anodized","Class I Anodized"],"LengthProjection":"-","RidgeHeight":"7 ft 6 in","Location":"Georgia","Width":"16 ft","Application":["Dining","Home","Living Space","Residential"],"Glazes":["LoE 366"]},{"ProjectID":"10-05-114","Date":201005114,"Products":[{"ProductName":"Folding Glass Wall","GeoType1":["Door"],"GeoType2":["501-750 SQF. Glass","All Wall"]}],"Description":"Commercial folding glass walls used in a restaurant application","Image1":"Cantina-Laredo-0216.jpg","Image2":"Cantina-Laredo-016.jpg","Image3":"Cantina_5308.jpg","Image4":"Cantina_DAY_NoLight_5573.jpg","ExtColor":["Black","AAMA 2603"],"IntColor":["Black","AAMA 2603"],"LengthProjection":"-","RidgeHeight":"9 ft","Location":"Colorado","Width":"7 ft","Application":["Commercial","Dining","Retail Sales"],"Glazes":["Clear"]},{"ProjectID":"09-12-913","Date":200912913,"Products":[{"ProductName":"Architectural Enhancement","GeoType1":["Gable End","Knee Walls","Transom"],"GeoType2":[]},{"ProductName":"Decorative Elements","GeoType1":["Base Panels","Column","Crown Molding","Decorative Trims","Finials","Grids","Gutter","Ridge Cresting"],"GeoType2":[]},{"ProductName":"Greenhouse","GeoType1":["Straight Eave Double Pitch"],"GeoType2":["2001+ SQF. Glass","1-50 SQF. Glass"]},{"ProductName":"Window","GeoType1":["Hung","Projected"],"GeoType2":["Fixed"]}],"Description":"Straight eave double pitch conservatory greenhouse with a straight eave double pitch dormer and gable end.  Decorative accessories include: fixed windows, gutter, gable rake, cornice molding, ogee and bull nose interior trim, gutter, SDL grids and exterior columns.","Image1":"docs02232012_edited.jpg","Image2":"docs02232012-16.jpg","Image3":"docs02232012-24.jpg","Image4":"docs02232012-6.jpg","ExtColor":["Green (Hartford)","AAMA 2603"],"IntColor":["Green (Hartford)","AAMA 2603"],"LengthProjection":"22 ft","RidgeHeight":"11 ft","Location":"New York","Width":"24 ft","Application":["Residential"],"Glazes":["LoE 272"]},{"ProjectID":"10-05-038","Date":201005038,"Products":[{"ProductName":"Skylight","GeoType1":["Straight Eave Double Pitch"],"GeoType2":["101-250 SQF. Glass"]}],"Description":"Commercial Straight Eave Double Pitch Skylight with two gable ends","Image1":"walker2.jpg","Image2":"walker1.jpg","Image3":"walker3.jpg","Image4":"walker4.jpg","ExtColor":["Clear Anodized","Class I Anodized"],"IntColor":["Clear Anodized","Class I Anodized"],"LengthProjection":"8 ft","RidgeHeight":"3 ft 6 in","Location":"New York","Width":"6 ft","Application":["Commercial"],"Glazes":["LoE 272"]},{"ProjectID":"11-09-189","Date":201109189,"Products":[{"ProductName":"Sunroom","GeoType1":["Irregular / Custom"],"GeoType2":["251-500 SQF. Glass"]}],"Description":"Two Straight Eave Lean-to Sunrooms located in Harrisburg, PA","Image1":"684Sunroom1.jpg","Image2":"684Sunroom2.jpg","Image3":"684Sunroom3.jpg","Image4":"684Sunroom4.jpg","ExtColor":["Bronze","AAMA 2603"],"IntColor":["Bronze","AAMA 2603"],"LengthProjection":"6 ft 8 in","RidgeHeight":"14 ft 10 in","Location":"Pennsylvania","Width":"6 ft 9 in","Application":["Residential"],"Glazes":["Bronze"]},{"ProjectID":"11-06-001","Date":201106001,"Products":[{"ProductName":"Folding Glass Wall","GeoType1":["Door"],"GeoType2":["101-250 SQF. Glass","All Wall"]}],"Description":"Two All Wall - Folding Glass Walls with three panels in each unit used for a restaurant application.","Image1":"2012/08/monroeville1.jpg","Image2":"2012/08/monroeville2.jpg","Image3":"2012/08/monroeville3.jpg","Image4":"2012/08/monroeville4.jpg","ExtColor":["Dark Bronze Anodized","Bronze","Class I Anodized"],"IntColor":["Dark Bronze Anodized","Bronze","Class I Anodized"],"LengthProjection":"-","RidgeHeight":"7 ft","Location":"Pennsylvania","Width":"11 ft 4 in","Application":["Commercial"],"Glazes":["LoE 272"]},{"ProjectID":"09-04-328","Date":200904328,"Products":[{"ProductName":"Architectural Enhancement","GeoType1":["Entryway / Vestibule"],"GeoType2":[]},{"ProductName":"Curtain Wall","GeoType1":["Vertical with Integrated Slope"],"GeoType2":[]},{"ProductName":"Glazing","GeoType1":["Specialty Glazing"],"GeoType2":[]},{"ProductName":"Sunroom","GeoType1":["Irregular / Custom","Straight Eave Lean-To"],"GeoType2":["2001+ SQF. Glass","1-50 SQF. Glass"]}],"Description":"Straight Eave Lean-To Sunroom with four gable ends used as an entry way to a hotel in Florida. Custom bone white frame finish with specialty PPG solar bronze tinted glazing.","Image1":"parkshore1.jpg","Image2":"Park-Shore-Tower.jpg","Image3":"parkshore3.jpg","Image4":"parkshore4.jpg","ExtColor":["Custom Color"],"IntColor":["Custom Color"],"LengthProjection":"21 ft 5 in","RidgeHeight":"22 ft 5 in","Location":"Florida","Width":"36 ft","Application":["Commercial","Health Centers"],"Glazes":["Bronze"]},{"ProjectID":"10-02-282","Date":201002282,"Products":[{"ProductName":"Complete Glazing Packages","GeoType1":["Complete Glazing Packages"],"GeoType2":[]},{"ProductName":"Curtain Wall","GeoType1":["Vertical Curtain Wall"],"GeoType2":[]},{"ProductName":"Door","GeoType1":["In-System French Door"],"GeoType2":[]},{"ProductName":"Folding Glass Wall","GeoType1":["Door"],"GeoType2":["2001+ SQF. Glass","All Wall"]}],"Description":"Folding Glass Wall and Curtain walls used in conjunction with glass railings in modern home design.","Image1":"southbay1.jpg","Image2":"southbay2.jpg","Image3":"southbay3.jpg","Image4":"southbay4.jpg","ExtColor":["Clear Anodized","Class I Anodized"],"IntColor":["Clear Anodized","Class I Anodized"],"LengthProjection":"Units Vary","RidgeHeight":"Units Vary","Location":"Canada","Width":"Units Vary","Application":["Home","Residential"],"Glazes":["LoE 366"]},{"ProjectID":"08-03-171","Date":200803171,"Products":[{"ProductName":"Curtain Wall","GeoType1":["Vertical Curtain Wall"],"GeoType2":["501-750 SQF. Glass"]},{"ProductName":"Sliding Door","GeoType1":["Door"],"GeoType2":["Dual Track"]},{"ProductName":"Window","GeoType1":["Projected"],"GeoType2":["Awning","Casement","Fixed"]}],"Description":"Residential home featuring multiple vertical curtain walls, sliding glass doors, awning, casement, and fixed windows. Also featuring screens.","Image1":"garretpark1.jpg","Image2":"garretpark2.jpg","Image3":"garretpark3.jpg","Image4":"garretpark4.jpg","ExtColor":["Clear Anodized","Class I Anodized"],"IntColor":["Clear Anodized","Class I Anodized"],"LengthProjection":"Units Vary","RidgeHeight":"Units Vary","Location":"Maryland","Width":"Units Vary","Application":["Home","Living Space","Residential"],"Glazes":["LoE 272","Clear"]},{"ProjectID":"10-12-005","Date":201012005,"Products":[{"ProductName":"Folding Glass Wall","GeoType1":["Door","Windows"],"GeoType2":["251-500 SQF. Glass","All Wall"]}],"Description":"6 All Wall Folding Glass Walls for use in suites in the remodeled Amon Carter stadium at Texas Christian University","Image1":"12_Web500.jpg","Image2":"3_Web500.jpg","Image3":"6_Web500.jpg","Image4":"13_Web500.jpg","ExtColor":["Clear Anodized","Class I Anodized"],"IntColor":["Clear Anodized","Class I Anodized"],"LengthProjection":"-","RidgeHeight":"4 ft 10 in","Location":"Texas","Width":"13 ft 7 in","Application":["Educational","Institutional","Sporting"],"Glazes":["Clear"]},{"ProjectID":"05-05-019","Date":200505019,"Products":[{"ProductName":"Skylight","GeoType1":[],"GeoType2":["51-100 SQF. Glass"]}],"Description":"Ecclestiastical Skylight, modular, pre-glazed, and pre-built for use in Saint Matthews Lutheran Church","Image1":"StMattsChurch1.jpg","Image2":"StMattsChurch2.jpg","Image3":"StMattsChurch3.jpg","Image4":"StMattsChurch4.jpg","ExtColor":["Clear Anodized","Class I Anodized"],"IntColor":["Clear Anodized","Class I Anodized"],"LengthProjection":"6 ft 4 in","RidgeHeight":"5 ft 2 in","Location":"Pennsylvania","Width":"7 ft","Application":["Ecclesiastical"],"Glazes":["Clear"]},{"ProjectID":"09-09-430","Date":200909430,"Products":[{"ProductName":"Folding Glass Wall","GeoType1":["Door"],"GeoType2":["251-500 SQF. Glass","Double Door Mid Wall"]},{"ProductName":"Glazing","GeoType1":["Specialty Glazing"],"GeoType2":[]}],"Description":"Three Double Door Mid Wall Folding Glass Wall Units installed at Boston's  Liberty Wharf. 5 panels fold left, 3 panels fold right, recessed sill with interior and exterior ramp.","Image1":"libertywharf.jpg","Image2":"libertywarf2.jpg","Image3":"libertywarf3.jpg","Image4":"libertywarf4.jpg","ExtColor":["Charcoal","Custom Color"],"IntColor":["Charcoal","Custom Color"],"LengthProjection":"-","RidgeHeight":"8 ft","Location":"Massachusetts","Width":"27 ft","Application":["Commercial","Dining","Retail Sales"],"Glazes":["Tempered","Viracon VEI-2M"]},{"ProjectID":"08-08-253","Date":200808253,"Products":[{"ProductName":"Decorative Elements","GeoType1":["Grids"],"GeoType2":[]},{"ProductName":"Door","GeoType1":["Commercial Terrace & French Doors"],"GeoType2":[]},{"ProductName":"Folding Glass Wall","GeoType1":["Door","Windows"],"GeoType2":["251-500 SQF. Glass","All Wall","Split Wall Floating Jamb"]}],"Description":"Conewago Inn featuring various Folding Glass Wall units used in a dining application to open up a porch for open air dining.","Image1":"conewago_05262009-3.jpg","Image2":"conewago-inn-03302012-2.jpg","Image3":"conewago-inn-03302012-4.jpg","Image4":"conewago-inn-03302012-8.jpg","ExtColor":["Green (Hartford)","AAMA 2603"],"IntColor":["Green (Hartford)","AAMA 2603"],"LengthProjection":"-","RidgeHeight":"4 ft 8 in","Location":"Pennsylvania","Width":"11 ft","Application":["Commercial"],"Glazes":["LoE 272"]},{"ProjectID":"11-02-052","Date":201102052,"Products":[{"ProductName":"Wood Curtain Wall","GeoType1":["Vertical","Vertical with Integrated Slope"],"GeoType2":["251-500 SQF. Glass"]}],"Description":"Residential Wood Curtain Wall installed at Lake front property in West Virginia with custom walnut wood.","Image1":"shafferresidence1.jpg","Image2":"shafferresidence2.jpg","Image3":"shafferresidence3.jpg","Image4":"shafferresidence4.jpg","ExtColor":["Wood"],"IntColor":["Wood"],"LengthProjection":"7 ft 9 in","RidgeHeight":"23 ft","Location":"West Virginia","Width":"17 ft","Application":["Residential"],"Glazes":["LoE 366"]},{"ProjectID":"11-04-229","Date":201104229,"Products":[{"ProductName":"Decorative Elements","GeoType1":["Base Panels"],"GeoType2":[]},{"ProductName":"Door","GeoType1":["In-System French Door"],"GeoType2":[]},{"ProductName":"Greenhouse","GeoType1":["Straight Eave Double Pitch"],"GeoType2":["2001+ SQF. Glass","1-50 SQF. Glass"]},{"ProductName":"Walkway","GeoType1":["Straight Eave Double Pitch"],"GeoType2":["101-250 SQF. Glass"]}],"Description":"Straight eave double pitch greenhouse with two gable ends, attached double pitch walkway, French doors, ridge vents and eave vents.","Image1":"edelman-10-04052012.jpg","Image2":"edelman-29-04052012.jpg","Image3":"edelman-15-04052012.jpg","Image4":"edelman-26-04052012.jpg","ExtColor":["Bronze","AAMA 2603"],"IntColor":["Bronze","AAMA 2603"],"LengthProjection":"40 ft","RidgeHeight":"9 ft 5 in","Location":"Connecticut","Width":"29 ft","Application":["Residential"],"Glazes":["Clear"]},{"ProjectID":"10-11-291","Date":201011291,"Products":[{"ProductName":"Architectural Enhancement","GeoType1":["Transom"],"GeoType2":[]},{"ProductName":"Decorative Elements","GeoType1":["Transoms"],"GeoType2":[]},{"ProductName":"Folding Glass Wall","GeoType1":["Door"],"GeoType2":["251-500 SQF. Glass","Segmented Radius"]}],"Description":"Segmented Radius Radius Folding Glass Wall","Image1":"sunsetzoo1.jpg","Image2":"sunsetzoo2.jpg","Image3":"sunsetzoo3.jpg","Image4":"sunsetzoo4.jpg","ExtColor":["Clear Anodized","Class I Anodized"],"IntColor":["Clear Anodized","Class I Anodized"],"LengthProjection":"-","RidgeHeight":"6 ft 7 in","Location":"Kansas","Width":"18 ft","Application":["Commercial"],"Glazes":["Clear"]},{"ProjectID":"10-03-050","Date":201003050,"Products":[{"ProductName":"Folding Glass Wall","GeoType1":["Door"],"GeoType2":["501-750 SQF. Glass"]}],"Description":"Folding Glass Wall (Mid Wall Split) in use at the Bethlehem Steel Stacks for dining and retail sales purposes.","Image1":"steelstacks1.jpg","Image2":"steelstacks2.jpg","Image3":"steelstacks3.jpg","Image4":"steelstacks4.jpg","ExtColor":["Custom Color"],"IntColor":["Custom Color"],"LengthProjection":"-","RidgeHeight":"10 ft","Location":"Pennsylvania","Width":"20 ft","Application":["Commercial","Dining","Retail Sales"],"Glazes":["Clear"]},{"ProjectID":"11-06-201","Date":201106201,"Products":[{"ProductName":"Sliding Door","GeoType1":["Door"],"GeoType2":["101-250 SQF. Glass","Dual Track"]}],"Description":"Residential Dual Track Sliding Glass Door used as enterance and exit to deck","Image1":"stewartres1.jpg","Image2":"stewartres2.jpg","Image3":"stewartres3.jpg","Image4":"stewartres4.jpg","ExtColor":["AAMA 2603","Natural Clay"],"IntColor":["AAMA 2603","Natural Clay"],"LengthProjection":"-","RidgeHeight":"9 ft","Location":"Canada","Width":"11 ft","Application":["Residential"],"Glazes":["LoE 272"]},{"ProjectID":"10-12-086","Date":201012086,"Products":[{"ProductName":"Architectural Enhancement","GeoType1":["Gable End","Transom"],"GeoType2":[]},{"ProductName":"Sunroom","GeoType1":["Straight Eave Lean-To"],"GeoType2":["2001+ SQF. Glass","1-50 SQF. Glass"]},{"ProductName":"Tilt Turn","GeoType1":["Tilt Turn Window"],"GeoType2":[]}],"Description":"Straight Eave Lean-to Sunroom with tilt turn windows and a solid panel roof engineered by Solar Innovations","Image1":"shakeshack1.jpg","Image2":"shakeshack2.jpg","Image3":"shakeshack3.jpg","Image4":"shakeshack4.jpg","ExtColor":["Dark Bronze Anodized","Bronze","Class I Anodized"],"IntColor":["Dark Bronze Anodized","Bronze","Class I Anodized"],"LengthProjection":"24 ft 8 in","RidgeHeight":"14 ft 10 in","Location":"New York","Width":"21 ft 7 in","Application":["Commercial","Dining","Retail Sales"],"Glazes":["LoE 366"]},{"ProjectID":"11-08-336","Date":201108336,"Products":[{"ProductName":"Stacking Glass Wall","GeoType1":["Doors"],"GeoType2":["501-750 SQF. Glass"]}],"Description":"Stacking glass wall system, with  horizontal mullions,  7 panels stack to the left,  painted oak veneer and a plywood glazing infill, operable door and dust proof floor strikes.","Image1":"shenarock1.jpg","Image2":"shenarock2.jpg","Image3":"shenarock3.jpg","Image4":"shenarock4.jpg","ExtColor":["White","AAMA 2603"],"IntColor":["White","AAMA 2603","White Oak","Wood Veneer"],"LengthProjection":"-","RidgeHeight":"9 ft","Location":"New York","Width":"20 ft 9 in","Application":["Residential"],"Glazes":["LoE 366"]},{"ProjectID":"11-05-074","Date":201105074,"Products":[{"ProductName":"Conservatory","GeoType1":["Irregular / Custom"],"GeoType2":["501-750 SQF. Glass"]},{"ProductName":"Decorative Elements","GeoType1":["Finials","Gutter"],"GeoType2":[]},{"ProductName":"Door","GeoType1":["In-System French Door"],"GeoType2":[]},{"ProductName":"Sunroom","GeoType1":["Curved Eave Double Pitch"],"GeoType2":["501-750 SQF. Glass"]}],"Description":"Ogee double pitch sunroom with two gable ends including decorative cresting, finials, gutters, interior truss and roof mounted operable shades.","Image1":"Federman1.jpg","Image2":"Federman2.jpg","Image3":"Federman3.jpg","Image4":"Federman4.jpg","ExtColor":["White","AAMA 2603"],"IntColor":["White","AAMA 2603"],"LengthProjection":"13 ft","RidgeHeight":"15 ft","Location":"California","Width":"9 ft","Application":["Residential"],"Glazes":["LoE 272"]},{"ProjectID":"09-03-374","Date":200903374,"Products":[{"ProductName":"Conservatory","GeoType1":["Irregular / Custom"],"GeoType2":["101-250 SQF. Glass"]},{"ProductName":"Decorative Elements","GeoType1":["Crown Molding","Finials","Grids","Gutter","SDLs","Transoms"],"GeoType2":["Downspouts"]},{"ProductName":"Sunroom","GeoType1":["Irregular / Custom"],"GeoType2":["101-250 SQF. Glass"]},{"ProductName":"Tilt Turn","GeoType1":["Tilt Turn Window"],"GeoType2":[]}],"Description":"Two sided conservatory structure with irregular pyramid roof including pet screens.","Image1":"cat2.jpg","Image2":"cat.jpg","Image3":"evan-court-catatorium-19.jpg","Image4":"evan-court-catatorium.jpg","ExtColor":["Natural Clay","AAMA 2603"],"IntColor":["Natural Clay","AAMA 2603"],"LengthProjection":"9 ft","RidgeHeight":"11 ft","Location":"New York","Width":"8 ft","Application":["Living Space","Residential"],"Glazes":""},{"ProjectID":"09-03-349","Date":200903349,"Products":[{"ProductName":"Architectural Enhancement","GeoType1":["Eave Vent"],"GeoType2":[]},{"ProductName":"Greenhouse","GeoType1":["Irregular / Custom","Straight Eave Double Pitch"],"GeoType2":["2001+ SQF. Glass","Aluminum Tube System"]},{"ProductName":"Greenhouse Accessory","GeoType1":["Light Control","Temperature Control"],"GeoType2":["Circulation Fans","Drip Misting System","Evaporative Coolers","Exhaust Fans","Fixed Bench","Grow Lights","Heaters","Humidifiers","Jet Flog Mister"]}],"Description":"One inverted straight eave double pitch with two hip ends including a variety of greenhouse accessories.","Image1":"Wheaton1.jpg","Image2":"Wheaton2.jpg","Image3":"Wheaton3.jpg","Image4":"Wheaton4.jpg","ExtColor":["Custom Color"],"IntColor":["Custom Color"],"LengthProjection":"34 ft","RidgeHeight":"33 ft","Location":"Massachusetts","Width":"51 ft","Application":["Educational","Institutional"],"Glazes":["Clear"]},{"ProjectID":"11-04-399","Date":201104399,"Products":[{"ProductName":"Architectural Enhancement","GeoType1":["Ridge Vent"],"GeoType2":[]},{"ProductName":"Door","GeoType1":[],"GeoType2":[]},{"ProductName":"Greenhouse","GeoType1":["Straight Eave Double Pitch"],"GeoType2":["501-750 SQF. Glass"]}],"Description":"Straight eave double pitch greenhouse with one gable end.","Image1":"Hynes1.jpg","Image2":"Hynes2.jpg","Image3":"Hynes3.jpg","Image4":"Hynes4.jpg","ExtColor":["AAMA 2603","White"],"IntColor":["AAMA 2603","White"],"LengthProjection":"24 ft","RidgeHeight":"14 ft","Location":"Massachusetts","Width":"13 ft","Application":["Home","Residential"],"Glazes":["Clear"]},{"ProjectID":"11-05-132","Date":201105132,"Products":[{"ProductName":"Architectural Enhancement","GeoType1":["Eave Vent","Ridge Vent"],"GeoType2":[]},{"ProductName":"Greenhouse","GeoType1":["Straight Eave Double Pitch"],"GeoType2":["2001+ SQF. Glass","1-50 SQF. Glass"]},{"ProductName":"Greenhouse Accessory","GeoType1":["Greenhouse Benches","Light Control","Storage","Temperature Control"],"GeoType2":["Black Polyethylene (Plastic) Mesh Top Bench","Grow Lights","Metal Mesh Top Bench"]}],"Description":"Straight eave double pitch greenhouse with two gable ends including fixed benches, eave vents, grow lights, ridge vents, and commercial door with panic bar.","Image1":"Hofstra1.jpg","Image2":"Hofstra2.jpg","Image3":"Hofstra3.jpg","Image4":"Hofstra4.jpg","ExtColor":["White","AAMA 2603"],"IntColor":["White","AAMA 2603"],"LengthProjection":"29 ft","RidgeHeight":"11 ft","Location":"New York","Width":"20 ft","Application":["Educational","Institutional"],"Glazes":["Clear","Monolithic Glass","Heat Strengthened Laminated"]},{"ProjectID":"10-11-307","Date":201011307,"Products":[{"ProductName":"Architectural Enhancement","GeoType1":["Eave Vent","Ridge Vent"],"GeoType2":[]},{"ProductName":"Curtain Wall","GeoType1":["Vertical Curtain Wall"],"GeoType2":[]},{"ProductName":"Door","GeoType1":["Commercial Terrace & French Doors"],"GeoType2":[]},{"ProductName":"Greenhouse","GeoType1":["Straight Eave Lean-To"],"GeoType2":["751-1000 SQF. Glass"]}],"Description":"Straight Eave lean-to greenhouse with integrated photovoltaic panels.","Image1":"BCDS_3.jpg","Image2":"IMG_9053.jpg","Image3":"BCDS_7.jpg","Image4":"IMG_9045_copyright.jpg","ExtColor":["Clear Anodized","Class I Anodized"],"IntColor":["Clear Anodized","Class I Anodized"],"LengthProjection":"10 ft","RidgeHeight":"34 ft","Location":"Massachusetts","Width":"23 ft","Application":["Institutional"],"Glazes":["LoE 272","Heat Strengthened Laminated"]},{"ProjectID":"11-03-282","Date":201103282,"Products":[{"ProductName":"Skylight","GeoType1":["Hip End"],"GeoType2":["51-100 SQF. Glass"]}],"Description":"Straight eave double pitch skylight with two hip ends.","Image1":"Grogan1.jpg","Image2":"Grogan2.jpg","Image3":"Grogan3.jpg","Image4":"Grogan4.jpg","ExtColor":["Green (Hartford)","AAMA 2603"],"IntColor":["Green (Hartford)","AAMA 2603"],"LengthProjection":"8 ft","RidgeHeight":"2 ft","Location":"Massachusetts","Width":"4 ft 6 in","Application":["Residential"],"Glazes":["LoE 366","LoE i89"]},{"ProjectID":"10-07-253","Date":201007253,"Products":[{"ProductName":"Complete Glazing Packages","GeoType1":["Complete Glazing Packages"],"GeoType2":[]},{"ProductName":"Curtain Wall","GeoType1":["Vertical Curtain Wall"],"GeoType2":["51-100 SQF. Glass"]},{"ProductName":"Door","GeoType1":["In-System Terrace Door"],"GeoType2":[]},{"ProductName":"Folding Glass Wall","GeoType1":["Door","Windows"],"GeoType2":["101-250 SQF. Glass"]},{"ProductName":"Decorative Elements","GeoType1":["Grids"],"GeoType2":[]}],"Description":"Numerous Thermal Vertical Systems including folding glass walls, dual track sliding glass doors, terrace doors, and windows.","Image1":"OceanRoad1.jpg","Image2":"OceanRoad2.jpg","Image3":"OceanRoad3.jpg","Image4":"ocean-rd-6-web.jpg","ExtColor":["Bronze","AAMA 2603"],"IntColor":["Bronze","AAMA 2603"],"LengthProjection":"varies per unit","RidgeHeight":"varies per unit","Location":"New York","Width":"varies per unti","Application":["Home","Living Space","Residential"],"Glazes":["LoE 272"]},{"ProjectID":"11-04-184","Date":201104184,"Products":[{"ProductName":"Architectural Enhancement","GeoType1":["Ridge Vent"],"GeoType2":[]},{"ProductName":"Skylight","GeoType1":["Pyramid"],"GeoType2":["51-100 SQF. Glass"]}],"Description":"Two tone pyramid skylight with ridge vent.","Image1":"Boswell1.jpg","Image2":"Boswell2.jpg","Image3":"Boswell3.jpg","Image4":"Boswell4.jpg","ExtColor":["Black","AAMA 2603"],"IntColor":["White","AAMA 2603"],"LengthProjection":"8 ft","RidgeHeight":"2 ft","Location":"Canada","Width":"8 ft","Application":["Residential"],"Glazes":["Clear","Heat Strengthened Laminated"]},{"ProjectID":"09-12-885","Date":200912885,"Products":[{"ProductName":"Architectural Enhancement","GeoType1":["Eave Vent","Ridge Vent"],"GeoType2":[]},{"ProductName":"Decorative Elements","GeoType1":["Ring and Collar Ties"],"GeoType2":[]},{"ProductName":"Door","GeoType1":[],"GeoType2":[]},{"ProductName":"Greenhouse","GeoType1":["Straight Eave Double Pitch"],"GeoType2":["2001+ SQF. Glass"]}],"Description":"Straight eave double pitch, greenhouse with one full gable end, one partial gable end,  one double pitch canopy, and eave vents.","Image1":"GlasshouseWinery1.jpg","Image2":"GlasshouseWinery2.jpg","Image3":"glass-house-winery-15.jpg","Image4":"glass-house-winery-13.jpg","ExtColor":["Green (Hartford)","AAMA 2603"],"IntColor":["Green (Hartford)","AAMA 2603"],"LengthProjection":"55 ft","RidgeHeight":"20 ft","Location":"Virginia","Width":"36 ft","Application":["Commercial","Dining","Retail Sales"],"Glazes":["LoE 272"]},{"ProjectID":"11-07-307","Date":201107307,"Products":[{"ProductName":"Architectural Enhancement","GeoType1":["Eave Vent"],"GeoType2":[]},{"ProductName":"Decorative Elements","GeoType1":["Base Panels"],"GeoType2":[]},{"ProductName":"Greenhouse","GeoType1":["Straight Eave Double Pitch"],"GeoType2":["501-750 SQF. Glass"]},{"ProductName":"Greenhouse Accessory","GeoType1":["Storage","Temperature Control"],"GeoType2":["Circulation Fans","Evaporative Coolers","Metal Mesh Top Bench"]}],"Description":"Straight eave double pitch greenhouse with two gable ends including circulating fans, base panels and a terrace door.","Image1":"GeorgetownDaySchool1.jpg","Image2":"GeorgetownDaySchool2.jpg","Image3":"GeorgetownDaySchool3.jpg","Image4":"GeorgetownDaySchool4.jpg","ExtColor":["Green (Hartford)","AAMA 2603"],"IntColor":["Green (Hartford)","AAMA 2603"],"LengthProjection":"14 ft","RidgeHeight":"10 ft","Location":"Washington DC","Width":"12 ft","Application":["Educational","Institutional"],"Glazes":["LoE 272","Heat Strengthened Laminated"]},{"ProjectID":"10-06-077","Date":201006077,"Products":[{"ProductName":"Architectural Enhancement","GeoType1":["Ridge Vent"],"GeoType2":[]},{"ProductName":"Greenhouse Accessory","GeoType1":["Storage","Temperature Control"],"GeoType2":["Drip Misting System","Metal Mesh Top Bench"]},{"ProductName":"Hobby Greenhouse","GeoType1":["Straight Eave Lean-To"],"GeoType2":["251-500 SQF. Glass"]},{"ProductName":"Skylight","GeoType1":["Single Slope","Straight Eave Lean-To"],"GeoType2":[]}],"Description":"Straight eave lean-to greenhouse/skylight with two gable ends utilizing a slope sill member.","Image1":"Molloy1.jpg","Image2":"Molloy2.jpg","Image3":"Molloy3.jpg","Image4":"Molloy4.jpg","ExtColor":["Bronze","AAMA 2603"],"IntColor":["Bronze","AAMA 2603"],"LengthProjection":"7 ft","RidgeHeight":"7 ft","Location":"Illinois","Width":"16 ft","Application":["Residential"],"Glazes":["EZ Clean","Clear"]},{"ProjectID":"11-06-349","Date":201106349,"Products":[{"ProductName":"Architectural Enhancement","GeoType1":["Eave Vent","Ridge Vent"],"GeoType2":[]},{"ProductName":"Door","GeoType1":[],"GeoType2":[]},{"ProductName":"Greenhouse","GeoType1":["Straight Eave Double Pitch"],"GeoType2":["501-750 SQF. Glass"]},{"ProductName":"Greenhouse Accessory","GeoType1":["Temperature Control"],"GeoType2":[]}],"Description":"Straight eave double pitch greenhouse with one gable end.","Image1":"MennoniteHomeGreenhouse1.jpg","Image2":"MennoniteHomeGreenhouse2.jpg","Image3":"MennoniteHomeGreenhouse3.jpg","Image4":"MennoniteHomeGreenhouse4.jpg","ExtColor":["Natural Clay","AAMA 2603"],"IntColor":["Natural Clay","AAMA 2603"],"LengthProjection":"15 ft","RidgeHeight":"9 ft","Location":"Pennsylvania","Width":"12 ft","Application":["Residential"],"Glazes":["LoE 272"]},{"ProjectID":"11-04-244","Date":201104244,"Products":[{"ProductName":"Folding Glass Wall","GeoType1":["Door"],"GeoType2":["101-250 SQF. Glass","Single Door End Jamb"]},{"ProductName":"Glazing","GeoType1":["Specialty Glazing"],"GeoType2":[]},{"ProductName":"Tilt Turn","GeoType1":["Tilt Turn Window"],"GeoType2":[]}],"Description":"Double tilt turn window with fixed astragal using the European window system and a three-panel folding glass wall system with obscure #62 acid etch glass.","Image1":"Hochman1.jpg","Image2":"Hochman2.jpg","Image3":"hochman-17.jpg","Image4":"hochman-22.jpg","ExtColor":["Custom Color","Fluoropolymer"],"IntColor":["Custom Color","Fluoropolymer"],"LengthProjection":"varies per unit","RidgeHeight":"varies per unit","Location":"New York","Width":"varies per unit","Application":["Commercial"],"Glazes":["Custom Color"]},{"ProjectID":"07-08-012","Date":200708012,"Products":[{"ProductName":"Door","GeoType1":["In-System Terrace Door"],"GeoType2":[]},{"ProductName":"Greenhouse","GeoType1":["Straight Eave Double Pitch"],"GeoType2":["251-500 SQF. Glass"]},{"ProductName":"Hobby Greenhouse","GeoType1":["Straight Eave Double Pitch"],"GeoType2":["251-500 SQF. Glass"]},{"ProductName":"Polycarbonate","GeoType1":["Poly Greenhouses"],"GeoType2":[]}],"Description":"Straight eave, double pitch greenhouse with attached lean-to, operable ridge vent, awning windows and decorative raised base panels.","Image1":"GaryBarg3.jpg","Image2":"GaryBarg2.jpg","Image3":"GaryBarg1.jpg","Image4":"garybarg_090808-2.jpg","ExtColor":["Bronze","AAMA 2603"],"IntColor":["Bronze","AAMA 2603"],"LengthProjection":"12 ft","RidgeHeight":"10 ft","Location":"California","Width":"8 ft","Application":["Residential"],"Glazes":["Clear","Monolithic Glass","Polycarbonate"]},{"ProjectID":"10-02-288","Date":201002288,"Products":[{"ProductName":"Door","GeoType1":["In-System Terrace Door"],"GeoType2":[]},{"ProductName":"Greenhouse","GeoType1":["Straight Eave Lean-To"],"GeoType2":["251-500 SQF. Glass"]},{"ProductName":"Hobby Greenhouse","GeoType1":["Straight Eave Lean-To"],"GeoType2":["251-500 SQF. Glass"]}],"Description":"Straight eave lean-to greenhouse with two gable ends including decorative gutters, ridge vents, awning windows and a terrace door.","Image1":"000_0637.jpg","Image2":"copeland2.jpg","Image3":"copeland3.jpg","Image4":"copeland4.jpg","ExtColor":["Natural Clay","AAMA 2603"],"IntColor":["Natural Clay","AAMA 2603"],"LengthProjection":"8 ft","RidgeHeight":"12 ft","Location":"Other","Width":"18 ft","Application":["Residential"],"Glazes":["LoE 272"]},{"ProjectID":"08-03-158","Date":200803158,"Products":[{"ProductName":"Architectural Enhancement","GeoType1":["Ridge Vent"],"GeoType2":[]},{"ProductName":"Decorative Elements","GeoType1":["Gutter"],"GeoType2":[]},{"ProductName":"Greenhouse","GeoType1":["Straight Eave Double Pitch"],"GeoType2":["251-500 SQF. Glass"]},{"ProductName":"Hobby Greenhouse","GeoType1":["Straight Eave Double Pitch"],"GeoType2":["251-500 SQF. Glass"]}],"Description":"Straight Eave double pitch hobby greenhouse with one gable end, copper gutter, transoms, awning windows, and ridge vents.","Image1":"Hood1.jpg","Image2":"Hood2.jpg","Image3":"Hood3.jpg","Image4":"Hood4.jpg","ExtColor":["AAMA 2603","Green (Hartford)"],"IntColor":["AAMA 2603"],"LengthProjection":"14 ft","RidgeHeight":"10 ft","Location":"Massachusetts","Width":"13 ft","Application":["Residential"],"Glazes":["LoE 272"]},{"ProjectID":"09-05-392","Date":200905392,"Products":[{"ProductName":"Stacking Glass Wall","GeoType1":["Doors"],"GeoType2":["501-750 SQF. Glass"]}],"Description":"Three stacking glass wall systems used in a pool enclosure.  Each unit uses a surface mount sill, specialty glazing and a custom frame finish.","Image1":"TheEdge1.jpg","Image2":"TheEdge2.jpg","Image3":"TheEdge3.jpg","Image4":"TheEdge4.jpg","ExtColor":["Clear Anodized","Class I Anodized"],"IntColor":["Clear Anodized","Class I Anodized"],"LengthProjection":"varies per unit","RidgeHeight":"varies per unit","Location":"New York","Width":"varies per unit","Application":["Commercial","Sporting"],"Glazes":["Custom Color"]},{"ProjectID":"08-12-292","Date":200812292,"Products":[{"ProductName":"Car Wash","GeoType1":["Stairway Covers"],"GeoType2":["51-100 SQF. Glass"]},{"ProductName":"Operable / Retractable Skylights","GeoType1":["Operable Skylight"],"GeoType2":["51-100 SQF. Glass"]},{"ProductName":"Skylight","GeoType1":["Irregular / Custom"],"GeoType2":["51-100 SQF. Glass"]}],"Description":"Manually operable straight eave lean-to skylight","Image1":"KaneSkylight1.jpg","Image2":"kane-2.jpg","Image3":"kane-5.jpg","Image4":"kane-15.jpg","ExtColor":["Sandstone","AAMA 2603"],"IntColor":["Sandstone","AAMA 2603"],"LengthProjection":"9 ft","RidgeHeight":"5 ft","Location":"Wisconsin","Width":"8 ft","Application":["Residential"],"Glazes":["Clear","Heat Strengthened Laminated"]},{"ProjectID":"09-01-128","Date":200901128,"Products":[{"ProductName":"Skylight","GeoType1":["Pyramid"],"GeoType2":["101-250 SQF. Glass"]}],"Description":"Pyramid skylight used on an educational facility.","Image1":"BucksCountyCollegeSkylight1.jpg","Image2":"BucksCountyCollegeSkylight2.jpg","Image3":"BucksCountyCollegeSkylight3.jpg","Image4":"BucksCountyCollegeSkylight4.jpg","ExtColor":["Clear Anodized","Class I Anodized"],"IntColor":["Clear Anodized","Class I Anodized"],"LengthProjection":"11 ft","RidgeHeight":"3 ft","Location":"Pennsylvania","Width":"10 ft","Application":["Educational","Institutional"],"Glazes":["Clear"]},{"ProjectID":"04-04-010","Date":200404010,"Products":[{"ProductName":"Skylight","GeoType1":["Pyramid"],"GeoType2":["101-250 SQF. Glass"]}],"Description":"Bronze Duracron pyramid skylight located in Pennsylvania","Image1":"1330Skylight1.jpg","Image2":"1330Skylight2.jpg","Image3":"1330Skylight3.jpg","Image4":"1330Skylight4.jpg","ExtColor":["Bronze","AAMA 2603"],"IntColor":["Bronze","AAMA 2603"],"LengthProjection":"11 ft","RidgeHeight":"2 ft","Location":"Pennsylvania","Width":"11 ft","Application":["Residential"],"Glazes":["Gray","Custom Color"]},{"ProjectID":"06-11-037","Date":200611037,"Products":[{"ProductName":"Shades","GeoType1":["Interior Operable"],"GeoType2":[]},{"ProductName":"Skylight","GeoType1":["Single Slope"],"GeoType2":["51-100 SQF. Glass","Pre-Assembled and Not Pre-Glazed"]}],"Description":"Pre-assembled, not pre-glazed skylight with welded corners.","Image1":"ss-sl-brown-2.jpg","Image2":"BrownSingleSlope2.jpg","Image3":"BrownSingleSlope3.jpg","Image4":"BrownSingleSlope4.jpg","ExtColor":["Natural Clay","AAMA 2603"],"IntColor":["Natural Clay","AAMA 2603"],"LengthProjection":"10 ft","RidgeHeight":"-","Location":"Delaware","Width":"10 ft","Application":["Residential"],"Glazes":["LoE 272"]},{"ProjectID":"11-05-374","Date":201105374,"Products":[{"ProductName":"Architectural Enhancement","GeoType1":["Knee Walls"],"GeoType2":[]},{"ProductName":"Folding Glass Wall","GeoType1":["Door"],"GeoType2":["251-500 SQF. Glass","All Wall"]}],"Description":"One segmented radius split wall windows with dual wheel trolley system - used in a restaurant setting.","Image1":"CapitalGrille1.jpg","Image2":"CapitalGrille2.jpg","Image3":"CapitalGrille3.jpg","Image4":"CapitalGrille4.jpg","ExtColor":["Dark Bronze Anodized","Bronze","Class I Anodized"],"IntColor":["Dark Bronze Anodized","Bronze","Class I Anodized"],"LengthProjection":"45 ft","RidgeHeight":"7 ft 6 in","Location":"Texas","Width":"-","Application":["Commercial","Dining","Retail Sales"],"Glazes":["LoE 272"]},{"ProjectID":"10-06-161","Date":201006161,"Products":[{"ProductName":"Decorative Elements","GeoType1":["Grids"],"GeoType2":[]},{"ProductName":"Folding Glass Wall","GeoType1":["Door"],"GeoType2":["2001+ SQF. Glass","1-50 SQF. Glass","All Wall"]}],"Description":"Multiple units of split wall folding glass windows, bottom load, fold out and curtainwalls. Florida Non-Impact. Interior Muntins on curtainwall. Interior muntins.","Image1":"Trulucks1.jpg","Image2":"Trulucks2.jpg","Image3":"Trulucks3.jpg","Image4":"Trulucks4.jpg","ExtColor":["Black","AAMA 2603"],"IntColor":["Black","AAMA 2603"],"LengthProjection":"varies per unit","RidgeHeight":"varies per unit","Location":"Florida","Width":"-","Application":["Commercial","Dining","Retail Sales"],"Glazes":["Clear"]},{"ProjectID":"11-08-198","Date":201108198,"Products":[{"ProductName":"Stacking Glass Wall","GeoType1":["Doors"],"GeoType2":["501-750 SQF. Glass"]}],"Description":"A stacking wall system with 10 individual panels, one of which is an operable door using an overhead closer, thumb turn and keyed locks, and the entire unit has a recessed tank sill.","Image1":"Camper21.jpg","Image2":"Camper22.jpg","Image3":"Camper23.jpg","Image4":"Camper24.jpg","ExtColor":["Custom Color"],"IntColor":["Custom Color"],"LengthProjection":"71 ft","RidgeHeight":"10 ft","Location":"New York","Width":"-","Application":["Retail Sales"],"Glazes":["Heat Strengthened Laminated"]},{"ProjectID":"05-06-040","Date":200506040,"Products":[{"ProductName":"Folding Glass Wall","GeoType1":["Windows"],"GeoType2":["51-100 SQF. Glass","All Wall"]},{"ProductName":"Glazing","GeoType1":["Specialty Glazing"],"GeoType2":[]},{"ProductName":"Window","GeoType1":["Folding"],"GeoType2":[]}],"Description":"One all wall system, bottom load, fold out, 8 panels fold right, recessed sill. 1/4 in monolithic glazing.","Image1":"Agave1.jpg","Image2":"Agave2.jpg","Image3":"Agave3.jpg","Image4":"Agave4.jpg","ExtColor":["Dark Bronze Anodized","Bronze","Class I Anodized"],"IntColor":["Dark Bronze Anodized","Bronze","Class I Anodized"],"LengthProjection":"varies per unit","RidgeHeight":"varies per unit","Location":"Florida","Width":"-","Application":["Commercial","Dining","Retail Sales"],"Glazes":["Bronze","Heat Strengthened Laminated"]},{"ProjectID":"10-04-169","Date":201004169,"Products":[{"ProductName":"Folding Glass Wall","GeoType1":["Door"],"GeoType2":["251-500 SQF. Glass","All Wall"]}],"Description":"Three folding glass wall systems on second level residence.","Image1":"1600-Glenarm-004.jpg","Image2":"1600-Glenarm-005.jpg","Image3":"1600-Glenarm-006.jpg","Image4":"1600-Glenarm-010.jpg","ExtColor":["Clear Anodized","Class I Anodized"],"IntColor":["Clear Anodized","Class I Anodized"],"LengthProjection":"varies per unit","RidgeHeight":"varies per unit","Location":"Colorado","Width":"-","Application":["Living Space","Residential"],"Glazes":["LoE 272"]},{"ProjectID":"09-12-002","Date":200912002,"Products":[{"ProductName":"Door","GeoType1":["Commercial Terrace & French Doors","In-System French Door"],"GeoType2":[]},{"ProductName":"Folding Glass Wall","GeoType1":["Door","Windows"],"GeoType2":["251-500 SQF. Glass","All Wall"]},{"ProductName":"Window","GeoType1":["Folding"],"GeoType2":[]}],"Description":"Four folding glass wall systems and entry doors enclosing restaurant.","Image1":"Roosevelt-Hotel-10.jpg","Image2":"roosevelt_hotel_fgw_042210-2.jpg","Image3":"roosevelt_hotel_fgw_042210-25.jpg","Image4":"roosevelt_hotel_fgw_042210.jpg","ExtColor":["Dark Bronze Anodized","Bronze","Class I Anodized"],"IntColor":["Dark Bronze Anodized","Bronze","Class I Anodized"],"LengthProjection":"varies per unit","RidgeHeight":"varies per unit","Location":"New York","Width":"-","Application":["Commercial","Dining","Retail Sales"],"Glazes":["Clear"]},{"ProjectID":"06-07-015","Date":200607015,"Products":[{"ProductName":"Architectural Enhancement","GeoType1":["Transom"],"GeoType2":[]},{"ProductName":"Curtain Wall","GeoType1":["Vertical Curtain Wall"],"GeoType2":["1-50 SQF. Glass"]},{"ProductName":"Folding Glass Wall","GeoType1":["Door"],"GeoType2":["51-100 SQF. Glass","All Wall"]}],"Description":"Single door four-panel folding glass wall system with curtain wall transom above.","Image1":"IMG_6318.jpg","Image2":"youngstavern-010509-9.jpg","Image3":"youngstavern-010509-11.jpg","Image4":"youngstavern-010509.jpg","ExtColor":["Black","AAMA 2603"],"IntColor":["Black","AAMA 2603"],"LengthProjection":"12 ft","RidgeHeight":"9 ft","Location":"Pennsylvania","Width":"-","Application":["Commercial"],"Glazes":["LoE 272"]},{"ProjectID":"09-12-897","Date":200912897,"Products":[{"ProductName":"Sliding Door","GeoType1":["Door"],"GeoType2":["51-100 SQF. Glass","Dual Track","Pocket"]}],"Description":"Two multi-track sliding door systems meeting at a no post corner.","Image1":"Kabanek1.jpg","Image2":"Kabanek2.jpg","Image3":"Kabanek3.jpg","Image4":"Kabanek4.jpg","ExtColor":["White","AAMA 2603"],"IntColor":["White","AAMA 2603"],"LengthProjection":"varies per unit","RidgeHeight":"varies per unit","Location":"California","Width":"-","Application":["Residential"],"Glazes":["LoE 272"]},{"ProjectID":"09-11-858","Date":200911858,"Products":[{"ProductName":"Curtain Wall","GeoType1":["Vertical Curtain Wall"],"GeoType2":["101-250 SQF. Glass"]},{"ProductName":"Sliding Door","GeoType1":["Door"],"GeoType2":["101-250 SQF. Glass"]},{"ProductName":"Window","GeoType1":["European"],"GeoType2":["1-50 SQF. Glass"]}],"Description":"Residential home with two tone interior sliding doors, exterior sliding doors, folding window unit, and an irregular double pitch skylight.","Image1":"PotvinResidence1.jpg","Image2":"PotvinResidence2.jpg","Image3":"PotvinResidence3.jpg","Image4":"PotvinResidence4.jpg","ExtColor":[],"IntColor":[],"LengthProjection":"varies per unit","RidgeHeight":"varies per unit","Location":"Canada","Width":"varies per unit","Application":["Residential"],"Glazes":["Clear"]},{"ProjectID":"09-02-348","Date":200902348,"Products":[{"ProductName":"Sliding Door","GeoType1":["Door"],"GeoType2":["51-100 SQF. Glass","Multi-Track"]}],"Description":"Residence including sliding window and door systems and vertical walls.","Image1":"Maher1.jpg","Image2":"Maher2.jpg","Image3":"Maher3.jpg","Image4":"Maher4.jpg","ExtColor":["Black","AAMA 2603"],"IntColor":["Black","AAMA 2603"],"LengthProjection":"varies per unit","RidgeHeight":"varies per unit","Location":"Canada","Width":"varies per unit","Application":["Residential"],"Glazes":["LoE 272"]},{"ProjectID":"10-02-454","Date":201002454,"Products":[{"ProductName":"Walkway","GeoType1":["Straight Eave Double Pitch"],"GeoType2":["2001+ SQF. Glass"]}],"Description":"Commercial, sloped, covered walkway.  T-Shape to create connection between three buildings.","Image1":"garrison-adelphi-15_edited.jpg","Image2":"garrison-adelphi-24.jpg","Image3":"garrison-adelphi-5.jpg","Image4":"garrison-adelphi-19.jpg","ExtColor":["Dark Bronze Anodized","Bronze","Class I Anodized"],"IntColor":["Dark Bronze Anodized","Bronze","Class I Anodized"],"LengthProjection":"115 ft 6 in","RidgeHeight":"8 ft","Location":"Maryland","Width":"14 ft 2 in","Application":["Commercial"],"Glazes":["Clear"]},{"ProjectID":"08-05-125","Date":200805125,"Products":[{"ProductName":"Architectural Enhancement","GeoType1":["Ridge Vent"],"GeoType2":[]}],"Description":"Irregular skylight with a flexibile glazing system including ridge vents.","Image1":"earle-091908-9.jpg","Image2":"earle-091908-12.jpg","Image3":"earle-091908-10.jpg","Image4":"earle-091908-13.jpg","ExtColor":["White"],"IntColor":["White","Wood"],"LengthProjection":"13 ft 5 in","RidgeHeight":"-","Location":"Pennsylvania","Width":"8 ft 5 in","Application":["Residential"],"Glazes":["LoE 272"]},{"ProjectID":"06-06-038","Date":200606038,"Products":[{"ProductName":"Architectural Enhancement","GeoType1":["Dormers"],"GeoType2":[]},{"ProductName":"Decorative Elements","GeoType1":["Base Panels"],"GeoType2":[]},{"ProductName":"Door","GeoType1":[],"GeoType2":[]},{"ProductName":"Sunroom","GeoType1":["Straight Eave Lean-To"],"GeoType2":["251-500 SQF. Glass","Aluminum Tube System"]}],"Description":"Straight eave lean-to conservatory with gable end and dormer.  Finial, arch shape gridwork, solid panel basewall, and Palladian arch in dormer.","Image1":"Abe.jpg","Image2":"abe2.jpg","Image3":"abe3.jpg","Image4":"abe4.jpg","ExtColor":["AAMA 2603","Sandstone"],"IntColor":["AAMA 2603"],"LengthProjection":"11 ft 10 in","RidgeHeight":"8 ft 7 in","Location":"Pennsylvania","Width":"19 ft 10 in","Application":["Residential"],"Glazes":["LoE 340","LoE 272"]},{"ProjectID":"06-01-033","Date":200601033,"Products":[{"ProductName":"Conservatory","GeoType1":["Straight Eave Lean-To"],"GeoType2":["501-750 SQF. Glass"]},{"ProductName":"Decorative Elements","GeoType1":["Crown Molding"],"GeoType2":["Ogee Grid"]},{"ProductName":"Door","GeoType1":[],"GeoType2":[]}],"Description":"Residence with straight eave lean-to with gable end and dormer.","Image1":"adamsconservatory041008-10.jpg","Image2":"adamsconservatory041008-16.jpg","Image3":"adamsconservatory041008-12.jpg","Image4":"adamsconservatory041008.jpg","ExtColor":["Sandstone","AAMA 2603"],"IntColor":["Sapele Mahogany","Wood"],"LengthProjection":"14 ft 8 in","RidgeHeight":"12 ft 11 in","Location":"Washington DC","Width":"16 ft 3 in","Application":["Residential"],"Glazes":["Custom Color"]},{"ProjectID":"10-09-243","Date":201009243,"Products":[{"ProductName":"Conservatory","GeoType1":["Conservatory Nose"],"GeoType2":["2001+ SQF. Glass","1-50 SQF. Glass"]}],"Description":"STRAIGHT EAVE DOUBLE PITCH CONSERVATORY WITH 1 IRREGULAR CONSERVATORY NOSE including ridge vents, gutter and rectangular downspouts.","Image1":"McF_DSC00227-Copy1.jpg","Image2":"McF_DSC00231-Copy.jpg","Image3":"McF_DSC00233-Copy.jpg","Image4":"McF_DSC00236-Copy.jpg","ExtColor":["Clear Anodized","Class I Anodized"],"IntColor":["Clear Anodized","Class I Anodized"],"LengthProjection":"33 ft","RidgeHeight":"14 ft 11 in","Location":"Canada","Width":"31 ft","Application":["Commercial"],"Glazes":["LoE 272"]},{"ProjectID":"08-04-167","Date":200804167,"Products":[{"ProductName":"Architectural Enhancement","GeoType1":["Entryway / Vestibule"],"GeoType2":[]},{"ProductName":"Decorative Elements","GeoType1":["Finials","Ridge Cresting"],"GeoType2":[]},{"ProductName":"Door","GeoType1":["Commercial Terrace & French Doors","In-System French Door"],"GeoType2":[]},{"ProductName":"Sunroom","GeoType1":["Conservatory Nose"],"GeoType2":["251-500 SQF. Glass"]}],"Description":"Irregular straight, eave double pitch conservatory with one conservatory nose, finial, and ridge cresting","Image1":"River_DSC001671.jpg","Image2":"River_DSC00165.jpg","Image3":"river_DSC00169.jpg","Image4":"River_DSC00171.jpg","ExtColor":["Bronze","AAMA 2603"],"IntColor":["Bronze","AAMA 2603"],"LengthProjection":"10 ft","RidgeHeight":"9 ft","Location":"Canada","Width":"10 ft","Application":["Residential"],"Glazes":["LoE 272"]},{"ProjectID":"08-08-233","Date":200808233,"Products":[{"ProductName":"Architectural Enhancement","GeoType1":["Gable End","Ridge Vent"],"GeoType2":[]},{"ProductName":"Greenhouse Accessory","GeoType1":["Environmental Control Systems","Temperature Control"],"GeoType2":["Humidifiers"]},{"ProductName":"Hobby Greenhouse","GeoType1":["Straight Eave Lean-To"],"GeoType2":["Aluminum Tube System","101-250 SQF. Glass"]}],"Description":"Straight eave lean-to hobby greenhouse with two gable ends, ridge vents, awning windows, interior Roman fold shades, humidifier and environmental control system.","Image1":"hibbit_061209-4.jpg","Image2":"hibbit.jpg","Image3":"hibbit_061209-8.jpg","Image4":"selt-hibbit-house-040910-2.jpg","ExtColor":["Custom Color"],"IntColor":["Custom Color"],"LengthProjection":"4 ft","RidgeHeight":"10 ft","Location":"Rhode Island","Width":"12 ft","Application":["Residential"],"Glazes":["LoE 272"]},{"ProjectID":"05-11-046","Date":200511046,"Products":[{"ProductName":"Architectural Enhancement","GeoType1":["Ridge Vent"],"GeoType2":[]},{"ProductName":"Door","GeoType1":[],"GeoType2":[]},{"ProductName":"Hobby Greenhouse","GeoType1":["Straight Eave Lean-To"],"GeoType2":["251-500 SQF. Glass"]}],"Description":"Straight eave lean to greenhouse with one gable end, awning windows, ridge vents, transoms, gridwork and a terrace door","Image1":"Scan0062.jpg","Image2":"Scan0061.jpg","Image3":"Scan0059.jpg","Image4":"Nolter4.jpg","ExtColor":["Natural Clay","AAMA 2603"],"IntColor":["Natural Clay","AAMA 2603"],"LengthProjection":"7 ft","RidgeHeight":"8 ft","Location":"Rhode Island","Width":"16 ft","Application":["Residential"],"Glazes":["Custom Color"]},{"ProjectID":"09-09-404","Date":200909404,"Products":[{"ProductName":"Canopy","GeoType1":["Single Slope"],"GeoType2":["101-250 SQF. Glass"]}],"Description":"Single slope canopy attached to steel subtrate.","Image1":"Canopy_IMG_1329.jpg","Image2":"RalstonCenter2.jpg","Image3":"Canopy_IMG_1324.jpg","Image4":"RalstonCenter4.jpg","ExtColor":["Black","AAMA 2603"],"IntColor":["Black","AAMA 2603"],"LengthProjection":"9 ft","RidgeHeight":"3 ft","Location":"Pennsylvania","Width":"14 ft","Application":["Retirement"],"Glazes":["Monolithic Glass","Heat Strengthened Laminated"]},{"ProjectID":"09-07-444","Date":200907444,"Products":[{"ProductName":"Canopy","GeoType1":["Single Slope"],"GeoType2":["101-250 SQF. Glass"]},{"ProductName":"Decorative Elements","GeoType1":["Gutter"],"GeoType2":[]}],"Description":"Single slope canopy with valley corner and no gable ends.","Image1":"selt-can-46-aitken-street-051810-2.jpg","Image2":"selt-can-46-aitken-street-051810-4.jpg","Image3":"can-46-Aitkens-Street-031210-2.jpg","Image4":"selt-can-46-aitken-street-051810.jpg","ExtColor":["White","AAMA 2603"],"IntColor":["White","AAMA 2603"],"LengthProjection":"14 ft","RidgeHeight":"4 ft 6 in","Location":"Other","Width":"20 ft","Application":["Residential"],"Glazes":["Monolithic Glass"]},{"ProjectID":"05-10-021","Date":200510021,"Products":[{"ProductName":"Canopy","GeoType1":["Curved Barrel Vault","Segmented Barrel Vault"],"GeoType2":["501-750 SQF. Glass"]},{"ProductName":"Decorative Elements","GeoType1":["Decorative Gable Pediment"],"GeoType2":[]},{"ProductName":"Skylight","GeoType1":["Barrel Vault","Curved Barrel Vault"],"GeoType2":["501-750 SQF. Glass"]}],"Description":"Three curved barrel vault skylights connected together.  1 gable end with gable end with custom insignia and arch design.","Image1":"Gruber-Can-608x1024.jpg","Image2":"GruberMills2.jpg","Image3":"GruberMills3.jpg","Image4":"GruberMills4.jpg","ExtColor":["White","AAMA 2603"],"IntColor":["White","AAMA 2603"],"LengthProjection":"32 ft","RidgeHeight":"7 ft","Location":"Pennsylvania","Width":"13 ft","Application":["Residential"],"Glazes":["Custom Color"]},{"ProjectID":"10-02-167","Date":201002167,"Products":[{"ProductName":"Curtain Wall","GeoType1":["Vertical Curtain Wall"],"GeoType2":["251-500 SQF. Glass"]},{"ProductName":"Decorative Elements","GeoType1":["Grids"],"GeoType2":[]},{"ProductName":"Door","GeoType1":["In-System French Door"],"GeoType2":[]},{"ProductName":"Window","GeoType1":["European","Projected"],"GeoType2":["Casement","Euro Outwswing Casement"]}],"Description":"Multiple European window/wall systems in one home. French doors, curtain walls and casement windows used in traditional construction. Units showcase SDL grids .","Image1":"Hopf-101410-6.jpg","Image2":"Hopf2.jpg","Image3":"Hopf3.jpg","Image4":"Hopf-101410.jpg","ExtColor":["White","AAMA 2603"],"IntColor":["White","AAMA 2603"],"LengthProjection":"varies per unit","RidgeHeight":"varies per unit","Location":"New Jersey","Width":"-","Application":["Residential"],"Glazes":["LoE 272"]},{"ProjectID":"06-06-006","Date":200606006,"Products":[{"ProductName":"Architectural Enhancement","GeoType1":["Ridge Vent","Transom"],"GeoType2":[]},{"ProductName":"Conservatory","GeoType1":["Conservatory Nose"],"GeoType2":["251-500 SQF. Glass"]},{"ProductName":"Decorative Elements","GeoType1":["Crown Molding","Decorative Trims","Grids","Transoms"],"GeoType2":["Ogee Grid"]},{"ProductName":"Window","GeoType1":["Projected"],"GeoType2":[]}],"Description":"Completely decorated straight eave double pitch conservatory with conservatory nose.","Image1":"SunnyRock.jpg","Image2":"Sunnyrock2.jpg","Image3":"Sunnyrock3.jpg","Image4":"Sunnyrock4.jpg","ExtColor":["Green (Hartford)","AAMA 2603"],"IntColor":["Green (Hartford)","AAMA 2603"],"LengthProjection":"15 ft","RidgeHeight":"12 ft","Location":"Pennsylvania","Width":"13 ft","Application":["Residential"],"Glazes":["LoE 272"]},{"ProjectID":"06-07-031","Date":200607031,"Products":[{"ProductName":"Architectural Enhancement","GeoType1":["Ridge Vent"],"GeoType2":[]},{"ProductName":"Conservatory","GeoType1":["Straight Eave Double Pitch"],"GeoType2":["751-1000 SQF. Glass","Ogee"]},{"ProductName":"Decorative Elements","GeoType1":["Crown Molding","Decorative Gable Pediment","Finials","Palladin Arches","Ridge Cresting"],"GeoType2":[]}],"Description":"One straight eave double pitch conservatory with two gable ends and one projected straight eave dormer with one gable end.","Image1":"Diamond-A-Conservatory-2-120908.jpg","Image2":"Diamond-Conservatories-6.jpg","Image3":"Diamond-Conservatories-13.jpg","Image4":"Diamond-Conservatories-20.jpg","ExtColor":["Custom Color"],"IntColor":["Custom Color"],"LengthProjection":"14 ft 4 in","RidgeHeight":"8 ft 8 in","Location":"Colorado","Width":"24 ft 5 in","Application":["Residential"],"Glazes":["LoE 272"]},{"ProjectID":"08-05-137","Date":200805137,"Products":[{"ProductName":"Conservatory","GeoType1":["Conservatory Nose","Irregular / Custom"],"GeoType2":["501-750 SQF. Glass"]},{"ProductName":"Decorative Elements","GeoType1":["Gutter"],"GeoType2":["Downspouts"]},{"ProductName":"Greenhouse","GeoType1":["Conservatory Nose","Irregular / Custom"],"GeoType2":["501-750 SQF. Glass"]},{"ProductName":"Sliding Door","GeoType1":["Door"],"GeoType2":["Dual Track"]}],"Description":"Irregular conservatory nose greenhouse with ridge vents, sliding doors, awning windows, fixed windows, gutter and downspout","Image1":"keller_job-4.jpg","Image2":"KellerJob2.jpg","Image3":"KellerJob3.jpg","Image4":"KellerJob4.jpg","ExtColor":["AAMA 2603","Sandstone"],"IntColor":["AAMA 2603"],"LengthProjection":"15 ft","RidgeHeight":"9 ft 9 in","Location":"Maryland","Width":"27 ft","Application":["Residential"],"Glazes":["LoE 340","LoE 366"]},{"ProjectID":"07-09-035","Date":200709035,"Products":[{"ProductName":"Architectural Enhancement","GeoType1":["Entryway / Vestibule"],"GeoType2":[]},{"ProductName":"Decorative Elements","GeoType1":["Gutter"],"GeoType2":[]},{"ProductName":"Door","GeoType1":[],"GeoType2":[]},{"ProductName":"Sunroom","GeoType1":["Straight Eave Double Pitch"],"GeoType2":["2001+ SQF. Glass","1-50 SQF. Glass"]}],"Description":"Straight eave double pitch entryway sunroom with one gable end with narrow stile commercial doors.","Image1":"erieconventioncenter_073108-4.jpg","Image2":"erieconventioncenter_073108-6.jpg","Image3":"DSCN1674.jpg","Image4":"erieconventioncenter_073108-3.jpg","ExtColor":["Clear Anodized","Class I Anodized"],"IntColor":["Clear Anodized","Class I Anodized"],"LengthProjection":"9 ft  7 in","RidgeHeight":"13 ft 1 in","Location":"Pennsylvania","Width":"23 ft","Application":["Commercial"],"Glazes":["LoE 272"]},{"ProjectID":"06-05-030","Date":200605030,"Products":[{"ProductName":"Decorative Elements","GeoType1":["Gutter"],"GeoType2":[]},{"ProductName":"Sunroom","GeoType1":["Straight Eave Lean-To"],"GeoType2":["251-500 SQF. Glass"]},{"ProductName":"Window","GeoType1":["Projected"],"GeoType2":["Awning"]}],"Description":"Straight eave lean-to sunroom with terrace door, awning windows, and gutter.","Image1":"leiss004.jpg","Image2":"IMG_4236.jpg","Image3":"leiss014.jpg","Image4":"leiss_IMG_4255.jpg","ExtColor":["Bronze","AAMA 2603"],"IntColor":["Bronze","AAMA 2603"],"LengthProjection":"7 ft 9 in","RidgeHeight":"7 ft 7 in","Location":"Pennsylvania","Width":"10 ft","Application":["Residential"],"Glazes":["Custom Color"]},{"ProjectID":"10-02-020","Date":201002020,"Products":[{"ProductName":"Conservatory","GeoType1":["Conservatory Nose","Irregular / Custom"],"GeoType2":["2001+ SQF. Glass","1-50 SQF. Glass"]},{"ProductName":"Glazing","GeoType1":["Specialty Glazing"],"GeoType2":[]},{"ProductName":"Screen","GeoType1":["Stainless Steel Insect Screen"],"GeoType2":[]},{"ProductName":"Sunroom","GeoType1":["Conservatory Nose","Irregular / Custom","Straight Eave Double Pitch"],"GeoType2":["2001+ SQF. Glass","1-50 SQF. Glass"]}],"Description":"Straight eave double pitch sunroom with ridge vents and awning windows.  The sunroom has an attached irregular conservatory nose sunroom with a stepped configuration used for raising turtles.  The turtle sunroom uses specialty pet screen.","Image1":"Menken-DSC01876Large.jpg","Image2":"Menken-DSC01878Large.jpg","Image3":"menken-11.jpg","Image4":"Menken-DSC01874Large.jpg","ExtColor":["White","AAMA 2603"],"IntColor":["White","AAMA 2603"],"LengthProjection":"21 ft 5 in","RidgeHeight":"15 ft","Location":"New York","Width":"16 ft","Application":["Residential"],"Glazes":["Clear","Heat Strengthened Laminated"]},{"ProjectID":"09-09-879","Date":200909879,"Products":[{"ProductName":"Conservatory","GeoType1":["Irregular / Custom"],"GeoType2":["501-750 SQF. Glass"]},{"ProductName":"Decorative Elements","GeoType1":["Finials","Ridge Cresting"],"GeoType2":[]},{"ProductName":"Greenhouse","GeoType1":["Irregular / Custom"],"GeoType2":["501-750 SQF. Glass"]}],"Description":"Straight eave double pitch skylight with irregular conservatory nose and one full gable end to ground level.","Image1":"Jim-Lobb-GH-061510-2.jpg","Image2":"Jim-Lobb-GH-061510-3.jpg","Image3":"Jim-Lobb-GH-061510-6_edited.jpg","Image4":"Jim-Lobb-GH-061510-4.jpg","ExtColor":["White","AAMA 2603"],"IntColor":["White","AAMA 2603"],"LengthProjection":"19 ft 4 in","RidgeHeight":"8 ft","Location":"Pennsylvania","Width":"16 ft","Application":["Residential"],"Glazes":["LoE 272"]},{"ProjectID":"08-09-002","Date":200809002,"Products":[{"ProductName":"Curtain Wall","GeoType1":["Vertical Curtain Wall"],"GeoType2":["2001+ SQF. Glass"]}],"Description":"Multiple curtain wall systems throughout home.","Image1":"KlineResidence1.jpg","Image2":"KlineResidence2.jpg","Image3":"KlineResidence3.jpg","Image4":"KlineResidence4.jpg","ExtColor":["Bronze","AAMA 2603"],"IntColor":["Bronze","AAMA 2603"],"LengthProjection":"varies per unit","RidgeHeight":"varies per unit","Location":"Massachusetts","Width":"-","Application":["Residential"],"Glazes":["Clear","Heat Strengthened Laminated"]},{"ProjectID":"07-06-055","Date":200706055,"Products":[{"ProductName":"Curtain Wall","GeoType1":["Vertical Curtain Wall"],"GeoType2":["101-250 SQF. Glass"]}],"Description":"Five curtain wall systems including two with integrated doors.","Image1":"Evandale1.jpg","Image2":"Evandale2.jpg","Image3":"IMG_0122.jpg","Image4":"Evandale4.jpg","ExtColor":["Bronze","AAMA 2603"],"IntColor":["Bronze","AAMA 2603"],"LengthProjection":"varies per unit","RidgeHeight":"varies per unit","Location":"Pennsylvania","Width":"-","Application":["Residential"],"Glazes":["LoE 272"]},{"ProjectID":"05-10-022","Date":200510022,"Products":[{"ProductName":"Canopy","GeoType1":["Single Slope","Straight Eave Lean-To"],"GeoType2":["101-250 SQF. Glass"]},{"ProductName":"Curtain Wall","GeoType1":["Vertical with Integrated Slope"],"GeoType2":["251-500 SQF. Glass"]}],"Description":"Custom curtain wall with canopy and lean-to with slanted gable ends.","Image1":"Mercer3.jpg","Image2":"Mercer-IMG_0148.jpg","Image3":"mercer-door.jpg","Image4":"Mercer-IMG_0150.jpg","ExtColor":["Bronze","AAMA 2603"],"IntColor":["Bronze","AAMA 2603"],"LengthProjection":"25 ft","RidgeHeight":"25 ft","Location":"New Jersey","Width":"25 ft","Application":["Educational","Institutional"],"Glazes":["Bronze"]},{"ProjectID":"08-03-125","Date":200803125,"Products":[{"ProductName":"Curtain Wall","GeoType1":["Vertical Curtain Wall","Vertical with Integrated Slope"],"GeoType2":["751-1000 SQF. Glass"]}],"Description":"Straight eave lean-to tower with rear wall and with partial front wall to connect to existing dormer roof.","Image1":"MalgatProject1.jpg","Image2":"MalgatProject2.jpg","Image3":"MalgatProject3.jpg","Image4":"MalgatProject4.jpg","ExtColor":["Clear Anodized","Class I Anodized"],"IntColor":["Clear Anodized","Class I Anodized"],"LengthProjection":"8 ft","RidgeHeight":"27 ft","Location":"Pennsylvania","Width":"8 ft","Application":["Residential"],"Glazes":["LoE 272"]},{"ProjectID":"10-02-249","Date":201002249,"Products":[{"ProductName":"Curtain Wall","GeoType1":["Vertical Curtain Wall"],"GeoType2":["2001+ SQF. Glass"]},{"ProductName":"Door","GeoType1":["Commercial Terrace & French Doors","In-System French Door"],"GeoType2":[]}],"Description":"Vertical wall system with four corners and attached double pitch walkway.","Image1":"garrison-1.jpg","Image2":"garrison-2.jpg","Image3":"garrison-3.jpg","Image4":"garrison-4.jpg","ExtColor":["White","AAMA 2603"],"IntColor":["White","AAMA 2603"],"LengthProjection":"60 ft","RidgeHeight":"9 ft 10 in","Location":"New York","Width":"52 ft","Application":["Banquets","Dining","Retail Sales"],"Glazes":["LoE 272"]},{"ProjectID":"06-09-052","Date":200609052,"Products":[{"ProductName":"Curtain Wall","GeoType1":["Vertical Curtain Wall"],"GeoType2":["501-750 SQF. Glass"]},{"ProductName":"Door","GeoType1":["Commercial Terrace & French Doors","In-System French Door"],"GeoType2":[]}],"Description":"Four curtain wall systems including two with integrated narrow stile doors.","Image1":"ChapelMausoleum1.jpg","Image2":"ChapelMausoleum2.jpg","Image3":"ChapelMausoleum3.jpg","Image4":"ChapelMausoleum4.jpg","ExtColor":["Dark Bronze Anodized","Bronze","Class I Anodized"],"IntColor":["Dark Bronze Anodized","Bronze","Class I Anodized"],"LengthProjection":"varies per unit","RidgeHeight":"varies per unit","Location":"Maryland","Width":"-","Application":["Ecclesiastical"],"Glazes":["Clear"]},{"ProjectID":"10-04-505","Date":201004505,"Products":[{"ProductName":"Curtain Wall","GeoType1":["Vertical Curtain Wall"],"GeoType2":["2001+ SQF. Glass","1-50 SQF. Glass"]},{"ProductName":"Wood Curtain Wall","GeoType1":["Vertical"],"GeoType2":["2001+ SQF. Glass","1-50 SQF. Glass"]}],"Description":"Seven Douglas Fir curtain walls with exterior Douglas Fir veneering.","Image1":"joes-crab-9.jpg","Image2":"IMG_8410.jpg","Image3":"joes-crab-7.jpg","Image4":"joes-crab-19.jpg","ExtColor":["Custom Color"],"IntColor":["Doulgas Fir"],"LengthProjection":"varies per unit","RidgeHeight":"varies per unit","Location":"Florida","Width":"-","Application":["Commercial","Dining"],"Glazes":["Clear"]},{"ProjectID":"08-06-232","Date":200806232,"Products":[{"ProductName":"Curtain Wall","GeoType1":["Vertical Curtain Wall"],"GeoType2":["251-500 SQF. Glass"]},{"ProductName":"Door","GeoType1":["In-System Terrace Door"],"GeoType2":[]},{"ProductName":"Folding Glass Wall","GeoType1":["Door"],"GeoType2":["101-250 SQF. Glass","Single Door End Jamb"]}],"Description":"Insulated curtain wall systems with integrated residential terrace doors and separate folding glass wall system with single door hinge jamb configuration.","Image1":"lincoln-park-072809-2.jpg","Image2":"LincolnPark2.jpg","Image3":"LincolnPark3.jpg","Image4":"lincoln-park-072809-3.jpg","ExtColor":["Clear Anodized","Class I Anodized"],"IntColor":["Clear Anodized","Class I Anodized"],"LengthProjection":"14 ft 6 in","RidgeHeight":"9 ft","Location":"Illinois","Width":"-","Application":["Residential"],"Glazes":["Heat Strengthened Laminated"]},{"ProjectID":"08-07-238","Date":200807238,"Products":[{"ProductName":"Architectural Enhancement","GeoType1":["Ridge Vent"],"GeoType2":[]},{"ProductName":"Pool Enclosure","GeoType1":["Straight Eave Double Pitch"],"GeoType2":["501-750 SQF. Glass"]},{"ProductName":"Skylight","GeoType1":["Straight Eave Double Pitch","Straight Eave Lean-To"],"GeoType2":["501-750 SQF. Glass"]},{"ProductName":"Sunroom","GeoType1":["Straight Eave Double Pitch"],"GeoType2":["501-750 SQF. Glass"]}],"Description":"Straight eave lean-to skylight with no gable ends used as the roof of a sunroom, as well as a straight eave, double skylight with no gable ends.","Image1":"mo-sunroom1.jpg","Image2":"mo-sunroom-2.jpg","Image3":"MOSunroom3.jpg","Image4":"mo-sunroom.jpg","ExtColor":["AAMA 2603","White"],"IntColor":["AAMA 2603","White"],"LengthProjection":"varies per unit","RidgeHeight":"varies per unit","Location":"Missouri","Width":"varies per unit","Application":["Living Space","Residential"],"Glazes":["LoE 272"]},{"ProjectID":"09-06-405","Date":200906405,"Products":[{"ProductName":"Architectural Enhancement","GeoType1":["Dormers","Knee Walls","Lantern"],"GeoType2":[]},{"ProductName":"Decorative Elements","GeoType1":["Crown Molding","Finials","Gutter","Ring and Collar Ties"],"GeoType2":[]},{"ProductName":"Door","GeoType1":[],"GeoType2":[]},{"ProductName":"Greenhouse","GeoType1":["Irregular / Custom","Straight Eave Double Pitch"],"GeoType2":["2001+ SQF. Glass","1-50 SQF. Glass"]}],"Description":"Straight eave double pitch conservatory with one gable end two attached double pitch dormers and one pyramid cupola.","Image1":"East-Elev-use.jpg","Image2":"RyderTierney2.jpg","Image3":"Lantern.jpg","Image4":"RyderTierney4.jpg","ExtColor":["White","AAMA 2603"],"IntColor":["White","AAMA 2603"],"LengthProjection":"18 ft 5 in","RidgeHeight":"20 ft 4 in","Location":"Connecticut","Width":"17 ft 2 in","Application":["Residential"],"Glazes":["LoE 272"]},{"ProjectID":"10-02-021","Date":201002021,"Products":[{"ProductName":"Door","GeoType1":[],"GeoType2":[]},{"ProductName":"Sunroom","GeoType1":["Conservatory Nose","Irregular / Custom"],"GeoType2":["2001+ SQF. Glass","1-50 SQF. Glass"]}],"Description":"Straight eave lean-to sunroom with irregular conservatory quarter nose.","Image1":"DukeRaleighHospital1.jpg","Image2":"DukeRaleighHospital2.jpg","Image3":"DukeRaleighHospital3.jpg","Image4":"DukeRaleighHospital4.jpg","ExtColor":["Bronze","AAMA 2603"],"IntColor":["Bronze","AAMA 2603"],"LengthProjection":"36 ft 6 in","RidgeHeight":"12 ft 4 in","Location":"North Carolina","Width":"14 ft","Application":["Health Centers"],"Glazes":["Bronze","LoE 366"]},{"ProjectID":"09-12-911","Date":200912911,"Products":[{"ProductName":"Sliding Door","GeoType1":["Door"],"GeoType2":["Multi-Track"]},{"ProductName":"Sunroom","GeoType1":["Straight Eave Lean-To"],"GeoType2":["2001+ SQF. Glass","1-50 SQF. Glass"]}],"Description":"Straight eave lean-to sunroom with a solid foam core roof, two gable ends, sliding windows, and terrace door.","Image1":"5225-Wisconsin-18.jpg","Image2":"5225Wisconsin1.jpg","Image3":"5225-Wisconsin-21.jpg","Image4":"5225-Wisconsin-072710-9.jpg","ExtColor":["Clear Anodized","Class I Anodized"],"IntColor":["Clear Anodized","Class I Anodized"],"LengthProjection":"17 ft","RidgeHeight":"12 ft","Location":"Washington DC","Width":"23 ft","Application":["Dining","Residential"],"Glazes":["LoE 272"]},{"ProjectID":"09-05-407","Date":200905407,"Products":[{"ProductName":"Architectural Enhancement","GeoType1":[],"GeoType2":[]},{"ProductName":"Conservatory","GeoType1":["Straight Eave Lean-To"],"GeoType2":["501-750 SQF. Glass"]},{"ProductName":"Decorative Elements","GeoType1":["Column","Gutter"],"GeoType2":[]},{"ProductName":"Sunroom","GeoType1":["Straight Eave Lean-To"],"GeoType2":["501-750 SQF. Glass"]}],"Description":"Straight eave lean-to sunroom including decorative columns and Mahogany interior.","Image1":"2012/08/Goodman1.jpg","Image2":"2012/08/Goodman2.jpg","Image3":"2012/08/Goodman3.jpg","Image4":"Goodman4.jpg","ExtColor":["Sapele Mahogany","Wood"],"IntColor":["Custom Color"],"LengthProjection":"12 ft","RidgeHeight":"11 ft","Location":"New York","Width":"23 ft","Application":["Residential"],"Glazes":["LoE 272"]},{"ProjectID":"11-01-380","Date":201101380,"Products":[{"ProductName":"Glazing","GeoType1":["Specialty Glazing"],"GeoType2":[]},{"ProductName":"Greenhouse","GeoType1":["Straight Eave Double Pitch"],"GeoType2":["2001+ SQF. Glass","1-50 SQF. Glass","Aluminum Tube System"]},{"ProductName":"Greenhouse Accessory","GeoType1":["Greenhouse Benches","Storage"],"GeoType2":[]},{"ProductName":"Shades","GeoType1":["Interior Operable"],"GeoType2":["HVHZ / Miami-Dade Rated"]}],"Description":"Straight eave double pitch greenhouse with two gable ends, true divided pediment,  two interior trusses, benches and operable shade system.","Image1":"2012/08/Hassenfeld1.jpg","Image2":"Hassenfeld2.jpg","Image3":"Hassenfeld3.jpg","Image4":"Hassenfeld4.jpg","ExtColor":["AAMA 2603","White"],"IntColor":["AAMA 2603","White"],"LengthProjection":"28 ft 8 in","RidgeHeight":"18 ft","Location":"Rhode Island","Width":"17 ft 8 in","Application":["Residential"],"Glazes":["Clear","Heat Strengthened Laminated"]},{"ProjectID":"10-12-197","Date":201012197,"Products":[{"ProductName":"Greenhouse","GeoType1":["Straight Eave Double Pitch"],"GeoType2":["251-500 SQF. Glass","Aluminum Tube System"]},{"ProductName":"Greenhouse Accessory","GeoType1":["Temperature Control"],"GeoType2":["Circulation Fans"]}],"Description":"Straight eave double pitch educational greenhouse with ridge vents, awning windows, terrace door and circulation fan.","Image1":"2012/08/HickoryGroveGreenhouse1.jpg","Image2":"HickoryGroveGreenhouse2.jpg","Image3":"HickoryGroveGreenhouse3.jpg","Image4":"HickoryGroveGreenhouse4.jpg","ExtColor":["Clear Anodized","Class I Anodized"],"IntColor":["Clear Anodized","Class I Anodized"],"LengthProjection":"13 ft","RidgeHeight":"9 ft","Location":"Pennsylvania","Width":"12 ft","Application":["Educational","Institutional","Research"],"Glazes":["LoE 272"]},{"ProjectID":"11-04-107","Date":201104107,"Products":[{"ProductName":"Door","GeoType1":["Commercial Terrace & French Doors"],"GeoType2":[]},{"ProductName":"Stacking Glass Wall","GeoType1":["Doors"],"GeoType2":["501-750 SQF. Glass"]}],"Description":"Stacking glass wall system with 2 outswing single doors each using panic hardware, 14 panels stack left and 19 panels stack right, with a recessed tank sill.","Image1":"2012/08/LibertyVillage1.jpg","Image2":"LibertyVillage2.jpg","Image3":"LibertyVillage3.jpg","Image4":"LibertyVillage4.jpg","ExtColor":["Clear Anodized","Class I Anodized"],"IntColor":["Clear Anodized","Class I Anodized"],"LengthProjection":"85 ft","RidgeHeight":"10 ft","Location":"Canada","Width":"-","Application":["Commercial","Dining"],"Glazes":["LoE 180","LoE i89"]},{"ProjectID":"12-02-039","Date":201202039,"Products":[{"ProductName":"Greenhouse","GeoType1":["Straight Eave Lean-To"],"GeoType2":["501-750 SQF. Glass","Aluminum Tube System"]},{"ProductName":"Greenhouse Accessory","GeoType1":["Temperature Control","Watering Systems"],"GeoType2":["Circulation Fans"]},{"ProductName":"Hobby Greenhouse","GeoType1":["Straight Eave Lean-To"],"GeoType2":["501-750 SQF. Glass"]},{"ProductName":"Sliding Door","GeoType1":["Door"],"GeoType2":["Multi-Track"]}],"Description":"Straight eave lean to greenhouse with two gable ends, ridge vents, eave vents, terrace door, sliding door, heater, circulation fan and aluminum tube plant hanger.","Image1":"2012/08/Bodetti1.jpg","Image2":"bodetti-05162013-45-web.jpg","Image3":"bodetti-05162013-46-web.jpg","Image4":"bodetti-05162013-49-web.jpg","ExtColor":["AAMA 2603","White"],"IntColor":["AAMA 2603","White"],"LengthProjection":"11 ft","RidgeHeight":"13 ft 10 in","Location":"Connecticut","Width":"24 ft","Application":["Residential"],"Glazes":["LoE 272"]},{"ProjectID":"11-09-028","Date":201109028,"Products":[{"ProductName":"Architectural Enhancement","GeoType1":["Ridge Vent"],"GeoType2":[]},{"ProductName":"Conservatory","GeoType1":["Curved Eave Double Pitch","Irregular / Custom"],"GeoType2":["251-500 SQF. Glass"]},{"ProductName":"Decorative Elements","GeoType1":["Finials"],"GeoType2":[]},{"ProductName":"Skylight","GeoType1":["Curved Eave Double Pitch","Irregular / Custom"],"GeoType2":["251-500 SQF. Glass"]}],"Description":"Curved eave conservatory skylight with irregular conservatory nose.","Image1":"3-old-garden-06222012-5EWtouchup.jpg","Image2":"7-1-15-FullSizeRender-1-Web500.jpg","Image3":"3-old-garden-06222012-5EW2touchup.jpg","Image4":"3-old-garden-06222012-4.jpg","ExtColor":["Custom Color","Powder Coat"],"IntColor":["Custom Color","Powder Coat"],"LengthProjection":"17 ft","RidgeHeight":"7 ft","Location":"Connecticut","Width":"13 ft","Application":["Residential"],"Glazes":["Custom Color"]},{"ProjectID":"11-09-153","Date":201109153,"Products":[{"ProductName":"Car Wash","GeoType1":["Stairway Covers"],"GeoType2":["101-250 SQF. Glass"]},{"ProductName":"Door","GeoType1":["In-System Terrace Door"],"GeoType2":[]},{"ProductName":"Skylight","GeoType1":["Flat","Straight Eave Lean-To"],"GeoType2":["51-100 SQF. Glass"]},{"ProductName":"Walkway","GeoType1":["Straight Eave Lean-To"],"GeoType2":["101-250 SQF. Glass"]}],"Description":"Straight eave lean-to stairway cover with two gable ends and vertical rear wall, featuring Solera glass.","Image1":"KleinGomparts3.jpg","Image2":"KleinGomparts2.jpg","Image3":"KleinGomparts1.jpg","Image4":"KleinGomparts4.jpg","ExtColor":["AAMA 2603","White"],"IntColor":["AAMA 2603","White"],"LengthProjection":"18 ft","RidgeHeight":"8 ft","Location":"Washington DC","Width":"4 ft 6 in","Application":["Residential"],"Glazes":["LoE 272","Heat Strengthened Laminated","Solera"]},{"ProjectID":"11-07-355","Date":201107355,"Products":[{"ProductName":"Skylight","GeoType1":["Barrel Vault","Segmented Barrel Vault"],"GeoType2":["101-250 SQF. Glass"]}],"Description":"Segmented raius exterior skylight with two gable ends featuring White Oak LVL interior rafters and wood sill and Copper metal cladding exterior.","Image1":"Danichuk1.jpg","Image2":"Danichuk2.jpg","Image3":"Danichuk3.jpg","Image4":"Danichuk4.jpg","ExtColor":["Copper","Metal Cladding"],"IntColor":["White Oak","Wood"],"LengthProjection":"12 ft","RidgeHeight":"3 ft","Location":"New York","Width":"8 ft","Application":["Residential"],"Glazes":["LoE 340","Heat Strengthened Laminated"]},{"ProjectID":"10-10-208","Date":201010208,"Products":[{"ProductName":"Car Wash","GeoType1":["Stairway Covers"],"GeoType2":["251-500 SQF. Glass"]},{"ProductName":"Glazing","GeoType1":["Specialty Glazing"],"GeoType2":[]},{"ProductName":"Skylight","GeoType1":["Irregular / Custom","Lean-To"],"GeoType2":["251-500 SQF. Glass"]}],"Description":"Lean-to skylight enclosing elevator shaft featuring Copper cladding exterior and white laminated glazing.","Image1":"37Commonwealth1.jpg","Image2":"37Commonwealth2.jpg","Image3":"37Commonwealth3.jpg","Image4":"37Commonwealth4.jpg","ExtColor":["Copper","Metal Cladding"],"IntColor":[],"LengthProjection":"13 ft","RidgeHeight":"3 ft 6 in","Location":"Massachusetts","Width":"9 ft","Application":["Home","Residential"],"Glazes":["LoE 272","Laminated","White"]},{"ProjectID":"05-08-032","Date":200508032,"Products":[{"ProductName":"Architectural Enhancement","GeoType1":["Dormers","Entryway / Vestibule","Gable End"],"GeoType2":[]},{"ProductName":"Decorative Elements","GeoType1":["Finials","Grids","Interior Munittin","Ridge Cresting"],"GeoType2":[]},{"ProductName":"Greenhouse","GeoType1":["Straight Eave Double Pitch"],"GeoType2":["751-1000 SQF. Glass"]},{"ProductName":"Greenhouse Accessory","GeoType1":["Temperature Control"],"GeoType2":[]}],"Description":"Straight eave double pitch greenhouse with attached dormer and entryway.  Structure includes ridge cresting, finials, gridwork, and French doors.","Image1":"Scan1264.jpg","Image2":"Scan1265.jpg","Image3":"DSCF0007_color.jpg","Image4":"Scan1261.jpg","ExtColor":["White"],"IntColor":["White"],"LengthProjection":"20 ft","RidgeHeight":"10 ft 11 in","Location":"Other","Width":"16 ft","Application":["Residential"],"Glazes":["Clear"]},{"ProjectID":"08-07-201","Date":200807201,"Products":[{"ProductName":"Architectural Enhancement","GeoType1":["Entryway / Vestibule"],"GeoType2":[]},{"ProductName":"Sunroom","GeoType1":["Curved Eave Lean-To","Hip End"],"GeoType2":["251-500 SQF. Glass"]}],"Description":"Curved eave lean-to sunroom serving as an entryway / vestibule.","Image1":"Vestibule-Proposal-51.jpg","Image2":"Vestibule-Proposal-7.jpg","Image3":"Vestibule-Proposal-6.jpg","Image4":"Vestibule-Proposal-2.jpg","ExtColor":["Dark Bronze Anodized","Bronze","Class I Anodized"],"IntColor":["Dark Bronze Anodized","Bronze","Class I Anodized"],"LengthProjection":"13 ft 8 in","RidgeHeight":"14 ft 5 in","Location":"Other","Width":"6 ft 2 in","Application":["Commercial"],"Glazes":["LoE 366"]},{"ProjectID":"07-09-015","Date":200709015,"Products":[{"ProductName":"Architectural Enhancement","GeoType1":["Entryway / Vestibule"],"GeoType2":["51-100 SQF. Glass"]},{"ProductName":"Curtain Wall","GeoType1":["Vertical Curtain Wall"],"GeoType2":["51-100 SQF. Glass"]},{"ProductName":"Door","GeoType1":["Commercial Terrace & French Doors","In-System French Door"],"GeoType2":[]}],"Description":"Commercial Curtain Wall and french door featuring entryway / vestibule.","Image1":"door_comm_harbor_plaza_030609-7.jpg","Image2":"door_comm_harbor_plaza_030609-8.jpg","Image3":"door_comm_harbor_plaza_030609-2.jpg","Image4":"door_comm_harbor_plaza_030609-5.jpg","ExtColor":["Custom Color"],"IntColor":["Custom Color"],"LengthProjection":"28 ft 3 in","RidgeHeight":"7 ft 6 in","Location":"Other","Width":"12 ft 2 in","Application":["Commercial"],"Glazes":["LoE 272"]},{"ProjectID":"09-09-883","Date":200909883,"Products":[{"ProductName":"Door","GeoType1":["In-System French Door"],"GeoType2":[]},{"ProductName":"Stacking Glass Wall","GeoType1":["Doors"],"GeoType2":["751-1000 SQF. Glass"]}],"Description":"A banquette hall facility with a stacking glass wall system and a remote panel stack location, flush mount sill and operable French door with commercial hardware","Image1":"slid-stack-coveleigh-040110-29.jpg","Image2":"Coveleigh-8.jpg","Image3":"Coveleigh-12.jpg","Image4":"Coveleigh-Club-3.jpg","ExtColor":["AAMA 2603","White"],"IntColor":["Sapele Mahogany","Wood Veneer"],"LengthProjection":"varies per unit","RidgeHeight":"118","Location":"Other","Width":"-","Application":["Banquets","Dining"],"Glazes":["LoE 272"]},{"ProjectID":"09-06-410","Date":200906410,"Products":[{"ProductName":"Architectural Enhancement","GeoType1":["Knee Walls"],"GeoType2":[]},{"ProductName":"Conservatory","GeoType1":["Conservatory Nose","Straight Eave Lean-To"],"GeoType2":["501-750 SQF. Glass"]}],"Description":"Straight Eave Lean To Conservatory with Conservatory Nose","Image1":"15-Williams-St-71.jpg","Image2":"15-Williams-St-12.jpg","Image3":"15-Williams-St-8.jpg","Image4":"15-Williams-St-141.jpg","ExtColor":["Bronze"],"IntColor":["Bronze"],"LengthProjection":"18 ft 3 in","RidgeHeight":"10 ft 1 in","Location":"Other","Width":"11 ft 3 in","Application":["Residential"],"Glazes":["LoE 272"]},{"ProjectID":"05-05-018","Date":200505018,"Products":[{"ProductName":"Architectural Enhancement","GeoType1":["Knee Walls"],"GeoType2":[]},{"ProductName":"Conservatory","GeoType1":["Straight Eave Double Pitch"],"GeoType2":["501-750 SQF. Glass"]},{"ProductName":"Decorative Elements","GeoType1":["Decorative Gable Pediment","Grids","Interior Munittin","Palladin Arches","Ring and Collar Ties","Transoms"],"GeoType2":["Ogee Grid"]}],"Description":"Straight eave, double pitch conservatory with a Palladian arch, transoms, muntins and ring and collar","Image1":"Bohen-33.jpg","Image2":"Bohen-46.jpg","Image3":"Bohen-9.jpg","Image4":"Bohen-8.jpg","ExtColor":["Green (Hartford)"],"IntColor":["Sapele Mahogany","Wood"],"LengthProjection":"15 ft 4 in","RidgeHeight":"14 ft","Location":"Other","Width":"15 ft 5 in","Application":["Residential"],"Glazes":["LoE 180"]},{"ProjectID":"09-02-349","Date":200902349,"Products":[{"ProductName":"Canopy","GeoType1":["Curved Barrel Vault"],"GeoType2":["501-750 SQF. Glass"]}],"Description":"True radius barrel vault canopy with no gable ends","Image1":"can_bar_mascaro_080909_altered.jpg","Image2":"can_bar_mascaro_080909-2.jpg","Image3":"can_bar_mascaro_080909-4.jpg","Image4":"can_bar_mascaro_080909-8.jpg","ExtColor":["Blue (Bright)","Custom Color"],"IntColor":["Blue (Bright)","Custom Color"],"LengthProjection":"23 ft 9 in","RidgeHeight":"12 ft 10 in","Location":"Pennsylvania","Width":"23 ft 9 in","Application":["Commercial"],"Glazes":["Gray","Custom Color"]},{"ProjectID":"05-06-050","Date":200506050,"Products":[{"ProductName":"Canopy","GeoType1":["Straight Eave Double Pitch"],"GeoType2":["501-750 SQF. Glass"]}],"Description":"Straight eave double pitch canopy.","Image1":"can-haverford-school.jpg","Image2":"IMG_4067.jpg","Image3":"IMG_4068.jpg","Image4":"IMG_4070.jpg","ExtColor":["Black"],"IntColor":[],"LengthProjection":"21 ft 11 in","RidgeHeight":"-","Location":"Other","Width":"8 ft 6 in","Application":["Educational"],"Glazes":["Gray"]},{"ProjectID":"10-06-043","Date":201006043,"Products":[{"ProductName":"Architectural Enhancement","GeoType1":["Transom"],"GeoType2":[]},{"ProductName":"Conservatory","GeoType1":["Conservatory Nose"],"GeoType2":["251-500 SQF. Glass"]},{"ProductName":"Decorative Elements","GeoType1":["Finials","Grids","Gutter","Interior Munittin","Ridge Cresting"],"GeoType2":["Downspouts","Low Profile Grid"]}],"Description":"Straight eave double pitch conservatory with (1) eight sided conservatory nose. Decorative elements include finial, ridge cresting, transoms, gutter, downspout and muntins.","Image1":"Crosina.jpg","Image2":"Crosina-3.jpg","Image3":"Crosina-4.jpg","Image4":"Crosina-2.jpg","ExtColor":["Bronze"],"IntColor":["White"],"LengthProjection":"11 ft","RidgeHeight":"14 ft 5 in","Location":"Massachusetts","Width":"12 ft 8 in","Application":["Residential"],"Glazes":["LoE 272"]},{"ProjectID":"11-11-077","Date":201111077,"Products":[{"ProductName":"Architectural Enhancement","GeoType1":["Gable End","Ridge Vent"],"GeoType2":[]},{"ProductName":"Conservatory","GeoType1":["Straight Eave Lean-To"],"GeoType2":["251-500 SQF. Glass","English"]},{"ProductName":"Decorative Elements","GeoType1":["Base Panels","Crown Molding","Decorative Trims","Gutter","SDLs"],"GeoType2":[]},{"ProductName":"Window","GeoType1":["Projected"],"GeoType2":["Casement"]}],"Description":"Straight eave lean to conservatory with one gable end, raised interior and exterior base panels, SDL's, ridge vent, gutter, interior Ogee capping, bull nose trim and casement windows.","Image1":"williams-residence-09192012-3_edited.jpg","Image2":"williams-residence-09192012-5.jpg","Image3":"williams-residence-09192012-7_edited.jpg","Image4":"williams-residence-09192012-8.jpg","ExtColor":["White"],"IntColor":["White"],"LengthProjection":"8 ft","RidgeHeight":"9 ft 8 in","Location":"Pennsylvania","Width":"17 ft  9 ft ","Application":["Residential"],"Glazes":["LoE 272"]},{"ProjectID":"12-01-416","Date":201201416,"Products":[{"ProductName":"Architectural Enhancement","GeoType1":["Eave Vent","Ridge Vent"],"GeoType2":[]},{"ProductName":"Decorative Elements","GeoType1":["Gutter"],"GeoType2":[]},{"ProductName":"Greenhouse","GeoType1":["Straight Eave Double Pitch"],"GeoType2":["751-1000 SQF. Glass","Restoration System"]},{"ProductName":"Greenhouse Accessory","GeoType1":[],"GeoType2":["Rolling Bench"]}],"Description":"Straight eave double pitch greenhouse with 1 gable end, ridge vents, eave vents, circulation fans, heater, evaporative cooler and a ring and collar tie bar.","Image1":"2012/10/dr.jpg","Image2":"dr2.jpg","Image3":"dr3.jpg","Image4":"dr4.jpg","ExtColor":["Green (Hartford)"],"IntColor":["AAMA 2603"],"LengthProjection":"20 ft","RidgeHeight":"15 ft 3 in","Location":"Pennsylvania","Width":"20 ft","Application":["Residential"],"Glazes":["LoE 272"]},{"ProjectID":"11-12-116","Date":201112116,"Products":[{"ProductName":"Architectural Enhancement","GeoType1":["Gable End"],"GeoType2":[]},{"ProductName":"Conservatory","GeoType1":["Curved Eave Double Pitch"],"GeoType2":["751-1000 SQF. Glass"]},{"ProductName":"Sunroom","GeoType1":["Curved Eave Double Pitch"],"GeoType2":["751-1000 SQF. Glass"]}],"Description":"Curved eave double pitch glass enclosure with 1 gable end, French doors and ridge vents. Conservatory was a replacement unit from a previous manufacturer.","Image1":"greenwich-finished-pictures_Page_021.jpg","Image2":"greenwich-finished-pictures_Page_041.jpg","Image3":"greenwich-finished-pictures_Page_081.jpg","Image4":"greenwich-finished-pictures_Page_121.jpg","ExtColor":["White"],"IntColor":["White"],"LengthProjection":"33 ft 4","RidgeHeight":"9 ft 8 in","Location":"Connecticut","Width":"13 ft 9 in","Application":["Residential"],"Glazes":["LoE 366"]},{"ProjectID":"11-12-112","Date":201112112,"Products":[{"ProductName":"Architectural Enhancement","GeoType1":["Ridge Vent"],"GeoType2":[]},{"ProductName":"Conservatory","GeoType1":["Curved Eave Double Pitch"],"GeoType2":["2001+ SQF. Glass","1-50 SQF. Glass"]},{"ProductName":"Glazing","GeoType1":["Specialty Glazing"],"GeoType2":[]},{"ProductName":"Skylight","GeoType1":["Curved Eave Double Pitch"],"GeoType2":["2001+ SQF. Glass","1-50 SQF. Glass","Restoration U Bar System"]}],"Description":"Curved eave double pitch skylight used to replace a unit originally built in 1905, featuring specialty 272 over satin etch glazing.","Image1":"eastman-10012012-3.jpg","Image2":"eastman-10012012-5.jpg","Image3":"george-eastman-09-31-13-1-web.jpg","Image4":"eastman-10-06262013-web.jpg","ExtColor":["White"],"IntColor":["White"],"LengthProjection":"35 ft 1 in","RidgeHeight":"11 ft","Location":"New York","Width":"20 ft 8 in","Application":["Educational","Historical","Institutional"],"Glazes":["LoE 272","Satin Etch"]},{"ProjectID":"10-02-070","Date":201002070,"Products":[{"ProductName":"Architectural Enhancement","GeoType1":["Dormers","Ridge Vent"],"GeoType2":[]},{"ProductName":"Conservatory","GeoType1":["Straight Eave Double Pitch","Straight Eave Lean-To"],"GeoType2":["251-500 SQF. Glass"]},{"ProductName":"Decorative Elements","GeoType1":["Finials","Ridge Cresting"],"GeoType2":["Ogee Grid","Traditional Grid"]}],"Description":"Straight eave lean to conservatory with a straight eave double pitch dormer and ridge vents.  Decorative accessories include: gutter, ridge cresting, finial and interior muntins.","Image1":"stemlach-conservatory-11092010-3.jpg","Image2":"stemlach-conservatory-11092010-2.jpg","Image3":"stemlach-conservatory-11092010.jpg","Image4":"stemlach-conservatory-110920105.jpg","ExtColor":[],"IntColor":[],"LengthProjection":"14 ft 2 in","RidgeHeight":"13 ft 11 in","Location":"Illinois","Width":"11 ft 8 in","Application":["Residential"],"Glazes":""},{"ProjectID":"07-10-041","Date":200710041,"Products":[{"ProductName":"Architectural Enhancement","GeoType1":["Transom"],"GeoType2":[]},{"ProductName":"Conservatory","GeoType1":["Straight Eave Double Pitch"],"GeoType2":["2001+ SQF. Glass","1-50 SQF. Glass","Restoration System"]},{"ProductName":"Decorative Elements","GeoType1":["Crown Molding","Finials","Grids","Ridge Cresting","Transoms"],"GeoType2":["Double Ogee Cap","Ogee Grid","Traditional Grid"]}],"Description":"Straight eave double pitch replacement conservatory.  Structure was built to replace an older model by another manufacturer.  The conservatory has an attached entryway.  Decorative accessories include fixed window frames, base panels on the terrace doors, finials, crown molding, transoms, interior ogee and bull nose capping, transoms and SDL's","Image1":"sedp-mayberry-replacement-020510-10.jpg","Image2":"sedp-mayberry-replacement-020510-2.jpg","Image3":"sedp-mayberry-replacement-020510-9.jpg","Image4":"sedp-mayberry-replacement-020510.jpg","ExtColor":["Green (Hartford)"],"IntColor":["Green (Hartford)"],"LengthProjection":"20 ft 2 in","RidgeHeight":"17 ft 7 in","Location":"Pennsylvania","Width":"35 ft","Application":["Residential"],"Glazes":["LoE 272"]},{"ProjectID":"08-05-116","Date":200805116,"Products":[{"ProductName":"Architectural Enhancement","GeoType1":["Dormers","Lantern","Ridge Vent"],"GeoType2":[]},{"ProductName":"Decorative Elements","GeoType1":["Finials"],"GeoType2":[]},{"ProductName":"Greenhouse","GeoType1":["Straight Eave Double Pitch"],"GeoType2":["2001+ SQF. Glass","1-50 SQF. Glass"]}],"Description":"Straight Eave Double Pitch greenhouse with two gable ends and a dormer.","Image1":"gh-sedp-with-dormer-jp-greenhouse-090910-81.jpg","Image2":"JP-Greenhouse-08122009-51.jpg","Image3":"more-jp-greenhouse-08122009-21.jpg","Image4":"gh-sedp-with-dormer-jp-greenhouse-090910-31.jpg","ExtColor":["White"],"IntColor":["White"],"LengthProjection":"27 ft ","RidgeHeight":"17 ft","Location":"Canada","Width":"36 ft","Application":["Residential"],"Glazes":["Clear"]},{"ProjectID":"10-06-027","Date":201006027,"Products":[{"ProductName":"Architectural Enhancement","GeoType1":["Eave Vent","Knee Walls","Ridge Vent"],"GeoType2":[]},{"ProductName":"Decorative Elements","GeoType1":["Gutter"],"GeoType2":[]},{"ProductName":"Greenhouse","GeoType1":["Irregular / Custom"],"GeoType2":["501-750 SQF. Glass"]}],"Description":"Irregular straight eave lean to greenhouse with operable eave sashes and ridge vents, terrace door, gutter and downspout.","Image1":"enfield.jpg","Image2":"enfield-2.jpg","Image3":"enfield-3.jpg","Image4":"enfield-9.jpg","ExtColor":["White"],"IntColor":["White"],"LengthProjection":"28 ft","RidgeHeight":"13 ft 10 in","Location":"Other","Width":"11 ft 4 in","Application":["Educational"],"Glazes":["Clear"]},{"ProjectID":"05-04-018","Date":200504018,"Products":[{"ProductName":"Architectural Enhancement","GeoType1":["Knee Walls"],"GeoType2":[]},{"ProductName":"Conservatory","GeoType1":["Conservatory Nose"],"GeoType2":["751-1000 SQF. Glass"]},{"ProductName":"Decorative Elements","GeoType1":["Finials","Ridge Cresting","SDLs"],"GeoType2":["Low Profile Grid"]}],"Description":"Conservatory featuring a Conservatory Nose","Image1":"IMG_3221.jpg","Image2":"IMG_3224.jpg","Image3":"stove.jpg","Image4":"Scan1452.jpg","ExtColor":["Natural Clay"],"IntColor":["Sapele Mahogany","Wood"],"LengthProjection":"16 ft 8 in","RidgeHeight":"16 ft 6 in","Location":"Other","Width":"18 ft 3 in","Application":["Residential"],"Glazes":["LoE 272"]},{"ProjectID":"09-08-874","Date":200908874,"Products":[{"ProductName":"Architectural Enhancement","GeoType1":["Knee Walls"],"GeoType2":[]},{"ProductName":"Door","GeoType1":["Commercial Terrace & French Doors"],"GeoType2":[]},{"ProductName":"Folding Glass Wall","GeoType1":["Windows"],"GeoType2":["2001+ SQF. Glass","1-50 SQF. Glass"]}],"Description":"Folding Glass Wall system used in dining applications.","Image1":"fgw-deer-park-ale-123.jpg","Image2":"fgw-deer-park-ale-12.jpg","Image3":"fgw-deer-park-ale-132.jpg","Image4":"2.jpg","ExtColor":["Black","AAMA 2603"],"IntColor":["Black","AAMA 2603"],"LengthProjection":"Units Vary","RidgeHeight":"72 in","Location":"New York","Width":"units Vary","Application":["Dining"],"Glazes":["Clear"]},{"ProjectID":"09-10-434","Date":200910434,"Products":[{"ProductName":"Architectural Enhancement","GeoType1":["Eave Vent","Knee Walls","Lantern","Ridge Vent"],"GeoType2":[]},{"ProductName":"Conservatory","GeoType1":["Irregular / Custom"],"GeoType2":["2001+ SQF. Glass","1-50 SQF. Glass"]},{"ProductName":"Decorative Elements","GeoType1":["Finials","Ridge Cresting"],"GeoType2":["Corner Trim"]}],"Description":"Irregular Conservatory with eave vents, ridge vents, and lantern.","Image1":"7-castle-court-edited.jpg","Image2":"011.jpg","Image3":"004.jpg","Image4":"7-castle-court-altered.jpg","ExtColor":["Sandstone"],"IntColor":["Sandstone"],"LengthProjection":"22 ft 11 in","RidgeHeight":"29 ft ","Location":"New Jersey","Width":"28 ft 11 in","Application":["Residential"],"Glazes":["LoE 340"]},{"ProjectID":"10-01-908","Date":201001908,"Products":[{"ProductName":"Architectural Enhancement","GeoType1":["Dormers","Lantern"],"GeoType2":[]},{"ProductName":"Conservatory","GeoType1":["Irregular / Custom","Straight Eave Double Pitch"],"GeoType2":["251-500 SQF. Glass"]},{"ProductName":"Decorative Elements","GeoType1":["Base Panels","Column","Crown Molding","Decorative Gable Pediment","Finials","Gutter","Ridge Cresting","SDLs"],"GeoType2":["Bull Nose","Corner Trim","Downspouts","1-50 SQF. Glass","Low Profile Grid","Ogee Grid"]}],"Description":"Custom / Irregular Conservatory featuring a dormer and lantern. Decorative elements include: ridge cresting, finial, transom, base panel, palladian, crown molding, corner post, SDL, gutter, and downspout.","Image1":"tremeer-6.jpg","Image2":"tremeer-5.jpg","Image3":"tremeer-3.jpg","Image4":"tremeer-4.jpg","ExtColor":["Custom Color"],"IntColor":["Custom Color"],"LengthProjection":"22 ft","RidgeHeight":"14 ft 5 in","Location":"Pennsylvania","Width":"17 ft  8 in","Application":["Residential"],"Glazes":["LoE 272","Neat"]},{"ProjectID":"10-02-049","Date":201002049,"Products":[{"ProductName":"Curtain Wall","GeoType1":["Vertical Curtain Wall"],"GeoType2":["51-100 SQF. Glass"]},{"ProductName":"Door","GeoType1":["In-System Terrace Door"],"GeoType2":[]}],"Description":"Radiused insulated curtain wall system with integrated radiused top terrace door with SDL  low profile grid work.","Image1":"11.jpg","Image2":"22.jpg","Image3":"31.jpg","Image4":"42.jpg","ExtColor":["Bronze"],"IntColor":["Bronze"],"LengthProjection":"-","RidgeHeight":"8 ft","Location":"Other","Width":"10 ft","Application":["Residential"],"Glazes":["Clear"]},{"ProjectID":"09-11-412","Date":200911412,"Products":[{"ProductName":"Door","GeoType1":[],"GeoType2":[]},{"ProductName":"Window","GeoType1":["Projected"],"GeoType2":["751-1000 SQF. Glass","Casement"]}],"Description":"Insulated residential terrace doors, French and single casement windows and fixed screens.","Image1":"rothschild-6_edited.jpg","Image2":"rothschild-8_edited.jpg","Image3":"rothschild-11.jpg","Image4":"rothschild-3-_edited.jpg","ExtColor":["Custom Color"],"IntColor":["Custom Color"],"LengthProjection":"Varies per Unit","RidgeHeight":"Varies Per Unit","Location":"Massachusetts","Width":"Varies by Unit","Application":["Residential"],"Glazes":["LoE 272"]},{"ProjectID":"07-10-010","Date":200710010,"Products":[{"ProductName":"Door","GeoType1":[],"GeoType2":[]}],"Description":"Outswing french door with standard black hardware including butt hinges mortise lock with deadbolt lever handle with interior sdl s and exterior low profile grids.","Image1":"Storefront-Doors.jpg","Image2":"Main-Entrance.jpg","Image3":"Storefront-Doors-Copy.jpg","Image4":"Storefront-Doors2.jpg","ExtColor":["Clear Anodized","Class I Anodized"],"IntColor":["Clear Anodized","Class I Anodized"],"LengthProjection":"-","RidgeHeight":"8 ft","Location":"Other","Width":"4 ft  5 in","Application":["Commercial","Dining","Residential"],"Glazes":["LoE 272"]},{"ProjectID":"07-05-054","Date":200705054,"Products":[{"ProductName":"Architectural Enhancement","GeoType1":["Transom"],"GeoType2":[]},{"ProductName":"Folding Glass Wall","GeoType1":["Door"],"GeoType2":["101-250 SQF. Glass","Single Door End Jamb"]}],"Description":"Single jam folding glass wall featuring transom.","Image1":"Kevin-Finley-2.25.jpg","Image2":"Kevin-Finley-2.253.jpg","Image3":"Kevin-Finley-2.25-15.jpg","Image4":"Kevin-Finley-2.25-33.jpg","ExtColor":["White"],"IntColor":["White"],"LengthProjection":"-","RidgeHeight":"111","Location":"Other","Width":"174","Application":["Residential"],"Glazes":["LoE 366"]},{"ProjectID":"07-07-055","Date":200707055,"Products":[{"ProductName":"Canopy","GeoType1":["Straight Eave Double Pitch"],"GeoType2":["501-750 SQF. Glass"]}],"Description":"Straight eave double pitch canopy with ridge cresting and finial","Image1":"RRRT-GH-1.jpg","Image2":"RRRT-GH-2.jpg","Image3":"RRRT-GH-4.jpg","Image4":"RRRT-GH-3.jpg","ExtColor":["Bronze"],"IntColor":["Bronze"],"LengthProjection":"21 ft 7 in","RidgeHeight":"13 ft 6 in","Location":"Other","Width":"17 ft  9 in","Application":["Residential"],"Glazes":["Custom Color"]},{"ProjectID":"04-04-011","Date":200404011,"Products":[{"ProductName":"Canopy","GeoType1":["Hip End","Single Slope"],"GeoType2":["251-500 SQF. Glass"]}],"Description":"Single slop canopy with one hipped side.","Image1":"DSC02992.jpg","Image2":"DSC02990.jpg","Image3":"DSC02993.jpg","Image4":"DSC02996.jpg","ExtColor":["Black"],"IntColor":["Black"],"LengthProjection":"13 ft 3 in","RidgeHeight":"12 ft 6 in","Location":"Other","Width":"26 ft 3 in","Application":["Residential"],"Glazes":["Clear"]},{"ProjectID":"06-08-026","Date":200608026,"Products":[{"ProductName":"Architectural Enhancement","GeoType1":["Knee Walls","Ridge Vent"],"GeoType2":[]},{"ProductName":"Conservatory","GeoType1":["Conservatory Nose","Irregular / Custom"],"GeoType2":["501-750 SQF. Glass"]},{"ProductName":"Decorative Elements","GeoType1":["Gutter","Ridge Cresting"],"GeoType2":["Corner Trim","Downspouts","Low Profile Grid"]}],"Description":"STRAIGHT EAVE IRREGULAR CONSERVATORY WITH ONE CONSERVATORY NOSE AND ONE  FLAT SOLID PANEL ROOF SUPPLIED BY OTHER.  Decorative accessories include: fixed windows, ridge cresting, gutter and downspout","Image1":"Antico-Conservatory0003.jpg","Image2":"antico6_102908-7.jpg","Image3":"Antico-Conservatory0006.jpg","Image4":"Antico006.jpg","ExtColor":["Bronze"],"IntColor":["Bronze"],"LengthProjection":"18 ft 6 in","RidgeHeight":"11 ft 8 in","Location":"Pennsylvania","Width":"17 ft 2 in","Application":["Residential"],"Glazes":["LoE 272"]},{"ProjectID":"07-09-034","Date":200709034,"Products":[{"ProductName":"Conservatory","GeoType1":["Conservatory Nose","Irregular / Custom"],"GeoType2":["501-750 SQF. Glass"]}],"Description":"Straight eave lean to sunroom with irregular conservatory nose dormer.  Decorative options include: ridge cresting, finial, and SDL grids in a radius arched  pattern.","Image1":"mcdowell_0004.jpg","Image2":"mcdowell_0001.jpg","Image3":"mcdowell_0005.jpg","Image4":"mcdowell_0001b.jpg","ExtColor":["Green (Hartford)"],"IntColor":["Green (Hartford)"],"LengthProjection":"20 ft","RidgeHeight":"12 ft 5 in","Location":"Illinois","Width":"6 ft 9 in","Application":["Residential"],"Glazes":["White"]},{"ProjectID":"08-08-187","Date":200808187,"Products":[{"ProductName":"Canopy","GeoType1":["Curved Barrel Vault"],"GeoType2":[]},{"ProductName":"Conservatory","GeoType1":["Curved Eave Double Pitch"],"GeoType2":["751-1000 SQF. Glass"]},{"ProductName":"Greenhouse","GeoType1":["Curved Eave Double Pitch"],"GeoType2":["751-1000 SQF. Glass"]},{"ProductName":"Window","GeoType1":["Projected"],"GeoType2":["Awning"]}],"Description":"Curved eave double pitch conservatory greenhouse with one gable end with a curved eave canopy above the doorway.  Decorative accessories include ridge cresting and a finial.","Image1":"gh-cedp-H-Bar-H-061009.jpg","Image2":"gh-cedp-H-Bar-H-061009-2.jpg","Image3":"gh-cedp-H-Bar-H-061009-3.jpg","Image4":"gh-cedp-H-Bar-H-061009.jpg","ExtColor":["White"],"IntColor":["White"],"LengthProjection":"36 '5 in","RidgeHeight":"11 ft 7 in","Location":"New Mexico","Width":"12 ft W","Application":["Residential"],"Glazes":["LoE 272"]},{"ProjectID":"07-11-045","Date":200711045,"Products":[{"ProductName":"Conservatory","GeoType1":["Hip End"],"GeoType2":["251-500 SQF. Glass"]},{"ProductName":"Decorative Elements","GeoType1":["Decorative Trims","Grids","Gutter","Ridge Cresting","Transoms"],"GeoType2":["Bull Nose","Colonial Grid","Downspouts","Ogee Grid"]}],"Description":"Straight eave double pitch conservatory with one hip end.  Decorative accessories include: ridge cresting, finial, SDL grids in traditional pattern, transoms, fixed windows and ogee capping.","Image1":"Rubin-Conservatory-1.jpg","Image2":"Rubin-Conservatory-17.jpg","Image3":"Rubin-Conservatory-14.jpg","Image4":"Rubin-Conservatory-2-edited.jpg","ExtColor":["White"],"IntColor":["Green (Hartford)"],"LengthProjection":"12 ft 3 in","RidgeHeight":"13 ft 11 in","Location":"Connecticut","Width":"12 ft 3 in","Application":["Residential"],"Glazes":["LoE 272"]},{"ProjectID":"12-02-417","Date":201202417,"Products":[{"ProductName":"Skylight","GeoType1":["Hip End"],"GeoType2":["251-500 SQF. Glass"]}],"Description":"Straight eave double pitch skylight with two hip ends","Image1":"philly-house-09122012-8-_-edited.jpg","Image2":"philly-house-07202012-5.jpg","Image3":"philly-house-07202012-3.jpg","Image4":"philly-house-09122012.jpg","ExtColor":["Clear Anodized","Class I Anodized"],"IntColor":["Clear Anodized","Class I Anodized"],"LengthProjection":"17 ft  11 in L","RidgeHeight":"5 ft 8 in","Location":"Pennsylvania","Width":"20 ft 10 in W","Application":["Residential"],"Glazes":["LoE 272"]},{"ProjectID":"12-03-002","Date":201203002,"Products":[{"ProductName":"Architectural Enhancement","GeoType1":["Eave Vent","Knee Walls","Ridge Vent"],"GeoType2":[]},{"ProductName":"Greenhouse","GeoType1":["Straight Eave Lean-To"],"GeoType2":["251-500 SQF. Glass"]},{"ProductName":"Hobby Greenhouse","GeoType1":["Straight Eave Lean-To"],"GeoType2":[]}],"Description":"Straight eave lean to greenhouse with ridge vents and eave vents along with a gutter and downspout.  Interior greenhouse accessories include a heater and circulation fan.","Image1":"consaley-09112012-3.jpg","Image2":"consaley-09112012.jpg","Image3":"IMG00308-20120913-1448.jpg","Image4":"IMG00312-20120913-1449.jpg","ExtColor":["White"],"IntColor":["White"],"LengthProjection":"10 ft","RidgeHeight":"9 ft  10 ft","Location":"Pennsylvania","Width":"15 '4","Application":["Residential"],"Glazes":["LoE 272"]},{"ProjectID":"11-05-281","Date":201105281,"Products":[{"ProductName":"Folding Glass Wall","GeoType1":["Door","Windows"],"GeoType2":["1-50 SQF. Glass"]}],"Description":"Split wall folding windows with floating jamb. Two panels fold right, two panels fold left.","Image1":"lavilla-pizzeria-6.jpg","Image2":"lavilla-pizzeria-3.jpg","Image3":"lavilla-pizzeria-11.jpg","Image4":"gmD503.jpg","ExtColor":["White"],"IntColor":["White"],"LengthProjection":"-","RidgeHeight":"4 ft 6 in","Location":"California","Width":"8 ft 1 in","Application":["Commercial","Dining","Retail Sales"],"Glazes":["LoE 272"]},{"ProjectID":"11-02-177","Date":201102177,"Products":[{"ProductName":"Conservatory","GeoType1":["Straight Eave Lean-To"],"GeoType2":["251-500 SQF. Glass"]},{"ProductName":"Decorative Elements","GeoType1":["Base Panels","Grids","SDLs"],"GeoType2":["Ogee Grid"]}],"Description":"Straight eave lean to sunroom with zero gable ends.  Decorative accessories include SDL grids with ogee style on exterior and traditional style on interior.  Raised base panels interior and exterior.","Image1":"Tomashefsky-10042012-5.jpg","Image2":"Tomashefsky-10042012-3.jpg","Image3":"Tomashefsky-10042012-2.jpg","Image4":"Tomashefsky-10042012-Edited.jpg","ExtColor":["White"],"IntColor":["White"],"LengthProjection":"11 ft 8 in","RidgeHeight":"9 ft  6 in","Location":"Connecticut","Width":"17 ft  5 in","Application":["Residential"],"Glazes":["LoE 272"]},{"ProjectID":"12-06-160","Date":201206160,"Products":[{"ProductName":"Skylight","GeoType1":["Hip End"],"GeoType2":["51-100 SQF. Glass"]}],"Description":"Straight eave double pitch skylight with two hip ends. Unit was delivered pre-assembled.","Image1":"paz-delman-10162012-6.jpg","Image2":"paz-delman-101620121.jpg","Image3":"paz-delman-10162012-2.jpg","Image4":"paz-delman-10162012-3.jpg","ExtColor":["White"],"IntColor":["White"],"LengthProjection":"11 ft 11 in","RidgeHeight":"3 ft 1 in","Location":"New York","Width":"6 ft 1 in","Application":["Residential"],"Glazes":["LoE 340"]},{"ProjectID":"11-09-025","Date":201109025,"Products":[{"ProductName":"Folding Glass Wall","GeoType1":["Door"],"GeoType2":["51-100 SQF. Glass"]}],"Description":"Folding glass wall system.  All wall configuration.  4 panels fold right.","Image1":"brio-tuscan-grill-baltimore-03122012-2.jpg","Image2":"brio-tuscan-grill-baltimore-03122012-4.jpg","Image3":"brio-tuscan-grill-baltimore-03122012-6.jpg","Image4":"brio-tuscan-grill-baltimore-03122012-9.jpg","ExtColor":["Dark Bronze Anodized","Bronze","Class I Anodized"],"IntColor":["Dark Bronze Anodized","Bronze","Class I Anodized"],"LengthProjection":"-","RidgeHeight":"8 ft","Location":"Maryland","Width":"14 ft","Application":["Dining","Retail Sales"],"Glazes":["LoE 272"]},{"ProjectID":"09-05-376","Date":200905376,"Products":[{"ProductName":"Architectural Enhancement","GeoType1":["Dormers"],"GeoType2":[]},{"ProductName":"Conservatory","GeoType1":["Irregular / Custom","Straight Eave Lean-To"],"GeoType2":["501-750 SQF. Glass","English"]},{"ProductName":"Decorative Elements","GeoType1":["Base Panels","Crown Molding","Gutter"],"GeoType2":["Corner Trim","Downspouts","Ogee Grid"]}],"Description":"Straight eave lean-to conservatory with an irregular conservatory nose dormer.  Decorative accessories include raised base panels, gutter, and downspout.","Image1":"Lee-TouchUp1.jpg","Image2":"LEE-Right-10-29-09.jpg","Image3":"LEE-Left-10-29-091.jpg","Image4":"Right-Leader-Shingles-incomplete2.jpg","ExtColor":["Green (Hartford)"],"IntColor":["Green (Hartford)"],"LengthProjection":"21 ft","RidgeHeight":"10 ft 4 in","Location":"Other","Width":"11 ft 4 in","Application":["Residential"],"Glazes":["LoE 272"]},{"ProjectID":"06-01-011","Date":200601011,"Products":[{"ProductName":"Architectural Enhancement","GeoType1":["Dormers"],"GeoType2":[]},{"ProductName":"Conservatory","GeoType1":["Straight Eave Lean-To"],"GeoType2":["501-750 SQF. Glass","Modern / Contemporary"]},{"ProductName":"Decorative Elements","GeoType1":["Crown Molding","Finials","Gutter","Ridge Cresting"],"GeoType2":["Ogee Grid"]},{"ProductName":"Window","GeoType1":["Projected"],"GeoType2":["Casement"]}],"Description":"Straight eave lean to conservatory with one dormer, horizontal muntins and no gable ends.","Image1":"IMG_0169.jpg","Image2":"IMG_0160.jpg","Image3":"IMG_0165.jpg","Image4":"IMG_0163.jpg","ExtColor":["Green (Hartford)"],"IntColor":["Green (Hartford)"],"LengthProjection":"28 ft 4 in","RidgeHeight":"12 ft","Location":"New York","Width":"17 ft  3 in","Application":["Residential"],"Glazes":["Custom Color"]},{"ProjectID":"07-12-015","Date":200712015,"Products":[{"ProductName":"Architectural Enhancement","GeoType1":["Ridge Vent"],"GeoType2":[]},{"ProductName":"Decorative Elements","GeoType1":["Finials","Ridge Cresting","Ring and Collar Ties"],"GeoType2":["Bull Nose","Ogee Grid"]},{"ProductName":"Skylight","GeoType1":["Irregular / Custom"],"GeoType2":["251-500 SQF. Glass","Curb Mount"]}],"Description":"Straight eave double pitch skylight with one conservatory nose.  Ridge cresting, finial and ridge vents on the exterior.  Ogee capping, bull nose trims and a ring and collar on the interior.","Image1":"Warren-8.jpg","Image2":"Warren-10.jpg","Image3":"Warren-18.jpg","Image4":"Warren-1.jpg","ExtColor":["White"],"IntColor":["White"],"LengthProjection":"19 ft  3 in","RidgeHeight":"4 ft  9 in","Location":"Other","Width":"17 ft  9 in","Application":["Residential"],"Glazes":["LoE 366"]},{"ProjectID":"08-12-307","Date":200812307,"Products":[{"ProductName":"Skylight","GeoType1":["Hip End","Irregular / Custom","Pyramid"],"GeoType2":["101-250 SQF. Glass"]}],"Description":"Irregular pyramid skylight with four hip ends.  Interior ogee on face of all rafters, bullnose sill extension, and exterior finial.","Image1":"tropin_050409-7.jpg","Image2":"tropin_pavillion_071509-48.jpg","Image3":"tropin_050409-9.jpg","Image4":"tropin_050409-3.jpg","ExtColor":["Custom Color"],"IntColor":["Custom Color"],"LengthProjection":"9 ft","RidgeHeight":"3 ft 9 in","Location":"Other","Width":"9 ft","Application":["Residential"],"Glazes":["Clear"]},{"ProjectID":"07-08-003","Date":200708003,"Products":[{"ProductName":"Complete Glazing Packages","GeoType1":["Complete Glazing Packages"],"GeoType2":["2001+ SQF. Glass","1-50 SQF. Glass"]},{"ProductName":"Curtain Wall","GeoType1":["Vertical Curtain Wall"],"GeoType2":["2001+ SQF. Glass","1-50 SQF. Glass"]},{"ProductName":"Window","GeoType1":["Hung"],"GeoType2":["2001+ SQF. Glass","1-50 SQF. Glass","Fixed"]}],"Description":"Multiple curtain walls with integrated windows used on a contemporary styled house.","Image1":"IMG_1464.jpg","Image2":"IMG_1499.jpg","Image3":"IMG_1580.jpg","Image4":"IMG_1763.jpg","ExtColor":["Clear Anodized","Class I Anodized"],"IntColor":["Clear Anodized","Class I Anodized"],"LengthProjection":"varies per unit","RidgeHeight":"varies per unit","Location":"Other","Width":"Varies by unit","Application":["Residential"],"Glazes":["LoE 272","Bronze"]},{"ProjectID":"06-01-002","Date":200601002,"Products":[{"ProductName":"Curtain Wall","GeoType1":["Vertical Curtain Wall"],"GeoType2":["51-100 SQF. Glass"]},{"ProductName":"Decorative Elements","GeoType1":["Transoms"],"GeoType2":["Downspouts"]}],"Description":"Curtain wall system with transom","Image1":"DSCN0051.jpg","Image2":"IMG_0516.jpg","Image3":"IMG_3649.jpg","Image4":"IMG_0394.jpg","ExtColor":["Bronze"],"IntColor":["Bronze"],"LengthProjection":"-","RidgeHeight":"8 ft 1 in","Location":"Other","Width":"7 ft  10 in","Application":["Residential"],"Glazes":["LoE 272"]},{"ProjectID":"05-12-023","Date":200512023,"Products":[{"ProductName":"Curtain Wall","GeoType1":["Vertical Curtain Wall"],"GeoType2":["751-1000 SQF. Glass"]},{"ProductName":"Door","GeoType1":["In-System French Door"],"GeoType2":[]},{"ProductName":"Window","GeoType1":["Projected"],"GeoType2":["Awning"]}],"Description":"Curtain wall system with  French door and awning windows.","Image1":"DSCN0131.jpg","Image2":"DSCN01302.jpg","Image3":"DSCN0132.jpg","Image4":"DSCN0130.jpg","ExtColor":["Black"],"IntColor":["Black"],"LengthProjection":"-","RidgeHeight":"15 ft 6 in","Location":"Other","Width":"46 ft","Application":["Residential"],"Glazes":""},{"ProjectID":"09-02-324","Date":200902324,"Products":[{"ProductName":"Architectural Enhancement","GeoType1":["Transom"],"GeoType2":[]},{"ProductName":"Curtain Wall","GeoType1":["Vertical Curtain Wall"],"GeoType2":["251-500 SQF. Glass"]},{"ProductName":"Door","GeoType1":["In-System Terrace Door"],"GeoType2":[]},{"ProductName":"Window","GeoType1":["Projected"],"GeoType2":["251-500 SQF. Glass","Awning"]}],"Description":"Vertical curtain wall systems with SDL grids and awning windows.","Image1":"wise_05262009-29.jpg","Image2":"wise_05262009-31-1024x675.jpg","Image3":"wise-orangery-05152009-34.jpg","Image4":"door-french-wind-curt-Wise-Orangery-curtain-wall-122109-2.jpg","ExtColor":["Green (Hartford)"],"IntColor":["Green (Hartford)"],"LengthProjection":"varies per unit","RidgeHeight":"varies per unit","Location":"Other","Width":"varies per unit","Application":["Residential"],"Glazes":["LoE 272"]},{"ProjectID":"05-04-034","Date":200504034,"Products":[{"ProductName":"Curtain Wall","GeoType1":["Vertical Curtain Wall","Vertical with Integrated Slope"],"GeoType2":[]},{"ProductName":"Skylight","GeoType1":["Barrel Vault","Segmented Barrel Vault"],"GeoType2":["101-250 SQF. Glass","251-500 SQF. Glass"]}],"Description":"Vertical curtain wall with segmented barrel vault skylight","Image1":"cornerstone-touched-up.jpg","Image2":"IMG_2937.jpg","Image3":"IMG_2938.jpg","Image4":"IMG_2816.jpg","ExtColor":["Dark Bronze Anodized","Bronze","Class I Anodized"],"IntColor":["Dark Bronze Anodized","Bronze","Class I Anodized"],"LengthProjection":"34 ft  6 in","RidgeHeight":"9 ft  9 in","Location":"Other","Width":"8 ft 11 in W","Application":["Commercial"],"Glazes":["Bronze"]},{"ProjectID":"08-02-104","Date":200802104,"Products":[{"ProductName":"Curtain Wall","GeoType1":["Vertical Curtain Wall","Vertical with Integrated Slope"],"GeoType2":[]},{"ProductName":"Greenhouse","GeoType1":["Irregular / Custom","Straight Eave Double Pitch"],"GeoType2":["2001+ SQF. Glass","1-50 SQF. Glass"]},{"ProductName":"Greenhouse Accessory","GeoType1":["Environmental Control Systems","Greenhouse Benches","Watering Systems"],"GeoType2":["Black Polyethylene (Plastic) Mesh Top Bench","Circulation Fans","Drip Misting System","Fixed Bench","Grow Lights","Rolling Bench"]},{"ProductName":"Polycarbonate","GeoType1":["Poly Greenhouses"],"GeoType2":[]}],"Description":"Straight eave double pitch educational greenhouse with only a front wall and sloped roof, constructed out of a vertical curtain wall using polycarbonate and skylight system. Interior accessories include shading, circulation fans, grow lights, misting system, benches and control system.","Image1":"dcps-phelps-080508-1-Copy.jpg","Image2":"dcps-phelps-080508-22.jpg","Image3":"dcps-phelps-080508-8.jpg","Image4":"phelps_081808-8.jpg","ExtColor":["Custom Color"],"IntColor":["Custom Color"],"LengthProjection":"35 ft 11 in","RidgeHeight":"15 ft","Location":"Other","Width":"19 ft 8 in","Application":["Educational"],"Glazes":["Polycarbonate"]},{"ProjectID":"07-05-030","Date":200705030,"Products":[{"ProductName":"Curtain Wall","GeoType1":["Vertical Curtain Wall"],"GeoType2":["251-500 SQF. Glass"]}],"Description":"L shaped interior curtain wall system","Image1":"rozen-1.jpg","Image2":"rozen-2.jpg","Image3":"rozen-6.jpg","Image4":"rozen.jpg","ExtColor":["Clear Anodized","Class I Anodized"],"IntColor":["Clear Anodized","Class I Anodized"],"LengthProjection":"8 ft 5 in","RidgeHeight":"8 ft 3 in","Location":"Other","Width":"16 ft 6 in","Application":["Residential"],"Glazes":["LoE 272"]},{"ProjectID":"06-02-017","Date":200602017,"Products":[{"ProductName":"Greenhouse","GeoType1":["Straight Eave Lean-To"],"GeoType2":["501-750 SQF. Glass"]},{"ProductName":"Greenhouse Accessory","GeoType1":["Greenhouse Benches","Temperature Control"],"GeoType2":["Evaporative Coolers","Fixed Bench","Heaters","Seeding Bench"]}],"Description":"Straight eave lean to greenhouse with two gable ends. Greenhouse accessories include benches, heater and evaporative cooler.","Image1":"DSCN5200-300x239.jpg","Image2":"heatre-300x225.jpg","Image3":"DSCN5202-300x250.jpg","Image4":"DSCN5197-300x225.jpg","ExtColor":["White"],"IntColor":["White"],"LengthProjection":"21 ft","RidgeHeight":"9 ft 6 in","Location":"Other","Width":"9 ft  11","Application":["Residential","Retirement"],"Glazes":["LoE 272"]},{"ProjectID":"07-07-051","Date":200707051,"Products":[{"ProductName":"Architectural Enhancement","GeoType1":["Transom"],"GeoType2":[]},{"ProductName":"Conservatory","GeoType1":["Straight Eave Double Pitch"],"GeoType2":["251-500 SQF. Glass"]},{"ProductName":"Decorative Elements","GeoType1":["Crown Molding","Grids","SDLs","Transoms"],"GeoType2":["Ogee Grid","Traditional Grid"]}],"Description":"Straight eave double pitch conservatory with one gable end.  Structure includes SDL grids designed to mimic a transom, gutter, downspout, crown molding on gable and interior ogee capping.","Image1":"Bibb-Corner-View21.jpg","Image2":"Bibb-Corner-View-020508-11.jpg","Image3":"sol-sedp-bibb-020410-21.jpg","Image4":"sol-sedp-bibb-0204101.jpg","ExtColor":["White"],"IntColor":["White"],"LengthProjection":"13 ft 9 in","RidgeHeight":"10 ft 8 in","Location":"Other","Width":"11 ft","Application":["Residential"],"Glazes":["Clear"]},{"ProjectID":"07-02-027","Date":200702027,"Products":[{"ProductName":"Decorative Elements","GeoType1":["Decorative Gable Pediment"],"GeoType2":[]},{"ProductName":"Sunroom","GeoType1":["Straight Eave Double Pitch"],"GeoType2":["751-1000 SQF. Glass"]}],"Description":"Straight eave double pitch conservatory with gridwork, Palladian arch, ridge cresting and finial.","Image1":"IMG_2036.jpg","Image2":"IMG_2034.jpg","Image3":"IMG_2033.jpg","Image4":"IMG_2039.jpg","ExtColor":["White"],"IntColor":["White"],"LengthProjection":"20 ft","RidgeHeight":"10 ft 5 in","Location":"Other","Width":"18 ft","Application":["Residential"],"Glazes":["Clear"]},{"ProjectID":"06-05-024","Date":200605024,"Products":[{"ProductName":"Architectural Enhancement","GeoType1":["Dormers"],"GeoType2":[]},{"ProductName":"Decorative Elements","GeoType1":["Decorative Gable Pediment","Ridge Cresting"],"GeoType2":[]},{"ProductName":"Skylight","GeoType1":["Straight Eave Double Pitch","Straight Eave Lean-To"],"GeoType2":["501-750 SQF. Glass"]}],"Description":"Straight eave lean to skylight with a dormer, ridge cresting, gutter, finial and Palladian arch.","Image1":"Winston_Cons_general1488_edited.jpg","Image2":"general-1498.jpg","Image3":"general-1484.jpg","Image4":"general-1510.jpg","ExtColor":["Sandstone"],"IntColor":["Sandstone"],"LengthProjection":"17 ft  5 in","RidgeHeight":"6 ft 2 in","Location":"Other","Width":"31 ft 4 in ft ","Application":["Residential"],"Glazes":["Custom Color"]},{"ProjectID":"06-08-011","Date":200608011,"Products":[{"ProductName":"Decorative Elements","GeoType1":["Grids","Palladin Arches","Transoms"],"GeoType2":[]},{"ProductName":"Greenhouse","GeoType1":["Straight Eave Double Pitch"],"GeoType2":["251-500 SQF. Glass"]},{"ProductName":"Hobby Greenhouse","GeoType1":["Straight Eave Double Pitch"],"GeoType2":[]}],"Description":"Straight eave double pitch greenhouse with a true divided Palladian arch and interior muntins in the transom.","Image1":"IMG_0116_2_1.jpg","Image2":"IMG_0123_4_1.jpg","Image3":"IMG_0114_1_1.jpg","Image4":"IMG_0118_3_1.jpg","ExtColor":["Bronze"],"IntColor":["Bronze"],"LengthProjection":"7 ft  11 in","RidgeHeight":"15 ft 10 in","Location":"Other","Width":"11 ft 1 in w","Application":["Residential"],"Glazes":["LoE 272"]},{"ProjectID":"07-06-009","Date":200706009,"Products":[{"ProductName":"Decorative Elements","GeoType1":["Decorative Gable Pediment"],"GeoType2":[]},{"ProductName":"Sunroom","GeoType1":["Straight Eave Double Pitch"],"GeoType2":["251-500 SQF. Glass"]}],"Description":"Straight eave double pitch commercial sunroom used as a showroom at a builder's office.  The sunroom features a Palladian arch, gable rake, gutter, and downspout.","Image1":"DTM-Remodeling-Show.jpg","Image2":"DTM-Sunroom-2.jpg","Image3":"DTM-Sunroom.jpg","Image4":"DTM-Remodeling-show-1_edit.jpg","ExtColor":["Black"],"IntColor":["Black"],"LengthProjection":"9 ft 1 in","RidgeHeight":"12 ft","Location":"Other","Width":"12 ft w","Application":["Commercial","Retail Sales"],"Glazes":["LoE 366"]},{"ProjectID":"05-12-027","Date":200512027,"Products":[{"ProductName":"Decorative Elements","GeoType1":["Finials","Ridge Cresting"],"GeoType2":[]},{"ProductName":"Glazing","GeoType1":["Specialty Glazing"],"GeoType2":[]},{"ProductName":"Skylight","GeoType1":["Hip End"],"GeoType2":["251-500 SQF. Glass"]}],"Description":"STRAIGHT EAVE DOUBLE PITCH SKYLIGHT W/ (2) HIP ENDS and specialty wire glass","Image1":"DSCN5181.jpg","Image2":"DSCN5178.jpg","Image3":"DSCN5182.jpg","Image4":"347-w-broadway-6.jpg","ExtColor":["Bronze"],"IntColor":["Bronze"],"LengthProjection":"varies per unit","RidgeHeight":"3 ft 9 in","Location":"New York","Width":"varies per unit","Application":["Residential"],"Glazes":["Custom Wire Glass","Custom Color"]},{"ProjectID":"10-07-229","Date":201007229,"Products":[{"ProductName":"Decorative Elements","GeoType1":["Grids","Ring and Collar Ties"],"GeoType2":[]},{"ProductName":"Glazing","GeoType1":["Specialty Glazing"],"GeoType2":[]},{"ProductName":"Pool Enclosure","GeoType1":["Conservatory Nose","Irregular / Custom","Straight Eave Double Pitch"],"GeoType2":["2001+ SQF. Glass"]},{"ProductName":"Sliding Door","GeoType1":["Door"],"GeoType2":[]}],"Description":"Irregular pool enclosure featuring a conservatory nose and dormers with specialty graylite 14 over 366 glazing.  Traditional construction roof engineered by Solar Innovations.","Image1":"wegman-08202012-8.jpg","Image2":"wegman-08202012-3.jpg","Image3":"wegman-08202012-5.jpg","Image4":"wegman-08202012-11.jpg","ExtColor":["Bronze"],"IntColor":["Bronze"],"LengthProjection":"58 ft","RidgeHeight":"13 ft 6 in","Location":"Other","Width":"32 ft","Application":["Residential"],"Glazes":["LoE 366","Graylite 14"]},{"ProjectID":"07-10-022","Date":200710022,"Products":[{"ProductName":"Architectural Enhancement","GeoType1":["Knee Walls"],"GeoType2":[]},{"ProductName":"Decorative Elements","GeoType1":["Finials","Ridge Cresting"],"GeoType2":[]},{"ProductName":"Pool Enclosure","GeoType1":["Conservatory Nose"],"GeoType2":["751-1000 SQF. Glass"]}],"Description":"Straight eave double pitch pool enclosure with one conservatory nose, a folding wall, ridge cresting, finial, gutter and downspout.","Image1":"Anthony-Parente1-24.jpg","Image2":"Anthony-Parente-9.jpg","Image3":"pe_sedp_anthonyparente_073108-2_edit.jpg","Image4":"Anthony-Parente1-2.jpg","ExtColor":["Dark Bronze Anodized","Bronze","Class I Anodized"],"IntColor":["Dark Bronze Anodized","Bronze","Class I Anodized"],"LengthProjection":"32 ft","RidgeHeight":"17 ft","Location":"Other","Width":"16 ft W","Application":["Residential"],"Glazes":["LoE 272"]},{"ProjectID":"11-06-222","Date":201106222,"Products":[{"ProductName":"Glazing","GeoType1":["Specialty Glazing"],"GeoType2":[]},{"ProductName":"Skylight","GeoType1":["Straight Eave Double Pitch"],"GeoType2":["51-100 SQF. Glass"]}],"Description":"Straight eave double pitch skylight with 0 gable ends and specialty wire glass.","Image1":"royal-farms-04112012-31.jpg","Image2":"royal-farms-04112012-32.jpg","Image3":"royal-farms-04112012-34.jpg","Image4":"royal-farms-04112012.jpg","ExtColor":["Dark Bronze Anodized","Bronze","Class I Anodized"],"IntColor":["Dark Bronze Anodized","Bronze","Class I Anodized"],"LengthProjection":"7 ft 7 in","RidgeHeight":"2 ft 2 in","Location":"Other","Width":"7 ft","Application":["Residential"],"Glazes":["Custom Color"]},{"ProjectID":"09-06-385","Date":200906385,"Products":[{"ProductName":"Door","GeoType1":["Commercial Terrace & French Doors","In-System Terrace Door"],"GeoType2":[]},{"ProductName":"Glazing","GeoType1":["Specialty Glazing"],"GeoType2":[]},{"ProductName":"Shades","GeoType1":["Interior Fixed"],"GeoType2":["Sunroom"]},{"ProductName":"Sunroom","GeoType1":["Straight Eave Double Pitch"],"GeoType2":["501-750 SQF. Glass"]}],"Description":"Straight eave double pitch sunroom with one gable ends.  Structure has an aluminum exterior framing system and a Douglas Fir interior.  The sunroom features specialty Solera glass, motorized and fixed shades, operable windows, and a commercial terrace door.","Image1":"Door-Lock-Service-7-15-20112.jpg","Image2":"edited.jpg","Image3":"Door-Lock-Service-7-15-20115.jpg","Image4":"Door-Lock-Service-7-15-20111.jpg","ExtColor":["Custom Color"],"IntColor":["Doulgas Fir"],"LengthProjection":"12 ft 2 in","RidgeHeight":"17 ft 3 in","Location":"Other","Width":"16 ft 7 in","Application":["Institutional"],"Glazes":["Solera"]},{"ProjectID":"10-05-130","Date":201005130,"Products":[{"ProductName":"Canopy","GeoType1":["Single Slope"],"GeoType2":["2001+ SQF. Glass","1-50 SQF. Glass"]},{"ProductName":"Glazing","GeoType1":["Specialty Glazing"],"GeoType2":[]}],"Description":"Single slope canopy with segmented bays and specialty ceramic frit glazing.","Image1":"inova-09112012-25.jpg","Image2":"inova-09112012-12.jpg","Image3":"inova-09112012-24.jpg","Image4":"inova-09112012-26.jpg","ExtColor":["Custom Color"],"IntColor":["Custom Color"],"LengthProjection":"68 ft","RidgeHeight":"15 ft 11 in","Location":"Other","Width":"23 ft 11 in","Application":["Health Centers"],"Glazes":["Custom Color"]},{"ProjectID":"10-04-268","Date":201004268,"Products":[{"ProductName":"Folding Glass Wall","GeoType1":["Door"],"GeoType2":[]},{"ProductName":"Polycarbonate","GeoType1":["Polycarbonate Sunroom"],"GeoType2":[]},{"ProductName":"Sunroom","GeoType1":["Straight Eave Lean-To"],"GeoType2":["2001+ SQF. Glass"]}],"Description":"Straight eave lean-to sunroom with one gable end, located on a highrise in an urban setting. Unit includes folding glass walls and a polycarbonate roof.","Image1":"astoria-22.jpg","Image2":"astoria-21.jpg","Image3":"astoria-penthouse.jpg","Image4":"astoria-23.jpg","ExtColor":["Bronze"],"IntColor":["Bronze"],"LengthProjection":"22 ft 2 in","RidgeHeight":"8 ft 11 in","Location":"New York","Width":"15 ft","Application":["Residential"],"Glazes":["LoE 272","Bronze","Polycarbonate"]},{"ProjectID":"07-07-008","Date":200707008,"Products":[{"ProductName":"Folding Glass Wall","GeoType1":["Door"],"GeoType2":["251-500 SQF. Glass"]},{"ProductName":"Glazing","GeoType1":["Specialty Glazing"],"GeoType2":[]}],"Description":"Four sets of folding glass walls used on a  pool enclosure.  All wall configuration with a recessed sill.","Image1":"HPIM03732.jpg","Image2":"HPIM03741.jpg","Image3":"HPIM03751.jpg","Image4":"HPIM03742.jpg","ExtColor":["White"],"IntColor":["White"],"LengthProjection":"varies per unit","RidgeHeight":"93 in","Location":"South Carolina","Width":"varies per unit","Application":["Commercial"],"Glazes":["Solexia Green Impact"]},{"ProjectID":"10-08-402","Date":201008402,"Products":[{"ProductName":"Folding Glass Wall","GeoType1":["Door"],"GeoType2":["751-1000 SQF. Glass"]},{"ProductName":"Glazing","GeoType1":["Specialty Glazing"],"GeoType2":[]}],"Description":"7 sets of folding glass walls used in a commercial application.  Configurations include all wall, split wall and side door hinge jamb all with a recessed sill.","Image1":"Cantina_5308.jpg","Image2":"Cantina_5602.jpg","Image3":"Cantina_DAY_NoLight_5573.jpg","Image4":"DSC_7907.jpg","ExtColor":["Custom Color"],"IntColor":["Custom Color"],"LengthProjection":"varies per unit","RidgeHeight":"varies per unit","Location":"Illinois","Width":"varies per unit","Application":["Commercial","Dining"],"Glazes":["Solarban 60"]},{"ProjectID":"06-11-012","Date":200611012,"Products":[{"ProductName":"Folding Glass Wall","GeoType1":["Door"],"GeoType2":["51-100 SQF. Glass"]}],"Description":"Restoration folding glass wall system used in an office application","Image1":"IMG_0103.jpg","Image2":"IMG_0100.jpg","Image3":"IMG_0101.jpg","Image4":"IMG_0099.jpg","ExtColor":["Bronze"],"IntColor":["Bronze"],"LengthProjection":"190","RidgeHeight":"96","Location":"Other","Width":"-","Application":["Office Space"],"Glazes":["Clear","Monolithic Glass"]},{"ProjectID":"09-06-409","Date":200906409,"Products":[{"ProductName":"Folding Glass Wall","GeoType1":["Door"],"GeoType2":["251-500 SQF. Glass"]}],"Description":"2 interior folding glass wall systems used in a conference room setting.  One unit is an all wall configuration and the second is a single door hinge jamb configuration, both with flush mount sills.","Image1":"FGW-NE-REGL-Council-of-Carpenters-181.jpg","Image2":"FGW-NE-REGL-Council-of-Carpenters-18.jpg","Image3":"FGW-NE-REGL-Council-of-Carpenters-18w.jpg","Image4":"FGW-NE-REGL-Council-of-Carpenters-183.jpg","ExtColor":["Clear Anodized","Class I Anodized"],"IntColor":["Clear Anodized","Class I Anodized"],"LengthProjection":"varies per unit","RidgeHeight":"95 in","Location":"Other","Width":"varies per unit","Application":["Office Space"],"Glazes":["Clear"]},{"ProjectID":"07-01-007","Date":200701007,"Products":[{"ProductName":"Folding Glass Wall","GeoType1":["Door"],"GeoType2":["101-250 SQF. Glass"]}],"Description":"Two folding glass walls, one with a single door hinge jamb configuration and the second with a split wall configuration, both have a standard sill.","Image1":"dawson_081808-15.jpg","Image2":"dawson_081808-12.jpg","Image3":"dawson_081808-20.jpg","Image4":"dawson_081808-26.jpg","ExtColor":["White"],"IntColor":["White"],"LengthProjection":"varies per unit","RidgeHeight":"8 ft","Location":"Other","Width":"varies per unit","Application":["Residential"],"Glazes":["Clear"]},{"ProjectID":"11-09-402","Date":201109402,"Products":[{"ProductName":"Folding Glass Wall","GeoType1":["Door"],"GeoType2":["251-500 SQF. Glass"]}],"Description":"Three non-thermal folding window systems used at reception counters in various locations.  Each unit is an a split wall configuration with a surface mounted sill and two different heights.","Image1":"Holly-Grove.jpg","Image2":"Mills-Park.jpg","Image3":"Wakelon.jpg","Image4":"Holly-Grove2.jpg","ExtColor":["Clear Anodized","Class I Anodized"],"IntColor":["Clear Anodized","Class I Anodized"],"LengthProjection":"varies per unit","RidgeHeight":"varies per unit","Location":"North Carolina","Width":"varies per unit","Application":["Commercial","Office Space"],"Glazes":["Clear","Monolithic Glass"]},{"ProjectID":"06-01-024","Date":200601024,"Products":[{"ProductName":"Folding Glass Wall","GeoType1":["Door"],"GeoType2":["101-250 SQF. Glass"]}],"Description":"Three sets of  folding glass walls. All wall configurations with recessed sills and southern yellow pine venneer on interior of door panels.","Image1":"bluffingtonmain.jpg","Image2":"Bluffington.jpg","Image3":"Bluffington3.jpg","Image4":"Bluffington6.jpg","ExtColor":["Sandstone"],"IntColor":["Southern Yellow Pine","Wood Veneer"],"LengthProjection":"units vary","RidgeHeight":"110","Location":"South Carolina","Width":"units vary","Application":["Residential"],"Glazes":["Clear"]},{"ProjectID":"09-12-888","Date":200912888,"Products":[{"ProductName":"Folding Glass Wall","GeoType1":["Door"],"GeoType2":["51-100 SQF. Glass","Split Wall Floating Jamb"]}],"Description":"Folding glass wall system with split wall configuration  4 panels fold right, 4 panels fold left,  surface mount ADA sill.","Image1":"fgw-brick-house-tavern-04302010-9.jpg","Image2":"fgw-brick-house-tavern-04302010-13.jpg","Image3":"fgw-brick-house-tavern-04302010-18.jpg","Image4":"fgw-brick-house-tavern-04302010-22.jpg","ExtColor":["Black"],"IntColor":["Black"],"LengthProjection":"20 ft","RidgeHeight":"7 ft 2 in","Location":"Pennsylvania","Width":"varies per unit","Application":["Commercial","Dining"],"Glazes":""},{"ProjectID":"10-07-163","Date":201007163,"Products":[{"ProductName":"Folding Glass Wall","GeoType1":["Door","Windows"],"GeoType2":["1-50 SQF. Glass"]}],"Description":"Two all wall folding window systems, three panels fold right on each unit with standard sill.  The fa?ade has changed twice with each renovation keeping the folding windows.","Image1":"336-charles-7.jpg","Image2":"336-charles-5.jpg","Image3":"336-charles-6.jpg","Image4":"336-charles4.jpg","ExtColor":["White"],"IntColor":["White"],"LengthProjection":"-","RidgeHeight":"60 in","Location":"Maryland","Width":"82 in","Application":["Commercial","Dining"],"Glazes":["Clear"]},{"ProjectID":"10-08-191","Date":201008191,"Products":[{"ProductName":"Stacking Glass Wall","GeoType1":["Doors"],"GeoType2":["751-1000 SQF. Glass"]}],"Description":"Stadium venue with 13 stacking wall systems used in club suites.  Each system has an  operable swing panel and flush lock sill.","Image1":"004.jpg","Image2":"wizards-press-level-suites-04182012-7.jpg","Image3":"IMG_0380_edited.jpg","Image4":"wizards-press-level-suites-04182012-18.jpg","ExtColor":["Clear Anodized","Class I Anodized"],"IntColor":["Clear Anodized","Class I Anodized"],"LengthProjection":"-","RidgeHeight":"-","Location":"Kansas","Width":"-","Application":["Commercial","Sporting","Stadiums"],"Glazes":["Monolithic Glass"]},{"ProjectID":"10-04-432","Date":201004432,"Products":[{"ProductName":"Folding Glass Wall","GeoType1":["Door"],"GeoType2":["501-750 SQF. Glass"]}],"Description":"Four sets of folding doors that create a pavillion style setting for a restaurant.  Each set of doors has an all wall configuration and standard sill.","Image1":"kona-grill-8.jpg","Image2":"kona-grill-4.jpg","Image3":"kona-grill-3.jpg","Image4":"kona-grill-5.jpg","ExtColor":["Dark Bronze Anodized","Bronze","Class I Anodized"],"IntColor":["Dark Bronze Anodized","Bronze","Class I Anodized"],"LengthProjection":"varies per unit","RidgeHeight":"varies per unit","Location":"Maryland","Width":"varies per unit","Application":["Commercial","Dining"],"Glazes":["LoE 272"]},{"ProjectID":"07-01-037","Date":200701037,"Products":[{"ProductName":"Folding Glass Wall","GeoType1":["Door"],"GeoType2":["51-100 SQF. Glass"]}],"Description":"Folding wall system with a single door hinge jamb configuration, bottom load, fold in,  1 panel folds left, 2 panels fold right, with a recessed sill.  The restaurant's fa?ade has changed and the doors remained a part of each design.","Image1":"707-chestnut-street-09272010-11.jpg","Image2":"707-chestnut-street-09272010-3.jpg","Image3":"707-chestnut-street-09272010-4.jpg","Image4":"707-Chestnut.jpg","ExtColor":["Clear Anodized","Class I Anodized"],"IntColor":["Clear Anodized","Class I Anodized"],"LengthProjection":"varies per unit","RidgeHeight":"98 in","Location":"Pennsylvania","Width":"91 in","Application":["Commercial","Dining"],"Glazes":["LoE 272"]},{"ProjectID":"11-01-083","Date":201101083,"Products":[{"ProductName":"Folding Glass Wall","GeoType1":["Door"],"GeoType2":["501-750 SQF. Glass"]}],"Description":"Multiple folding glass walls with configurations including all wall, single door last panel, and double door endwall.  Each unit has a recessed sill with flushed stop","Image1":"IMAG00103.jpg","Image2":"IMAG00082_edited_no_ladder.jpg","Image3":"360.jpg","Image4":"IMAG00072.jpg","ExtColor":["Dark Bronze Anodized","Bronze","Class I Anodized"],"IntColor":["Dark Bronze Anodized","Bronze","Class I Anodized"],"LengthProjection":"varies per unit","RidgeHeight":"8 ft 1 in","Location":"Missouri","Width":"varies per unit","Application":["Commercial"],"Glazes":["LoE 272"]},{"ProjectID":"11-04-184 (2)","Date":201104185,"Products":[{"ProductName":"Folding Glass Wall","GeoType1":["Door"],"GeoType2":["101-250 SQF. Glass"]}],"Description":"Two folding glass wall units, one with a single door hinge jamb configuration and one with an all wall configuration.  Both units fold to the outside and utilize a standard sill.","Image1":"IMG_8179_80_81Average.jpg","Image2":"IMG_8563_4_5Average.jpg","Image3":"IMG_8665_6_7Average.jpg","Image4":"IMG_8722_3_4Average.jpg","ExtColor":["Black","Two Tone"],"IntColor":["Two Tone","White"],"LengthProjection":"varies per unit","RidgeHeight":"varies per unit","Location":"Canada","Width":"varies per unit","Application":["Residential"],"Glazes":["LoE 272"]},{"ProjectID":"11-04-184 (3)","Date":201104186,"Products":[{"ProductName":"Folding Glass Wall","GeoType1":["Door"],"GeoType2":["251-500 SQF. Glass","All Wall","Single Door End Jamb"]}],"Description":"Two two-tone folding glass wall systems including four operable panels.","Image1":"2012/08/BoswellFGW1.jpg","Image2":"BoswellFGW2.jpg","Image3":"BoswellFGW3.jpg","Image4":"BoswellFGW4.jpg","ExtColor":["Black","AAMA 2603","Two Tone"],"IntColor":["AAMA 2603","Two Tone","White"],"LengthProjection":"varies per unit","RidgeHeight":"varies per unit","Location":"Canada","Width":"-","Application":["Residential"],"Glazes":["Clear"]},{"ProjectID":"08-06-213","Date":200806213,"Products":[{"ProductName":"Folding Glass Wall","GeoType1":["Door","Windows"],"GeoType2":["501-750 SQF. Glass"]}],"Description":"Multiple sets of folding doors and folding windows used on a residential home.  Configurations include split wall, all wall, and single door hinge jamb.  All units use a standard sill.","Image1":"IMG_29181.jpg","Image2":"IMG_29281.jpg","Image3":"IMG_29351.jpg","Image4":"IMG_29381.jpg","ExtColor":["White"],"IntColor":["White"],"LengthProjection":"varies per unit","RidgeHeight":"varies per unit","Location":"Other","Width":"varies per unit","Application":["Residential"],"Glazes":["Monolithic Glass"]},{"ProjectID":"06-11-035","Date":200611035,"Products":[{"ProductName":"Folding Glass Wall","GeoType1":["Door"],"GeoType2":["101-250 SQF. Glass"]}],"Description":"Two folding door systems with all wall configuration, panels fold in, standard sill.","Image1":"fgw-emory-patterson-172.jpg","Image2":"Emory-Patterson-Interior-Edited.jpg","Image3":"fgw-emory-patterson-17.jpg","Image4":"fgw-emory-patterson-173.jpg","ExtColor":["Custom Color"],"IntColor":["Custom Color"],"LengthProjection":"Units Vary","RidgeHeight":"96 in","Location":"Wisconsin","Width":"Units Vary","Application":["Residential"],"Glazes":""},{"ProjectID":"06-04-031","Date":200604031,"Products":[{"ProductName":"Folding Glass Wall","GeoType1":["Door"],"GeoType2":["51-100 SQF. Glass"]}],"Description":"Folding wall system with an all wall system, top loaded, folds in with four panels that fold left and a recessed sill.","Image1":"Perection064.jpg","Image2":"Perfection105.jpg","Image3":"Perection104.jpg","Image4":"Perection090.jpg","ExtColor":["Sandstone"],"IntColor":["White"],"LengthProjection":"13 ft","RidgeHeight":"8 ft 7 in","Location":"Oklahoma","Width":"-","Application":["Residential"],"Glazes":["Clear"]},{"ProjectID":"09-03-361","Date":200903361,"Products":[{"ProductName":"Folding Glass Wall","GeoType1":["Door"],"GeoType2":["251-500 SQF. Glass"]}],"Description":"Two folding glass wall systems, both are all wall configurations, with panels folding to the left, and a standard sill.","Image1":"denver-international.jpg","Image2":"IMG_13751.jpg","Image3":"IMG_1378.jpg","Image4":"IMG_13802.jpg","ExtColor":["Bronze"],"IntColor":["Bronze"],"LengthProjection":"Units Vary","RidgeHeight":"7 ft ","Location":"Colorado","Width":"Units Vary","Application":["Dining"],"Glazes":["LoE 272"]},{"ProjectID":"05-09-014","Date":200509014,"Products":[{"ProductName":"Folding Glass Wall","GeoType1":["Door"],"GeoType2":["101-250 SQF. Glass"]}],"Description":"Two folding glass wall units with single glass last panel configurations including a recessed sill.","Image1":"IMG_0564.jpg","Image2":"IMG_0571.jpg","Image3":"IMG_0575.jpg","Image4":"IMG_05751.jpg","ExtColor":["Black"],"IntColor":["Black"],"LengthProjection":"Units Vary","RidgeHeight":"8 ft 9 in","Location":"New Mexico","Width":"Units Vary","Application":["Residential"],"Glazes":["Clear"]},{"ProjectID":"08-02-097","Date":200802097,"Products":[{"ProductName":"Folding Glass Wall","GeoType1":["Door"],"GeoType2":["101-250 SQF. Glass"]}],"Description":"Interior folding wall system with a single door midwall system  6 panels fold left, 3 panels fold right, including a recessed sill with flush sill stop, high bottom rail.  Mahogany veneer on interior and exterior of unit and mahogany traditional grids.","Image1":"fgw_harborviewhotell_052008-18.jpg","Image2":"fgw_harborviewhotell_052008-9.jpg","Image3":"fgw_harborviewhotell_052008-12.jpg","Image4":"fgw_harborviewhotell_052008-17.jpg","ExtColor":["Custom Color"],"IntColor":["Sapele Mahogany","Wood Veneer"],"LengthProjection":"324 in","RidgeHeight":"94 in","Location":"Massachusetts","Width":"units vary","Application":["Commercial"],"Glazes":["Clear","Monolithic Glass"]},{"ProjectID":"09-05-405","Date":200905405,"Products":[{"ProductName":"Door","GeoType1":["Out of System Terrace and French Doors"],"GeoType2":[]},{"ProductName":"Folding Glass Wall","GeoType1":["Door"],"GeoType2":["101-250 SQF. Glass"]}],"Description":"Three all wall configuration  folding glass wall units with recessed sills used on a pool house.  Out-swing residential terrace door with butt hinges, mortise lock with deadbolt and doggie door.","Image1":"heller-101809-14.jpg","Image2":"heller-101809-16.jpg","Image3":"heller-101809-20.jpg","Image4":"heller-101809.jpg","ExtColor":["Bronze"],"IntColor":["Bronze"],"LengthProjection":"varies per unit","RidgeHeight":"7 ft  10 in","Location":"Pennsylvania","Width":"varies per unit","Application":["Residential"],"Glazes":["Clear"]},{"ProjectID":"06-09-043","Date":200609043,"Products":[{"ProductName":"Folding Glass Wall","GeoType1":["Door"],"GeoType2":["101-250 SQF. Glass","All Wall"]}],"Description":"Multiple folding wall systems used on a pool house.  Configurations include all wall and single door last panel.  All units have a recessed sill and fold to the outside.","Image1":"jansen_081908-3.jpg","Image2":"jansen_081908-9.jpg","Image3":"jansen_081908-12.jpg","Image4":"jansen_081908-15.jpg","ExtColor":["Bronze"],"IntColor":["Bronze"],"LengthProjection":"varies per unit","RidgeHeight":"v","Location":"Georgia","Width":"varies per unit","Application":["Dining","Residential","Sporting"],"Glazes":["LoE 272"]},{"ProjectID":"05-08-005","Date":200508005,"Products":[{"ProductName":"Folding Glass Wall","GeoType1":["Windows"],"GeoType2":["1-50 SQF. Glass","All Wall"]}],"Description":"Two all wall configuration folding window systems. Four panels fold left in both units and each has a recessed sill..","Image1":"DSCN1790.jpg","Image2":"DSCN1791.jpg","Image3":"DSCN1792.jpg","Image4":"DSCN1793.jpg","ExtColor":["Black"],"IntColor":["Black"],"LengthProjection":"105 in","RidgeHeight":"81 in","Location":"Pennsylvania","Width":"varies per unit","Application":["Commercial","Dining"],"Glazes":["Clear"]},{"ProjectID":"05-05-007","Date":200505007,"Products":[{"ProductName":"Door","GeoType1":["Out of System Terrace and French Doors"],"GeoType2":[]},{"ProductName":"Folding Glass Wall","GeoType1":["Windows"],"GeoType2":["101-250 SQF. Glass","All Wall"]}],"Description":"One fixed curtain wall, out of system terrace door,  two folding window systems, all wall configuration and standard sill.","Image1":"000_0159.jpg","Image2":"000_0161.jpg","Image3":"000_0169.jpg","Image4":"door-1.jpg","ExtColor":["White"],"IntColor":["White"],"LengthProjection":"varies per unit","RidgeHeight":"5 ft","Location":"Canada","Width":"varies per unit","Application":["Residential"],"Glazes":["Clear"]},{"ProjectID":"09-08-844","Date":200908844,"Products":[{"ProductName":"Folding Glass Wall","GeoType1":["Door"],"GeoType2":["101-250 SQF. Glass"]},{"ProductName":"Glazing","GeoType1":["Specialty Glazing"],"GeoType2":[]}],"Description":"Folding wall system with a single door hinge jamb configuration, bottom load, panels fold out,  1 panel folds left and 4 panels fold right, standard sill.","Image1":"02-15-2008-006.jpg","Image2":"02-15-2008-008.jpg","Image3":"02-15-2008-011.jpg","Image4":"02-15-2008-010.jpg","ExtColor":["Bronze"],"IntColor":["Sapele Mahogany","Wood Veneer"],"LengthProjection":"144 in","RidgeHeight":"varies per unit","Location":"Florida","Width":"108","Application":["Residential"],"Glazes":["Gray","Monolithic Glass"]},{"ProjectID":"07-09-022","Date":200709022,"Products":[{"ProductName":"Folding Glass Wall","GeoType1":["Door"],"GeoType2":["251-500 SQF. Glass"]}],"Description":"Ten sets of folding wall units used on a pool enclosure. Configurations include split wall and double door mid wall.  All units fold to the outside, use a recessed sill and were designed with a heavy bottom rail.  Each door panel includes colonial grids in a traditional pattern.","Image1":"legacy-pics_0001.jpg","Image2":"legacy-pics_0002.jpg","Image3":"legacy-pics_0002b.jpg","Image4":"legacy-pics_0003b.jpg","ExtColor":["Custom Color"],"IntColor":["Custom Color"],"LengthProjection":"varies per unit","RidgeHeight":"7 ft 11 in","Location":"Illinois","Width":"varies per unit","Application":["Residential"],"Glazes":["Clear"]},{"ProjectID":"05-07-028","Date":200507028,"Products":[{"ProductName":"Curtain Wall","GeoType1":["Vertical Curtain Wall"],"GeoType2":[]},{"ProductName":"Folding Glass Wall","GeoType1":["Door"],"GeoType2":["101-250 SQF. Glass"]}],"Description":"Two residential curtain walls and four folding walls with all wall configurations and standard sills.","Image1":"IMG_0372.jpg","Image2":"IMG_0361.jpg","Image3":"Solar-Innovations-001.jpg","Image4":"lippo-CW-edited.jpg","ExtColor":["White"],"IntColor":["White"],"LengthProjection":"varies per unit","RidgeHeight":"varies per unit","Location":"Maryland","Width":"varies per unit","Application":["Residential"],"Glazes":["LoE 272"]},{"ProjectID":"07-02-010","Date":200702010,"Products":[{"ProductName":"Folding Glass Wall","GeoType1":["Door"],"GeoType2":["101-250 SQF. Glass"]}],"Description":"Two double door mid wall folding wall systems used on a pool house. Panels fold in, 3 panels fold left and 3 panels fold right, each with a recessed sill. Insulated glazing with SDL grids and exterior low profile grids.","Image1":"mandis-2.jpg","Image2":"mandis-3.jpg","Image3":"mandis-4.jpg","Image4":"mandis-5.jpg","ExtColor":["White"],"IntColor":["White"],"LengthProjection":"18 ft","RidgeHeight":"7 ft 5 in","Location":"New York","Width":"-","Application":["Home","Residential","Sporting"],"Glazes":["Clear","Insulated Glass"]},{"ProjectID":"09-04-398","Date":200904398,"Products":[{"ProductName":"Folding Glass Wall","GeoType1":["Door"],"GeoType2":["51-100 SQF. Glass"]}],"Description":"Single door last panel folding wall with flush mount sill, top loaded, panels fold out, 5 panels fold right","Image1":"fgw-martini-bar-16-ft-111109-7.jpg","Image2":"fgw-martini-bar-16-ft-111109-9.jpg","Image3":"fgw-martini-bar-16-ft-111109-11.jpg","Image4":"martini-edited.jpg","ExtColor":["Dark Bronze Anodized","Bronze","Class I Anodized"],"IntColor":["Dark Bronze Anodized","Bronze","Class I Anodized"],"LengthProjection":"192 in","RidgeHeight":"94 in","Location":"Pennsylvania","Width":"-","Application":["Commercial","Dining"],"Glazes":["LoE 272"]},{"ProjectID":"07-05-006","Date":200705006,"Products":[{"ProductName":"Door","GeoType1":["Out of System Terrace and French Doors"],"GeoType2":[]},{"ProductName":"Folding Glass Wall","GeoType1":["Door"],"GeoType2":["51-100 SQF. Glass"]}],"Description":"Residential home with a folding wall system using a single door hinge jamb configuration and standard sill, panels fold out, 2 panels fold left and 1 panel folds right.   Home also includes an out of system French door with butt hinges and mortise lock with a dead bolt.","Image1":"matthew-meek-020408-2.jpg","Image2":"matthew-meek-020408-12.jpg","Image3":"Matthew-Meek-2.jpg","Image4":"matthew-meek-020408-8.jpg","ExtColor":["Clear Anodized","Class I Anodized"],"IntColor":["Clear Anodized","Class I Anodized"],"LengthProjection":"varies per unit","RidgeHeight":"9 ft ","Location":"New York","Width":"varies per unit","Application":["Residential"],"Glazes":["LoE 272"]},{"ProjectID":"05-11-036","Date":200511036,"Products":[{"ProductName":"Folding Glass Wall","GeoType1":["Door"],"GeoType2":["101-250 SQF. Glass"]}],"Description":"Folding glass wall with an all wall configuration, panels fold out, top load, 6 panels fold left with a recessed sill and horizontal mullion.","Image1":"IMG_1338.jpg","Image2":"IMG_1339.jpg","Image3":"IMG_1340.jpg","Image4":"IMG_1342.jpg","ExtColor":["Clear Anodized","Class I Anodized"],"IntColor":["Clear Anodized","Class I Anodized"],"LengthProjection":"15 ft","RidgeHeight":"10 ft 2 in","Location":"Pennsylvania","Width":"-","Application":["Commercial","Dining"],"Glazes":["Solarban 60"]},{"ProjectID":"08-02-122","Date":200802122,"Products":[{"ProductName":"Folding Glass Wall","GeoType1":["Door"],"GeoType2":["101-250 SQF. Glass"]}],"Description":"Two folding wall systems used at a caf?.  Each unit has an all wall configuration, four panels that fold out and a recessed sill","Image1":"parkway-cafe-interior-09272010-6.jpg","Image2":"parkway-cafe-interior-09272010-10.jpg","Image3":"IMG_0011.jpg","Image4":"parkway_cafe_091709-6.jpg","ExtColor":["Custom Color"],"IntColor":["Custom Color"],"LengthProjection":"157","RidgeHeight":"9 ft 6 in","Location":"Pennsylvania","Width":"-","Application":["Commercial","Dining"],"Glazes":""},{"ProjectID":"06-05-034","Date":200605034,"Products":[{"ProductName":"Folding Glass Wall","GeoType1":["Door"],"GeoType2":["51-100 SQF. Glass"]}],"Description":"Folding glass wall system with an all wall configuration and standard sill, 4 panels fold right.","Image1":"folding-glass-walls-white.jpg","Image2":"folding-glass-walls-white-2.jpg","Image3":"folding-glass-walls-white-1.jpg","Image4":"folding-glass-walls-white-31.jpg","ExtColor":["White"],"IntColor":["White"],"LengthProjection":"18 ft 6 in","RidgeHeight":"7 ft 10 in","Location":"Pennsylvania","Width":"-","Application":["Residential"],"Glazes":["Monolithic Glass"]},{"ProjectID":"06-09-032","Date":200609032,"Products":[{"ProductName":"Folding Glass Wall","GeoType1":["Door"],"GeoType2":["101-250 SQF. Glass"]}],"Description":"Two folding wall systems used at a restaurant.  Both units use an all wall configuration, recessed sills, fold in and have monolithic impact glazing.","Image1":"international-folding-glass-wall.jpg","Image2":"international-folding-glass-wall-3.jpg","Image3":"international-folding-glass-wall-2.jpg","Image4":"international-folding-glass-wall-1.jpg","ExtColor":["Clear Anodized","Class I Anodized"],"IntColor":["Clear Anodized","Class I Anodized"],"LengthProjection":"18 ft 7 in","RidgeHeight":"8 ft","Location":"Other","Width":"n/a","Application":["Dining","Residential"],"Glazes":["Clear","Monolithic Glass"]},{"ProjectID":"10-04-259","Date":201004259,"Products":[{"ProductName":"Folding Glass Wall","GeoType1":[],"GeoType2":["251-500 SQF. Glass"]},{"ProductName":"Folding Glass Wall","GeoType1":["Door"],"GeoType2":["101-250 SQF. Glass"]},{"ProductName":"Glazing","GeoType1":["Specialty Glazing"],"GeoType2":[]}],"Description":"Two folding wall systems with double door mid wall configurations.  Each unit has a recessed sill, three panels that fold right, five panels that fold left and blinds between the glass.","Image1":"2013/01/Folding-Glass-Wall-Port-3.jpg","Image2":"2013/01/Folding-Glass-Wall-Port-2.jpg","Image3":"2013/01/Folding-Glass-Wall-Port.jpg","Image4":"2013/01/Folding-Glass-Wall-Port-4.jpg","ExtColor":["Clear Anodized","Class I Anodized"],"IntColor":["Clear Anodized","Class I Anodized"],"LengthProjection":"varies per unit","RidgeHeight":"7 ft 3 in","Location":"Mississippi","Width":"varies per unit","Application":["Commercial"],"Glazes":""},{"ProjectID":"10-07-162","Date":201007162,"Products":[{"ProductName":"Folding Glass Wall","GeoType1":["Door"],"GeoType2":["251-500 SQF. Glass"]},{"ProductName":"Folding Glass Wall","GeoType1":["Door","Windows"],"GeoType2":["501-750 SQF. Glass"]},{"ProductName":"Stacking Glass Wall","GeoType1":["Doors"],"GeoType2":["101-250 SQF. Glass"]},{"ProductName":"Window","GeoType1":["Projected"],"GeoType2":["251-500 SQF. Glass","Awning"]}],"Description":"Whole house glazing project where the residence used terrace doors, stack walls, folding doors, awning windows and curtain walls.","Image1":"2013/01/Full-Window-and-Door-Schedule-1.jpg","Image2":"2013/01/Full-Window-and-Door-Schedule-2.jpg","Image3":"2013/01/Full-Window-and-Door-Schedule-3.jpg","Image4":"2013/01/Full-Window-and-Door-Schedule.jpg","ExtColor":["Clear Anodized","Class I Anodized"],"IntColor":["Clear Anodized","Class I Anodized"],"LengthProjection":"varies per unit","RidgeHeight":"varies per unit","Location":"Pennsylvania","Width":"varies per unit","Application":["Residential"],"Glazes":["LoE 272"]},{"ProjectID":"05-07-003","Date":200507003,"Products":[{"ProductName":"Curtain Wall","GeoType1":["Vertical Curtain Wall"],"GeoType2":["101-250 SQF. Glass"]},{"ProductName":"Folding Glass Wall","GeoType1":["Door"],"GeoType2":["101-250 SQF. Glass"]},{"ProductName":"Window","GeoType1":["Projected"],"GeoType2":["101-250 SQF. Glass"]}],"Description":"A pool enclosure which utilizes Solar Innovations folding door system, awning windows and curtain wall.","Image1":"Door-and-Window-Shedule-Pool-House3.jpg","Image2":"Door-and-Window-Shedule-Pool-House-4.jpg","Image3":"Door-and-Window-Shedule-Pool-House.jpg","Image4":"Door-and-Window-Shedule-Pool-House-2.jpg","ExtColor":["White"],"IntColor":["White"],"LengthProjection":"Units Vary","RidgeHeight":"Units Vary","Location":"New Jersey","Width":"Units Vary","Application":["Home","Residential","Sporting"],"Glazes":["LoE 180"]},{"ProjectID":"10-09-316","Date":201009316,"Products":[{"ProductName":"Folding Glass Wall","GeoType1":["Door"],"GeoType2":["101-250 SQF. Glass"]}],"Description":"Two story glass wall unit including a curtain wall and a folding wall system.","Image1":"Folding-Glass-Wall-Educational.jpg","Image2":"Folding-Glass-Wall-Educational-2.jpg","Image3":"Folding-Glass-Wall-Educational-3.jpg","Image4":"Folding-Glass-Wall-Educational-4.jpg","ExtColor":["Clear Anodized","Class I Anodized"],"IntColor":["Clear Anodized","Class I Anodized"],"LengthProjection":"-","RidgeHeight":"16 ft 5 in","Location":"Missouri","Width":"30 ft 4 in","Application":["Educational"],"Glazes":["Clear"]},{"ProjectID":"08-09-198","Date":200809198,"Products":[{"ProductName":"Folding Glass Wall","GeoType1":["Door"],"GeoType2":["251-500 SQF. Glass"]},{"ProductName":"Sliding Door","GeoType1":["Door"],"GeoType2":["51-100 SQF. Glass"]}],"Description":"A guest house utilizing multiple folding glass walls, sliding doors, fixed windows and French doors.","Image1":"Folding-Glass-Wall-Guest-House-2.jpg","Image2":"Folding-Glass-Wall-Guest-House.jpg","Image3":"Sliding-Glass-Door-guest-house.jpg","Image4":"Folding-Glass-Wall-Guest-House-3.jpg","ExtColor":["Bronze"],"IntColor":["Bronze"],"LengthProjection":"Units Vary","RidgeHeight":"Units Vary","Location":"New York","Width":"Units Vary","Application":["Home","Residential"],"Glazes":""},{"ProjectID":"10-02-398","Date":201002398,"Products":[{"ProductName":"Folding Glass Wall","GeoType1":["Door"],"GeoType2":["251-500 SQF. Glass"]},{"ProductName":"Lift Slide","GeoType1":["Dual Panel","Multi Panel"],"GeoType2":[]},{"ProductName":"Sliding Door","GeoType1":["Door"],"GeoType2":[]}],"Description":"Residential home using Solar Innovations? glazed aluminum products including a folding wall system, stack wall, curtain wall, sliding door and terrace doors.","Image1":"Folding-Glass-Walls-and-Lift-Slide-Doors-1.jpg","Image2":"Folding-Glass-Walls-and-Lift-Slide-Doors-2.jpg","Image3":"Folding-Glass-Walls-and-Lift-Slide-Doors-3.jpg","Image4":"Folding-Glass-Walls-and-Lift-Slide-Doors.jpg","ExtColor":["Bronze"],"IntColor":["Bronze"],"LengthProjection":"varies per unit","RidgeHeight":"varies per unit","Location":"New York","Width":"varies per unit","Application":["Residential"],"Glazes":["Clear"]},{"ProjectID":"11-05-057","Date":201105057,"Products":[{"ProductName":"Door","GeoType1":["Out of System Terrace and French Doors"],"GeoType2":[]},{"ProductName":"Folding Glass Wall","GeoType1":["Door"],"GeoType2":["101-250 SQF. Glass"]}],"Description":"Out of system terrace door and an all wall configuration used on a folding wall with eight panles that fold right and a recessed sill.","Image1":"Folding-Glass-Walls-Masser-Res-1.jpg","Image2":"Folding-Glass-Walls-Masser-Res.jpg","Image3":"Folding-Glass-Walls-Masser-Res-2.jpg","Image4":"Folding-Glass-Walls-Masser-Res-3.jpg","ExtColor":["Custom Color"],"IntColor":["Custom Color"],"LengthProjection":"Units Vary","RidgeHeight":"Units Vary","Location":"Pennsylvania","Width":"Units Vary","Application":["Residential"],"Glazes":["Clear"]},{"ProjectID":"09-06-415","Date":200906415,"Products":[{"ProductName":"Skylight","GeoType1":["Irregular / Custom"],"GeoType2":["501-750 SQF. Glass"]}],"Description":"Straight eave lean-to skylight with one gable end, two return walls and one rear wall","Image1":"Skylight-The-Learning-Lab-21.jpg","Image2":"Skylight-The-Learning-Lab-3.jpg","Image3":"Skylight-The-Learning-Lab.jpg","Image4":"WHYY_skylight-8.jpg","ExtColor":["Clear Anodized","Class I Anodized"],"IntColor":["Clear Anodized","Class I Anodized"],"LengthProjection":"8 ft 10 in","RidgeHeight":"15 ft 1 in","Location":"Pennsylvania","Width":"25 ft 10 in","Application":["Commercial"],"Glazes":["LoE 272"]},{"ProjectID":"08-12-312","Date":200812312,"Products":[{"ProductName":"Skylight","GeoType1":["Irregular / Custom","Straight Eave Double Pitch"],"GeoType2":["51-100 SQF. Glass"]}],"Description":"Irregular straight eave double pitch skylight with 0 gable ends and southern yellow pine interior.","Image1":"Black-Irregular-Skylight-Copper-Roof.jpg","Image2":"Black-Irregular-Skylight-Copper-Roof-1.jpg","Image3":"Black-Irregular-Skylight-Copper-Roof-2.jpg","Image4":"Black-Irregular-Skylight-Copper-Roof-3.jpg","ExtColor":["Bronze"],"IntColor":["Southern Yellow Pine","Wood"],"LengthProjection":"12 ft 5 in","RidgeHeight":"3 ft 8 in","Location":"Canada","Width":"5 ft 8 in","Application":["Residential"],"Glazes":["LoE 272"]},{"ProjectID":"10-03-540","Date":201003540,"Products":[{"ProductName":"Skylight","GeoType1":["Irregular / Custom","Pyramid"],"GeoType2":["51-100 SQF. Glass"]}],"Description":"Custom designed irregular pyramid skylight","Image1":"Saint-Matthews-Skylight.jpg","Image2":"Saint-Matthews-Skylight-1.jpg","Image3":"Saint-Matthews-Skylight-2.jpg","Image4":"Saint-Matthews-Skylight-4.jpg","ExtColor":["Clear Anodized","Class I Anodized"],"IntColor":["Clear Anodized","Class I Anodized"],"LengthProjection":"8 ft 7 in","RidgeHeight":"5 ft 2 in","Location":"Pennsylvania","Width":"7 ft 4 in","Application":["Ecclesiastical"],"Glazes":["Clear"]},{"ProjectID":"08-12-257","Date":200812257,"Products":[{"ProductName":"Folding Glass Wall","GeoType1":["Door"],"GeoType2":["101-250 SQF. Glass","Segmented Radius"]}],"Description":"Two interior folding wall systems used on a residential application.  One unit is an all wall segmented radius configuration with a segmented transom above and utilized a recessed sill.  The second unit is a straight all wall configuration with a transom above and a flush mount sill.","Image1":"Radius-Folding-Glass-Wall-1.jpg","Image2":"Radius-Folding-Glass-Wall-2.jpg","Image3":"Radius-Folding-Glass-Wall-3.jpg","Image4":"Radius-Folding-Glass-Wall-4.jpg","ExtColor":["Bronze"],"IntColor":["Bronze"],"LengthProjection":"11 ft 5 in","RidgeHeight":"9 ft 7 in","Location":"Colorado","Width":"-","Application":["Residential"],"Glazes":["Custom Color"]},{"ProjectID":"08-03-130","Date":200803130,"Products":[{"ProductName":"Folding Glass Wall","GeoType1":["Door"],"GeoType2":["251-500 SQF. Glass"]}],"Description":"Two folding glass wall units with single door last panel configurations and each having five panels using a standard sill with flush stop.","Image1":"Tropical-Folding-Glass-Walls.jpg","Image2":"Tropical-Folding-Glass-Walls-2.jpg","Image3":"Tropical-Folding-Glass-Walls-3.jpg","Image4":"Tropical-Folding-Glass-Walls-4.jpg","ExtColor":["White"],"IntColor":["White"],"LengthProjection":"13 ft 6 in","RidgeHeight":"7 ft 1 in","Location":"Other","Width":"-","Application":["Commercial"],"Glazes":["Clear"]},{"ProjectID":"10-07-088","Date":201007088,"Products":[{"ProductName":"Door","GeoType1":["Out of System Terrace and French Doors"],"GeoType2":[]},{"ProductName":"Folding Glass Wall","GeoType1":["Door"],"GeoType2":["251-500 SQF. Glass"]},{"ProductName":"Window","GeoType1":["Projected"],"GeoType2":["251-500 SQF. Glass","Casement"]}],"Description":"Two folding wall systems with all wall configurations and four panels each using a standard sill.  The home also features a Solar Innovations? terrace door, French doors, casement windows and fixed curtain walls.","Image1":"Modern-Exterior-Folding-Glass-Walls.jpg","Image2":"Modern-Door-and-Windows.jpg","Image3":"Modern-Interior-Folding-Glass-Wall.jpg","Image4":"Modern-Terrace-Door.jpg","ExtColor":["Bronze"],"IntColor":["Bronze"],"LengthProjection":"12 ft","RidgeHeight":"12 ft","Location":"Canada","Width":"-","Application":["Home","Residential"],"Glazes":["LoE 272"]},{"ProjectID":"09-02-319","Date":200902319,"Products":[{"ProductName":"Architectural Enhancement","GeoType1":["Transom"],"GeoType2":["51-100 SQF. Glass"]},{"ProductName":"Folding Glass Wall","GeoType1":["Door"],"GeoType2":["251-500 SQF. Glass"]}],"Description":"Folding glass wall systems used at a university.  Units each have five panels, standard sill and a transom above.","Image1":"Virginia-Tech-Folding-Glass-Walls.jpg","Image2":"Virginia-Tech-Folding-Glass-Walls-2.jpg","Image3":"Virginia-Tech-Folding-Glass-Walls-3.jpg","Image4":"Virginia-Tech-Folding-Glass-Walls1.jpg","ExtColor":["Clear Anodized","Class I Anodized"],"IntColor":["Clear Anodized","Class I Anodized"],"LengthProjection":"15 ft 1 in","RidgeHeight":"11 ft 3 in","Location":"Virginia","Width":"-","Application":["Commercial","Institutional"],"Glazes":["Custom Color"]},{"ProjectID":"05-01-026","Date":200501026,"Products":[{"ProductName":"Folding Glass Wall","GeoType1":["Door"],"GeoType2":["101-250 SQF. Glass"]}],"Description":"Multiple folding glass wall units with varying configurations and panel counts used on a residential home with a recessed sill.","Image1":"Wilson-Folding-Glass-Walls.jpg","Image2":"Wilson-Folding-Glass-Walls-2.jpg","Image3":"Wilson-Folding-Glass-Walls-3.jpg","Image4":"Wilson-Folding-Glass-Walls-4.jpg","ExtColor":["White"],"IntColor":["White"],"LengthProjection":"varies per unit","RidgeHeight":"varies per unit","Location":"West Virginia","Width":"varies per unit","Application":["Residential"],"Glazes":["Clear"]},{"ProjectID":"08-08-217","Date":200808217,"Products":[{"ProductName":"Folding Glass Wall","GeoType1":["Door"],"GeoType2":["251-500 SQF. Glass"]}],"Description":"Interior double door midwall folding system, five panels fold right and five panels fold left, recessed sill with flush stop","Image1":"Office-Folding-Glass-Walls-4.jpg","Image2":"Office-Folding-Glass-Walls.jpg","Image3":"Office-Folding-Glass-Walls-2.jpg","Image4":"Office-Folding-Glass-Walls-3.jpg","ExtColor":["Dark Bronze Anodized","Bronze","Class I Anodized"],"IntColor":["Dark Bronze Anodized","Bronze","Class I Anodized"],"LengthProjection":"47 ft 2 in","RidgeHeight":"8 ft 1 in","Location":"Illinois","Width":"Varies by Unit","Application":["Commercial","Office Space"],"Glazes":["Custom Color"]},{"ProjectID":"08-09-202","Date":200809202,"Products":[{"ProductName":"Folding Glass Wall","GeoType1":["Door"],"GeoType2":["51-100 SQF. Glass"]},{"ProductName":"Glazing","GeoType1":["Specialty Glazing"],"GeoType2":[]}],"Description":"Two all wall configuration folding doors sytems, each with three panels that fold to the outside and a standard sill","Image1":"Living-Room-Folding-Glass-Wall-4.jpg","Image2":"Living-Room-Folding-Glass-Wall.jpg","Image3":"Living-Room-Folding-Glass-Wall-3.jpg","Image4":"Living-Room-Folding-Glass-Wall-2.jpg","ExtColor":["Bronze"],"IntColor":["Bronze"],"LengthProjection":"8 ft 8 in","RidgeHeight":"8 ft","Location":"Other","Width":"-","Application":["Living Space","Residential"],"Glazes":["Bronze","Monolithic Glass","Custom Color"]},{"ProjectID":"08-03-175","Date":200803175,"Products":[{"ProductName":"Folding Glass Wall","GeoType1":["Door"],"GeoType2":["101-250 SQF. Glass"]}],"Description":"five all wall folding door systems with panels that fold to the interior which feature interior muntin gridwork, and a recessed sill with flush stop","Image1":"Pool-House-Folding-Glass-Walls-3.jpg","Image2":"Pool-House-Folding-Glass-Walls-2.jpg","Image3":"Pool-House-Folding-Glass-Walls.jpg","Image4":"Pool-House-Folding-Glass-Walls-4.jpg","ExtColor":["Bronze","White"],"IntColor":["Bronze","White"],"LengthProjection":"varies per unit","RidgeHeight":"8 ft","Location":"Massachusetts","Width":"varies per unit","Application":["Home","Living Space","Residential"],"Glazes":["Clear"]},{"ProjectID":"05-06-051","Date":200506051,"Products":[{"ProductName":"Folding Glass Wall","GeoType1":["Door"],"GeoType2":["101-250 SQF. Glass"]},{"ProductName":"Screen","GeoType1":["Folding"],"GeoType2":[]}],"Description":"Three folding screen units used on a residential application with an all wall configuration and standard sill","Image1":"Folding-Screens.jpg","Image2":"Folding-Screens-2.jpg","Image3":"Folding-Screens-11.jpg","Image4":"Folding-Screens-3.jpg","ExtColor":["Bronze"],"IntColor":["Bronze"],"LengthProjection":"varies per unit","RidgeHeight":"8 ft 2 in","Location":"California","Width":"varies per unit","Application":["Residential"],"Glazes":["Custom Color"]},{"ProjectID":"10-05-352","Date":201005352,"Products":[{"ProductName":"Garden Window","GeoType1":["Garden Windows"],"GeoType2":[]}],"Description":"Curved eave lean to replacement garden window with awning windows.","Image1":"Garden-Window-Replacement.jpg","Image2":"Garden-Window-Replacement-2.jpg","Image3":"Garden-Window-Replacement-4.jpg","Image4":"Garden-Window-Replacement-3.jpg","ExtColor":["Bronze"],"IntColor":["Bronze"],"LengthProjection":"14 ft 11 in","RidgeHeight":"6 ft 2 in","Location":"Connecticut","Width":"3 ft 1 in","Application":["Residential"],"Glazes":["LoE 272"]},{"ProjectID":"Solar's Garden Window","Date":20000100,"Products":[{"ProductName":"Garden Window","GeoType1":["Garden Windows"],"GeoType2":[]}],"Description":"Straight eave lean to garden window with an awning window and ridge vent used on an office building.","Image1":"Solar-Garden-Window.jpg","Image2":"Solar-Garden-Window-4.jpg","Image3":"Solar-Garden-Window-3.jpg","Image4":"Solar-Garden-Window1.jpg","ExtColor":["Natural Clay"],"IntColor":["Natural Clay"],"LengthProjection":"4 ft 9 in","RidgeHeight":"4 ft 9 in","Location":"Pennsylvania","Width":"2 ft","Application":["Commercial"],"Glazes":["Clear"]},{"ProjectID":"06-07-042","Date":200607042,"Products":[{"ProductName":"Shades","GeoType1":["Exterior Fixed"],"GeoType2":[]},{"ProductName":"Sunroom","GeoType1":["Straight Eave Lean-To"],"GeoType2":["251-500 SQF. Glass"]}],"Description":"Straight eave lean to greenhouse with no gable ends.  The greenhouse features ridge vents, terrace door, awning windows and exterior roof mounted shades.  The interior of the greenhouse uses two tiered benches with both mahogany slats and metal mesh infills.  Growing accessories include grow lights and a misting system.","Image1":"Sunroom-Strait-Eave-Lean-to.jpg","Image2":"Sunroom-Strait-Eave-Lean-to-2.jpg","Image3":"Sunroom-Strait-Eave-Lean-to-3.jpg","Image4":"Sunroom-Strait-Eave-Lean-to-4.jpg","ExtColor":["Bronze"],"IntColor":["Bronze"],"LengthProjection":"7 ft 6 in","RidgeHeight":"11 ft 8 in","Location":"Illinois","Width":"22 ft9","Application":["Residential"],"Glazes":["LoE 340","LoE 272"]},{"ProjectID":"05-02-021","Date":200502021,"Products":[{"ProductName":"Greenhouse","GeoType1":["Conservatory Nose","Straight Eave Lean-To"],"GeoType2":["251-500 SQF. Glass"]}],"Description":"Straight eave double pitch greenhouse with one conservatory nose, awning windows, ridge vents and French doors.","Image1":"IMG_2601_edited.jpg","Image2":"IMG_2606.jpg","Image3":"IMG_2603_edited.jpg","Image4":"IMG_2604.jpg","ExtColor":["Natural Clay"],"IntColor":["Natural Clay"],"LengthProjection":"25 ft","RidgeHeight":"13 ft 9 in","Location":"Virginia","Width":"12 ftwidth","Application":["Residential"],"Glazes":["Clear"]},{"ProjectID":"5395","Date":205395,"Products":[{"ProductName":"Greenhouse","GeoType1":["Curved Eave Lean-To"],"GeoType2":["751-1000 SQF. Glass"]},{"ProductName":"Shades","GeoType1":["Exterior Fixed"],"GeoType2":[]}],"Description":"Curved eave lean to greenhouse with exterior roll up roof mounted shades, awning windows, eave vent and sliding doors.","Image1":"CELT-Greenhouse-3.jpg","Image2":"CELT-Greenhouse.jpg","Image3":"CELT-Greenhouse-4.jpg","Image4":"CELT-Greenhouse-2.jpg","ExtColor":["Bronze"],"IntColor":["Bronze"],"LengthProjection":"22 ft 7 in","RidgeHeight":"11 ft","Location":"Other","Width":"14 ft 9 in","Application":["Residential"],"Glazes":["Bronze"]},{"ProjectID":"10-08-157","Date":201008157,"Products":[{"ProductName":"Greenhouse","GeoType1":["Irregular / Custom"],"GeoType2":["2001+ SQF. Glass"]}],"Description":"Straight eave double pitch greenhouse with 2 partial side walls, interior partition wall, and straight eave double pitch structure with hip end, connected to sidewall of main greenhouse. Cold frames are located on the exterior of the greenhouse.  Interior growing accessories include ridge vents, eave vents, circulation fans, grow lights, and misting system.","Image1":"Chanticleer-11-2-13-1-for-gallery-small.jpg","Image2":"Irregular-Greenhouse-2.jpg","Image3":"Irregular-Greenhouse-3.jpg","Image4":"Irregular-Greenhouse-4.jpg","ExtColor":["Sandstone"],"IntColor":[],"LengthProjection":"69 ft 11 in","RidgeHeight":"23 ft 3 in","Location":"Pennsylvania","Width":"20 ft 4 in Width","Application":["Institutional"],"Glazes":["LoE 272"]},{"ProjectID":"10-02-290","Date":201002290,"Products":[{"ProductName":"Greenhouse","GeoType1":["Irregular / Custom"],"GeoType2":["2001+ SQF. Glass"]}],"Description":"Inverted irregular straight eave double pitch greenhouse with one gable end, one exterior curtain wall and three interior curtain walls.","Image1":"University-of-Scranton-1.jpg","Image2":"University-of-Scranton.jpg","Image3":"University-of-Scranton-2.jpg","Image4":"University-of-Scranton-4.jpg","ExtColor":["Custom Color"],"IntColor":["Custom Color"],"LengthProjection":"17 ft","RidgeHeight":"19 ft ","Location":"Pennsylvania","Width":"41 ft 4 in","Application":["Educational","Institutional"],"Glazes":["LoE 272"]},{"ProjectID":"10-05-262","Date":201005262,"Products":[{"ProductName":"Greenhouse","GeoType1":["Irregular / Custom"],"GeoType2":["2001+ SQF. Glass"]}],"Description":"Straight eave double pitch tree barn with 2 partial gable ends with 2 straight eave double pitch walkways and 5 straight eave double pitch dormers.","Image1":"Tree-barn-Greenhouse-4.jpg","Image2":"Tree-barn-Greenhouse-2.jpg","Image3":"Tree-barn-Greenhouse-3.jpg","Image4":"Tree-barn-Greenhouse.jpg","ExtColor":["Bronze"],"IntColor":["Bronze"],"LengthProjection":"50 ft","RidgeHeight":"19 ft 7 in","Location":"Connecticut","Width":"28 ft","Application":["Residential"],"Glazes":["LoE 272"]},{"ProjectID":"06-04-032","Date":200604032,"Products":[{"ProductName":"Greenhouse","GeoType1":["Irregular / Custom"],"GeoType2":["751-1000 SQF. Glass"]}],"Description":"Straight eave lean to greenhouse with one gable end and rear wall with an interior post support.  Unit includes ridge vents, shutter fan, motorized intake and casement windows","Image1":"Burgis-Greenhouse.jpg","Image2":"Burgis-Greenhouse-2.jpg","Image3":"Burgis-Greenhouse-3.jpg","Image4":"Burgis-Greenhouse-4.jpg","ExtColor":["Bronze"],"IntColor":["Bronze"],"LengthProjection":"20 ft 8 in","RidgeHeight":"15 ft 1 in","Location":"Illinois","Width":"20 ft 5 in","Application":["Residential"],"Glazes":["LoE 272"]},{"ProjectID":"10-08-049","Date":201008049,"Products":[{"ProductName":"Architectural Enhancement","GeoType1":["Ridge Vent"],"GeoType2":[]},{"ProductName":"Greenhouse","GeoType1":["Straight Eave Lean-To"],"GeoType2":["251-500 SQF. Glass"]},{"ProductName":"Polycarbonate","GeoType1":["Poly Greenhouses","Polycarbonate Skylight"],"GeoType2":[]},{"ProductName":"Skylight","GeoType1":["Single Slope"],"GeoType2":["251-500 SQF. Glass"]}],"Description":"Replacement flat skylight used in a greenhouse with ridge vents.","Image1":"tyler-polycarbonate-skylight-greenhouse-4.jpg","Image2":"tyler-polycarbonate-skylight-greenhouse-3.jpg","Image3":"tyler-polycarbonate-skylight-greenhouse-2.jpg","Image4":"tyler-polycarbonate-skylight-greenhouse-41.jpg","ExtColor":["White"],"IntColor":["White"],"LengthProjection":"24 ft 4 in","RidgeHeight":"13 ft 7 in","Location":"Pennsylvania","Width":"varies","Application":["Commercial","Institutional"],"Glazes":["Polycarbonate"]},{"ProjectID":"04-05-028","Date":200405028,"Products":[{"ProductName":"Greenhouse","GeoType1":["Straight Eave Double Pitch"],"GeoType2":["501-750 SQF. Glass"]}],"Description":"Straight eave double pitch residential greenhouse, featuring ridge vents, terrace door, casement windows, finial and ridge cresting.","Image1":"Anderson-Greenhouse-2.jpg","Image2":"Anderson-Greenhouse-3.jpg","Image3":"Anderson-Greenhouse-4.jpg","Image4":"Anderson-Greenhouse.jpg","ExtColor":["Sandstone"],"IntColor":["Sandstone"],"LengthProjection":"11 ft 10 in","RidgeHeight":"13 ft 2 in","Location":"Illinois","Width":"17 ft 10W","Application":["Residential"],"Glazes":["Clear"]},{"ProjectID":"10-04-209","Date":201004209,"Products":[{"ProductName":"Greenhouse","GeoType1":["Straight Eave Double Pitch"],"GeoType2":["501-750 SQF. Glass"]},{"ProductName":"Shades","GeoType1":["Interior Folding / Roman Pleated"],"GeoType2":[]}],"Description":"Straight eave double pitch greenhouse used at an elementary school.  Greenhouse includes ridge vents, terrace door, interior operable shades, benches and drip system","Image1":"winthrop-greenhouse.jpg","Image2":"winthrop-greenhouse-2.jpg","Image3":"winthrop-greenhouse-3.jpg","Image4":"winthrop-greenhouse-4.jpg","ExtColor":["Clear Anodized","Class I Anodized"],"IntColor":["Clear Anodized","Class I Anodized"],"LengthProjection":"16 ft","RidgeHeight":"11 ft 8 in","Location":"Connecticut","Width":"16 ft","Application":["Educational","Institutional"],"Glazes":["Clear","Monolithic Glass"]},{"ProjectID":"08-09-192","Date":200809192,"Products":[{"ProductName":"Canopy","GeoType1":["Straight Eave Double Pitch"],"GeoType2":[]},{"ProductName":"Decorative Elements","GeoType1":["Decorative Gable Pediment"],"GeoType2":[]},{"ProductName":"Greenhouse","GeoType1":["Straight Eave Double Pitch"],"GeoType2":["751-1000 SQF. Glass"]}],"Description":"Straight eave double pitch greenhouse with one gable end and a straight eave double pitch canopy.  Unit also includes ridge vents, eave sash, gable rake, gutter, downspout, finial, ridge cresting and exterior roll up shades.","Image1":"corrente-greenhouse-2.jpg","Image2":"corrente-greenhouse-4.jpg","Image3":"corrente-greenhouse.jpg","Image4":"corrente-greenhouse-3.jpg","ExtColor":["White"],"IntColor":["White"],"LengthProjection":"18 ft 6 in","RidgeHeight":"17 ft 1 in","Location":"New York","Width":"17 ft 2 in","Application":["Residential"],"Glazes":["Clear"]},{"ProjectID":"08-06-218","Date":200806218,"Products":[{"ProductName":"Architectural Enhancement","GeoType1":["Entryway / Vestibule","Ridge Vent"],"GeoType2":[]},{"ProductName":"Decorative Elements","GeoType1":["Decorative Gable Pediment","Grids","Gutter"],"GeoType2":[]},{"ProductName":"Greenhouse","GeoType1":["Straight Eave Double Pitch"],"GeoType2":["251-500 SQF. Glass"]}],"Description":"Straight eave double pitch entrance greenhouse with an attached double pitch dormer, ridge vents, French doors and awning windows.  Decorative accessories include grids, gutter, downspout and gable rake.","Image1":"greentree-greenhouse.jpg","Image2":"greentree-greenhouse-4.jpg","Image3":"greentree-greenhouse-3.jpg","Image4":"greentree-greenhouse-2.jpg","ExtColor":["White"],"IntColor":["White"],"LengthProjection":"10 ft 9 in","RidgeHeight":"10 ft 3 in","Location":"New York","Width":"11 ft","Application":["Institutional"],"Glazes":["Clear","Monolithic Glass"]},{"ProjectID":"06-03-028","Date":200603028,"Products":[{"ProductName":"Greenhouse","GeoType1":["Straight Eave Double Pitch"],"GeoType2":["2001+ SQF. Glass"]},{"ProductName":"Polycarbonate","GeoType1":["Poly Greenhouses"],"GeoType2":[]}],"Description":"Straight eave double pitch greenhouse with one gable end and one side wall removed.  Greenhouse includes ridge vents, awning windows and an interior truss for hanging baskets.  Growing accessories include shutter fans and circulation fans.","Image1":"Charles-Wilkens-Greenhouse-1.jpg","Image2":"Charles-Wilkens-Greenhouse.jpg","Image3":"IMG_0808.jpg","Image4":"IMG_0809.jpg","ExtColor":["Bronze"],"IntColor":["Bronze"],"LengthProjection":"27 ft ","RidgeHeight":"17 ft 6 in","Location":"North Carolina","Width":"48 ft 9 in","Application":["Residential"],"Glazes":["Clear","Polycarbonate"]},{"ProjectID":"06-01-018","Date":200601018,"Products":[{"ProductName":"Decorative Elements","GeoType1":["Grids","Interior Munittin","SDLs","Transoms"],"GeoType2":[]},{"ProductName":"Folding Glass Wall","GeoType1":["Door"],"GeoType2":["51-100 SQF. Glass","All Wall"]}],"Description":" inFolding glass wall system,  all wall configuration, 6 panels fold right, recessed sill, and horizontal mullion at 63 in, with SDLs and exterior grids in the transom in","Image1":"IMG_3583.jpg","Image2":"IMG_3585.jpg","Image3":"IMG_3587.jpg","Image4":"IMG_3590.jpg","ExtColor":["Natural Clay"],"IntColor":["Natural Clay"],"LengthProjection":"14 ft","RidgeHeight":"7 ft 8 in","Location":"Other","Width":"-","Application":["Commercial","Residential"],"Glazes":["LoE 272"]},{"ProjectID":"09-11-863","Date":200911863,"Products":[{"ProductName":"Stacking Glass Wall","GeoType1":["Doors"],"GeoType2":["101-250 SQF. Glass"]}],"Description":"Stacking wall system with outswing single door, 7 panels slide right, horizontal mullions, specialty glass and a  recessed flush hat sill.","Image1":"firefighter-2.jpg","Image2":"firefighter-8.jpg","Image3":"firefighter-7.jpg","Image4":"firefighter-10.jpg","ExtColor":["Clear Anodized","Class I Anodized"],"IntColor":["Clear Anodized","Class I Anodized"],"LengthProjection":"28 ft 2 in","RidgeHeight":"9 ft  9","Location":"Pennsylvania","Width":"-","Application":["Educational"],"Glazes":["Gray"]},{"ProjectID":"10-03-154","Date":201003154,"Products":[{"ProductName":"Curtain Wall","GeoType1":["Vertical Curtain Wall"],"GeoType2":["251-500 SQF. Glass"]},{"ProductName":"Decorative Elements","GeoType1":["Transoms"],"GeoType2":[]},{"ProductName":"Folding Glass Wall","GeoType1":["Door","Windows"],"GeoType2":["101-250 SQF. Glass","Split Wall Floating Jamb"]}],"Description":"Restaurant exterior consisting of folding windows, terrace door, curtain wall and  transoms.","Image1":"Theworkstouchup.jpg","Image2":"IMG_5764.jpg","Image3":"IMG_5745.jpg","Image4":"IMG_5740.jpg","ExtColor":["Clear Anodized","Class I Anodized"],"IntColor":["Clear Anodized","Class I Anodized"],"LengthProjection":"17 ft 4 in","RidgeHeight":"14 ft 7 in","Location":"Pennsylvania","Width":"-","Application":["Dining"],"Glazes":["LoE 272"]},{"ProjectID":"12-07-012","Date":201207012,"Products":[{"ProductName":"Architectural Enhancement","GeoType1":["Knee Walls"],"GeoType2":[]},{"ProductName":"Door","GeoType1":["In-System Terrace Door"],"GeoType2":[]},{"ProductName":"Greenhouse","GeoType1":["Straight Eave Double Pitch"],"GeoType2":["251-500 SQF. Glass"]}],"Description":"Straight eave lean-to greenhouse with two gable ends, a knee wall and terrace door.","Image1":"hoernig-residence-11082012-22.jpg","Image2":"hoernig-residence-11082012-3.jpg","Image3":"hoernig-residence-11082012-4.jpg","Image4":"hoernig-residence-11082012-2.jpg","ExtColor":["White"],"IntColor":["White"],"LengthProjection":"10 ft 7 in","RidgeHeight":"11 ft 3 in","Location":"Virginia","Width":"21 ft 8 in","Application":["Residential"],"Glazes":["LoE 180","Clear"]},{"ProjectID":"11-09-416","Date":201109416,"Products":[{"ProductName":"Folding Glass Wall","GeoType1":["Door"],"GeoType2":["101-250 SQF. Glass"]}],"Description":"Two folding glass walls used in a sunroom application.  Each door is a single door last panel with standard sills.","Image1":"Gatland-Interior-Edited-2.jpg","Image2":"gatland-residence-10312012-14.jpg","Image3":"Gatland-Interior-Edited.jpg","Image4":"gatland-residence-10312012-15.jpg","ExtColor":["Bronze"],"IntColor":["Bronze"],"LengthProjection":"varies per unit","RidgeHeight":"8 ft 6 in","Location":"Michigan","Width":"varies per unit","Application":["Residential"],"Glazes":["Clear"]},{"ProjectID":"11-12-036","Date":201112036,"Products":[{"ProductName":"Stacking Glass Wall","GeoType1":["Doors"],"GeoType2":["251-500 SQF. Glass"]}],"Description":"Stacking wall system with 1 out swing door, outfitted with panic hardware, 7 panels stack right, recessed flush tank sill and low profile SDL grids","Image1":"Lincoln-Hotel-Folding-Glass-Walls-3.jpg","Image2":"Lincoln-Hotel-Folding-Glass-Walls.jpg","Image3":"Lincoln-Hotel-Folding-Glass-Walls-2.jpg","Image4":"Lincoln-Hotel-Folding-Glass-Walls-4.jpg","ExtColor":["Black"],"IntColor":["Black"],"LengthProjection":"-","RidgeHeight":"9 ft  5","Location":"Illinois","Width":"23 1","Application":["Commercial"],"Glazes":["LoE 272"]},{"ProjectID":"11-04-148","Date":201104148,"Products":[{"ProductName":"Greenhouse","GeoType1":["Straight Eave Double Pitch"],"GeoType2":["2001+ SQF. Glass","1-50 SQF. Glass"]}],"Description":"Straight eave double pitch greenhouse with two gable ends, ridge vents, eave vents, finial, ridge cresting, and French doors","Image1":"Selander-Residential-Greenhouse-4.jpg","Image2":"Selander-Residential-Greenhouse-2.jpg","Image3":"Selander-Residential-Greenhouse-3.jpg","Image4":"Selander-Residential-Greenhouse.jpg","ExtColor":["White"],"IntColor":["White"],"LengthProjection":"25 ft","RidgeHeight":"16 ft","Location":"Virginia","Width":"18 ft 1 in","Application":["Residential"],"Glazes":["Clear"]},{"ProjectID":"10-07-251 & 11-12-172","Date":201007251,"Products":[{"ProductName":"Skylight","GeoType1":["Hip End","Irregular / Custom"],"GeoType2":["251-500 SQF. Glass"]},{"ProductName":"Sunroom","GeoType1":["Irregular / Custom","Straight Eave Double Pitch"],"GeoType2":["751-1000 SQF. Glass"]}],"Description":"Commercial rooftop with multiple skylights and a sunroom. Skylights include a straight eave lean to and a hip end unit. Sunroom is a straight eave double pitch inverted model.","Image1":"Custom-Skylight.jpg","Image2":"Custom-Skylight-3.jpg","Image3":"Custom-Skylight-4.jpg","Image4":"Custom-Skylight-2.jpg","ExtColor":["Bronze"],"IntColor":["Bronze"],"LengthProjection":"Units Vary","RidgeHeight":"Units Vary","Location":"Pennsylvania","Width":"Units Vary","Application":["Commercial"],"Glazes":["LoE 272"]},{"ProjectID":"11-09-261","Date":201109261,"Products":[{"ProductName":"Glazing","GeoType1":["Specialty Glazing"],"GeoType2":[]},{"ProductName":"Screen","GeoType1":["Sliding"],"GeoType2":[]},{"ProductName":"Sliding Door","GeoType1":["Door"],"GeoType2":["1-50 SQF. Glass","Dual Track"]},{"ProductName":"Window","GeoType1":["Projected"],"GeoType2":["1-50 SQF. Glass","Awning"]}],"Description":"Residential home featuring several Solar Innovations products including a dual track door, awning windows and fixed curtain wall","Image1":"Window-System.jpg","Image2":"Window-System-2.jpg","Image3":"Window-System-32.jpg","Image4":"Window-System-4.jpg","ExtColor":["Clear Anodized","Class I Anodized"],"IntColor":["Clear Anodized","Class I Anodized"],"LengthProjection":"Units Vary","RidgeHeight":"Units Vary","Location":"New York","Width":"Units Vary","Application":["Residential"],"Glazes":["LoE 272"]},{"ProjectID":"11-11-148","Date":201111148,"Products":[{"ProductName":"Door","GeoType1":["Dutch Door"],"GeoType2":[]},{"ProductName":"Pivot","GeoType1":["Door"],"GeoType2":[]}],"Description":"Whole house glazing package including folding walls, pivot and dutch doors, awning and casement windows, dual track sliding windows, terrace doors, and curtain wall.","Image1":"Dutch-Doors.jpg","Image2":"Pivot-Door.jpg","Image3":"Dutch-Door.jpg","Image4":"Pivot-Doors.jpg","ExtColor":["Clear Anodized","Class I Anodized"],"IntColor":["Clear Anodized","Class I Anodized"],"LengthProjection":"Units Vary","RidgeHeight":"Units Vary","Location":"California","Width":"Units Vary","Application":["Residential"],"Glazes":["LoE 366"]},{"ProjectID":"12-10-044","Date":201210044,"Products":[{"ProductName":"Greenhouse","GeoType1":["Straight Eave Double Pitch"],"GeoType2":["2001+ SQF. Glass","1-50 SQF. Glass"]}],"Description":"Straight eave double pitch greenhouse with two gable ends, awning windows, ridge vents, finials, ridge cresting, gutter and downspouts.","Image1":"SEDP-Greenhouse-3.jpg","Image2":"SEDP-Greenhouse-2.jpg","Image3":"SEDP-Greenhouse-4.jpg","Image4":"SEDP-Greenhouse.jpg","ExtColor":["White"],"IntColor":["White"],"LengthProjection":"36 ft","RidgeHeight":"14 ft 9 in","Location":"Virginia","Width":"18 ft 4 in","Application":["Residential"],"Glazes":["LoE 272"]},{"ProjectID":"09-10-303","Date":200910303,"Products":[{"ProductName":"Curtain Wall","GeoType1":["Vertical Curtain Wall"],"GeoType2":["101-250 SQF. Glass"]},{"ProductName":"Folding Glass Wall","GeoType1":["Door","Windows"],"GeoType2":["101-250 SQF. Glass"]},{"ProductName":"Screen","GeoType1":["Folding","P-Series"],"GeoType2":[]},{"ProductName":"Tilt Turn","GeoType1":["Tilt Turn Window"],"GeoType2":[]}],"Description":"Residential curtain wall utilizing the European system, with integrated tilt turn windows, folding doors and operable screens, along with a terrace door.","Image1":"Folding-Wall-and-Curtain-Wall.jpg","Image2":"Folding-Wall-and-Curtain-Wall-3.jpg","Image3":"Folding-Wall-and-Curtain-Wall-4.jpg","Image4":"Folding-Wall-and-Curtain-Wall-2.jpg","ExtColor":["Custom Color"],"IntColor":["Custom Color"],"LengthProjection":"3 ft 2 in","RidgeHeight":"15 ft 11 in","Location":"New York","Width":"12 ft 2 in","Application":["Residential"],"Glazes":["LoE 272"]},{"ProjectID":"08-08-235","Date":200808235,"Products":[{"ProductName":"Greenhouse","GeoType1":["Straight Eave Double Pitch"],"GeoType2":["751-1000 SQF. Glass"]}],"Description":"Straight eave double pitch greenhouse used at a retirement community.  Unit includes ridge vents, transoms with grids, casement windows, terrace door, interior circulation fans, grow lights and interior roof mounted shades.","Image1":"Retirement-Home-Greenhouse.jpg","Image2":"Retirement-Home-Greenhouse-2.jpg","Image3":"Retirement-Home-Greenhouse-4.jpg","Image4":"Retirement-Home-Greenhouse-3.jpg","ExtColor":["White"],"IntColor":["White"],"LengthProjection":"24 ft 6 in","RidgeHeight":"17 ft 4 in","Location":"Pennsylvania","Width":"17 ft 10 in","Application":["Commercial","Retirement"],"Glazes":["LoE 272"]},{"ProjectID":"10-09-097","Date":201009097,"Products":[{"ProductName":"Greenhouse","GeoType1":["Straight Eave Lean-To"],"GeoType2":["2001+ SQF. Glass","1-50 SQF. Glass"]},{"ProductName":"Greenhouse Accessory","GeoType1":["Storage","Watering Systems"],"GeoType2":["Circulation Fans","Grow Lights","Metal Mesh Top Bench","Seeding Bench"]}],"Description":"Straight eave lean-to grenhouse with a solid rear wall, ridge vents, eave vents, operable shade system, evaporative cooler, heater, fogger, circulating fans, grow lights, a misting system, greenhouse benches, retractable hose reels and an environmental control system.","Image1":"dundalk-07242013-4-_edited_webgallery.jpg","Image2":"Institutional-Greenhouse-2.jpg","Image3":"Metal-Greenhouse-Bench.jpg","Image4":"Institutional-Greenhouse-3.jpg","ExtColor":["Custom Color"],"IntColor":["Custom Color"],"LengthProjection":"16 ft 7 in","RidgeHeight":"15 ft 2 in","Location":"Maryland","Width":"28 ft 7 in","Application":["Educational","Institutional"],"Glazes":["Clear"]},{"ProjectID":"12-03-061","Date":201203061,"Products":[{"ProductName":"Folding Glass Wall","GeoType1":["Door"],"GeoType2":["251-500 SQF. Glass","Split Wall Floating Jamb"]}],"Description":"Three folding glass walls with split wall configurations, bottom load, fold out, standard sill.","Image1":"Texas-Folding-Glass-Walls-2.jpg","Image2":"Texas-Folding-Glass-Walls-3.jpg","Image3":"Texas-Folding-Glass-Walls.jpg","Image4":"Texas-Folding-Glass-Walls-4.jpg","ExtColor":["Clear Anodized","Class I Anodized"],"IntColor":["Clear Anodized","Class I Anodized"],"LengthProjection":"Units Vary","RidgeHeight":"8 ft 2 in","Location":"Texas","Width":"Units Vary","Application":["Commercial"],"Glazes":["Clear","Solarban 60"]},{"ProjectID":"12-05-150","Date":201205150,"Products":[{"ProductName":"Decorative Elements","GeoType1":["Ring and Collar Ties"],"GeoType2":[]},{"ProductName":"Greenhouse","GeoType1":["Straight Eave Lean-To"],"GeoType2":["2001+ SQF. Glass","1-50 SQF. Glass"]},{"ProductName":"Sliding Door","GeoType1":["Door"],"GeoType2":[]}],"Description":"Straight eave lean-to greenhouse with one gable end and one interior wall.  Unit features ridge vents, eave vents, sliding doors and an interior ring and collar.","Image1":"Greenhouse-Residential.jpg","Image2":"Greenhouse-Residential-2.jpg","Image3":"Greenhouse-Residential-3.jpg","Image4":"Greenhouse-Residential-4.jpg","ExtColor":["Bronze"],"IntColor":["Bronze"],"LengthProjection":"30 ft 3 in","RidgeHeight":"13 ft 1 in","Location":"Massachusetts","Width":"13 ft 5 in","Application":["Residential"],"Glazes":["LoE 272"]},{"ProjectID":"06-05-003","Date":200605003,"Products":[{"ProductName":"Pool Enclosure","GeoType1":["Conservatory Nose","Straight Eave Double Pitch"],"GeoType2":["251-500 SQF. Glass"]}],"Description":"Straight eave double pitch pool enclosure with one conservatory nose, French doors, ridge vents, gridwork, gutter and downspout.","Image1":"IMG_0048.jpg","Image2":"conservatory-nose-pool-enclosure-3.jpg","Image3":"conservatory-nose-pool-enclosure-2.jpg","Image4":"2013/03/conservatory-nose-pool-enclosure.jpg","ExtColor":["Bronze"],"IntColor":["Bronze"],"LengthProjection":"11 ft 11 in","RidgeHeight":"15 ft","Location":"New York","Width":"15 ft 10 in","Application":["Residential"],"Glazes":["LoE 340"]},{"ProjectID":"05-12-025","Date":200512025,"Products":[{"ProductName":"Pool Enclosure","GeoType1":["Hip End","Straight Eave Double Pitch"],"GeoType2":["2001+ SQF. Glass"]}],"Description":"Straight eave double pitch pool enclosure with one gable end and one hip end, ridge vents and awning windows.","Image1":"Hip-end-pool-enclosure.jpg","Image2":"Hip-end-pool-enclosure-2.jpg","Image3":"Hip-end-pool-enclosure-3.jpg","Image4":"Hip-end-pool-enclosure-4.jpg","ExtColor":["Clear Anodized","Class I Anodized"],"IntColor":["Clear Anodized","Class I Anodized"],"LengthProjection":"63 ft 8 in","RidgeHeight":"19 ft 9 in","Location":"New Jersey","Width":"28 ft 9 in","Application":["Commercial","Sporting"],"Glazes":["LoE 272"]},{"ProjectID":"07-06-035","Date":200706035,"Products":[{"ProductName":"Pool Enclosure","GeoType1":["Hip End","Straight Eave Lean-To"],"GeoType2":["751-1000 SQF. Glass"]}],"Description":"Straight eave lean to pool enclosure with two hip ends and a commercial door.","Image1":"Comfort-Inn-Pool-Enclosure.jpg","Image2":"Comfort-Inn-Pool-Enclosure-2.jpg","Image3":"Comfort-Inn-Pool-Enclosure-3.jpg","Image4":"DSCN0802.jpg","ExtColor":["Bronze"],"IntColor":["Bronze"],"LengthProjection":"37 ft ","RidgeHeight":"11 ft 3 in","Location":"Pennsylvania","Width":"10 ft","Application":["Commercial","Sporting"],"Glazes":["LoE 272"]},{"ProjectID":"04-08-028","Date":200408028,"Products":[{"ProductName":"Skylight","GeoType1":["Hip End"],"GeoType2":["101-250 SQF. Glass"]}],"Description":"Straight eave double pitch lantern used on a residential pool enclosure.  Job also includes out of system awning windows and gridwork on skylight and windows.","Image1":"Pool-Enclosure-Skylight-3.jpg","Image2":"Pool-Enclosure-Skylight.jpg","Image3":"Pool-Enclosure-Skylight-2.jpg","Image4":"Pool-Enclosure-Skylight1.jpg","ExtColor":["White"],"IntColor":["White"],"LengthProjection":"34 ft","RidgeHeight":"4 ft 1 in","Location":"Connecticut","Width":"7 ft","Application":["Residential"],"Glazes":["LoE 272"]},{"ProjectID":"11-08-438","Date":201108438,"Products":[{"ProductName":"Architectural Enhancement","GeoType1":["Dormers"],"GeoType2":[]},{"ProductName":"Pool Enclosure","GeoType1":["Straight Eave Double Pitch"],"GeoType2":["2001+ SQF. Glass"]}],"Description":"Straight eave double pitch pool enclosure with one gable end and two dormers.  Unit includes ridge vents, awning windows, terrace doors, gutter and downspout, rake molding, ring and collar along with an exterior finial.","Image1":"Davis-Pool-Enclosure.jpg","Image2":"Davis-Pool-Enclosure-2.jpg","Image3":"Davis-Pool-Enclosure-3.jpg","Image4":"Davis-Pool-Enclosure-4.jpg","ExtColor":["White"],"IntColor":["White"],"LengthProjection":"64 ft 3 in","RidgeHeight":"15 ft 3 in","Location":"New York","Width":"20 ft","Application":["Residential","Sporting"],"Glazes":["LoE 272"]},{"ProjectID":"08-11-291","Date":200811291,"Products":[{"ProductName":"Pool Enclosure","GeoType1":["Straight Eave Double Pitch"],"GeoType2":["101-250 SQF. Glass"]},{"ProductName":"Sliding Door","GeoType1":["Door"],"GeoType2":[]}],"Description":"Straight eave double pitch pool enclosure with ridge vents, folding windows, a folding wall and a sliding door system.","Image1":"DiPonio-Pool-Enclosure-4.jpg","Image2":"DiPonio-Pool-Enclosure-3.jpg","Image3":"DiPonio-Pool-Enclosure-2.jpg","Image4":"DiPonio-Pool-Enclosure.jpg","ExtColor":["Natural Clay"],"IntColor":["Natural Clay"],"LengthProjection":"21 ft 5 in","RidgeHeight":"17 ft 5 in","Location":"Michigan","Width":"21 ft 1 in","Application":["Residential"],"Glazes":["LoE 272"]},{"ProjectID":"12-01-006","Date":201201006,"Products":[{"ProductName":"Screen","GeoType1":["Sliding"],"GeoType2":[]},{"ProductName":"Sliding Door","GeoType1":["Door"],"GeoType2":["101-250 SQF. Glass","Dual Track"]}],"Description":"Dual track sliding glass door system with an OXXO configuration, high performance sill, cat door and sliding screens.","Image1":"Sliding-Screen-Doors-3.jpg","Image2":"Sliding-Screen-Doors-2.jpg","Image3":"Sliding-Screen-Doors.jpg","Image4":"Sliding-Screen-Doors-4.jpg","ExtColor":["Clear Anodized","Class I Anodized"],"IntColor":["Clear Anodized","Class I Anodized"],"LengthProjection":"16 ft 2 in","RidgeHeight":"6 ft 9 in","Location":"Pennsylvania","Width":"-","Application":["Residential"],"Glazes":["Clear","Custom Color"]},{"ProjectID":"07-07-033","Date":200707033,"Products":[{"ProductName":"Architectural Enhancement","GeoType1":["Ridge Vent"],"GeoType2":[]},{"ProductName":"Skylight","GeoType1":["Curved Eave Double Pitch"],"GeoType2":["501-750 SQF. Glass"]}],"Description":"Curved eave double pitch skylight with two gable ends and ridge vents, used to replace an antiquated failing glass roof.","Image1":"Restore-CEDP-Skylight-2.jpg","Image2":"Restore-CEDP-Skylight-4.jpg","Image3":"Restore-CEDP-Skylight-3.jpg","Image4":"Restore-CEDP-Skylight.jpg","ExtColor":[],"IntColor":[],"LengthProjection":"20 ft 9 in","RidgeHeight":"5 ft 11 in","Location":"Delaware","Width":"13 ft 6 in","Application":["Residential"],"Glazes":""},{"ProjectID":"11-07-323","Date":201107323,"Products":[{"ProductName":"Window","GeoType1":["Projected"],"GeoType2":["251-500 SQF. Glass","Awning","Fixed"]}],"Description":"Five groupings of  fixed windows, seperated by columns.  Fixed windows above and below operable awning windows with interior mahogany veneer.  The fixed windows have  double gotchic grid patterns.","Image1":"parc-rittenhouse-windows.jpg","Image2":"parc-rittenhouse-windows-2.jpg","Image3":"parc-rittenhouse-windows-3.jpg","Image4":"parc-rittenhouse-windows-4.jpg","ExtColor":["Dark Bronze Anodized","Bronze","Class I Anodized"],"IntColor":["Sapele Mahogany","Wood"],"LengthProjection":"n/a","RidgeHeight":"9 ft 8 in","Location":"Pennsylvania","Width":"34 ft 6 in","Application":["Residential"],"Glazes":["LoE 272"]},{"ProjectID":"12-05-367","Date":201205367,"Products":[{"ProductName":"Architectural Enhancement","GeoType1":["Knee Walls"],"GeoType2":[]},{"ProductName":"Greenhouse","GeoType1":["Straight Eave Lean-To"],"GeoType2":["251-500 SQF. Glass"]}],"Description":"Straight eave lean to greenhouse with two gable ends, ridge vents, eave vent, and awning windows.","Image1":"poke-02202013.jpg","Image2":"poke-greenhouse-02202013-2-1024x748.jpg","Image3":"poke-greenhouse-02202013-3.jpg","Image4":"poke-greenhouse-02202013-4.jpg","ExtColor":["White"],"IntColor":["White"],"LengthProjection":"17 ft 9 in","RidgeHeight":"10 ft 2 in","Location":"Virginia","Width":"9 ft ","Application":["Residential"],"Glazes":["LoE 272"]},{"ProjectID":"11-02-238","Date":201102238,"Products":[{"ProductName":"Architectural Enhancement","GeoType1":["Dormers","Lantern"],"GeoType2":[]},{"ProductName":"Conservatory","GeoType1":["Irregular / Custom","Straight Eave Double Pitch"],"GeoType2":["2001+ SQF. Glass"]},{"ProductName":"Decorative Elements","GeoType1":["Finials","Ridge Cresting"],"GeoType2":["Corner Trim","Traditional Grid"]}],"Description":"Straight eave pyramid conservatory with four double pitch lanterns, two interior partitions, transoms, gridwork, gable rake molding, gutter, downspout and a pyramid lantern.","Image1":"Diassi-11-27-13-edited_500.jpg","Image2":"Decorative-Conservatory-2.jpg","Image3":"Decorative-Conservatory-3.jpg","Image4":"Decorative-Conservatory.jpg","ExtColor":["White"],"IntColor":["White"],"LengthProjection":"40 ft 1 in","RidgeHeight":"25 ft","Location":"New Jersey","Width":"40 ft","Application":["Residential"],"Glazes":["LoE 272"]},{"ProjectID":"10-12-318","Date":201012318,"Products":[{"ProductName":"Door","GeoType1":["Out of System Terrace and French Doors"],"GeoType2":[]},{"ProductName":"Window","GeoType1":["Hung","International","Projected"],"GeoType2":["501-750 SQF. Glass","Fixed","Hopper"]}],"Description":"Multiple sets of window systems.  Each unit has an insulated panel, fixed window, hopper window and lower insulated panel. Job also features an out of system commercial terrace door with push pull hardware","Image1":"Solar-Innovations-Windows.jpg","Image2":"Solar-Innovations-Windows-4.jpg","Image3":"Solar-Innovations-Windows-2.jpg","Image4":"Solar-Innovations-Windows-3.jpg","ExtColor":["White"],"IntColor":["White"],"LengthProjection":"varies per unit","RidgeHeight":"varies per unit","Location":"New Jersey","Width":"varies per unit","Application":["Commercial","Office Space"],"Glazes":["LoE 366"]},{"ProjectID":"06-04-042","Date":200604042,"Products":[{"ProductName":"Polycarbonate","GeoType1":["Polycarbonate Sunroom"],"GeoType2":[]},{"ProductName":"Sunroom","GeoType1":["Straight Eave Double Pitch"],"GeoType2":["501-750 SQF. Glass"]}],"Description":"Straight eave double pitch stairway enclosure used on a commercial application with awning windows and terrace doors.","Image1":"Polycarbonate-Greenhouse.jpg","Image2":"Polycarbonate-Greenhouse-2.jpg","Image3":"Polycarbonate-Greenhouse-3.jpg","Image4":"Polycarbonate-Greenhouse-4.jpg","ExtColor":["Sandstone"],"IntColor":["Sandstone"],"LengthProjection":"9 ft ","RidgeHeight":"9 ft ","Location":"Pennsylvania","Width":"25 ft 5 in","Application":["Commercial"],"Glazes":["Polycarbonate"]},{"ProjectID":"10-06-487","Date":201006487,"Products":[{"ProductName":"Greenhouse","GeoType1":["Straight Eave Double Pitch"],"GeoType2":["51-100 SQF. Glass"]},{"ProductName":"Greenhouse Accessory","GeoType1":["Greenhouse Benches","Temperature Control"],"GeoType2":["Circulation Fans","Fixed Bench","Metal Mesh Top Bench","Rolling Bench"]},{"ProductName":"Shades","GeoType1":["Interior Folding / Roman Pleated","Interior Operable"],"GeoType2":["HVHZ / Miami-Dade Rated"]}],"Description":"Existing greenhouse with retrofits by Solar Innovations?.  Additions include an operable, roof mounted shade system, humidifiers, ridge vent replacement, and  fixed mesh top benches.","Image1":"Beechcrest-Greenhouse.jpg","Image2":"Beechcrest-Greenhouse-4.jpg","Image3":"Beechcrest-Greenhouse-3.jpg","Image4":"Beechcrest-Greenhouse-2.jpg","ExtColor":[],"IntColor":[],"LengthProjection":"n/a","RidgeHeight":"-","Location":"New Jersey","Width":"n/a","Application":["Residential"],"Glazes":""},{"ProjectID":"06-04-010","Date":200604010,"Products":[{"ProductName":"Greenhouse","GeoType1":["Straight Eave Lean-To"],"GeoType2":["251-500 SQF. Glass"]}],"Description":"Straight eave lean to greenhouse with two gable ends and in system terrace door.","Image1":"Straight-Eave-Lean-To.jpg","Image2":"Straight-Eave-Lean-To-2.jpg","Image3":"Straight-Eave-Lean-To-3.jpg","Image4":"Straight-Eave-Lean-To-4.jpg","ExtColor":["White"],"IntColor":["White"],"LengthProjection":"24 ft 8 in","RidgeHeight":"10 ft 3 in","Location":"Pennsylvania","Width":"8 ft","Application":["Residential"],"Glazes":["LoE 272"]},{"ProjectID":"08-06-235","Date":200806235,"Products":[{"ProductName":"Greenhouse","GeoType1":["Straight Eave Lean-To"],"GeoType2":["251-500 SQF. Glass"]},{"ProductName":"Hobby Greenhouse","GeoType1":["Straight Eave Lean-To"],"GeoType2":["251-500 SQF. Glass"]}],"Description":"Straight eave lean to greenhouse with one gable end used to grow palm trees and tropical plants, including ridge vent, eave vent, terrace door, gutter and downspout.","Image1":"Palm-Greenhouse-4.jpg","Image2":"Palm-Greenhouse-2-1024x802.jpg","Image3":"Palm-Greenhouse-3-1024x699.jpg","Image4":"Palm-Greenhouse.jpg","ExtColor":["Green (Hartford)"],"IntColor":["Green (Hartford)"],"LengthProjection":"16 ft","RidgeHeight":"15 ft 11 in","Location":"Other","Width":"12 ft","Application":["Residential"],"Glazes":["LoE 272"]},{"ProjectID":"10-12-161","Date":201012161,"Products":[{"ProductName":"Folding Glass Wall","GeoType1":[],"GeoType2":["101-250 SQF. Glass","Single Door End Jamb"]}],"Description":"Single door hinge jamb folding wall system, top loaded, with three panels and a recessed sill using an adjustable ramp.","Image1":"Car-Dealership-Folding-Doors-2.jpg","Image2":"Car-Dealership-Folding-Doors.jpg","Image3":"Car-Dealership-Folding-Doors-4.jpg","Image4":"Car-Dealership-Folding-Doors-3.jpg","ExtColor":["Clear Anodized","Class I Anodized"],"IntColor":["Clear Anodized","Class I Anodized"],"LengthProjection":"-","RidgeHeight":"8 ft 1 in","Location":"Florida","Width":"9 ft 8 in","Application":["Commercial","Retail Sales"],"Glazes":["LoE 366"]},{"ProjectID":"11-10-387","Date":201110387,"Products":[{"ProductName":"Folding Glass Wall","GeoType1":[],"GeoType2":["1-50 SQF. Glass","Single Door Last Panel"]}],"Description":"Single door hinge jamb folding wall system, bottom loaded, with three panels and a recessed sill","Image1":"Car-Dealership-Folding-Doors1.jpg","Image2":"Car-Dealership-Folding-Doors-21.jpg","Image3":"Car-Dealership-Folding-Doors-31.jpg","Image4":"Car-Dealership-Folding-Doors-41.jpg","ExtColor":["Clear Anodized","Class I Anodized"],"IntColor":["Clear Anodized","Class I Anodized"],"LengthProjection":"-","RidgeHeight":"8 ft 2 in","Location":"Florida","Width":"9 ft 6 in","Application":["Commercial","Retail Sales"],"Glazes":["LoE 366"]},{"ProjectID":"11-10-365","Date":201110365,"Products":[{"ProductName":"Folding Glass Wall","GeoType1":[],"GeoType2":["51-100 SQF. Glass","Single Door End Jamb"]}],"Description":"Single door hinge jamb folding wall system, top loaded, with three panels and a recessed sill using an adjustable ramp.","Image1":"Car-Dealership-Folding-Doors2.jpg","Image2":"Car-Dealership-Folding-Doors-22.jpg","Image3":"Car-Dealership-Folding-Doors-32.jpg","Image4":"Car-Dealership-Folding-Doors-42.jpg","ExtColor":["White"],"IntColor":["White"],"LengthProjection":"-","RidgeHeight":"7 ft 11 in","Location":"Florida","Width":"9 ft 8 in","Application":["Commercial","Retail Sales"],"Glazes":["Gray"]},{"ProjectID":"11-03-268","Date":201103268,"Products":[{"ProductName":"Folding Glass Wall","GeoType1":[],"GeoType2":["251-500 SQF. Glass","Double Door Mid Wall"]},{"ProductName":"Pivot","GeoType1":["Door"],"GeoType2":[]}],"Description":"Whole house glazing package which includes a pivot door, and multiple folding walls","Image1":"Nobel-Doors-and-Windows-Florida.jpg","Image2":"Nobel-Doors-and-Windows-Florida-2.jpg","Image3":"Nobel-Doors-and-Windows-Florida-3.jpg","Image4":"Nobel-Doors-and-Windows-Florida-4.jpg","ExtColor":["Clear Anodized","Class I Anodized"],"IntColor":["Clear Anodized","Class I Anodized"],"LengthProjection":"Units Vary","RidgeHeight":"Units Vary","Location":"Florida","Width":"Units Vary","Application":["Home","Residential"],"Glazes":["Solarban 60"]},{"ProjectID":"11-07-001","Date":201107001,"Products":[{"ProductName":"Complete Glazing Packages","GeoType1":["Complete Glazing Packages"],"GeoType2":["501-750 SQF. Glass"]},{"ProductName":"Door","GeoType1":["In-System Terrace Door"],"GeoType2":[]},{"ProductName":"Sliding Door","GeoType1":["Door"],"GeoType2":["251-500 SQF. Glass","Multi-Track"]}],"Description":"Whole house glazing package which includes sliding doors, terrace doors and a pivot door.","Image1":"BeckenStein-Sliders-and-Terrace-Door.jpg","Image2":"BeckenStein-Sliders-and-Terrace-Door-2.jpg","Image3":"BeckenStein-Sliders-and-Terrace-Door-3.jpg","Image4":"BeckenStein-Sliders-and-Terrace-Door-41.jpg","ExtColor":["Clear Anodized","Class I Anodized"],"IntColor":["Clear Anodized","Class I Anodized"],"LengthProjection":"Units Vary","RidgeHeight":"Units Vary","Location":"New York","Width":"Units Vary","Application":["Home","Residential"],"Glazes":["Gray"]},{"ProjectID":"09-07-405","Date":200907405,"Products":[{"ProductName":"Folding Glass Wall","GeoType1":["Door"],"GeoType2":["51-100 SQF. Glass","Double Door Mid Wall"]}],"Description":"A folding wall job with a double door mid-wall configuration, three panels fold left, three fold right, recessed surface mount ADA sill, and impact glass.","Image1":"Flordia-Impact-Folding-Walls-1.jpg","Image2":"Flordia-Impact-Folding-Walls-2.jpg","Image3":"Flordia-Impact-Folding-Walls-4.jpg","Image4":"Flordia-Impact-Folding-Walls.jpg","ExtColor":["White"],"IntColor":["White"],"LengthProjection":"-","RidgeHeight":"7 ft 8 in","Location":"Florida","Width":"16 ft","Application":["Commercial","Retail Sales"],"Glazes":["Clear"]},{"ProjectID":"08-10-264","Date":200810264,"Products":[{"ProductName":"Folding Glass Wall","GeoType1":["Door"],"GeoType2":["101-250 SQF. Glass","Double Door Mid Wall"]},{"ProductName":"Sliding Door","GeoType1":["Door"],"GeoType2":["101-250 SQF. Glass","Dual Track"]}],"Description":"Residential home with dual track sliding windows using high performance sills. The job also features a double door midwall folding wall using a standard sill.","Image1":"Award-Winning-Windows-and-Doors.jpg","Image2":"Award-Winning-Windows-and-Doors-3.jpg","Image3":"Award-Winning-Windows-and-Doors-4.jpg","Image4":"Award-Winning-Windows-and-Doors-2.jpg","ExtColor":["Clear Anodized","Class I Anodized"],"IntColor":["Clear Anodized","Class I Anodized"],"LengthProjection":"Units Vary","RidgeHeight":"Units Vary","Location":"Florida","Width":"Units Vary","Application":["Dining","Home","Living Space","Residential"],"Glazes":["LoE 366"]},{"ProjectID":"11-11-330","Date":201111330,"Products":[{"ProductName":"Folding Glass Wall","GeoType1":[],"GeoType2":["101-250 SQF. Glass","Single Door End Jamb"]}],"Description":"Two sets of folding wall systems used at a car dealership with single door hinge jamb configuration, panels that fold out, top loaded with a recessed sill and adjustable ramp.","Image1":"Car-Dealership-Florida-Folding-Walls.jpg","Image2":"Car-Dealership-Florida-Folding-Walls-2.jpg","Image3":"Car-Dealership-Florida-Folding-Walls-3.jpg","Image4":"Car-Dealership-Florida-Folding-Walls-4.jpg","ExtColor":["Clear Anodized","Class I Anodized"],"IntColor":["Clear Anodized","Class I Anodized"],"LengthProjection":"-","RidgeHeight":"7 ft 4 in","Location":"Florida","Width":"9 ft 6 in","Application":["Commercial","Retail Sales"],"Glazes":["Solarban 60"]},{"ProjectID":"12-08-316","Date":201208316,"Products":[{"ProductName":"Sliding Door","GeoType1":["Door"],"GeoType2":["251-500 SQF. Glass","Multi-Track"]}],"Description":"Multi track sliding glass door with OXXXXO configuration and two tone frame finish.","Image1":"Residential-Sliding-Glass-Doors-2.jpg","Image2":"Residential-Sliding-Glass-Doors-3.jpg","Image3":"Residential-Sliding-Glass-Doors-4.jpg","Image4":"Residential-Sliding-Glass-Doors.jpg","ExtColor":["Bronze"],"IntColor":["White"],"LengthProjection":"-","RidgeHeight":"9 ft 6 in","Location":"New Jersey","Width":"20 ft 3 in","Application":["Residential"],"Glazes":["LoE 272"]},{"ProjectID":"09-02-357","Date":200902357,"Products":[{"ProductName":"Folding Glass Wall","GeoType1":["Door"],"GeoType2":["251-500 SQF. Glass","All Wall"]}],"Description":"Multiple sets of folding glass walls used on a residential application.","Image1":"Mengle-Folding-Glass-Walls.jpg","Image2":"Mengle-Folding-Glass-Walls-2.jpg","Image3":"Mengle-Folding-Glass-Walls-3.jpg","Image4":"Mengle-Folding-Glass-Walls-4.jpg","ExtColor":["White"],"IntColor":["White"],"LengthProjection":"Units Vary","RidgeHeight":"Units Vary","Location":"Other","Width":"Units Vary","Application":["Home","Residential"],"Glazes":["LoE 340"]},{"ProjectID":"12-03-151","Date":201203151,"Products":[{"ProductName":"Skylight","GeoType1":["Straight Eave Lean-To"],"GeoType2":["101-250 SQF. Glass"]}],"Description":"Straight eave lean to skylight with no gable ends, four casement windows and interior Douglas fir veneer.","Image1":"Straight-Eave-Lean-To-Skylight-2.jpg","Image2":"Straight-Eave-Lean-To-Skylight-3.jpg","Image3":"Straight-Eave-Lean-To-Skylight-4.jpg","Image4":"Straight-Eave-Lean-To-Skylight.jpg","ExtColor":["White"],"IntColor":["White"],"LengthProjection":"12 ftL","RidgeHeight":"8 ft 10 in","Location":"Connecticut","Width":"6 ft 10 in","Application":["Home","Residential"],"Glazes":["LoE 366"]},{"ProjectID":"05-09-002","Date":200509002,"Products":[{"ProductName":"Greenhouse","GeoType1":["Straight Eave Lean-To"],"GeoType2":["501-750 SQF. Glass"]},{"ProductName":"Greenhouse Accessory","GeoType1":["Temperature Control"],"GeoType2":["Circulation Fans","Evaporative Coolers","Seeding Bench"]},{"ProductName":"Shades","GeoType1":["Interior Folding / Roman Pleated"],"GeoType2":[]}],"Description":"Straight eave lean to greenhouse with two gable ends, ridge vents, eave sash, circulation fans, evaporative cooler and heater","Image1":"anikis-Greenhouse-Shades-2.jpg","Image2":"anikis-Greenhouse-Shades-3.jpg","Image3":"anikis-Greenhouse-Shades-4.jpg","Image4":"anikis-Greenhouse-Shades.jpg","ExtColor":["Bronze"],"IntColor":["Bronze"],"LengthProjection":"16 ft","RidgeHeight":"10 ft 3 in","Location":"Virginia","Width":"12 ft 10 in","Application":["Residential"],"Glazes":["LoE 272"]},{"ProjectID":"08-08-192","Date":200808192,"Products":[{"ProductName":"Greenhouse","GeoType1":["Straight Eave Lean-To"],"GeoType2":["251-500 SQF. Glass"]},{"ProductName":"Shades","GeoType1":["Interior Folding / Roman Pleated"],"GeoType2":[]}],"Description":"Straight eave lean-to greenhouse with one gable end, located on a rooftop.  Greenhouse includes terrace door, ridge vents and interior roof mounted operable shades.","Image1":"Hoyer-Greenhouse.jpg","Image2":"Hoyer-Greenhouse-2.jpg","Image3":"Hoyer-Greenhouse-3.jpg","Image4":"Hoyer-Greenhouse1.jpg","ExtColor":["Sandstone"],"IntColor":["Sandstone"],"LengthProjection":"15 ft 11 in","RidgeHeight":"12 ft","Location":"Pennsylvania","Width":"11 ft 11 in","Application":["Residential"],"Glazes":["LoE 272"]},{"ProjectID":"06-08-003","Date":200608003,"Products":[{"ProductName":"Shades","GeoType1":["Interior Folding / Roman Pleated"],"GeoType2":[]}],"Description":"Interior, roof mounted, operable shades used on a single slope skylight.","Image1":"kaskey-greenhouse-shades.jpg","Image2":"kaskey-greenhouse-shades-2.jpg","Image3":"kaskey-greenhouse-shades-3.jpg","Image4":"kaskey-greenhouse-shades-1.jpg","ExtColor":[],"IntColor":[],"LengthProjection":"n/a","RidgeHeight":"-","Location":"Washington DC","Width":"n/a","Application":["Residential"],"Glazes":""},{"ProjectID":"12-02-090","Date":201202090,"Products":[{"ProductName":"Shades","GeoType1":["Exterior Fixed"],"GeoType2":[]},{"ProductName":"Skylight","GeoType1":["Single Slope"],"GeoType2":["101-250 SQF. Glass"]}],"Description":"Single slope skylight with no gable ends utilizing the flexible glazing system.  The skylight uses  fixed exterior roof mounted shades.","Image1":"schwab-Exterior-Shades-2.jpg","Image2":"schwab-Exterior-Shades-3.jpg","Image3":"schwab-Exterior-Shades-4.jpg","Image4":"schwab-Exterior-Shades.jpg","ExtColor":["Bronze"],"IntColor":["Bronze"],"LengthProjection":"12 ft 3 in","RidgeHeight":"8 ft 8 in","Location":"Pennsylvania","Width":"-","Application":["Living Space","Residential"],"Glazes":["LoE 366"]},{"ProjectID":"04-09-039","Date":200409039,"Products":[{"ProductName":"Skylight","GeoType1":["Dome"],"GeoType2":["101-250 SQF. Glass"]}],"Description":"16 bay dome skylight with bronze and copper panels in the cupola, topped by a finial.","Image1":"Dome-Skylight-Camp-3.jpg","Image2":"Dome-Skylight-Camp-1.jpg","Image3":"Dome-Skylight-Camp-2.jpg","Image4":"Dome-Skylight-Camp.jpg","ExtColor":["Bronze","Copper","Metal Cladding"],"IntColor":["Bronze"],"LengthProjection":"9 ft D","RidgeHeight":"9 ft 5 in","Location":"Ohio","Width":"-","Application":["Residential"],"Glazes":["Clear"]},{"ProjectID":"06-01-036","Date":200601036,"Products":[{"ProductName":"Skylight","GeoType1":["Dome"],"GeoType2":["101-250 SQF. Glass"]}],"Description":"True radius domed skylight with sixteen bays and two tone finish.","Image1":"Robert-Fotsch-Dome-1.jpg","Image2":"Robert-Fotsch-Dome-3.jpg","Image3":"Robert-Fotsch-Dome-2.jpg","Image4":"Robert-Fotsch-Dome.jpg","ExtColor":["Bronze"],"IntColor":["Sandstone"],"LengthProjection":"10 ftD","RidgeHeight":"3 ft 2 in","Location":"North Carolina","Width":"-","Application":["Residential"],"Glazes":["Bronze"]},{"ProjectID":"04-10-048","Date":200410048,"Products":[{"ProductName":"Skylight","GeoType1":["Dome"],"GeoType2":["501-750 SQF. Glass"]}],"Description":"Domed skylight with sixteen bays.","Image1":"jamison-dome-skylight-1.jpg","Image2":"jamison-dome-skylight-2.jpg","Image3":"jamison-dome-skylight-3.jpg","Image4":"jamison-dome-skylight.jpg","ExtColor":["Bronze"],"IntColor":["Bronze"],"LengthProjection":"16 ft 11 inD","RidgeHeight":"6 ft 3 in","Location":"North Carolina","Width":"-","Application":["Home","Residential"],"Glazes":["Clear"]},{"ProjectID":"09-01-891","Date":200901891,"Products":[{"ProductName":"Skylight","GeoType1":["Flat","Single Slope"],"GeoType2":["51-100 SQF. Glass","Welded Curb"]}],"Description":"Five pre-assembled, flat, welded curb skylights.","Image1":"Flat-Skylights-1.jpg","Image2":"Flat-Skylights-2.jpg","Image3":"Flat-Skylights-3.jpg","Image4":"Flat-Skylights.jpg","ExtColor":["Bronze"],"IntColor":["Bronze"],"LengthProjection":"varies per unit","RidgeHeight":"varies per unit","Location":"Florida","Width":"varies per unit","Application":["Home","Residential"],"Glazes":["Clear"]},{"ProjectID":"04-06-013","Date":200406013,"Products":[{"ProductName":"Skylight","GeoType1":["Single Slope"],"GeoType2":["101-250 SQF. Glass"]}],"Description":"Flat skylight with ridge vents","Image1":"Lakeview-Flat-Skylight-1.jpg","Image2":"Lakeview-Flat-Skylight-2.jpg","Image3":"Lakeview-Flat-Skylight-4.jpg","Image4":"Lakeview-Flat-Skylight.jpg","ExtColor":["Bronze"],"IntColor":["Bronze"],"LengthProjection":"12 ft 1 in","RidgeHeight":"-","Location":"Massachusetts","Width":"9 ft 10W","Application":["Residential"],"Glazes":["Clear"]},{"ProjectID":"10-07-390","Date":201007390,"Products":[{"ProductName":"Skylight","GeoType1":["Single Slope"],"GeoType2":["101-250 SQF. Glass"]}],"Description":"Curb mounted flat skylight with operable ridge vents","Image1":"Catbird-1.jpg","Image2":"Catbird.jpg","Image3":"Catbird-3.jpg","Image4":"Catbird-2.jpg","ExtColor":["Black"],"IntColor":["Black"],"LengthProjection":"9 ft 1 in","RidgeHeight":"12 ft","Location":"Vermont","Width":"-","Application":["Commercial"],"Glazes":["LoE 272"]},{"ProjectID":"08-07-230","Date":200807230,"Products":[{"ProductName":"Shades","GeoType1":["Exterior Fixed"],"GeoType2":[]},{"ProductName":"Skylight","GeoType1":["Flat"],"GeoType2":["51-100 SQF. Glass"]}],"Description":"Flat skylight with removable shades using the FGS system","Image1":"Bortz-1.jpg","Image2":"Bortz-3.jpg","Image3":"Bortz-4.jpg","Image4":"Bortz-2.jpg","ExtColor":["Bronze"],"IntColor":["Bronze"],"LengthProjection":"9 ft 3 in","RidgeHeight":"6 ft 6 in","Location":"Pennsylvania","Width":"-","Application":["Residential"],"Glazes":["LoE 272"]},{"ProjectID":"13-01-340","Date":201301340,"Products":[{"ProductName":"Stacking Glass Wall","GeoType1":["Doors"],"GeoType2":["251-500 SQF. Glass"]}],"Description":"Stacking wall system with a 148 degree no post corner, featuring 12 panels and a flush lock sill","Image1":"Cincinatti-Reds-Stacking-Walls.jpg","Image2":"Cincinatti-Reds-Stacking-Walls-2.jpg","Image3":"Cincinatti-Reds-Stacking-Walls-3.jpg","Image4":"Cincinatti-Reds-Stacking-Walls-4.jpg","ExtColor":["Clear Anodized","Class I Anodized"],"IntColor":["Clear Anodized","Class I Anodized"],"LengthProjection":"-","RidgeHeight":"9 ft  1 in","Location":"Ohio","Width":"42 ft 2 in","Application":["Sporting","Stadiums"],"Glazes":["Clear"]},{"ProjectID":"09-05-364","Date":200905364,"Products":[{"ProductName":"Architectural Enhancement","GeoType1":["Lantern"],"GeoType2":[]},{"ProductName":"Skylight","GeoType1":["Polygonal"],"GeoType2":["251-500 SQF. Glass"]}],"Description":"12 sided polygon skylight with a lantern and motorized awning windows","Image1":"Hawaii-Skylight.jpg","Image2":"Hawaii-Skylight-2.jpg","Image3":"Hawaii-Skylight-3.jpg","Image4":"Hawaii-Skylight-4.jpg","ExtColor":["Clear Anodized","Class I Anodized"],"IntColor":["Clear Anodized","Class I Anodized"],"LengthProjection":"17 ft  9 in","RidgeHeight":"10 ft 4 in","Location":"Hawaii","Width":"17 ft  9","Application":["Commercial"],"Glazes":["LoE 340"]},{"ProjectID":"12-02-315","Date":201202315,"Products":[{"ProductName":"Skylight","GeoType1":["Hip End","Pyramid"],"GeoType2":["101-250 SQF. Glass"]}],"Description":"Two pyramid skylights and one hip end skylight.","Image1":"Green-NJ-Skylight.jpg","Image2":"Green-NJ-Skylight-2.jpg","Image3":"Green-NJ-Skylight-3.jpg","Image4":"Green-NJ-Skylight-4.jpg","ExtColor":["White"],"IntColor":["White"],"LengthProjection":"varies per unit","RidgeHeight":"varies per unit","Location":"New Jersey","Width":"varies per unit","Application":["Residential"],"Glazes":["Clear","Monolithic Glass"]},{"ProjectID":"12-05-414","Date":201205414,"Products":[{"ProductName":"Complete Glazing Packages","GeoType1":[],"GeoType2":["501-750 SQF. Glass"]},{"ProductName":"Curtain Wall","GeoType1":["Vertical Curtain Wall"],"GeoType2":["101-250 SQF. Glass"]}],"Description":"Whole house glazing package which includes casement, awning and fixed windows made with the mulled window systems, along with terrace doors, a linkway sunroom, and a pivot door.","Image1":"olson-jesson-9-20-2013-27-web-1.jpg","Image2":"Olson-Jesson-Windows-and-Curtain-Wall-2.jpg","Image3":"olson-jesson-9-20-2013-24-web-3.jpg","Image4":"olson-jesson-9-20-2013-8-web-1.jpg","ExtColor":["Clear Anodized","Class I Anodized"],"IntColor":["Clear Anodized","Class I Anodized"],"LengthProjection":"units vary","RidgeHeight":"units vary","Location":"Maryland","Width":"units vary","Application":["Residential"],"Glazes":["LoE 340"]},{"ProjectID":"10-09-125","Date":201009125,"Products":[{"ProductName":"Skylight","GeoType1":["Hip End","Polygonal","Pyramid"],"GeoType2":["101-250 SQF. Glass"]}],"Description":"Four skylights used on a residential home with configurations including a polygon skylight, hip end and pyramid.","Image1":"Whitney-Skylights.jpg","Image2":"Whitney-Skylights-4.jpg","Image3":"Whitney-Skylights-3.jpg","Image4":"Whitney-Skylights-2.jpg","ExtColor":["Black"],"IntColor":["Black"],"LengthProjection":"varies per unit","RidgeHeight":"v","Location":"New York","Width":"varies per unit","Application":["Residential"],"Glazes":["LoE 272"]},{"ProjectID":"13-02-290","Date":201302290,"Products":[{"ProductName":"Window","GeoType1":["Folding","Hung","Mulled"],"GeoType2":["101-250 SQF. Glass","Casement","Fixed","Outswing Casement"]}],"Description":"Out of system mulled window unit with both a fixed and casement window.","Image1":"Mulled-Window-Liberty.jpg","Image2":"Mulled-Window-Liberty-2.jpg","Image3":"Mulled-Window-Liberty-3.jpg","Image4":"Mulled-Window-Liberty-4.jpg","ExtColor":["Dark Bronze Anodized","Bronze","Class I Anodized"],"IntColor":["Dark Bronze Anodized","Bronze","Class I Anodized"],"LengthProjection":"-","RidgeHeight":"5 ft 7 in","Location":"Pennsylvania","Width":"5 ft 11 in","Application":["Residential"],"Glazes":["LoE 272"]},{"ProjectID":"10-08-170","Date":201008170,"Products":[{"ProductName":"Skylight","GeoType1":["Dome","Irregular / Custom"],"GeoType2":["751-1000 SQF. Glass"]}],"Description":"Segmented radius dome skylight with a segmented sill","Image1":"ISSO-temple-Skylight-2.jpg","Image2":"ISSO-temple-Skylight-3.jpg","Image3":"ISSO-temple-Skylight-4.jpg","Image4":"ISSO-temple-Skylight.jpg","ExtColor":["White"],"IntColor":["White"],"LengthProjection":"30 ft 1 in","RidgeHeight":"10 ft 5 in","Location":"Other","Width":"30 ft 1 in","Application":["Ecclesiastical"],"Glazes":["LoE 366"]},{"ProjectID":"12-07-325","Date":201207325,"Products":[{"ProductName":"Greenhouse","GeoType1":["Straight Eave Lean-To"],"GeoType2":["501-750 SQF. Glass"]},{"ProductName":"Shades","GeoType1":["Interior Folding / Roman Pleated"],"GeoType2":[]}],"Description":"Straight eave lean-to sunroom with interior roof mounted shades.","Image1":"Greenhouse-and-Shades.jpg","Image2":"Greenhouse-and-Shades-2.jpg","Image3":"Greenhouse-and-Shades-3.jpg","Image4":"Greenhouse-and-Shades-4.jpg","ExtColor":["Bronze"],"IntColor":["Bronze"],"LengthProjection":"12 ft","RidgeHeight":"10 ft 8 in","Location":"Pennsylvania","Width":"12 ft 7 in","Application":["Residential"],"Glazes":["LoE 272"]},{"ProjectID":"12-03-457","Date":201203457,"Products":[{"ProductName":"Stacking Glass Wall","GeoType1":["Doors"],"GeoType2":["751-1000 SQF. Glass"]}],"Description":"Stacking wall windows and commercial terrace doors used on a stadium application. The stack walls feature double swing operable doors with 90 degree pulls and overhead door closers, along with a flush mount sill.","Image1":"Coors-Feild-Stacking-Glass-Walls.jpg","Image2":"Coors-Feild-Stacking-Glass-Walls-1.jpg","Image3":"Coors-Feild-Stacking-Glass-Walls-2.jpg","Image4":"Coors-Feild-Stacking-Glass-Walls-3.jpg","ExtColor":["Clear Anodized","Class I Anodized"],"IntColor":["Clear Anodized","Class I Anodized"],"LengthProjection":"-","RidgeHeight":"9 ft 6 in","Location":"Colorado","Width":"12 ft 6 in","Application":["Stadiums"],"Glazes":["Clear","Monolithic Glass"]},{"ProjectID":"12-01-354","Date":201201354,"Products":[{"ProductName":"Architectural Enhancement","GeoType1":["Eave Vent"],"GeoType2":[]},{"ProductName":"Decorative Elements","GeoType1":["Finials","Ridge Cresting"],"GeoType2":[]},{"ProductName":"Skylight","GeoType1":["Straight Eave Double Pitch"],"GeoType2":["251-500 SQF. Glass"]}],"Description":"Straight eave double pitch skylight with two gable ends, eave sashes, finial and ridge cresting","Image1":"Rooftop-Skylight-SELT-4.jpg","Image2":"Rooftop-Skylight-SELT-3.jpg","Image3":"Rooftop-Skylight-SELT-2.jpg","Image4":"Rooftop-Skylight-SELT.jpg","ExtColor":["White"],"IntColor":["White"],"LengthProjection":"16 ft 4 in","RidgeHeight":"4 ft 11 in","Location":"Rhode Island","Width":"14 ft 5 in","Application":["Residential"],"Glazes":["LoE 272"]},{"ProjectID":"10-08-272","Date":201008272,"Products":[{"ProductName":"Folding Glass Wall","GeoType1":["Door","Monster Wall"],"GeoType2":["251-500 SQF. Glass","Split Wall Floating Jamb","Split Wall No Floating Jamb"]}],"Description":"Multiple folding wall units used on a hotel including a center pivot folding wall with a split wall configuration and surface mount sill, sliding door and curtain wall, all with monolithic glazing.","Image1":"Monster-Folding-Wall-Hawaii.jpg","Image2":"Monster-Folding-Wall-Hawaii-1.jpg","Image3":"Monster-Folding-Wall-Hawaii-2.jpg","Image4":"Monster-Folding-Wall-Hawaii-3.jpg","ExtColor":["Custom Color"],"IntColor":["Custom Color"],"LengthProjection":"Units Vary","RidgeHeight":"Units Vary","Location":"Hawaii","Width":"Units Vary","Application":["Commercial"],"Glazes":["Bronze","Monolithic Glass"]},{"ProjectID":"09-08-864","Date":200908864,"Products":[{"ProductName":"Decorative Elements","GeoType1":["Base Panels"],"GeoType2":[]},{"ProductName":"Sliding Door","GeoType1":["Door"],"GeoType2":["Dual Track"]},{"ProductName":"Sunroom","GeoType1":["Straight Eave Lean-To"],"GeoType2":["251-500 SQF. Glass"]}],"Description":"Straight eave lean to sunroom with two gable ends, a sliding door system, operable windows and raised base panels.","Image1":"Second-Story-Sunroom-2.jpg","Image2":"Second-Story-Sunroom-3.jpg","Image3":"Second-Story-Sunroom-4.jpg","Image4":"Second-Story-Sunroom.jpg","ExtColor":["Natural Clay"],"IntColor":["Natural Clay"],"LengthProjection":"9 ft 9 in","RidgeHeight":"11 ft 4 in","Location":"Pennsylvania","Width":"16 ft","Application":["Residential"],"Glazes":["LoE 272"]},{"ProjectID":"05-08-048","Date":200508048,"Products":[{"ProductName":"Curtain Wall","GeoType1":["Vertical with Integrated Slope"],"GeoType2":[]},{"ProductName":"Skylight","GeoType1":["Straight Eave Double Pitch"],"GeoType2":["751-1000 SQF. Glass"]}],"Description":"Straight eave double pitch skylight with two gable ends and vertical curtain walls.","Image1":"academy-of-the-new-church.jpg","Image2":"academy-of-the-new-church-4.jpg","Image3":"academy-of-the-new-church-2.jpg","Image4":"academy-of-the-new-church1.jpg","ExtColor":["White"],"IntColor":["White"],"LengthProjection":"131 ft 10 in","RidgeHeight":"10 ft 10 in","Location":"Pennsylvania","Width":"4 ft 3 in","Application":["Ecclesiastical","Educational","Institutional"],"Glazes":["Glass"]},{"ProjectID":"07-02-008","Date":200702008,"Products":[{"ProductName":"Skylight","GeoType1":["Polygonal"],"GeoType2":["101-250 SQF. Glass"]}],"Description":"Polygon skylight with a custom finish used on a residential application","Image1":"doug-newcomer-skylight.jpg","Image2":"doug-newcomer-skylight-2.jpg","Image3":"doug-newcomer-skylight-3.jpg","Image4":"doug-newcomer-skylight-4.jpg","ExtColor":["Custom Color"],"IntColor":["Custom Color"],"LengthProjection":"14 ft 8 in","RidgeHeight":"5 ft 7 in","Location":"Maryland","Width":"14 ft 8 in","Application":["Residential"],"Glazes":["Clear","Solarban 60"]},{"ProjectID":"12-09-302","Date":201209302,"Products":[{"ProductName":"Folding Glass Wall","GeoType1":["Door","Windows"],"GeoType2":["101-250 SQF. Glass","All Wall"]}],"Description":"One folding wall with a row of clerestory windows above and two folding windows.","Image1":"6-honey-hollow-creek-06212013-edited.jpg","Image2":"6-honey-hollow-creek-06212013-edited-2-500.jpg","Image3":"honey-hollow-creek-edited-500.jpg","Image4":"honey-hollow-creek-3-edited-500.jpg","ExtColor":["White"],"IntColor":["White"],"LengthProjection":"units vary","RidgeHeight":"units vary","Location":"New York","Width":"units vary","Application":["Residential"],"Glazes":["LoE 272"]},{"ProjectID":"12-05-103","Date":201205103,"Products":[{"ProductName":"Conservatory","GeoType1":["Conservatory Nose"],"GeoType2":["501-750 SQF. Glass"]},{"ProductName":"Window","GeoType1":["Projected"],"GeoType2":["Awning"]}],"Description":"A straight eave double pitch conservatory with one conservatory nose, awning windows, ridge vents, finial, ridge cresting, gutter and downspout.","Image1":"Lowe-CONSERVATORYPICTURESJULY2013001-2-500-for-gallery-use-only.jpg","Image2":"Lowe-CONSERVATORYPICTURESJULY2013001-3-500-for-gallery-use-only.jpg","Image3":"Lowe-CONSERVATORYPICTURESJULY2013001-1-500-for-gallery-use-only.jpg","Image4":"Lowe-CONSERVATORYPICTURESJULY2013001-6-500-for-gallery-use-only.jpg","ExtColor":["Green (Hartford)"],"IntColor":["Green (Hartford)"],"LengthProjection":"13 ft 8 in","RidgeHeight":"12 ft 3 in","Location":"Ohio","Width":"16 ft 8 in","Application":["Residential"],"Glazes":["LoE 340","LoE 272"]},{"ProjectID":"13-02-063","Date":201302063,"Products":[{"ProductName":"Folding Glass Wall","GeoType1":["Ridge Vent","Transom"],"GeoType2":["251-500 SQF. Glass","All Wall","No Post Urban / High Rise"]}],"Description":"Multiple interior folding glass wall units, including a no post corner and all wall configuration, used at a university.","Image1":"bucknell-unit-A-07112012-4-edited-web.jpg","Image2":"bucknell-unit-A-07112012_edited-web.jpg","Image3":"bucknell-unit-B-07112012-4_edited-web.jpg","Image4":"bucknell-unit-E-07112013-3-edited-web.jpg","ExtColor":["Clear Anodized","Class I Anodized"],"IntColor":["Clear Anodized","Class I Anodized"],"LengthProjection":"units vary","RidgeHeight":"units vary","Location":"Pennsylvania","Width":"units vary","Application":["Institutional"],"Glazes":["Clear","Custom Color"]},{"ProjectID":"13-01-336","Date":201301336,"Products":[{"ProductName":"Folding Glass Wall","GeoType1":["Door"],"GeoType2":["501-750 SQF. Glass"]}],"Description":"Multiple sets of interior, non-thermal folding glass walls with single door hinge jamb configurations, recessed hat sills and monolithic glazing.","Image1":"306-Elementary-Canyon-Lake-TX-4.jpg","Image2":"306-Elementary-Canyon-Lake-TX-5.jpg","Image3":"306-Elementary-Canyon-Lake-TX-3.jpg","Image4":"306-Elementary-Canyon-Lake-TX-1.jpg","ExtColor":["Clear Anodized","Class I Anodized"],"IntColor":["Clear Anodized","Class I Anodized"],"LengthProjection":"varies","RidgeHeight":"8 ft","Location":"Texas","Width":"varies","Application":["Educational"],"Glazes":["Clear","Monolithic Glass"]},{"ProjectID":"11-06-318","Date":201106318,"Products":[{"ProductName":"Door","GeoType1":["In-System Terrace Door"],"GeoType2":["Hydraulic Operation"]},{"ProductName":"Pivot","GeoType1":["Door"],"GeoType2":[]}],"Description":"Oversized outswing fffset pivot door with an outswing terrace door.  Both doors are used on the same unit with matching sightlines. The pivot door measures 7 ft -6 in wide x 8 ft-0 in tall, with one piece of glass.","Image1":"Meidelll-and-Bavo-08132013-41.jpg","Image2":"Meidelll-and-Bavo-08132013-5.jpg","Image3":"Meidelll-and-Bavo-08132013-2.jpg","Image4":"Meidelll-and-Bavo-08132013-1.jpg","ExtColor":["Clear Anodized","Class I Anodized"],"IntColor":["Clear Anodized","Class I Anodized"],"LengthProjection":"12 ft","RidgeHeight":"8 ft","Location":"Washington","Width":"-","Application":["Residential"],"Glazes":["LoE 272"]},{"ProjectID":"13-04-057","Date":201304057,"Products":[{"ProductName":"Folding Glass Wall","GeoType1":["Door"],"GeoType2":["251-500 SQF. Glass","All Wall"]}],"Description":"Folding window system consisting of an all wall configuration, bottom load, panels fold outwards, standard sill and a horizontal mullion on each panel.","Image1":"facci-restaurant-08122013-8-edited.jpg","Image2":"facci-restaurant-08122013-10-edited.jpg","Image3":"facci-restaurant-08122013-7.jpg","Image4":"facci-restaurant-08122013-4.jpg","ExtColor":["Black"],"IntColor":["Black"],"LengthProjection":"-","RidgeHeight":"10 ft","Location":"Maryland","Width":"19 ft 7","Application":["Commercial","Dining"],"Glazes":["LoE 272"]},{"ProjectID":"12-06-028","Date":201206028,"Products":[{"ProductName":"Sunroom","GeoType1":["Straight Eave Lean-To"],"GeoType2":["251-500 SQF. Glass"]}],"Description":"Straight eave lean-to sunroom with two gable ends, commercial terrace door, and manually operated ridge vent.","Image1":"torah-academy-3-08062013-small-web.jpg","Image2":"torah-academy-4-08062013-small-web.jpg","Image3":"torah-academy-5-08062013-small-web.jpg","Image4":"torah-academy-6-08062013-small-web.jpg","ExtColor":["Clear Anodized","Class I Anodized"],"IntColor":["Clear Anodized","Class I Anodized"],"LengthProjection":"5 ft 5 in","RidgeHeight":"15 ft","Location":"Pennsylvania","Width":"18 ft 4 in","Application":["Educational","Institutional"],"Glazes":["Clear"]},{"ProjectID":"12-10-034","Date":201210034,"Products":[{"ProductName":"Greenhouse","GeoType1":["Straight Eave Lean-To"],"GeoType2":["501-750 SQF. Glass"]}],"Description":"Straight eave lean-to greenhouse with a rear wall.  This was an addition to an existing Solar Innovations? greenhouse built the previous year.","Image1":"bodetti-05162013-48.jpg","Image2":"bodetti-05162013-45.jpg","Image3":"bodetti-05162013-49.jpg","Image4":"bodetti-05162013-54.jpg","ExtColor":["White"],"IntColor":["White"],"LengthProjection":"10 ft 9 in","RidgeHeight":"13 ft 9 in","Location":"Connecticut","Width":"17 ft 3 in","Application":["Residential"],"Glazes":["LoE 272"]},{"ProjectID":"12-11-270","Date":201211270,"Products":[{"ProductName":"Skylight","GeoType1":["Hip End"],"GeoType2":["101-250 SQF. Glass"]}],"Description":"Skylight with two hip ends, ridge vents and ball shaped finials.","Image1":"338-cinnamon-4-skylight-with-ridge-vent.jpg","Image2":"338-cinnamon-3.jpg","Image3":"338-cinnamon-5-skylight-with-ridge-vent.jpg","Image4":"338-cinnamon-31.jpg","ExtColor":["White"],"IntColor":["White"],"LengthProjection":"12 ft","RidgeHeight":"2 ft 9 in","Location":"Pennsylvania","Width":"10 ft","Application":["Residential"],"Glazes":["LoE 272"]},{"ProjectID":"10-06-308","Date":201006308,"Products":[{"ProductName":"Folding Glass Wall","GeoType1":["Windows"],"GeoType2":["101-250 SQF. Glass"]}],"Description":"Three sets of folding windows used on a stadium project.  The units have a standard sill and monolithic impact glass.","Image1":"063347_020-web.jpg","Image2":"063347_038_alt_altered-small-web.jpg","Image3":"063347_038_altered-small-web.jpg","Image4":"ed-smith-stadium-16-small-web.jpg","ExtColor":["Custom Color"],"IntColor":["Custom Color"],"LengthProjection":"units vary","RidgeHeight":"units vary","Location":"Florida","Width":"units vary","Application":["Sporting","Stadiums"],"Glazes":["LoE 366","Clear","Monolithic Glass"]},{"ProjectID":"10-08-321","Date":201008321,"Products":[{"ProductName":"Skylight","GeoType1":["Hip End","Pyramid"],"GeoType2":["251-500 SQF. Glass"]}],"Description":"Straight eave double pitch skylight with two hip ends, and a pyramid skylight.","Image1":"IMG00128-20110830-1917-small-web.jpg","Image2":"IMG00127-20110830-1914-small-web.jpg","Image3":"IMG00125-20110830-1913-small-web.jpg","Image4":"IMG00126-20110830-1913-small-web.jpg","ExtColor":["White"],"IntColor":["White"],"LengthProjection":"units vary","RidgeHeight":"units vary","Location":"Massachusetts","Width":"units vary","Application":["Residential"],"Glazes":["LoE 272"]},{"ProjectID":"04-04-014","Date":200404014,"Products":[{"ProductName":"Architectural Enhancement","GeoType1":["Dormers"],"GeoType2":[]},{"ProductName":"Skylight","GeoType1":["Straight Eave Lean-To"],"GeoType2":["251-500 SQF. Glass"]}],"Description":"Straight eave lean-to skylight with a dormer.","Image1":"McNulty-front.jpg","Image2":"McNulty-glass-end.jpg","Image3":"McNulty-interior.jpg","Image4":"McNulty-front1.jpg","ExtColor":["White"],"IntColor":["White"],"LengthProjection":"8 ft 6 in","RidgeHeight":"3 ft 8 in","Location":"New York","Width":"16 ft 11 in","Application":["Residential"],"Glazes":["Solarban 60"]},{"ProjectID":"11-12-127","Date":201112127,"Products":[{"ProductName":"Architectural Enhancement","GeoType1":["Eave Vent","Ridge Vent"],"GeoType2":[]},{"ProductName":"Greenhouse","GeoType1":["Straight Eave Lean-To"],"GeoType2":["251-500 SQF. Glass"]}],"Description":"Institutional straight eave lean-to greenhouse with ridge vents and eave vents, used at a retirement home.","Image1":"Stone-Ridge-07242013-13-web.jpg","Image2":"Stone-Ridge-07242013-36-web.jpg","Image3":"Stone-Ridge-07242013-3-web.jpg","Image4":"Stone-Ridge-07242013-30-web.jpg","ExtColor":["Sandstone"],"IntColor":["Sandstone"],"LengthProjection":"9 ft 1 in","RidgeHeight":"9 ft 5 in","Location":"Other","Width":"16 ft 10 in","Application":["Health Centers","Institutional"],"Glazes":["LoE 272"]},{"ProjectID":"08-01-053","Date":200801053,"Products":[{"ProductName":"Shades","GeoType1":["Exterior Fixed"],"GeoType2":[]},{"ProductName":"Sunroom","GeoType1":["Straight Eave Lean-To"],"GeoType2":["251-500 SQF. Glass"]}],"Description":"Straight eave lean-to sunroom with no gable ends, retractable exterior screens, mahongany interior, and sliding doors.","Image1":"wall-jurow-004-small-web.jpg","Image2":"wall-jurow-006-small-web.jpg","Image3":"selt-sunr-jurrow-090408-15-small-web.jpg","Image4":"selt-sunr-jurrow-090408-36-web-small.jpg","ExtColor":["Black"],"IntColor":["Sapele Mahogany","Wood"],"LengthProjection":"4 ft 5 in","RidgeHeight":"17 ft 2 in","Location":"Maryland","Width":"23 ft 5 in","Application":["Residential"],"Glazes":["LoE 272"]},{"ProjectID":"10-07-340","Date":201007340,"Products":[{"ProductName":"Sunroom","GeoType1":["Straight Eave Lean-To"],"GeoType2":["251-500 SQF. Glass","Restoration System"]}],"Description":"Flexible glazing system applied to an existing wood sunroom members.","Image1":"Senft-Installation-019-small-web.jpg","Image2":"Senft-Installation-014-small-web.jpg","Image3":"Senft-Installation-020-small-web.jpg","Image4":"Senft-Installation-021-small-web.jpg","ExtColor":["Black","White"],"IntColor":["Black"],"LengthProjection":"varies by section","RidgeHeight":"varies by section","Location":"Pennsylvania","Width":"varies by section","Application":["Residential"],"Glazes":""},{"ProjectID":"10-07-223","Date":201007223,"Products":[{"ProductName":"Car Wash","GeoType1":["Stairway Covers"],"GeoType2":["101-250 SQF. Glass"]}],"Description":"Two straight eave lean-to window well covers with gable ends.","Image1":"Window-Wells-IMG00058-20110607-1715-1-web-small.jpg","Image2":"Window-Wells-IMG00058-20110607-1715-3-web-small.jpg","Image3":"Window-Wells-IMG00058-20110607-1715-5-web-small.jpg","Image4":"Window-Wells-IMG00058-20110607-1715-6-small-web.jpg","ExtColor":["White"],"IntColor":["White"],"LengthProjection":"9 ft W","RidgeHeight":"3 ft","Location":"Connecticut","Width":"14 ft 1 in","Application":["Educational","Institutional"],"Glazes":["LoE 272"]},{"ProjectID":"10-07-362","Date":201007362,"Products":[{"ProductName":"Skylight","GeoType1":["Straight Eave Double Pitch"],"GeoType2":["101-250 SQF. Glass"]}],"Description":"Straight eave double pitch skylight with two gable ends.","Image1":"Sarah-Todd-IMG00188-20110404-1449-4-web-small.jpg","Image2":"Sarah-Todd-IMG00188-20110404-1449-1-web-small.jpg","Image3":"Sarah-Todd-IMG00188-20110404-1449-3-web-small.jpg","Image4":"Sarah-Todd-IMG00188-20110404-1449-2-web-small.jpg","ExtColor":["White"],"IntColor":["White"],"LengthProjection":"9 ft W","RidgeHeight":"3 ft","Location":"Pennsylvania","Width":"14 ft 1 in","Application":["Ecclesiastical","Institutional"],"Glazes":["Solarban 60"]},{"ProjectID":"10-08-161","Date":201008161,"Products":[{"ProductName":"Decorative Elements","GeoType1":["Gutter"],"GeoType2":[]},{"ProductName":"Sunroom","GeoType1":["Straight Eave Lean-To"],"GeoType2":["101-250 SQF. Glass"]},{"ProductName":"Window","GeoType1":["Hung"],"GeoType2":["Casement"]}],"Description":"Straight eave lean-to sunroom with two gable ends, casement windows, transom, gutter, and downspout.","Image1":"Berthiaume-from-Paul-Zec-8-2013-3-small-web.jpg","Image2":"Berthiaume-from-Paul-Zec-8-2013-1-web-small.jpg","Image3":"bertalimue-5-small-web.jpg","Image4":"Berthiaume-from-Paul-Zec-8-2013-2-small-web.jpg","ExtColor":["Green (Hartford)"],"IntColor":["Green (Hartford)"],"LengthProjection":"6 ft","RidgeHeight":"7 ft ","Location":"Connecticut","Width":"12 ft4L","Application":["Residential"],"Glazes":["LoE 272"]},{"ProjectID":"10-08-094","Date":201008094,"Products":[{"ProductName":"Folding Glass Wall","GeoType1":["Door"],"GeoType2":["101-250 SQF. Glass","No Post Urban / High Rise","Split Wall Floating Jamb"]},{"ProductName":"Sliding Door","GeoType1":["Door"],"GeoType2":["251-500 SQF. Glass","Multi-Track"]}],"Description":"Two multi track sliding glass doors and a 90 degree no post corner folding wall system.","Image1":"Wolter-Group-Czapka-Res-2_edited-web.jpg","Image2":"Wolter-Group-Czapka-Res-18-edited-web.jpg","Image3":"Wolter-Group-Czapka-Res-19-edited-web.jpg","Image4":"Wolter-Group-Czapka-Res-20-edited-web.jpg","ExtColor":["Custom Color"],"IntColor":["Custom Color"],"LengthProjection":"units vary","RidgeHeight":"units vary","Location":"Florida","Width":"units vary","Application":["Residential"],"Glazes":["LoE 340"]},{"ProjectID":"11-04-315","Date":201104315,"Products":[{"ProductName":"Skylight","GeoType1":["Single Slope","Straight Eave Double Pitch"],"GeoType2":["501-750 SQF. Glass"]}],"Description":"Single slope skylight with a double pitch projection","Image1":"kenny-residence-05132013-22-web.jpg","Image2":"kenny-residence-05132013-2-web.jpg","Image3":"kenny-residence-05132013-3-web.jpg","Image4":"kenny-residence-05132013-web.jpg","ExtColor":["Custom Color"],"IntColor":["Custom Color"],"LengthProjection":"21 ft","RidgeHeight":"-","Location":"New York","Width":"20 ft","Application":["Residential"],"Glazes":["LoE 366"]},{"ProjectID":"10-03-324","Date":201003324,"Products":[{"ProductName":"Greenhouse","GeoType1":["Straight Eave Lean-To"],"GeoType2":["251-500 SQF. Glass"]}],"Description":"Straight eave lean-to greenhouse with a terrace door and awning windows","Image1":"chao-residence-2_edited-web.jpg","Image2":"chao-residence-5_edited-web.jpg","Image3":"chao-residence-4-web.jpg","Image4":"chao-residence-2_edited-web1.jpg","ExtColor":["Custom Color"],"IntColor":["Custom Color"],"LengthProjection":"7 ft 9 in","RidgeHeight":"9 ft 5 in","Location":"Massachusetts","Width":"8 ft","Application":["Residential"],"Glazes":["LoE 272"]},{"ProjectID":"12-02-014","Date":201202014,"Products":[{"ProductName":"Operable / Retractable Skylights","GeoType1":["Operable Skylight","Retractable Skylight / Roof"],"GeoType2":["751-1000 SQF. Glass"]}],"Description":"Multiple skylights on a residential project.  One retractable stacking single slope skylights and a triangular single slope skylight in addition to others.","Image1":"necker-island-49_edited-web.jpg","Image2":"necker-island-48-web.jpg","Image3":"necker-island-46_edited-web.jpg","Image4":"necker-island-51-web.jpg","ExtColor":["Custom Color"],"IntColor":["Custom Color"],"LengthProjection":"units vary","RidgeHeight":"units vary","Location":"Virgin Islands","Width":"units vary","Application":["Residential"],"Glazes":["Viracon VEI-2M"]},{"ProjectID":"07-11-012","Date":200711012,"Products":[{"ProductName":"Pool Enclosure","GeoType1":["Straight Eave Lean-To"],"GeoType2":["2001+ SQF. Glass"]},{"ProductName":"Tilt Turn","GeoType1":["Tilt Turn Window"],"GeoType2":[]}],"Description":"Straight eave lean-to pool enclosure with two gable ends, dual track sliding doors, tilt turn windows and an interior truss support system.","Image1":"DSCN3722-web.jpg","Image2":"DSCN3720-web.jpg","Image3":"DSCN3746-web.jpg","Image4":"DSCN3747-web.jpg","ExtColor":["Bronze"],"IntColor":["Bronze"],"LengthProjection":"30 ft","RidgeHeight":"14 ft","Location":"Pennsylvania","Width":"35 ft","Application":["Residential"],"Glazes":["LoE 366"]},{"ProjectID":"12-12-060","Date":201212060,"Products":[{"ProductName":"Curtain Wall","GeoType1":["Vertical Curtain Wall"],"GeoType2":["101-250 SQF. Glass"]},{"ProductName":"Door","GeoType1":["Commercial Terrace & French Doors"],"GeoType2":[]},{"ProductName":"Folding Glass Wall","GeoType1":["Door"],"GeoType2":["101-250 SQF. Glass","All Wall"]}],"Description":"One folding wall, one folding window, vertical wall transom, and a terrace door used on a commercial restaurant application.  The folding units feature all wall configuration, horizontal mullions, and standard sills.","Image1":"red-robin-07132013-1-web.jpg","Image2":"DSCN9085-web.jpg","Image3":"red-robin-13-edited-web.jpg","Image4":"red-robin-web.jpg","ExtColor":["Clear Anodized","Class I Anodized"],"IntColor":["Clear Anodized","Class I Anodized"],"LengthProjection":"units vary","RidgeHeight":"units vary","Location":"Pennsylvania","Width":"units vary","Application":["Commercial","Dining"],"Glazes":["LoE 272"]},{"ProjectID":"09-11-864","Date":200911864,"Products":[{"ProductName":"Architectural Enhancement","GeoType1":["Eave Vent","Lantern","Ridge Vent"],"GeoType2":[]},{"ProductName":"Greenhouse","GeoType1":["Hip End","Irregular / Custom"],"GeoType2":["2001+ SQF. Glass","1-50 SQF. Glass"]},{"ProductName":"Window","GeoType1":["Projected"],"GeoType2":["Awning"]}],"Description":"Straight eave lean-to greenhouse with one hip end and a lantern with two hip ends, ridge vents, eave vents and awning windows","Image1":"IMG_2102-web.jpg","Image2":"IMG_21102-web.jpg","Image3":"IMG_21061-web.jpg","Image4":"IMG_2108-web.jpg","ExtColor":["Dark Bronze Anodized","Bronze","Class I Anodized"],"IntColor":["Dark Bronze Anodized","Bronze","Class I Anodized"],"LengthProjection":"18 ft 6 in","RidgeHeight":"17 ft 10 in","Location":"Montana","Width":"44 ft 10 in","Application":["Institutional"],"Glazes":["Clear"]},{"ProjectID":"10-08-371","Date":201008371,"Products":[{"ProductName":"Sunroom","GeoType1":["Irregular / Custom","Straight Eave Lean-To"],"GeoType2":["2001+ SQF. Glass","1-50 SQF. Glass"]}],"Description":"Straight eave lean-to sunroom with a segmented sill, one full gable and one partial gable.","Image1":"nathan-kline-6-web.jpg","Image2":"nathan-kline-9-web.jpg","Image3":"nathan-kline-8-web.jpg","Image4":"nathan-kline-63-edited-web.jpg","ExtColor":["Custom Color"],"IntColor":["Custom Color"],"LengthProjection":"8 ft 10 in","RidgeHeight":"31 ft 1 in","Location":"New York","Width":"31 ft 9 in","Application":["Institutional"],"Glazes":["LoE 272"]},{"ProjectID":"12-03-424","Date":201203424,"Products":[{"ProductName":"Greenhouse","GeoType1":["Straight Eave Lean-To"],"GeoType2":["251-500 SQF. Glass"]}],"Description":"Straight eave lean-to pit greenhouse with one gable end, ridge vents and eave vents.","Image1":"pit-greenhouse-001-web.jpg","Image2":"chun-pit-greenhouse-001-9-30-2013-1-web.jpg","Image3":"chun-pit-greenhouse-001-9-30-2013-8-web.jpg","Image4":"pit-greenhouse-014-web.jpg","ExtColor":["Natural Clay"],"IntColor":["Natural Clay"],"LengthProjection":"10 ft 8 in","RidgeHeight":"4 ft 5 in","Location":"Ohio","Width":"19 ft 4 in","Application":["Residential"],"Glazes":["LoE 180"]},{"ProjectID":"10-11-066","Date":201011066,"Products":[{"ProductName":"Architectural Enhancement","GeoType1":["Dormers"],"GeoType2":[]},{"ProductName":"Greenhouse","GeoType1":["Straight Eave Double Pitch"],"GeoType2":["751-1000 SQF. Glass"]}],"Description":"Straight eave double pitch greenhouse with one gable end, two dormers, Palladian arch, ridge cresting, finial, ridge vents, eave vents, circulating fans and evaporative coolers","Image1":"Image-2.jpg","Image2":"Image-3.jpg","Image3":"image-5.jpg","Image4":"IMG_3630.jpg","ExtColor":["White"],"IntColor":["White"],"LengthProjection":"26 ft","RidgeHeight":"14 ft 5 in","Location":"Missouri","Width":"21 ft","Application":["Residential"],"Glazes":["Clear"]},{"ProjectID":"12-12-154","Date":201212154,"Products":[{"ProductName":"Architectural Enhancement","GeoType1":["Lantern"],"GeoType2":["Aluminum Tube System","101-250 SQF. Glass"]}],"Description":"Irregular straight eave double pitch skylight with one hip end and a hip end lantern.","Image1":"IMG_1067-edited-web.jpg","Image2":"IMG_1061-2-web.jpg","Image3":"IMG_1056-edited-web1.jpg","Image4":"IMG_1057-edited-web.jpg","ExtColor":["White"],"IntColor":["White"],"LengthProjection":"15 ftL","RidgeHeight":"5 ft 2 in","Location":"California","Width":"12 ft","Application":["Residential"],"Glazes":["Clear"]},{"ProjectID":"11-09-349","Date":201109349,"Products":[{"ProductName":"Greenhouse","GeoType1":["Straight Eave Double Pitch"],"GeoType2":["2001+ SQF. Glass","1-50 SQF. Glass"]}],"Description":"Straight eave double pitch greenhouse with two gable ends, interior partition wall, double pitch entryway, ridge vents, eave vents, French doors and two cold frames.","Image1":"Bourell-Bailey-6-web.jpg","Image2":"Bourell-Bailey-cold-frame-web.jpg","Image3":"Bourell-Bailey-2-web.jpg","Image4":"Bourell-Bailey-31-web.jpg","ExtColor":["Black"],"IntColor":["Black"],"LengthProjection":"39 ft L","RidgeHeight":"17 ft","Location":"Massachusetts","Width":"18 ft 9 in","Application":["Residential"],"Glazes":["LoE 272"]},{"ProjectID":"11-08-360","Date":201108360,"Products":[{"ProductName":"Screen","GeoType1":["F-Series"],"GeoType2":[]},{"ProductName":"Sunroom","GeoType1":["Straight Eave Double Pitch","Straight Eave Lean-To"],"GeoType2":["251-500 SQF. Glass"]}],"Description":"Irregular straight eave double pitch screened-in sunroom with a straight leave lean-to section, glass roof, specialty pet screen walls and sliding doors","Image1":"Septembre-screen-porch-7-edited-for-web.jpg","Image2":"Septembre-screen-porch-1-web.jpg","Image3":"Septembre-screen-porch-3-web.jpg","Image4":"Septembre-screen-porch-5-web.jpg","ExtColor":["Bronze"],"IntColor":["Bronze"],"LengthProjection":"20 ft","RidgeHeight":"12 ft 5 in","Location":"Other","Width":"11 ft 6 in","Application":["Residential"],"Glazes":["LoE 272"]},{"ProjectID":"10-09-069","Date":201009069,"Products":[{"ProductName":"Folding Glass Wall","GeoType1":["Door"],"GeoType2":["501-750 SQF. Glass","All Wall"]}],"Description":"Two interior folding glass walls used in an education setting.  The doors feature non-thermal frames and recessed flush hat sills.","Image1":"Gateway-IEB-09-06-2013-1-web.jpg","Image2":"Gateway-IEB-09-06-2013-2-web.jpg","Image3":"Gateway-IEB-09-06-2013-6-web1.jpg","Image4":"Gateway-IEB-09-06-2013-1-web1.jpg","ExtColor":["Clear Anodized","Class I Anodized"],"IntColor":["Clear Anodized","Class I Anodized"],"LengthProjection":"-","RidgeHeight":"8 ft 11 in","Location":"Arizona","Width":"varies by section","Application":["Institutional"],"Glazes":["Monolithic Glass"]},{"ProjectID":"08-12-316","Date":200812316,"Products":[{"ProductName":"Greenhouse","GeoType1":["Straight Eave Lean-To"],"GeoType2":["2001+ SQF. Glass","1-50 SQF. Glass"]},{"ProductName":"Polycarbonate","GeoType1":["Poly Greenhouses"],"GeoType2":[]}],"Description":"Straight eave lean-to greenhouse used at a college.  The greenhouse features ridge vents, a terrace door, heating, cooling, fixed benches and an environmental control system.","Image1":"Albright-2011-4-web1.jpg","Image2":"Albright-2011-8-web.jpg","Image3":"Albright-2011-6-web1.jpg","Image4":"Albright-2011-10-web1.jpg","ExtColor":["Bronze"],"IntColor":["Bronze"],"LengthProjection":"15 ft 10 in","RidgeHeight":"12 ft","Location":"Pennsylvania","Width":"60 ftL","Application":["Educational","Institutional"],"Glazes":["Clear","Polycarbonate"]},{"ProjectID":"12-05-466","Date":201205466,"Products":[{"ProductName":"Greenhouse","GeoType1":["Irregular / Custom","Straight Eave Double Pitch"],"GeoType2":["2001+ SQF. Glass","1-50 SQF. Glass"]}],"Description":"Irregular straight eave double pitch greenhouse with two gable ends, a cantilevered canopy, ridge vents, and eave vents used at a public park.","Image1":"2013/09/Wolf-Lake-9-20-2013-4-web.jpg","Image2":"Wolf-Lake-9-20-2013-5-web.jpg","Image3":"Wolf-Lake-9-20-2013-2-web.jpg","Image4":"Wolf-Lake-9-20-2013-3-web.jpg","ExtColor":["Bronze","Custom Color"],"IntColor":["Bronze","Custom Color"],"LengthProjection":"30 ft 10 in","RidgeHeight":"16 ft","Location":"Indiana","Width":"26 ft 2 in","Application":["Commercial"],"Glazes":["LoE 272"]},{"ProjectID":"13-04-301","Date":201304301,"Products":[{"ProductName":"Window","GeoType1":["Mulled","Projected"],"GeoType2":["101-250 SQF. Glass","Awning","Fixed"]}],"Description":"Two awning windows and one fixed window constructed out of the mulled window system.","Image1":"2013/09/middlesex-09132013-2-web.jpg","Image2":"middlesex-09132013-3-edited.jpg","Image3":"middlesex-09132013-4-_-edited.jpg","Image4":"middlesex-09132013-6-edited.jpg","ExtColor":["Clear Anodized","Class I Anodized"],"IntColor":["Clear Anodized","Class I Anodized"],"LengthProjection":"units vary","RidgeHeight":"units vary","Location":"New Jersey","Width":"units vary","Application":["Educational","Institutional"],"Glazes":["LoE 272"]},{"ProjectID":"06-08-025","Date":200608025,"Products":[{"ProductName":"Skylight","GeoType1":["Pyramid","Straight Eave Double Pitch"],"GeoType2":["101-250 SQF. Glass"]}],"Description":"Pyramid skylight and straight eave double pitch skylights used on a residential application.","Image1":"2013/10/100_0002-web.jpg","Image2":"100_0003-web.jpg","Image3":"100_0004-web.jpg","Image4":"100_0010-web.jpg","ExtColor":["White"],"IntColor":["White"],"LengthProjection":"varies by unit","RidgeHeight":"varies by unit","Location":"Massachusetts","Width":"varies by unit","Application":["Residential"],"Glazes":["LoE 340"]},{"ProjectID":"08-06-240","Date":200806240,"Products":[{"ProductName":"Skylight","GeoType1":["Straight Eave Double Pitch","Straight Eave Lean-To"],"GeoType2":["251-500 SQF. Glass"]}],"Description":"Three skylights including two selt lean-to configurations and one straight eave double pitch with eave vents.","Image1":"2013/10/montessori-school-082908-4-web.jpg","Image2":"montessori-school-082908-7-web.jpg","Image3":"montessori-school-082908-9-web.jpg","Image4":"montessori-school-082908-18-web.jpg","ExtColor":["Green (Hartford)"],"IntColor":["Green (Hartford)"],"LengthProjection":"units vary","RidgeHeight":"units vary","Location":"Pennsylvania","Width":"units vary","Application":["Educational","Institutional"],"Glazes":["LoE 366"]},{"ProjectID":"10-06-135","Date":201006135,"Products":[{"ProductName":"Decorative Elements","GeoType1":["Grids"],"GeoType2":[]},{"ProductName":"Sliding Door","GeoType1":["Door"],"GeoType2":["51-100 SQF. Glass"]}],"Description":"Pocketing multi track sliding glass door with gridworks and a high performance wind load sill.  One panel slides left and one panel slides right.","Image1":"2013/10/koch-4-web.jpg","Image2":"koch-5-web.jpg","Image3":"koch-6-web.jpg","Image4":"koch-7-web.jpg","ExtColor":["Bronze"],"IntColor":["Bronze"],"LengthProjection":"-","RidgeHeight":"8 ft","Location":"Connecticut","Width":"20 ft 6 in w pockets","Application":["Residential"],"Glazes":["LoE 272"]},{"ProjectID":"08-03-162","Date":200803162,"Products":[{"ProductName":"Stacking Glass Wall","GeoType1":["Doors"],"GeoType2":["251-500 SQF. Glass"]}],"Description":"Interior stack wall system with 9 panels stacking right, 9 panels stacking left, horizontal mullions and a flush lock sill.","Image1":"2013/10/washington-university-091908-web.jpg","Image2":"washington-university-091908-1-web.jpg","Image3":"washington-university-091908-2-web.jpg","Image4":"washington-university-091908-3-web.jpg","ExtColor":["Dark Bronze Anodized","Bronze","Class I Anodized"],"IntColor":["Dark Bronze Anodized","Bronze","Class I Anodized"],"LengthProjection":"57 ft 8 in","RidgeHeight":"9 ft 9 in","Location":"Washington","Width":"n/a","Application":["Educational","Institutional"],"Glazes":["Clear","Monolithic Glass"]},{"ProjectID":"10-11-332","Date":201011332,"Products":[{"ProductName":"Folding Glass Wall","GeoType1":["Door"],"GeoType2":["751-1000 SQF. Glass","All Wall"]}],"Description":"Multiple sets of folding glass walls located in the Caribbean.  All the units have varying configurations, sizes and use recessed sills.","Image1":"2013/10/Waterloo-10-14-2013-2-web.jpg","Image2":"Waterloo-10-14-2013-1-web.jpg","Image3":"Waterloo-10-14-2013-4-web.jpg","Image4":"Waterloo-10-14-2013-5-web.jpg","ExtColor":["Custom Color","White"],"IntColor":["Custom Color","White"],"LengthProjection":"varies per unit","RidgeHeight":"varies per unit","Location":"Other","Width":"varies per unit","Application":["Commercial"],"Glazes":["Solarban 60"]},{"ProjectID":"09-07-397","Date":200907397,"Products":[{"ProductName":"Folding Glass Wall","GeoType1":["Door"],"GeoType2":["751-1000 SQF. Glass","Single Door Last Panel"]}],"Description":"Thirteen sets of folding glass walls used on a residential home.  Units consist of all wall  and single door last panel configurations, along with recessed sill and impact glazing.","Image1":"2013/10/cantwell-24-9-24-2013-web.jpg","Image2":"cantwell-29-web.jpg","Image3":"cantwell-43-web.jpg","Image4":"cantwell-21-9-24-2013-web.jpg","ExtColor":["Clear Anodized","Class I Anodized"],"IntColor":["Clear Anodized","Class I Anodized"],"LengthProjection":"units vary","RidgeHeight":"units vary","Location":"Florida","Width":"units vary","Application":["Residential"],"Glazes":["Gray","Impact"]},{"ProjectID":"13-02-295","Date":201302295,"Products":[{"ProductName":"Skylight","GeoType1":["Irregular / Custom"],"GeoType2":["101-250 SQF. Glass"]}],"Description":"Octagonal skylight with lantern","Image1":"2013/10/kohn-11-9-24-13-web.jpg","Image2":"kohn-12-9-24-13-web.jpg","Image3":"kohn-13-9-24-13-web.jpg","Image4":"kohn-09172013-2-web.jpg","ExtColor":["White"],"IntColor":["White"],"LengthProjection":"12 ft 1 L","RidgeHeight":"6 ft 3 in","Location":"Connecticut","Width":"12 ft 1 in","Application":["Residential"],"Glazes":["Custom Color"]},{"ProjectID":"12-01-162","Date":201201162,"Products":[{"ProductName":"Sunroom","GeoType1":["Straight Eave Lean-To"],"GeoType2":["501-750 SQF. Glass"]}],"Description":"Straight eave lean-to sunroom with two gable ends and a partial rear wall.","Image1":"lees-diner-07282012-3_touchedup-web.jpg","Image2":"lees-diner-york-6-9-24-203-web.jpg","Image3":"lees-diner-york-7-9-24-203-web.jpg","Image4":"lees-diner-york-8-9-24-203-web.jpg","ExtColor":["Mill Aluminum"],"IntColor":["Mill Aluminum"],"LengthProjection":"14 ft 4 in","RidgeHeight":"11 ft","Location":"Pennsylvania","Width":"21 ft 5 in L","Application":["Commercial","Dining"],"Glazes":["LoE 366"]},{"ProjectID":"12-11-149","Date":201211149,"Products":[{"ProductName":"Sunroom","GeoType1":["Straight Eave Lean-To"],"GeoType2":["101-250 SQF. Glass"]}],"Description":"Straight eave lean-to sunroom with no gable ends with awning and casement windows.","Image1":"Lake-Mequon-10-4-13-1-web.jpg","Image2":"Lake-Mequon-10-4-13-2-web.jpg","Image3":"Lake-Mequon-10-4-13-3-web.jpg","Image4":"Lake-Mequon-10-4-13-4-web.jpg","ExtColor":["Custom Color","White"],"IntColor":["Custom Color","White"],"LengthProjection":"6 ft 3 in","RidgeHeight":"11 ft","Location":"Wisconsin","Width":"14 ft 9 in","Application":["Residential"],"Glazes":["Custom Color"]},{"ProjectID":"12-09-327","Date":201209327,"Products":[{"ProductName":"Sunroom","GeoType1":["Conservatory Nose"],"GeoType2":["501-750 SQF. Glass"]}],"Description":"Conservatory nose sunroom with awning windows, interior muntin window grids, along with interior ogee and bulbous trims.","Image1":"Regency-10-4-2013-5-web.jpg","Image2":"Regency-10-4-2013-1-web.jpg","Image3":"Regency-10-4-2013-3-web.jpg","Image4":"Regency-10-4-2013-4-web.jpg","ExtColor":["Green (Hartford)"],"IntColor":["Green (Hartford)"],"LengthProjection":"14 ft 5 in","RidgeHeight":"14 ft 8 in","Location":"Wisconsin","Width":"19 ft 9 in","Application":["Institutional"],"Glazes":["LoE 272"]},{"ProjectID":"12-10-371","Date":201210371,"Products":[{"ProductName":"Greenhouse","GeoType1":["Straight Eave Double Pitch"],"GeoType2":["2001+ SQF. Glass","1-50 SQF. Glass"]}],"Description":"Straight eave double pitch greenhouse with two gable ends.  Greenhouse includes ridge vents, eave vents, grow lights, heating, plant hangers, cooling, and shutter fan.","Image1":"mullen-greenhouse-09202013-web.jpg","Image2":"mullen-greenhouse-09202013-3-web.jpg","Image3":"mullen-greenhouse-092013-web-1.jpg","Image4":"mullen-greenhouse-09202013-4-web.jpg","ExtColor":["Bronze"],"IntColor":["Bronze"],"LengthProjection":"19 ft 1L","RidgeHeight":"16 ft","Location":"Pennsylvania","Width":"16 ft 3 in","Application":["Residential"],"Glazes":["LoE 272"]},{"ProjectID":"12-02-269","Date":201202269,"Products":[{"ProductName":"Window","GeoType1":["Mulled"],"GeoType2":["251-500 SQF. Glass","Fixed"]}],"Description":"Fixed windows using the mulled window system with View dynamic electrochromic glazing.","Image1":"McNeal-10-21-2013-10.jpg","Image2":"McNeal-10-21-2013-6.jpg","Image3":"McNeal-10-21-2013-4.jpg","Image4":"McNeal-10-21-2013-22.jpg","ExtColor":["Bronze"],"IntColor":["Bronze"],"LengthProjection":"varies per unit","RidgeHeight":"varies per unit","Location":"Iowa","Width":"varies per unit","Application":["Residential"],"Glazes":["Dynamic Glass"]},{"ProjectID":"12-03-434","Date":201203434,"Products":[{"ProductName":"Skylight","GeoType1":["Pyramid"],"GeoType2":[]}],"Description":"Pyramid Skylight","Image1":"Chun-10-22-2013-1-edited.jpg","Image2":"Chun-10-22-2013-1.jpg","Image3":"Chun-10-22-2013-3.jpg","Image4":"Chun-10-22-2013-4.jpg","ExtColor":["Bronze"],"IntColor":["Bronze"],"LengthProjection":"4 ft 8 L","RidgeHeight":"1 ft 7 in","Location":"Kentucky","Width":"4 ft 8 W","Application":["Residential"],"Glazes":["LoE 366","Impact"]},{"ProjectID":"13-03-297","Date":201303297,"Products":[{"ProductName":"Skylight","GeoType1":["Pyramid","Straight Eave Lean-To"],"GeoType2":["101-250 SQF. Glass","Pre-Assembled and Pre-Glazed"]}],"Description":"Two straight eave lean-to skylights and four pyramid skylights, all with copper cladding.  The pyramid skylights were shipped pre-assembled and pre-glazed.","Image1":"Pre-assembled-Skylights-small.jpg","Image2":"Pre-assembled-Skylights-small-2.jpg","Image3":"292-marlborough-10222013-2-small.jpg","Image4":"292-marlborough-10222013-small.jpg","ExtColor":["Copper"],"IntColor":["Copper"],"LengthProjection":"varies per unit","RidgeHeight":"varies per unit","Location":"Massachusetts","Width":"varies per unit","Application":["Residential"],"Glazes":["LoE 272"]},{"ProjectID":"12-01-155","Date":201201155,"Products":[{"ProductName":"Greenhouse","GeoType1":["Hip End","Irregular / Custom"],"GeoType2":["2001+ SQF. Glass","1-50 SQF. Glass"]}],"Description":"Straight eave double pitch greenhouse with two hip ends attached to an existing rear wall. This greenhouse is used at a public garden for overwintering tropical plants.  The greenhouse includes ridge vents, eave vents, downspout and gutter.  The terrace doors on the greenhouse were custom built at 12 ft0 in high to accommodate palm trees.","Image1":"Chanticleer-2-Nov-4-2013-3-small.jpg","Image2":"Chanticleer-2-Nov-4-2013-6-small.jpg","Image3":"Chanticleer-2-Nov-4-2013-8-small.jpg","Image4":"Chanticleer-2-Nov-4-2013-10-small.jpg","ExtColor":["Sandstone"],"IntColor":[],"LengthProjection":"41 ft 10 in","RidgeHeight":"21 ft","Location":"Pennsylvania","Width":"19 ft 6 in","Application":["Commercial","Institutional"],"Glazes":["LoE 272"]},{"ProjectID":"11-08-044","Date":201108044,"Products":[{"ProductName":"Car Wash","GeoType1":["Stairway Covers"],"GeoType2":[]},{"ProductName":"Skylight","GeoType1":["Hip End","Pyramid"],"GeoType2":["101-250 SQF. Glass","51-100 SQF. Glass"]}],"Description":"A pyramid skylight and one irregular stairway cover. The enclosure features a straight eave lean-to configuration with two partial hip ends, a front wall, terrace door and an extended overhang to accommodate a traditional framing wall below.","Image1":"image-34-small.jpg","Image2":"Colombel-11-4-2013-20-small.jpg","Image3":"Colombel-11-4-2013-21-small.jpg","Image4":"Colombel-10-30-2013-8-small.jpg","ExtColor":["White"],"IntColor":["White"],"LengthProjection":"units vary","RidgeHeight":"units vary","Location":"New York","Width":"units vary","Application":["Residential"],"Glazes":["LoE 272"]},{"ProjectID":"12-09-180","Date":201209180,"Products":[{"ProductName":"Canopy","GeoType1":["Irregular / Custom","Straight Eave Lean-To"],"GeoType2":["2001+ SQF. Glass","0 SQF. Glass"]}],"Description":"Irregular straight eave lean-to canopy with a hipped corner and a partial gable end. The restaurant also features sliding and folding doors.","Image1":"Harpers-landing-1-small.jpg","Image2":"Harpers-landing-2-small.jpg","Image3":"Harpers-landing-3-small.jpg","Image4":"Harpers-landing-5-small.jpg","ExtColor":["Bronze"],"IntColor":["Bronze"],"LengthProjection":"12 ft 11 in","RidgeHeight":"12 ft 7 in","Location":"Canada","Width":"82 ftL","Application":["Commercial","Dining","Retail Sales"],"Glazes":["LoE 272","Solarban"]},{"ProjectID":"10-10-110","Date":201010110,"Products":[{"ProductName":"Greenhouse","GeoType1":["Irregular / Custom","Straight Eave Lean-To"],"GeoType2":["251-500 SQF. Glass"]}],"Description":"Irregular straight eave lean-to greenhouse with ridge vents, eave vents and French doors.  The interior of the greenhouse features circulating fans and a humidifier.  The gardeners raise a variety of house plants year round inside the greenhouse.","Image1":"IMG_1360_Buena-Vista-GH-small.jpg","Image2":"Buena-Vista-11-11-2013-1.jpg","Image3":"Buena-Vista-11-11-2013-4.jpg","Image4":"Buena-Vista-11-11-2013-8.jpg","ExtColor":["Bronze"],"IntColor":["Bronze"],"LengthProjection":"15 ft 11 in","RidgeHeight":"11 ft 5 in","Location":"Virginia","Width":"14 ft 10 in","Application":["Residential"],"Glazes":["LoE 272"]},{"ProjectID":"12-05-310","Date":201205310,"Products":[{"ProductName":"Canopy","GeoType1":["Irregular / Custom"],"GeoType2":["251-500 SQF. Glass"]}],"Description":"A traditional framing pergola which used Solar's FGS system to create a glass roof that acts as a canopy.","Image1":"Morgan-Residence-Pergola-11-14-2013-11-500-small.jpg","Image2":"Morgan-Residence-Pergola-11-14-2013-9-small-500.jpg","Image3":"Morgan-Residence-Pergola-11-14-2013-6-small-500.jpg","Image4":"Morgan-Residence-Pergola-11-14-2013-5-small-500.jpg","ExtColor":["White"],"IntColor":["White"],"LengthProjection":"28 ftL","RidgeHeight":"-","Location":"Massachusetts","Width":"14 ft 6 in","Application":["Residential"],"Glazes":["Clear"]},{"ProjectID":"09-06-363","Date":200906363,"Products":[{"ProductName":"Sunroom","GeoType1":["Straight Eave Lean-To"],"GeoType2":["101-250 SQF. Glass"]}],"Description":"Straight eave lean-to sunroom with awning windows and no gable ends. Unit is constructed using Solar's Flexible Glazing System.","Image1":"sunr-selt-adam-fedale-121209-3-small-500.jpg","Image2":"sunr-selt-adam-fedale-121209-2-small-500.jpg","Image3":"sunr-selt-adam-fedale-121209-4-small-500.jpg","Image4":"sunr-selt-adam-fedale-112509-2-small-500.jpg","ExtColor":["Bronze"],"IntColor":["Bronze"],"LengthProjection":"na","RidgeHeight":"12 ft 3 in","Location":"Pennsylvania","Width":"7 ft 4 in","Application":["Residential"],"Glazes":["LoE 366"]},{"ProjectID":"09-09-406","Date":200909406,"Products":[{"ProductName":"Sunroom","GeoType1":["Straight Eave Lean-To"],"GeoType2":["251-500 SQF. Glass"]}],"Description":"Straight eave lean-to sunroom with two gable ends, located on a second story application, with tilt turn windows and a ridge vent.","Image1":"sunr-selt-Pope-Lean-to-0101092-small-500.jpg","Image2":"sunr-selt-Pope-Lean-to-0101093-small-500.jpg","Image3":"sunr-selt-Pope-Lean-to-021609-3-500-small.jpg","Image4":"sunr-selt-Pope-Lean-to-021609-4-small-500.jpg","ExtColor":["Sandstone"],"IntColor":["Sandstone"],"LengthProjection":"7 ft ","RidgeHeight":"7 ft 9 in","Location":"Pennsylvania","Width":"17 ft","Application":["Residential"],"Glazes":["LoE 340"]},{"ProjectID":"06-05-059","Date":200605059,"Products":[{"ProductName":"Sunroom","GeoType1":["Straight Eave Lean-To"],"GeoType2":["101-250 SQF. Glass"]}],"Description":"Straight eave lean-to sunroom with two gable ends, terrace doors and casement windows.","Image1":"IMG_0221-small-500.jpg","Image2":"IMG_0223-small-500.jpg","Image3":"IMG_0228-small-500.jpg","Image4":"IMG_0226.jpg","ExtColor":["Black"],"IntColor":["Black"],"LengthProjection":"61 ft 11 in","RidgeHeight":"12 ft 3 in","Location":"Pennsylvania","Width":"34 ft ","Application":["Commercial","Dining"],"Glazes":["Bronze"]},{"ProjectID":"08-07-220","Date":200807220,"Products":[{"ProductName":"Sunroom","GeoType1":["Straight Eave Lean-To"],"GeoType2":["2001+ SQF. Glass","1-50 SQF. Glass"]}],"Description":"Straight eave lean-to commercial sunroom with a connecting lean-to entrance vestibule including terrace doors and gutter.","Image1":"doors-North-Park-Plaza-041009-2-Copy-500-small.jpg","Image2":"doors-North-Park-Plaza-041009-3-500-small.jpg","Image3":"doors-North-Park-Plaza-041009-5-500-small.jpg","Image4":"doors-North-Park-Plaza-041009-6-Copy-5-small.jpg","ExtColor":["Dark Bronze Anodized","Bronze","Class I Anodized"],"IntColor":["Dark Bronze Anodized","Bronze","Class I Anodized"],"LengthProjection":"18 ft 7 in","RidgeHeight":"11 ft","Location":"Minnesota","Width":"23 ft 7 in","Application":["Commercial"],"Glazes":["LoE 366"]},{"ProjectID":"08-07-216","Date":200807216,"Products":[{"ProductName":"Sunroom","GeoType1":["Curved Eave Lean-To","Straight Eave Lean-To"],"GeoType2":["251-500 SQF. Glass"]}],"Description":"Two straight eave lean-to window well cover used at a public library.","Image1":"IMG_00652-500-small.jpg","Image2":"IMG_00661-500-small.jpg","Image3":"IMG_00661-500-small1.jpg","Image4":"IMG_00613-small-500.jpg","ExtColor":["Bronze"],"IntColor":["Bronze"],"LengthProjection":"3 ft 6 in","RidgeHeight":"3 ft 6 in","Location":"Minnesota","Width":"13 ft 11 in","Application":["Commercial","Institutional"],"Glazes":["LoE 272"]},{"ProjectID":"11-08-442","Date":201108442,"Products":[{"ProductName":"Car Wash","GeoType1":["Stairway Covers"],"GeoType2":["51-100 SQF. Glass"]},{"ProductName":"Sunroom","GeoType1":["Straight Eave Lean-To"],"GeoType2":["751-1000 SQF. Glass"]}],"Description":"Operable single slope skylight which opens six inches.  The skylight was delivered pre-assembled and pre-glazed.","Image1":"Fortis-Skylight-Nov-30-2013-2.jpg","Image2":"Fortis-Skylight-Nov-30-2013-4.jpg","Image3":"Fortis-Skylight-Nov-30-2013-1.jpg","Image4":"Fortis-Skylight-Nov-30-2013-3.jpg","ExtColor":["Clear Anodized","Class I Anodized"],"IntColor":["Clear Anodized","Class I Anodized"],"LengthProjection":"6 ftL","RidgeHeight":"-","Location":"Connecticut","Width":"3 ft","Application":["Residential"],"Glazes":["LoE 272"]},{"ProjectID":"12-10-123","Date":201210123,"Products":[{"ProductName":"Greenhouse","GeoType1":["Irregular / Custom","Straight Eave Lean-To"],"GeoType2":["2001+ SQF. Glass","1-50 SQF. Glass"]}],"Description":"Irregular straight eave lean to sunroom with two gable ends, two chimneys ridge vents and eave vents.","Image1":"Harley-School-11-25-2013-9-edited.jpg","Image2":"Harley-School-11-25-2013-5-edited.jpg","Image3":"Harley-School-11-25-2013-3.jpg","Image4":"Harley-School-11-25-2013-10.jpg","ExtColor":["Mill Aluminum"],"IntColor":["Mill Aluminum"],"LengthProjection":"24 ft 6 in","RidgeHeight":"24 ft 4 in","Location":"New York","Width":"51 ft 7 in","Application":["Educational","Institutional"],"Glazes":["LoE 180","LoE i89"]},{"ProjectID":"12-01-387","Date":201201387,"Products":[{"ProductName":"Sliding Door","GeoType1":["Door"],"GeoType2":["101-250 SQF. Glass","Multi-Track"]}],"Description":"Multi-track sliding glass doors with an OXXX configuration.  The unit features a low profile sill with three panels sliding to the left when viewed from the exterior.","Image1":"Hatfield-December-16-2013-1_500.jpg","Image2":"Hatfield-December-16-2013-3_500.jpg","Image3":"Hatfield-December-16-2013-5_500.jpg","Image4":"Hatfield-December-16-2013-10_500.jpg","ExtColor":["White"],"IntColor":["White"],"LengthProjection":"-","RidgeHeight":"7 ft   3","Location":"Iowa","Width":"15 ft 8 in","Application":["Residential"],"Glazes":["Clear"]},{"ProjectID":"12-10-075","Date":201210075,"Products":[{"ProductName":"Greenhouse","GeoType1":["Hip End","Straight Eave Double Pitch"],"GeoType2":["251-500 SQF. Glass","Aluminum Tube System"]}],"Description":"Straight eave, double pitch greenhouse with one hip end, awning windows, terrace door, ridge vents, finial, and ridge cresting.","Image1":"DSCN0048_web500.jpg","Image2":"DSCN0051_web500.jpg","Image3":"IMG_0166_web500.jpg","Image4":"gary-knisley-09-24-13-5_web500.jpg","ExtColor":["Sandstone"],"IntColor":["Sandstone"],"LengthProjection":"12 ft","RidgeHeight":"10 ft  9 in","Location":"Pennsylvania","Width":"18 ft","Application":["Residential"],"Glazes":["Clear"]},{"ProjectID":"13-05-380","Date":201305380,"Products":[{"ProductName":"Sunroom","GeoType1":["Straight Eave Lean-To"],"GeoType2":["101-250 SQF. Glass","Aluminum Tube System"]}],"Description":"Straight eave, lean-to sunroom with no gable ends, a single door last panel folding glass wall, interior roof mounted shades, and interior roller vertical shades.","Image1":"300-East-62nd-street-Phase-2-13-05-380-Date-12-09-13-7_Web500.jpg","Image2":"300-East-62nd-street-Phase-2-13-05-380-Date-12-09-13-3_Web500.jpg","Image3":"300-East-62nd-street-Phase-2-13-05-380-Date-12-09-13-2_Web500.jpg","Image4":"300-East-62nd-street-Phase-2-13-05-380-Date-12-09-13-1_Web500.jpg","ExtColor":["Bronze"],"IntColor":["Bronze"],"LengthProjection":"3 ft  5 in","RidgeHeight":"11 ft  2 in","Location":"New York","Width":"16 ft  2 in","Application":["Residential"],"Glazes":["LoE 272","Bronze"]},{"ProjectID":"12-09-041","Date":201209041,"Products":[{"ProductName":"Sunroom","GeoType1":["Straight Eave Lean-To"],"GeoType2":["501-750 SQF. Glass","Aluminum Tube System"]}],"Description":"Straight eave, lean-to sunroom with two partial gable ends, French door, ridge vents, and casement windows located on a third story application.","Image1":"Wight-Residence-12-8-2013-5_Web500.jpg","Image2":"Wight-Residence-12-8-2013-1_Web500.jpg","Image3":"Wight-Residence-12-8-2013-6_Web500.jpg","Image4":"Wight-Residence-12-8-2013-3_Web500.jpg","ExtColor":["White"],"IntColor":["White"],"LengthProjection":"20 ft 10 in","RidgeHeight":"9 ft 6 in","Location":"California","Width":"16 ft 8 in","Application":["Residential"],"Glazes":["LoE 366"]},{"ProjectID":"12-12-073","Date":201212073,"Products":[{"ProductName":"Sliding Door","GeoType1":["Door"],"GeoType2":["501-750 SQF. Glass","G2","Multi-Track"]}],"Description":"Three sets of multi-track sliding door units used to enclose a dining space using the low profile sill.","Image1":"Gaffneys-10-23-13-2_Web500.jpg","Image2":"Gaffneys-10-23-13-3_Web500.jpg","Image3":"Gaffneys-10-23-13-6_Web500Edited.jpg","Image4":"Gaffneys-10-23-13-7_Web500Edited.jpg","ExtColor":["Dark Bronze Anodized","Bronze","Class I Anodized"],"IntColor":["Dark Bronze Anodized","Bronze","Class I Anodized"],"LengthProjection":"-","RidgeHeight":"10 ft","Location":"New York","Width":"varies by unit","Application":["Commercial"],"Glazes":["LoE 272"]},{"ProjectID":"09-12-898","Date":200912898,"Products":[{"ProductName":"Decorative Elements","GeoType1":["Base Panels"],"GeoType2":[]},{"ProductName":"Greenhouse","GeoType1":["Straight Eave Double Pitch"],"GeoType2":["2001+ SQF. Glass","1-50 SQF. Glass","Restoration System"]},{"ProductName":"Greenhouse Accessory","GeoType1":["Environmental Control Systems","Greenhouse Benches"],"GeoType2":["Rolling Bench"]}],"Description":"Straight eave, double pitch greenhouse with connecting walkway, ridge vents, eave vents, terrace door, environmental control system, benches, base panels, and gutter.","Image1":"Yale-West-Campus-21_Web500.jpg","Image2":"Yale-West-Campus-13_Web500.jpg","Image3":"Yale-West-Campus-17_Eidted_Web500.jpg","Image4":"Yale-West-Campus-25_Web500.jpg","ExtColor":["Sandstone"],"IntColor":["Sandstone"],"LengthProjection":"43 ft","RidgeHeight":"12 ft  3 in","Location":"Connecticut","Width":"18 ft  8 in","Application":["Educational"],"Glazes":["Clear"]},{"ProjectID":"12-08-369","Date":201208369,"Products":[{"ProductName":"Architectural Enhancement","GeoType1":["Eave Vent","Ridge Vent"],"GeoType2":[]},{"ProductName":"Greenhouse","GeoType1":["Straight Eave Double Pitch"],"GeoType2":["2001+ SQF. Glass","1-50 SQF. Glass","Aluminum Tube System"]}],"Description":"Straight eave, double pitch greenhouse with one gable end which is used at an elementary school.  The greenhouse also includes ridge vents, eave vents, heating, shutter fan, and a French door.","Image1":"Hebron-Bridgewater-Elementary-School-11-20-2013-5_Web500Edited.jpg","Image2":"Hebron-Bridgewater-Elementary-School-11-20-2013-1_Web500Edited.jpg","Image3":"Hebron-Bridgewater-Elementary-School-11-20-2013-2_Web500Edited.jpg","Image4":"Hebron-Bridgewater-Elementary-School-11-20-2013-3_Web500.jpg","ExtColor":["Green (Hartford)"],"IntColor":["Green (Hartford)"],"LengthProjection":"40 ft 4 in","RidgeHeight":"14 ft 7 in","Location":"New Hampshire","Width":"20 ft 9 in","Application":["Educational"],"Glazes":["LoE 272"]},{"ProjectID":"12-09-172","Date":201209172,"Products":[{"ProductName":"Folding Glass Wall","GeoType1":["Door"],"GeoType2":["101-250 SQF. Glass","All Wall"]}],"Description":"Multiple sets of folding glass windows and folding glass walls used at a restaurant with impact glazing.  Each unit has an all wall configuration, folds out, and uses varying sills.","Image1":"Jazziz-10-11-2013-1_Web500.jpg","Image2":"Jazziz-10-11-2013-2_Web500-1024x818.jpg","Image3":"Jazziz-10-11-2013-3_Web500.jpg","Image4":"Jazziz-10-11-2013-4_Web500.jpg","ExtColor":["Dark Bronze Anodized","Bronze","Class I Anodized"],"IntColor":["Dark Bronze Anodized","Bronze","Class I Anodized"],"LengthProjection":"-","RidgeHeight":"varies by unit","Location":"Florida","Width":"varies by unit","Application":["Commercial","Dining"],"Glazes":["Clear","Impact"]},{"ProjectID":"09-10-431","Date":200910431,"Products":[{"ProductName":"Greenhouse","GeoType1":["Straight Eave Lean-To"],"GeoType2":["251-500 SQF. Glass","Aluminum Tube System"]}],"Description":"Straight eave, lean-to greenhouse with one gable end and ridge vents.","Image1":"Atlanta-Int-School-99-09-12-2013_Web500.jpg","Image2":"Atlanta-Int-School-77-09-12-2013_Web500.jpg","Image3":"Atlanta-Int-School-73-09-12-2013_Web500.jpg","Image4":"Atlanta-Int-School-45-09-12-2013_Web500.jpg","ExtColor":["White"],"IntColor":["White"],"LengthProjection":"7 ft  8 in","RidgeHeight":"13 ft 7 in","Location":"Georgia","Width":"20 ft 7 in","Application":["Educational"],"Glazes":["Clear","Monolithic Glass"]},{"ProjectID":"12-08-380","Date":201208380,"Products":[{"ProductName":"Sliding Door","GeoType1":["Door"],"GeoType2":["51-100 SQF. Glass","Multi-Track","Pocket"]}],"Description":"Multi-track pocketing sliding doors used in an institutional application.  The four panel unit uses a recessed handle and thumb turn lock, with an edge pull, and low performance wind sill.","Image1":"Mid-America-Arts-Alliance-09052013-2_Web500.jpg","Image2":"Mid-America-Arts-Alliance-09052013-3_Web500.jpg","Image3":"Mid-America-Arts-Alliance-09052013-1_Web500.jpg","Image4":"Mid-America-Arts-Alliance-09052013-2_Web500r.jpg","ExtColor":["Clear Anodized","Class I Anodized"],"IntColor":["Clear Anodized","Class I Anodized"],"LengthProjection":"-","RidgeHeight":"8 ft","Location":"Missouri","Width":"18 ft 9 in","Application":["Institutional"],"Glazes":["Insulated Glass"]},{"ProjectID":"11-02-068","Date":201102068,"Products":[{"ProductName":"Sliding Door","GeoType1":["Door"],"GeoType2":["51-100 SQF. Glass","G2"]},{"ProductName":"Sunroom","GeoType1":["Straight Eave Lean-To"],"GeoType2":["51-100 SQF. Glass","Aluminum Tube System"]},{"ProductName":"Tilt Turn","GeoType1":["Tilt Turn Window"],"GeoType2":[]}],"Description":"Straight eave, lean-to sunroom with two gable ends, a G2 sliding glass door system, and tilt turn windows.","Image1":"DSC04418_Web500.jpg","Image2":"DSC04413_Web500.jpg","Image3":"Slider-Reinstalled-after-Ed-Fixed-Flashing-of-house-9-19-14-2-Web500.jpg","Image4":"DSC04419_Web500.jpg","ExtColor":["White"],"IntColor":["White"],"LengthProjection":"3 ft 4 in","RidgeHeight":"5 ft 3 in","Location":"Pennsylvania","Width":"7 ft ","Application":["Residential"],"Glazes":["LoE 366","LoE i89"]},{"ProjectID":"11-02-032","Date":201102032,"Products":[{"ProductName":"Complete Glazing Packages","GeoType1":["Complete Glazing Packages"],"GeoType2":["101-250 SQF. Glass"]},{"ProductName":"Door","GeoType1":["Out of System Terrace and French Doors"],"GeoType2":[]},{"ProductName":"Screen","GeoType1":["Sliding"],"GeoType2":["Manual"]},{"ProductName":"Sliding Door","GeoType1":["Door"],"GeoType2":["101-250 SQF. Glass","G2","Multi-Track"]}],"Description":"A complete glazing package which used Solar's sliding doors, sliding screens, and terrace doors.","Image1":"upstsate-renovation-1-24-2014-16_Web5001.jpg","Image2":"upstsate-renovation-1-24-2014-3_Web500.jpg","Image3":"upstsate-renovation-1-24-2014-2_Web500.jpg","Image4":"upstsate-renovation-1-24-2014-24_Web500.jpg","ExtColor":["Clear Anodized","Class I Anodized"],"IntColor":["Clear Anodized","Class I Anodized"],"LengthProjection":"-","RidgeHeight":"varies by unit","Location":"New York","Width":"varies by unit","Application":["Residential"],"Glazes":["LoE 272"]},{"ProjectID":"12-05-041","Date":201205041,"Products":[{"ProductName":"Folding Glass Wall","GeoType1":["Door"],"GeoType2":["251-500 SQF. Glass"]}],"Description":"Four sets of folding glass walls with varying configurations, all using recessed sills.","Image1":"Jenn-David-1-31-14-3_Web500.jpg","Image2":"Jenn-David-1-31-14-7_Web500.jpg","Image3":"Jenn-David-1-31-14-6_Web500.jpg","Image4":"Jenn-David-1-31-14-1_Web500.jpg","ExtColor":["Bronze"],"IntColor":["Bronze"],"LengthProjection":"-","RidgeHeight":"varies by unit","Location":"Texas","Width":"varies by unit","Application":["Residential"],"Glazes":["LoE 366"]},{"ProjectID":"10-11-063","Date":201011063,"Products":[{"ProductName":"Complete Glazing Packages","GeoType1":["Complete Glazing Packages"],"GeoType2":["2001+ SQF. Glass","1-50 SQF. Glass"]},{"ProductName":"Door","GeoType1":["In-System Terrace Door"],"GeoType2":[]},{"ProductName":"Sliding Door","GeoType1":["Door"],"GeoType2":["101-250 SQF. Glass","Dual Track"]},{"ProductName":"Window","GeoType1":["Mulled"],"GeoType2":["751-1000 SQF. Glass"]}],"Description":"Terrace doors, sliding glass doors, and vertical curtain walls featuring the Mulled Window System.","Image1":"9492-19-reduced_Web500.jpg","Image2":"9492-20-reduced_Web500.jpg","Image3":"9492-16_Web500.jpg","Image4":"perch-7_Web500.jpg","ExtColor":["Dark Bronze Anodized","Bronze","Class I Anodized"],"IntColor":["Dark Bronze Anodized","Bronze","Class I Anodized"],"LengthProjection":"varies per unit","RidgeHeight":"varies per unit","Location":"New York","Width":"varies by unit","Application":["Home","Residential"],"Glazes":["Clear"]},{"ProjectID":"10-10-080","Date":201010080,"Products":[{"ProductName":"Folding Glass Wall","GeoType1":["Door"],"GeoType2":["251-500 SQF. Glass","HVHZ / Miami-Dade Rated"]}],"Description":"Multiple sets of folding glass walls, using recessed sills with adjustable ramps, located on a private beach club.","Image1":"2014/02/Beach-Club-2-20-2014-beach-dining_Web500.jpg","Image2":"2014/02/Beach-Club-2-20-2014-beach-dining-3_Web500.jpg","Image3":"2014/02/Beach-Club-pass-thru-2-20-2014_Web500.jpg","Image4":"2014/02/Beach-Club-2-20-2014-front-dining-porch_Web500.jpg","ExtColor":["White"],"IntColor":["White"],"LengthProjection":"-","RidgeHeight":"varies by unit","Location":"Florida","Width":"varies by unit","Application":["Commercial"],"Glazes":["Glass","Gray","Impact","Monolithic Glass"]},{"ProjectID":"11-05-237","Date":201105237,"Products":[{"ProductName":"Architectural Enhancement","GeoType1":["Eave Vent","Ridge Vent"],"GeoType2":[]},{"ProductName":"Conservatory","GeoType1":["Irregular / Custom","Straight Eave Lean-To"],"GeoType2":["2001+ SQF. Glass"]},{"ProductName":"Decorative Elements","GeoType1":["Gutter"],"GeoType2":["Corner Trim","Ogee Grid"]},{"ProductName":"Window","GeoType1":["Projected"],"GeoType2":["Awning"]}],"Description":"Irregular straight eave, lean-to conservatory with one full gable end and one partial for a retirement community.","Image1":"LenIgn01_Web500.jpg","Image2":"LenIgn04_Web500.jpg","Image3":"LenIgn02_A_Web500.jpg","Image4":"LenIgn03_Web500.jpg","ExtColor":["Sandstone"],"IntColor":["Sandstone"],"LengthProjection":"27 ft ","RidgeHeight":"23 ft","Location":"Other","Width":"37 ft ","Application":["Retirement"],"Glazes":["LoE 366"]},{"ProjectID":"12-10-082","Date":201210082,"Products":[{"ProductName":"Folding Glass Wall","GeoType1":["Door"],"GeoType2":["51-100 SQF. Glass","Single Door End Jamb"]}],"Description":"Two sets of impact rated folding walls, using recessed ramp sills and single door hinge jamb configurations.  The doors have a natural clay exterior and a painted black wood veneer interior finish.","Image1":"Wallace-Tampa-12-10-082-13_Web500.jpg","Image2":"Wallace-Tampa-12-10-082-16_Web500.jpg","Image3":"Wallace-Tampa-12-10-082-1_Web500.jpg","Image4":"Wallace-Tampa-12-10-082-3_Web500.jpg","ExtColor":["Natural Clay"],"IntColor":["Black","Southern Yellow Pine","Wood Veneer"],"LengthProjection":"-","RidgeHeight":"9 ft 4 in","Location":"Florida","Width":"varies by unit","Application":["Residential"],"Glazes":["LoE 366","Impact"]},{"ProjectID":"12-11-217","Date":201211217,"Products":[{"ProductName":"Decorative Elements","GeoType1":["Grids"],"GeoType2":["Traditional Grids"]},{"ProductName":"Folding Glass Wall","GeoType1":["Door"],"GeoType2":["101-250 SQF. Glass","Double Door Mid Wall"]}],"Description":"One double door (mid wall) folding glass wall system equipped with two swing door levers.  This six-panel, out-fold wall system is outfitted with a horizontal mullion and traditional grids.  The 10 ft tall doors feature Red Oak wood veneering on the interior framing. The system spans an 18 ft opening.","Image1":"SDC_0092B_Web500.jpg","Image2":"SDC_0092B_Web5002.jpg","Image3":"SDC_0093B_Web500.jpg","Image4":"SDC_0093B_Web5002.jpg","ExtColor":["Bronze"],"IntColor":["Red Oak","Wood Veneer"],"LengthProjection":"-","RidgeHeight":"10 ft","Location":"Connecticut","Width":"18 ft","Application":["Residential"],"Glazes":["LoE 272"]},{"ProjectID":"11-03-026","Date":201103026,"Products":[{"ProductName":"Folding Glass Wall","GeoType1":["Door"],"GeoType2":["251-500 SQF. Glass","All Wall","Split Wall Floating Jamb"]}],"Description":"Six split folding glass wall systems and one all wall system featuring low profiles grids.  These units have been designed, engineered, fabricated, and installed in accordance to Florida State Impact Certified Building Code.","Image1":"Affiniti-Architects-32-no-handles_500.jpg","Image2":"Affiniti-Architects-16-no-handles_500.jpg","Image3":"Affiniti-Architects-23-no-handles_500.jpg","Image4":"Affiniti-Architects-29-no-handles_500.jpg","ExtColor":[],"IntColor":[],"LengthProjection":"-","RidgeHeight":"10 ft","Location":"Florida","Width":"varies by unit","Application":["Residential"],"Glazes":["LoE 366","Heat Strengthened Laminated","Impact","Monolithic Glass"]},{"ProjectID":"13-10-419","Date":201310419,"Products":[{"ProductName":"Clear Glass Walls","GeoType1":["Clear Glass Wall"],"GeoType2":["101-250 SQF. Glass"]},{"ProductName":"Sliding Door","GeoType1":["Door"],"GeoType2":["101-250 SQF. Glass","Multi-Track"]}],"Description":"One 6-panel multi-track sliding clear glass wall system featuring contemporary pull handles at the Great American Ball Park in Cincinnati, Ohio.","Image1":"Reds-super-Suite-040814-1926_Web500.jpg","Image2":"Reds-super-Suite-040814-1929_Web500.jpg","Image3":"Reds-super-Suite-040814-2_Web500.jpg","Image4":"Reds-super-Suite-040814_Web500-.jpg","ExtColor":["Clear Anodized","Class I Anodized"],"IntColor":["Clear Anodized","Class I Anodized"],"LengthProjection":"-","RidgeHeight":"8 ft","Location":"Ohio","Width":"25 ft","Application":["Commercial","Sporting","Stadiums"],"Glazes":["Clear","Glass","Monolithic Glass"]},{"ProjectID":"12-09-230","Date":201209230,"Products":[{"ProductName":"Sliding Door","GeoType1":["Door"],"GeoType2":["Dual Track","G2"]},{"ProductName":"Sunroom","GeoType1":["Straight Eave Double Pitch"],"GeoType2":["251-500 SQF. Glass","Aluminum Tube System"]}],"Description":"One straight eave, double pitch sunroom with two gable ends and one hipped end.  Other accessories include a dual track sliding glass door system, one awning window, and decorative gutter.","Image1":"photo-1_Web500.jpg","Image2":"photo-3_Web500.jpg","Image3":"photo-2_Web500.jpg","Image4":"photo-1a_Web500.jpg","ExtColor":["White"],"IntColor":["White"],"LengthProjection":"13 ft 6 in","RidgeHeight":"11 ft 1 in","Location":"New Jersey","Width":"13 ft 6 in","Application":["Residential"],"Glazes":["LoE 340","LoE 272"]},{"ProjectID":"12-07-171","Date":201207171,"Products":[{"ProductName":"Complete Glazing Packages","GeoType1":["Complete Glazing Packages"],"GeoType2":["501-750 SQF. Glass"]},{"ProductName":"Door","GeoType1":["Out of System Terrace and French Doors"],"GeoType2":[]},{"ProductName":"Sliding Door","GeoType1":["Door"],"GeoType2":["251-500 SQF. Glass","Multi-Track"]}],"Description":"A complete glazing package consisting of curtain walls, terrace doors, sliding glass doors, and windows.","Image1":"photo-2-web.jpg","Image2":"photo-web.jpg","Image3":"photo-32_Web500.jpg","Image4":"photo-33_Web500.jpg","ExtColor":["White"],"IntColor":["White"],"LengthProjection":"-","RidgeHeight":"varies per unit","Location":"New York","Width":"varies per unit","Application":["Residential"],"Glazes":["LoE 272"]},{"ProjectID":"12-05-058","Date":201205058,"Products":[{"ProductName":"Clear Glass Walls","GeoType1":["Clear Glass Wall"],"GeoType2":["101-250 SQF. Glass"]},{"ProductName":"Sliding Door","GeoType1":["Door"],"GeoType2":["101-250 SQF. Glass","Multi-Track"]}],"Description":"One multi-track clear glass sliding wall system including three panels sliding left, and three panels sliding right (OXXXXXXO Configuration).  The unit features Solar's Class I Clear Anodized frame finish, as well as clear monolithic glazing.  All panels include a keyed alike floor lock that are utilized during closed hours.","Image1":"McCormick-06_Web500.jpg","Image2":"McCormick-10_Web500.jpg","Image3":"McCormick-06zoomWeb500.jpg","Image4":"McCormick-10ZoomWeb500.jpg","ExtColor":["Clear Anodized","Class I Anodized"],"IntColor":["Clear Anodized","Class I Anodized"],"LengthProjection":"-","RidgeHeight":"9 ft  3","Location":"Maryland","Width":"34 ft ","Application":["Commercial","Retail Sales"],"Glazes":["Clear","Glass","Monolithic Glass"]},{"ProjectID":"10-09-231","Date":201009231,"Products":[{"ProductName":"Canopy","GeoType1":["Straight Eave Double Pitch"],"GeoType2":["1-50 SQF. Glass"]},{"ProductName":"Car Wash","GeoType1":["Stairway Covers"],"GeoType2":["251-500 SQF. Glass"]},{"ProductName":"Door","GeoType1":["Commercial Terrace & French Doors","In-System Terrace Door"],"GeoType2":[]},{"ProductName":"Sunroom","GeoType1":["Straight Eave Lean-To"],"GeoType2":["251-500 SQF. Glass"]}],"Description":"One straight eave, lean to enclosure connected into another straight eave, lean-to structure on a library. Both have one gable end. The one serves as an entryway and the other is an elevator shaft.  The terrace door leading into the enclosure includes panic hardware., and the canopy features decorative ridge cresting and a finial.","Image1":"IMG_3659_web500.jpg","Image2":"IMG_3664_web500.jpg","Image3":"IMG_3661_web5001.jpg","Image4":"IMG_3667_web500.jpg","ExtColor":["Clear Anodized","Class I Anodized"],"IntColor":["Clear Anodized","Class I Anodized"],"LengthProjection":"7 ft  6 in","RidgeHeight":"16 ft 10 in","Location":"Vermont","Width":"14 ft 4 in","Application":["Commercial"],"Glazes":["Insulated Glass","LoE 366"]},{"ProjectID":"12-04-144","Date":201204144,"Products":[{"ProductName":"Folding Glass Wall","GeoType1":["Door"],"GeoType2":["51-100 SQF. Glass","Double Door Mid Wall"]},{"ProductName":"Pivot","GeoType1":["Door"],"GeoType2":[]}],"Description":"This residence features a pivot door glazed in Obscure #62 glass and one double door(mid wall) folding glass wall system.","Image1":"photo-1_web500.jpg","Image2":"photo-1cropped_Web500.jpg","Image3":"photo-2_Web500.jpg","Image4":"photo-3cropped_web500.jpg","ExtColor":["Black"],"IntColor":["Black"],"LengthProjection":"-","RidgeHeight":"varies per unit","Location":"Pennsylvania","Width":"varies per unit","Application":["Residential"],"Glazes":["Insulated Glass","LoE 366","Obscure #62","Custom Color","Tempered"]},{"ProjectID":"12-03-091","Date":201203091,"Products":[{"ProductName":"Skylight","GeoType1":["Walkable"],"GeoType2":["101-250 SQF. Glass","Pre-Assembled and Not Pre-Glazed"]}],"Description":"This residential project includes five walkable skylights.  Each of these skylights featured mitered corners, as well as monolithic glazing with two PVB interlayers.","Image1":"photo-44-edited-Web500.jpg","Image2":"photo-34-edited-Web500.jpg","Image3":"photo-24-edited-Web500.jpg","Image4":"photo-44-edited-cropped-Web500.jpg","ExtColor":["White"],"IntColor":["White"],"LengthProjection":"varies per unit","RidgeHeight":"-","Location":"New York","Width":"varies per unit","Application":["Residential"],"Glazes":["Laminated","Monolithic Glass","Custom Color"]},{"ProjectID":"12-03-447","Date":201203447,"Products":[{"ProductName":"Architectural Enhancement","GeoType1":["Dormers","Eave Vent","Gable End","Ridge Vent"],"GeoType2":["Seeding Bench"]},{"ProductName":"Greenhouse","GeoType1":["Straight Eave Lean-To"],"GeoType2":["2001+ SQF. Glass","Aluminum Tube System"]},{"ProductName":"Greenhouse Accessory","GeoType1":["Environmental Control Systems","Greenhouse Benches","Light Control","Temperature Control"],"GeoType2":["Circulation Fans","Fixed Bench","Grow Lights","Seeding Bench"]}],"Description":"This straight eave, lean-to greenhouse includes two gable ends and three dormers.  The greenhouse is equipped with a variety of greenhouse accessories including seven aluminum greenhouse benches, four circulating fans, 14 grow lights, a Micro Grow greenhouse control system, and a weather station.","Image1":"image-Web500.jpg","Image2":"image1-Web500.jpg","Image3":"photo-2-Web500.jpg","Image4":"photo-4-Web500.jpg","ExtColor":["Clear Anodized","Class I Anodized"],"IntColor":["Clear Anodized","Class I Anodized"],"LengthProjection":"18 ft 7","RidgeHeight":"13 ft","Location":"New York","Width":"61 ft 2 in","Application":["Residential"],"Glazes":["LoE 272"]},{"ProjectID":"13-01-269","Date":201301269,"Products":[{"ProductName":"Door","GeoType1":["In-System Terrace Door"],"GeoType2":[]},{"ProductName":"Greenhouse","GeoType1":["Pinoleum","Curved Eave Double Pitch","Straight Eave Double Pitch"],"GeoType2":["2001+ SQF. Glass","Aluminum Tube System"]},{"ProductName":"Greenhouse Accessory","GeoType1":["Environmental Control Systems","Greenhouse Benches","Light Control","Temperature Control","Watering Systems"],"GeoType2":["Circulation Fans","Grow Lights","Metal Mesh Top Bench","Plastic Top Shelf","Rolling Bench","Suspended Misinting System","Tiered Bench","Wood Top Bench","Wood Top Shelf"]},{"ProductName":"Shades","GeoType1":["Interior Folding / Roman Pleated"],"GeoType2":["HVHZ / Miami-Dade Rated","Tiered Bench","Rolling Bench"]}],"Description":"This educational straight eave, double pitch greenhouse with two gable ends was installed to allow its students to expand their teaching horizons and provide unique horticultural learning opportunities.  The greenhouse includes accessories such as a fixed plant hanger, seven greenhouse benches with polyethyene tops, four benches with Sapele wood tops, and one greenhouse bench with an installed sink.","Image1":"photo-9-Web-500.jpg","Image2":"photo-4-Web-500.jpg","Image3":"photo-5-Web-500.jpg","Image4":"photo-11-Web-500.jpg","ExtColor":["Sandstone"],"IntColor":["Sandstone"],"LengthProjection":"40 ft 4 in","RidgeHeight":"15 ft 9 in","Location":"New Jersey","Width":"25 ft 4 in","Application":["Educational"],"Glazes":["LoE 272"]},{"ProjectID":"14-03-006","Date":201403006,"Products":[{"ProductName":"Window","GeoType1":["Projected"],"GeoType2":["1-50 SQF. Glass","Fixed"]}],"Description":"Solar replaced the two radius glazing units in this existing window.","Image1":"photo-1-Web-500.jpg","Image2":"photo-2-Web500.jpg","Image3":"photo-1-cropped-Web500.jpg","Image4":"photo-2.-cropped-Web-500.jpg","ExtColor":["White"],"IntColor":[],"LengthProjection":"-","RidgeHeight":"4 ft ","Location":"Pennsylvania","Width":"8 ft","Application":["Residential"],"Glazes":["LoE 272"]},{"ProjectID":"13-03-378","Date":201303378,"Products":[{"ProductName":"Architectural Enhancement","GeoType1":["Eave Vent","Ridge Vent"],"GeoType2":[]},{"ProductName":"Door","GeoType1":["In-System French Door"],"GeoType2":["Rolling Bench"]},{"ProductName":"Greenhouse","GeoType1":["Straight Eave Double Pitch"],"GeoType2":["751-1000 SQF. Glass","Aluminum Tube System"]},{"ProductName":"Greenhouse Accessory","GeoType1":["Greenhouse Benches","Temperature Control"],"GeoType2":["Circulation Fans","Evaporative Coolers","Heaters","Metal Mesh Top Bench","Rolling Bench","Single Plant Hanger"]}],"Description":"This straight eave, double pitch greenhouse was glazed with LoE 272 glass and equipped with appropriate accessories, including motorized ridge and eave vents, circulation fans, and heating and cooling systems to keep the structure at a comfortable temperature.","Image1":"photo-5-Web500.jpg","Image2":"photo-4-Web500.jpg","Image3":"photo-2-Web5001.jpg","Image4":"photo-3-Web500.jpg","ExtColor":["Sandstone"],"IntColor":["Sandstone"],"LengthProjection":"25 ft","RidgeHeight":"10 ft 4 in","Location":"New York","Width":"18 ft","Application":["Residential"],"Glazes":["LoE 272"]},{"ProjectID":"14-01-188","Date":201401188,"Products":[{"ProductName":"Folding Glass Wall","GeoType1":["Door"],"GeoType2":["101-250 SQF. Glass","Split Wall Floating Jamb"]}],"Description":"Three split wall, four-panel folding glass wall systems featuring Solar's G2 narrow framing system.","Image1":"Folding-Doors-4-Web-500.jpg","Image2":"Folding-Doors-1-Web-500.jpg","Image3":"Folding-Doors-3-Web-500.jpg","Image4":"Folding-Doors-4-cropped-Web-500.jpg","ExtColor":["Dark Bronze Anodized","Bronze","Class I Anodized"],"IntColor":["Dark Bronze Anodized","Bronze","Class I Anodized"],"LengthProjection":"-","RidgeHeight":"7 ft ","Location":"Kansas","Width":"6 ft","Application":["Banquets","Commercial"],"Glazes":["Insulated Glass"]},{"ProjectID":"14-03-385","Date":201403385,"Products":[{"ProductName":"Architectural Enhancement","GeoType1":["Ridge Vent"],"GeoType2":["Aluminum","Rolling Bench"]},{"ProductName":"Canopy","GeoType1":["Straight Eave Double Pitch"],"GeoType2":["1-50 SQF. Glass"]},{"ProductName":"Door","GeoType1":["In-System French Door"],"GeoType2":[]},{"ProductName":"Greenhouse","GeoType1":["Hung","Straight Eave Double Pitch"],"GeoType2":["2001+ SQF. Glass","Restoration System"]}],"Description":"This straight eave, double pitch greenhouse with two gable ends includes two canopies and multiple accessories.  Some of these accessories include aluminum base panels, bulbous trim, extruded gutter, round downspouts, ridge cresting, and multiple finials.  The structure also features a custom  inSlate Grey in finish on Solar's Restoration System framing.","Image1":"Blue-Garden-completed-pictures-8-21-14-1-edited-Web500.jpg","Image2":"Blue-Garden-completed-pictures-8-21-14-2-Web500.jpg","Image3":"photo-8-13-14-Web500.jpg","Image4":"Blue-Garden-completed-pictures-8-21-14-1-edited-cropped-Web500.jpg","ExtColor":[],"IntColor":[],"LengthProjection":"49 ft  9","RidgeHeight":"-","Location":"Rhode Island","Width":"15 ft 9 in","Application":["Residential"],"Glazes":["LoE 272"]},{"ProjectID":"13-08-045","Date":201308045,"Products":[{"ProductName":"Architectural Enhancement","GeoType1":["Ridge Vent"],"GeoType2":[]},{"ProductName":"Skylight","GeoType1":["Single Slope"],"GeoType2":["2001+ SQF. Glass","1-50 SQF. Glass"]}],"Description":"One single slope skylight featuring 4 three-bay operable ridge vents including four linear actuator motors with thermostats.","Image1":"photo-1-8-18-14-Web500.jpg","Image2":"photo-1-8-18-14-Web-500.jpg","Image3":"photo-3-Web-500.jpg","Image4":"photo-4-Web5001.jpg","ExtColor":["White"],"IntColor":["White"],"LengthProjection":"30 ft 7","RidgeHeight":"-","Location":"New York","Width":"34 ft 6 in","Application":["Residential"],"Glazes":["Clear","LoE 272","LoE 366"]},{"ProjectID":"12-05-332","Date":201205332,"Products":[{"ProductName":"Folding Glass Wall","GeoType1":["Door"],"GeoType2":["501-750 SQF. Glass","Single Door Hinge Jamb"]}],"Description":"Two single door (hinge jambed) wall systems featuring panic bar hardware. These doors also include an AAMA 2605 frame finish.","Image1":"IMG_1521-Web500.jpg","Image2":"IMG_1516-Web500.jpg","Image3":"IMG_1517-cropped-Web-500.jpg","Image4":"IMG_1518-Web500.jpg","ExtColor":["Custom Color"],"IntColor":["Custom Color"],"LengthProjection":"-","RidgeHeight":"8 ft 3 in","Location":"Washington DC","Width":"varies per unit","Application":["Institutional"],"Glazes":""},{"ProjectID":"14-06-467","Date":201406467,"Products":[{"ProductName":"Sunroom","GeoType1":["Curved Eave Lean-To"],"GeoType2":[]}],"Description":"Solar did a curved glass replacement on this curved eave, lean-to sunroom.","Image1":"photo-edited-Web500.jpg","Image2":"photo-edited-Cropped-again-2-Web500.jpg","Image3":"photo-edited-Cropped-again-Web500.jpg","Image4":"photo-edited-Cropped-Web500.jpg","ExtColor":["Custom Color"],"IntColor":["Custom Color"],"LengthProjection":"-","RidgeHeight":"-","Location":"Pennsylvania","Width":"-","Application":["Residential"],"Glazes":["Bronze","Energy Advantage","Insulated Glass"]},{"ProjectID":"14-02-321","Date":201402321,"Products":[{"ProductName":"Car Wash","GeoType1":["Stairway Covers"],"GeoType2":["251-500 SQF. Glass"]},{"ProductName":"Conservatory","GeoType1":["Straight Eave Double Pitch"],"GeoType2":["251-500 SQF. Glass","Urban / High Rise"]},{"ProductName":"Decorative Elements","GeoType1":["Finials","Ridge Cresting"],"GeoType2":["251-500 SQF. Glass"]}],"Description":"This straight eave, double pitch conservatory is used as a stairway cover. Residents can stand at the top of the stairs and enjoy a wonderful view while being protected from the elements.","Image1":"Install-Complete-minus-a-piece-of-S-1-lami-that-cracked-3-9-5-14-Web500.jpg","Image2":"Install-Complete-minus-a-piece-of-S-1-lami-that-cracked-3-9-5-14Web500cropped.jpg","Image3":"Install-Complete-minus-a-piece-of-S-1-lami-that-cracked-2-9-5-14-Web500.jpg","Image4":"Install-Complete-minus-a-piece-of-S-1-lami-that-cracked-1-9-5-14-Web500.jpg","ExtColor":["White"],"IntColor":["White"],"LengthProjection":"15 ft 3 in","RidgeHeight":"10 ft","Location":"Connecticut","Width":"6 ft 4 in","Application":["Residential"],"Glazes":["LoE 272"]},{"ProjectID":"12-03-439","Date":201203439,"Products":[{"ProductName":"Folding Glass Wall","GeoType1":["Door"],"GeoType2":["101-250 SQF. Glass"]}],"Description":"These two 6-panel, split wall, folding glass wall systems feature Solarban 60 glazing and Solar's Class I Clear Anodized frame finish.","Image1":"DSC_0482-edited-Web-500.jpg","Image2":"DSC_0475-Web500.jpg","Image3":"DSC_0482-edited-and-cropped-again-Web500.jpg","Image4":"DSC_0482-edited-cropped-Web-500.jpg","ExtColor":["Clear Anodized","Class I Anodized"],"IntColor":["Clear Anodized","Class I Anodized"],"LengthProjection":"-","RidgeHeight":"9 ft ","Location":"North Dakota","Width":"18 ft","Application":["Institutional","Stadiums"],"Glazes":["Solarban"]},{"ProjectID":"12-08-252","Date":201208252,"Products":[{"ProductName":"Window","GeoType1":["International","Mulled"],"GeoType2":["Casement","Euro Outwswing Casement","Fixed","Outswing Casement"]}],"Description":"A complete glazing packages consisting of numerous vertical wall systems, sliding glass door systems, terrace doors, and windows. Windows feature both Solar's Mulled Window System and Solar's G1 International Window System.","Image1":"Serivce-completed-9-18-14-3-Web500.jpg","Image2":"Sandweis-1-6-2014-1-intnl-unit-E-editing-Web500.jpg","Image3":"Sandweis-1-6-2014-2-Web500.jpg","Image4":"Serivce-completed-9-18-14-2-Web500.jpg","ExtColor":["Bronze","AAMA 2603"],"IntColor":["Bronze","AAMA 2603"],"LengthProjection":"varies per unit","RidgeHeight":"varies per unit","Location":"Missouri","Width":"varies per unit","Application":["Residential"],"Glazes":["LoE 272"]},{"ProjectID":"12-11-252","Date":201211252,"Products":[{"ProductName":"Decorative Elements","GeoType1":["Finials","Grids","Gutter","Palladin Arches","Ridge Cresting"],"GeoType2":["Low Profile Grid"]},{"ProductName":"Door","GeoType1":["In-System Terrace Door"],"GeoType2":[]},{"ProductName":"Sunroom","GeoType1":["Straight Eave Double Pitch"],"GeoType2":["101-250 SQF. Glass","Aluminum Tube System"]}],"Description":"This straight eave, double pitch sunroom with one gable end is a perfect example of how Solar can completely redo an existing sunroom into a Solar masterpiece.","Image1":"Konski-Residence-Completed-pictures-9-21-14-4-edited-Web500.jpg","Image2":"Konski-Residence-Completed-pictures-9-21-14-3-Web500.jpg","Image3":"Konski-Residence-Completed-9-21-14-2-Web500.jpg","Image4":"photo-8-Web500.jpg","ExtColor":["Bronze","Two Tone"],"IntColor":["Two Tone","White"],"LengthProjection":"8 ft 2 in","RidgeHeight":"9 ft  7","Location":"Pennsylvania","Width":"10 ft 8 in","Application":["Residential"],"Glazes":["Insulated Glass","LoE 366"]},{"ProjectID":"14-04-010","Date":201404010,"Products":[{"ProductName":"Sliding Door","GeoType1":["Door"],"GeoType2":["101-250 SQF. Glass","G2","Multi-Track","Pocket"]}],"Description":"Two G2 non-thermal, multi-track sliding glass door systems enclosing a corner meeting room in an office.","Image1":"Install-completed-9-15-14-4Web500.jpg","Image2":"Install-completed-9-15-14-3-Web500.jpg","Image3":"Install-completed-9-15-14-1-Web500.jpg","Image4":"Install-completed-9-15-14-5-Web500.jpg","ExtColor":["Clear Anodized","Class I Anodized"],"IntColor":["Clear Anodized","Class I Anodized"],"LengthProjection":"-","RidgeHeight":"8 ft 8 in","Location":"New York","Width":"varies per unit","Application":["Commercial","Office Space"],"Glazes":["Clear"]},{"ProjectID":"14-06-412","Date":201406412,"Products":[{"ProductName":"Curtain Wall","GeoType1":["Vertical Curtain Wall"],"GeoType2":["101-250 SQF. Glass"]},{"ProductName":"Decorative Elements","GeoType1":["Grids","Interior Munittin"],"GeoType2":[]},{"ProductName":"Folding Glass Wall","GeoType1":["Windows"],"GeoType2":["101-250 SQF. Glass","Split Wall No Floating Jamb"]},{"ProductName":"Window","GeoType1":["Folding"],"GeoType2":["101-250 SQF. Glass","Fixed"]}],"Description":"One folding glass wall window including fixed window base that is on the second floor of a barn.  The window features Solar's Sandstone Duracron frame finish and LoE 272 glazing with interior muntins.","Image1":"photo-1-edited-Web500.jpg","Image2":"photo-2-Web500.jpg","Image3":"2014/09/photo-3-web500.jpg","Image4":"photo-4-Web500.jpg","ExtColor":["Sandstone"],"IntColor":["Sandstone"],"LengthProjection":"-","RidgeHeight":"13 ft","Location":"Pennsylvania","Width":"16 ft","Application":["Residential"],"Glazes":["LoE 272"]},{"ProjectID":"12-08-096","Date":201208096,"Products":[{"ProductName":"Operable / Retractable Skylights","GeoType1":["Operable Skylight","Retractable Skylight / Roof"],"GeoType2":["51-100 SQF. Glass","Motorized"]}],"Description":"One G2 Multi-Panel Retractable Skylight including rain sensor. The skylight features a two-tone finish with Solar's Black Duracron frame finish on the exterior and the White Duracron interior frame finish.  The skylight includes a 10 degree pitch.","Image1":"20140922_140312_Web500.jpg","Image2":"photo-3-Web500.jpg","Image3":"20140922_140305-Web500.jpg","Image4":"20140922_140249-Web500.jpg","ExtColor":["Black"],"IntColor":["Two Tone","White"],"LengthProjection":"10 ft","RidgeHeight":"2 ft 6 in","Location":"New York","Width":"4 ft  10 in","Application":["Residential"],"Glazes":["Heat Strengthened Laminated","Insulated Glass","LoE 272","LoE 366","LoE i89"]},{"ProjectID":"14-05-250","Date":201405250,"Products":[{"ProductName":"Folding Glass Wall","GeoType1":["Entryway / Vestibule","Door"],"GeoType2":["251-500 SQF. Glass","All Wall","Split Wall No Floating Jamb"]},{"ProductName":"Pool Enclosure","GeoType1":["Irregular / Custom","Ring and Collar Ties"],"GeoType2":["251-500 SQF. Glass","High Pressure Sodium Grow Light"]}],"Description":"These five folding glass wall systems display three different configurations including three all wall, one split wall, and one single door (hinged panel) wall systems Every one of these folding glass walls have been Florida State Impact tested for 36 in wide x 96 in high panel size.","Image1":"stuntz-pool-10-02-14-2-Web500.jpg","Image2":"stuntz-pool-10-02-14-3-copyrighted.jpg","Image3":"stuntz-pool-10-02-14-1-Web500.jpg","Image4":"stuntz-pool-10-02-14-1-Web500-cropped.jpg","ExtColor":["White"],"IntColor":["White"],"LengthProjection":"-","RidgeHeight":"varies per unit","Location":"New York","Width":"varies per unit","Application":["Residential"],"Glazes":["Heat Strengthened Laminated","Impact","Insulated Glass","LoE 272"]},{"ProjectID":"07-11-048","Date":200711048,"Products":[{"ProductName":"Folding Glass Wall","GeoType1":["Door"],"GeoType2":["101-250 SQF. Glass","Double Door Mid Wall","Split Wall Floating Jamb"]}],"Description":"This residence includes two folding glass wall systems.  The exterior double door mid wall system features Solar's LoE 272 insulated glazing.  The interior unit features a 1/4 in clear tempered monolithic glass unit.","Image1":"Markert-9-25-14-1-Web500.jpg","Image2":"Markert-9-25-14-3-Web500.jpg","Image3":"Markert-9-25-14-2-Web500.jpg","Image4":"Markert-9-25-14-2-Web500-Cropped.jpg","ExtColor":["White"],"IntColor":["White"],"LengthProjection":"-","RidgeHeight":"varies per unit","Location":"Pennsylvania","Width":"varies per unit","Application":["Residential"],"Glazes":["Clear","Insulated Glass","LoE 272","Monolithic Glass","Tempered"]},{"ProjectID":"14-01-428","Date":201401428,"Products":[{"ProductName":"Conservatory","GeoType1":["Entryway / Vestibule","Gable End","Lantern","SDLs","Straight Eave Double Pitch"],"GeoType2":["2001+ SQF. Glass"]},{"ProductName":"Door","GeoType1":["Commercial Terrace & French Doors","In-System French Door"],"GeoType2":[]},{"ProductName":"Folding Glass Wall","GeoType1":["Windows"],"GeoType2":["51-100 SQF. Glass","Split Wall Floating Jamb","Traditional Grid"]},{"ProductName":"Sliding Door","GeoType1":["Door"],"GeoType2":["101-250 SQF. Glass","Dual Track","G2"]}],"Description":"This straight eave, double pitch conservatory includes two gable ends, dormer gable end, and is utilized for commercial dining. There is six dual track sliding windows, one narrow split wall folding glass window system, and one out-swing French door in the structure, as well as two 4-bay ridge vents. The decorative elements of the structure include decoratove gutter and six downspouts,","Image1":"MainDiningRmShot-9-30-14-Web500.jpg","Image2":"Floor_View-9-30-14-Web500.jpg","Image3":"OutSideNightTime-9-30-14-Web500.jpg","Image4":"Rare650-9-30-14-9-Web500.jpg","ExtColor":["Sandstone"],"IntColor":["Sandstone"],"LengthProjection":"51 ft","RidgeHeight":"16 ft 2 in","Location":"New York","Width":"28 ft","Application":["Commercial","Dining"],"Glazes":["Insulated Glass","LoE 272","LoE 366"]},{"ProjectID":"12-07-255","Date":201207255,"Products":[{"ProductName":"Architectural Enhancement","GeoType1":["Dormers","Eave Vent","Ridge Vent"],"GeoType2":["Aluminum"]},{"ProductName":"Decorative Elements","GeoType1":["Crown Molding","Finials","Gutter","Ridge Cresting"],"GeoType2":["Downspouts","Restoration Gutter"]},{"ProductName":"Door","GeoType1":["In-System Terrace Door"],"GeoType2":["Rolling Bench"]},{"ProductName":"Greenhouse","GeoType1":["Straight Eave Double Pitch"],"GeoType2":["751-1000 SQF. Glass","Restoration System"]}],"Description":"This straight eave, double pitch greenhouse was installed to connect to a previous built greenhouse structure. The structure utilizes Solar's Restoration system. Like the previously built structure, the new greenhouse includes operable ridge and eave vents, restoration gutter, downspouts, crown molding, and ridge cresting.","Image1":"Blithwold-9-30-14-1-Web500-cropped.jpg","Image2":"Blithwold-9-30-14-1-Web500.jpg","Image3":"Blithwold-9-30-14-3-Web500.jpg","Image4":"Blithwold-9-30-14-5-Web500.jpg","ExtColor":["White"],"IntColor":["White"],"LengthProjection":"25 ft 1 in","RidgeHeight":"11 ft 6 in","Location":"Rhode Island","Width":"20 ft 1 in","Application":["Historical","Institutional"],"Glazes":["Clear","Insulated Glass"]},{"ProjectID":"13-05-421","Date":201305421,"Products":[{"ProductName":"Folding Glass Wall","GeoType1":["Door"],"GeoType2":["51-100 SQF. Glass","Single Door Last Panel"]}],"Description":"One single door (last panel) narrow folding glass wall system used in a dining application.","Image1":"Jim-Thorpe-9-29-14-1-Web500.jpg","Image2":"Jim-Thorpe-9-29-14-2-Web500.jpg","Image3":"Jim-Thorpe-9-29-14-3-Web500.jpg","Image4":"Jim-Thorpe-9-29-14-4-Web500.jpg","ExtColor":["Dark Bronze Anodized","Bronze","Class I Anodized"],"IntColor":["Dark Bronze Anodized","Bronze","Class I Anodized"],"LengthProjection":"-","RidgeHeight":"8 ft 8 in","Location":"Pennsylvania","Width":"8 ft 6 in","Application":["Commercial","Dining"],"Glazes":["LoE 272","Tempered"]},{"ProjectID":"13-12-261","Date":201312261,"Products":[{"ProductName":"Car Wash","GeoType1":["Stairway Covers"],"GeoType2":["51-100 SQF. Glass","National Fenestration Rating Council Certified"]},{"ProductName":"Operable / Retractable Skylights","GeoType1":["Lantern 90 Degree Operable","Operable Skylight","Single Slope"],"GeoType2":["51-100 SQF. Glass"]},{"ProductName":"Skylight","GeoType1":["Hip End","Dormers","Single Slope"],"GeoType2":["51-100 SQF. Glass"]}],"Description":"One manually operated 90 degree operable skylight and one single slope fixed skylight used in a rooftop application.","Image1":"Completed-12-2-14-4-Web50.jpg","Image2":"image-10-28-14-1-edited-Web500.jpg","Image3":"image-10-28-14-1-cropped-Web500.jpg","Image4":"Completed-12-2-14-8-Web500.jpg","ExtColor":["Black"],"IntColor":["Black"],"LengthProjection":"12 ft 10 in","RidgeHeight":"-","Location":"New York","Width":"4 ft 1 in","Application":["Residential"],"Glazes":["Heat Strengthened Laminated","Insulated Glass","Laminated","LoE 272"]},{"ProjectID":"12-09-231","Date":201209231,"Products":[{"ProductName":"Architectural Enhancement","GeoType1":["Gable End","Ridge Vent"],"GeoType2":["Aluminum","HVHZ / Miami-Dade Rated"]},{"ProductName":"Decorative Elements","GeoType1":["Column","Gutter","Ridge Cresting"],"GeoType2":[]},{"ProductName":"Skylight","GeoType1":["Hung","Straight Eave Double Pitch"],"GeoType2":["101-250 SQF. Glass","Stick Built"]}],"Description":"One straight eave, double pitch pitch skylight utilizing Solar's 4.5 inch bar system. The structure also includes decorative columns and ridge cresting","Image1":"2014/11/completed-10-28-14-2-Web500.jpg","Image2":"completed-10-28-14-2-cropped-Web500.jpg","Image3":"completed-10-28-14-1-Web500.jpg","Image4":"completed-10-28-14-1-cropped-Web500.jpg","ExtColor":["White"],"IntColor":["White"],"LengthProjection":"8 ft 1 in","RidgeHeight":"4 ft 4 in","Location":"Connecticut","Width":"14 ft","Application":["Residential"],"Glazes":["EZ Clean","Insulated Glass","LoE 272"]},{"ProjectID":"12-03-460","Date":201203460,"Products":[{"ProductName":"Skylight","GeoType1":["Pyramid"],"GeoType2":["51-100 SQF. Glass","Pre-Assembled and Pre-Glazed","Welded Curb"]}],"Description":"One pyramid skylight featuring LoE 366 insulated glazing.","Image1":"Skylight-install-10-30-14-2-Web500.jpg","Image2":"Skylight-install-10-30-14-3-Web500.jpg","Image3":"Skylight-install-10-30-14-1Web500.jpg","Image4":"Skylight-install-10-30-14-4-Web500.jpg","ExtColor":["Dark Bronze Anodized","Bronze","Class I Anodized"],"IntColor":["Dark Bronze Anodized","Bronze","Class I Anodized"],"LengthProjection":"8 ft 6 in","RidgeHeight":"3 ft 4 in","Location":"Other","Width":"8 ft 6 in","Application":["Residential"],"Glazes":["Heat Strengthened Laminated","Insulated Glass","Laminated","LoE 366"]},{"ProjectID":"14-02-319","Date":201402319,"Products":[{"ProductName":"Decorative Elements","GeoType1":[],"GeoType2":["High Pressure Sodium Grow Light"]},{"ProductName":"Clear Glass Walls","GeoType1":[],"GeoType2":[]},{"ProductName":"Folding Glass Wall","GeoType1":["Door"],"GeoType2":["51-100 SQF. Glass","Split Wall No Floating Jamb"]}],"Description":"This folding glass wall system with a split wall configuration was installed in a conventional construction pool house. The folding glass wall features a G2 narrow vertical, as well as a heavy bottom rail. Photo credit: Ginger Smith.","Image1":"500-pool-house-doors-closed-51.jpg","Image2":"500-pool-house-doors-wide-open-2.jpg","Image3":"500-500-pool-house-doors-half-open-1.jpg","Image4":"500-pool-house-doors-half-open-1.jpg","ExtColor":["AAMA 2603","White"],"IntColor":["Southern Yellow Pine","Wood Veneer"],"LengthProjection":"-","RidgeHeight":"7 ft ","Location":"New York","Width":"13 ft","Application":["Residential"],"Glazes":["Insulated Glass","LoE 272","Tempered"]},{"ProjectID":"13-10-396","Date":201310396,"Products":[{"ProductName":"Architectural Enhancement","GeoType1":["Eave Vent","Gable End","Ridge Vent"],"GeoType2":["Aluminum","Rolling Bench"]},{"ProductName":"Greenhouse","GeoType1":["Hung","Straight Eave Double Pitch"],"GeoType2":["2001+ SQF. Glass","1-50 SQF. Glass"]},{"ProductName":"Greenhouse Accessory","GeoType1":["Environmental Control Systems","Temperature Control"],"GeoType2":["Aluminum Tube","Circulation Fans","Evaporative Coolers","Grow Lights","Rolling Bench"]},{"ProductName":"Shades","GeoType1":["Interior Folding / Roman Pleated","Interior Operable","Pleated Gravity Fed"],"GeoType2":["HVHZ / Miami-Dade Rated"]}],"Description":"Straight eave, double pitch greenhouse with two gable ends featuring six interior, pleated, gravity fed roof shades. These shades are operated by the Microgorw system.","Image1":"coles-pond-11-4-14-3-Shades-Web500.jpg","Image2":"coles-pond-11-4-14-7-Shades-Web500.jpg","Image3":"completed-11-5-14-5-Web500.jpg","Image4":"coles-pond-11-4-14-1-Shades-Web500.jpg","ExtColor":["Clear Anodized","Class I Anodized"],"IntColor":["Clear Anodized","Class I Anodized"],"LengthProjection":"38 ft 8 in","RidgeHeight":"15 ft","Location":"Massachusetts","Width":"24 ft ","Application":["Residential"],"Glazes":["Insulated Glass","LoE 272"]},{"ProjectID":"14-05-200","Date":201405200,"Products":[{"ProductName":"Sliding Door","GeoType1":["Door"],"GeoType2":["2001+ SQF. Glass","1-50 SQF. Glass","G2","Multi-Track"]}],"Description":"Twenty G2 multi-track sliding glass doors with charcoal fiberglass screens featuring Solar's Bronze Duracron's frame finish.","Image1":"dc-superior-11-7-14-5-Web500.jpg","Image2":"completed-exterior-view-11-13-14-1-Web500.jpg","Image3":"completed-exterior-view-11-13-14-3-Web-500.jpg","Image4":"dc-superior-11-7-14-1-Web500.jpg","ExtColor":["Bronze"],"IntColor":["Bronze"],"LengthProjection":"-","RidgeHeight":"8 ft 6 in","Location":"Washington DC","Width":"7 ft  9","Application":["Living Space","Residential"],"Glazes":["Insulated Glass","LoE 272","Tempered"]},{"ProjectID":"14-08-266","Date":201408266,"Products":[{"ProductName":"Sliding Door","GeoType1":["Door"],"GeoType2":["101-250 SQF. Glass","G2","Multi-Track","Pocket"]}],"Description":"Two G2 multi-track sliding glass door systems installed by Solar Innovations, Inc. One system system is used for a seven foot, 4-panel door while the other is used for a large window in which the two panels enter a pocket when open.","Image1":"2014/12/exterior-view-12-6-14-3-Web500.jpg","Image2":"exterior-view-12-6-14-2-Web500.jpg","Image3":"exterior-view-12-6-14-1-Web500.jpg","Image4":"photos-of-job-12-6-14-6-Web500.jpg","ExtColor":["Bronze"],"IntColor":["Bronze"],"LengthProjection":"-","RidgeHeight":"varies per unit","Location":"Pennsylvania","Width":"varies per unit","Application":["Home","Living Space","Residential"],"Glazes":["Insulated Glass","LoE 272","Tempered"]},{"ProjectID":"13-02-246","Date":201302246,"Products":[{"ProductName":"Folding Glass Wall","GeoType1":["Door"],"GeoType2":["51-100 SQF. Glass","Single Door Last Panel"]},{"ProductName":"Screen","GeoType1":["Entryway / Vestibule","Gable End","Lantern","Decorative Corners"],"GeoType2":["Manual"]},{"ProductName":"Shades","GeoType1":["Interior Operable"],"GeoType2":["Door"]}],"Description":"One G2 Single door (last panel) folding glass wall system featuring a eco-screen multi-function double screen/shade system.","Image1":"Completed-11-22-14-8-edit-Web500.jpg","Image2":"Completed-11-22-14-7-Web500.jpg","Image3":"Completed-11-22-14-1-Web500.jpg","Image4":"Completed-11-22-14-2-Web500.jpg","ExtColor":["Sandstone"],"IntColor":["Sandstone"],"LengthProjection":"-","RidgeHeight":"8 ft","Location":"Virginia","Width":"12 ft","Application":["Home","Living Space","Residential"],"Glazes":["Insulated Glass","LoE 272","Tempered"]},{"ProjectID":"13-06-320","Date":201306320,"Products":[{"ProductName":"Skylight","GeoType1":["Irregular / Custom","Single Slope"],"GeoType2":["251-500 SQF. Glass"]}],"Description":"One irregular SI5600 single slope skylight utilizing Solar's 2.5 in x 8 in framing system used in an educational application.","Image1":"completed-11-20-14-6-Web500.jpg","Image2":"completed-11-20-14-5-Web500.jpg","Image3":"completed-11-20-14-1-Web500.jpg","Image4":"completed-11-20-14-8-Web500.jpg","ExtColor":["Clear Anodized","Class I Anodized"],"IntColor":["Clear Anodized","Class I Anodized"],"LengthProjection":"22 ft 7 in","RidgeHeight":"-","Location":"Other","Width":"14 ft 3 in","Application":["Educational"],"Glazes":["Heat Strengthened Laminated","Insulated Glass","LoE 366"]},{"ProjectID":"14-03-102","Date":201403102,"Products":[{"ProductName":"Skylight","GeoType1":["Pyramid"],"GeoType2":["1-50 SQF. Glass","Curb Mount","Knocked Down","Welded Curb"]}],"Description":"One SI5800 fixed pitch welded curb 30 degree pyramid skylight used on a residential rooftop.","Image1":"small-skylight-2-11-21-14-Web500.jpg","Image2":"small-skylight-11-21-14-Web500.jpg","Image3":"small-skylight-2-11-21-14-Web500.jpg","Image4":"small-skylight-11-21-14-Web500.jpg","ExtColor":["White"],"IntColor":["White"],"LengthProjection":"2 ft","RidgeHeight":"7 ft","Location":"Other","Width":"2 ft","Application":["Residential"],"Glazes":["Heat Strengthened Laminated","Insulated Glass","LoE 340"]},{"ProjectID":"14-03-348","Date":201403348,"Products":[{"ProductName":"Skylight","GeoType1":["Straight Eave Double Pitch"],"GeoType2":["101-250 SQF. Glass","Knocked Down"]}],"Description":"Two straight eave, double pitch skylights featuring Solar's flexible glazing system attached to 2 in x 4 in Douglas Fir glulams.","Image1":"kerney-Ct-skylights-11-26-14-1-Web500.jpg","Image2":"kerney-Ct-skylights-11-26-14-5-Web500.jpg","Image3":"kerney-Ct-skylights-11-26-14-7-Web500.jpg","Image4":"kerney-Ct-skylights-11-26-14-8-Web500.jpg","ExtColor":["AAMA 2603","White"],"IntColor":["Doulgas Fir","Glulam"],"LengthProjection":"14 ft","RidgeHeight":"1 ft 4 in","Location":"Connecticut","Width":"6 ft","Application":["Residential"],"Glazes":["Clear"]},{"ProjectID":"14-01-386","Date":201401386,"Products":[{"ProductName":"Architectural Enhancement","GeoType1":["Ridge Vent"],"GeoType2":["Aluminum Tube System","101-250 SQF. Glass","Aluminum","HVHZ / Miami-Dade Rated"]},{"ProductName":"Skylight","GeoType1":["Conservatory Nose","Entryway / Vestibule","Hung","Straight Eave Double Pitch"],"GeoType2":["101-250 SQF. Glass","Stick Built"]},{"ProductName":"Skylight","GeoType1":["Straight Eave Double Pitch"],"GeoType2":["101-250 SQF. Glass","Stick Built"]}],"Description":"One straight eave, double pitch skylight featuring 2 four-bay ridge vents. The ridge vents are motorized and controlled by a thermostat.","Image1":"2015/01/completed-12-30-14-3-Web500-cropped.jpg","Image2":"2015/01/completed-12-30-14-3-Web500.jpg","Image3":"2015/01/completed-12-30-14-4-Web500.jpg","Image4":"2015/01/completed-12-30-14-5-Web500.jpg","ExtColor":["Dark Bronze Anodized","Bronze","Class I Anodized"],"IntColor":["Dark Bronze Anodized","Bronze","Class I Anodized"],"LengthProjection":"11 ft 9 in","RidgeHeight":"2 ft 4 in","Location":"Rhode Island","Width":"12 ft","Application":["Residential"],"Glazes":["Insulated Glass","LoE 272"]},{"ProjectID":"08-12-297","Date":200812297,"Products":[{"ProductName":"Greenhouse","GeoType1":["Irregular / Custom","Straight Eave Double Pitch"],"GeoType2":["2001+ SQF. Glass","1-50 SQF. Glass","Aluminum Tube System"]}],"Description":"One straight eave, double pitch institutional greenhouse including aluminum gutter, four downspouts, four awning windows, four 3-bay operable ridge vents, four 12 in shutter fans, three 16 in shutter fans, and evaporative cooler. The greenhouse is located at Susquehanna University.","Image1":"service-1-4-15-3-Web500.jpg","Image2":"service-1-4-15-6-Web500.jpg","Image3":"service-1-4-15-1-Web500.jpg","Image4":"service-1-4-15-4-Web-500.jpg","ExtColor":["Custom Color","Fluoropolymer"],"IntColor":["Custom Color","Fluoropolymer"],"LengthProjection":"30 ft 6 in","RidgeHeight":"13 ft","Location":"Pennsylvania","Width":"30 ft 6 in","Application":["Educational","Institutional"],"Glazes":["Clear"]},{"ProjectID":"14-05-064","Date":201405064,"Products":[{"ProductName":"Skylight","GeoType1":["Walkable"],"GeoType2":["51-100 SQF. Glass","Stick Built"]}],"Description":"Two SI5500 Walkable Skylights featuring anti-slip on walking surface.","Image1":"Walkable-Instagram-Web500.jpg","Image2":"completed-1-6-15-1-Web500.jpg","Image3":"completed-1-6-15-5-Web500.jpg","Image4":"completed-1-6-15-3-Web500.jpg","ExtColor":["Clear Anodized","Class I Anodized"],"IntColor":["Clear Anodized","Class I Anodized"],"LengthProjection":"6 ft 9 in","RidgeHeight":"-","Location":"New York","Width":"5 ft 4 in","Application":["Residential"],"Glazes":["Clear","Laminated","Monolithic Glass"]},{"ProjectID":"14-04-448","Date":201404448,"Products":[{"ProductName":"Architectural Enhancement","GeoType1":["Eave Vent","Gable End","Ridge Vent","Transom"],"GeoType2":["Aluminum"]},{"ProductName":"Decorative Elements","GeoType1":["Finials","Grids","Ridge Cresting","Ring and Collar Ties"],"GeoType2":["Traditional Grids","Rolling Bench"]},{"ProductName":"Greenhouse","GeoType1":["Gable End","Lantern","Straight Eave Double Pitch"],"GeoType2":["2001+ SQF. Glass","1-50 SQF. Glass","Aluminum Tube System"]},{"ProductName":"Greenhouse Accessory","GeoType1":["Environmental Control Systems","Temperature Control"],"GeoType2":["Aluminum Truss Hangar","Aluminum Tube","Rolling Bench","Sliding Plant Hangar"]}],"Description":"This one straight eave, double pitch greenhouse with two gable ends includes G1 International windows. The greenhouse includes a variety of accessories including eave vents, ridge vents, thermostats to control temperatures, and isolation relays.","Image1":"completed-2-13-15-1-Web500.jpg","Image2":"completed-2-13-15-9-Web500.jpg","Image3":"completed-2-13-15-4-Web500.jpg","Image4":"completed-2-13-15-10-Web500.jpg","ExtColor":["Dark Bronze Anodized","Bronze","Class I Anodized"],"IntColor":["Dark Bronze Anodized","Bronze","Class I Anodized"],"LengthProjection":"40 ft","RidgeHeight":"14 ft 9 in","Location":"North Carolina","Width":"21 ft","Application":["Home","Residential"],"Glazes":["LoE 272"]},{"ProjectID":"14-09-306","Date":201409306,"Products":[{"ProductName":"Skylight","GeoType1":["Straight Eave Double Pitch"],"GeoType2":["51-100 SQF. Glass","Stick Built"]}],"Description":"One straight eave, double pitch skylight with two gable ends featuring a Copper cladding exterior finish.","Image1":"progress-2-16-15-1-cropped-Web500.jpg","Image2":"progress-2-16-15-1-Web500.jpg","Image3":"2015/02/progress-2-16-15-3-Web500.jpg","Image4":"progress-2-16-15-4-Web500.jpg","ExtColor":["Copper","Metal Cladding"],"IntColor":["White"],"LengthProjection":"8 ft","RidgeHeight":"2 ft","Location":"Washington DC","Width":"6 ft","Application":["Residential"],"Glazes":["Insulated Glass","Laminated","LoE 366","LoE i89"]},{"ProjectID":"14-08-243","Date":201408243,"Products":[{"ProductName":"Skylight","GeoType1":["Straight Eave Double Pitch"],"GeoType2":["101-250 SQF. Glass"]}],"Description":"One straight eave, double pitch lantern skylights including two hip ends installed in Connecticut.","Image1":"photo-14-Web500.jpg","Image2":"photo-6-Web500.jpg","Image3":"photo-13-Web500.jpg","Image4":"photo-14-Web500.jpg","ExtColor":["Bronze","AAMA 2603"],"IntColor":["Bronze","AAMA 2603"],"LengthProjection":"11 ft 7 in","RidgeHeight":"4 ft ","Location":"Connecticut","Width":"6 ft 7 in","Application":["Commercial"],"Glazes":["Insulated Glass","Laminated","LoE 340"]},{"ProjectID":"14-05-236","Date":201405236,"Products":[{"ProductName":"Conservatory","GeoType1":["Straight Eave Double Pitch"],"GeoType2":["501-750 SQF. Glass","Victorian"]}],"Description":"One straight eave, double pitch conservatory installed in Illinois. The conservatory features operable eave and ridge vents, French door, low profile grids, finial, ridge cresting, rake and crown molding, gutter, downspouts, and two pilaster corners.","Image1":"completed-12-20-14-1-Web500.jpg","Image2":"completed-12-20-14-3-Web500.jpg","Image3":"completed-12-20-14-4-Web500.jpg","Image4":"completed-12-20-14-7-Web500.jpg","ExtColor":["White"],"IntColor":["White"],"LengthProjection":"12 ft","RidgeHeight":"14 ft","Location":"Illinois","Width":"20 ft","Application":["Home","Living Space","Residential"],"Glazes":["Insulated Glass","LoE 272"]},{"ProjectID":"14-04-509","Date":201404509,"Products":[{"ProductName":"Skylight","GeoType1":["Dome"],"GeoType2":["101-250 SQF. Glass"]}],"Description":"True radius dome skylight with 12 segmented sills installed at a bank.","Image1":"2015/02/IMG_8083-Web500.jpg","Image2":"2015/02/IMG_8084-Web500.jpg","Image3":"2015/02/image3-Web500.jpg","Image4":"2015/02/image2-Web500.jpg","ExtColor":["White"],"IntColor":["White"],"LengthProjection":"-","RidgeHeight":"6 ft 4 in","Location":"Texas","Width":"13 ft","Application":["Commercial"],"Glazes":["Insulated Glass","Laminated","SN-68"]},{"ProjectID":"12-10-096","Date":201210096,"Products":[{"ProductName":"Greenhouse","GeoType1":["Straight Eave Double Pitch"],"GeoType2":["2001+ SQF. Glass","1-50 SQF. Glass","Aluminum Tube System"]},{"ProductName":"Greenhouse Accessory","GeoType1":["Environmental Control Systems","Greenhouse Benches","Light Control"],"GeoType2":["Aluminum Tube","Circulation Fans","Rolling Bench"]},{"ProductName":"Shades","GeoType1":["Interior Operable"],"GeoType2":["HVHZ / Miami-Dade Rated"]}],"Description":"One straight eave, double pitch greenhouse installed with operable shades.","Image1":"image3-Web5001.jpg","Image2":"image2-Web5001.jpg","Image3":"image1-Web500.jpg","Image4":"image5-Web500.jpg","ExtColor":["Dark Bronze Anodized","Bronze","Class I Anodized"],"IntColor":["Dark Bronze Anodized","Bronze","Class I Anodized"],"LengthProjection":"31 ft 6 in","RidgeHeight":"17 ft  8 in","Location":"Indiana","Width":"26 ft 8 in","Application":["Residential"],"Glazes":["Insulated Glass","LoE 272"]},{"ProjectID":"14-10-302","Date":201410302,"Products":[{"ProductName":"Architectural Enhancement","GeoType1":["Eave Vent","Gable End","Ridge Vent"],"GeoType2":["251-500 SQF. Glass","Aluminum","Rolling Bench"]},{"ProductName":"Door","GeoType1":["In-System Terrace Door"],"GeoType2":[]},{"ProductName":"Greenhouse","GeoType1":["Hip End","Ridge Vent","Hung","Straight Eave Double Pitch"],"GeoType2":["251-500 SQF. Glass","Aluminum Tube System"]},{"ProductName":"Greenhouse Accessory","GeoType1":["Environmental Control Systems","Temperature Control"],"GeoType2":["Aluminum Tube","Rolling Bench"]}],"Description":"One straight eave, double pitch greenhouse installed in Vermont. The greenhouse included two 4-bay operable eave vents, two 4-bay operable ridge vents, isolation relays for both eave and ridge vents, and thermostats foth both the ridge and eave vents.","Image1":"20150227_073902-Web500.jpg","Image2":"completed-2-26-15-1-Web500.jpg","Image3":"completed-2-26-15-2-Web500.jpg","Image4":"completed-2-26-15-4-Web500.jpg","ExtColor":["AAMA 2603","White"],"IntColor":["AAMA 2603","White"],"LengthProjection":"12 ft","RidgeHeight":"9 ft ","Location":"Vermont","Width":"10 ft","Application":["Home","Residential"],"Glazes":["Insulated Glass","LoE 272"]},{"ProjectID":"14-06-309","Date":201406309,"Products":[{"ProductName":"Complete Glazing Packages","GeoType1":["Out of System Terrace and French Doors"],"GeoType2":["251-500 SQF. Glass"]},{"ProductName":"Door","GeoType1":["In-System Terrace Door"],"GeoType2":[]},{"ProductName":"Pivot","GeoType1":["Door"],"GeoType2":[]},{"ProductName":"Window","GeoType1":["International"],"GeoType2":["251-500 SQF. Glass","Tilt Turn"]}],"Description":"This complete glazing package project included Solar's G2 International tilt turn windows, G2 pivot door, G2 terrace doors, and double hung windows.","Image1":"completed-3-19-15-1-Web500.jpg","Image2":"completed-3-19-15-4-Web-500.jpg","Image3":"update-3-17-15-3-Web500.jpg","Image4":"exterior-view-progress-3-18-15-3-Web-500.jpg","ExtColor":["Clear Anodized","Class I Anodized"],"IntColor":["Clear Anodized","Class I Anodized"],"LengthProjection":"vary per unit","RidgeHeight":"vary per unit","Location":"Virginia","Width":"vary per unit","Application":["Residential"],"Glazes":["Insulated Glass","LoE 272","Tempered"]},{"ProjectID":"14-03-339","Date":201403339,"Products":[{"ProductName":"Skylight","GeoType1":["Pyramid"],"GeoType2":["101-250 SQF. Glass","Curb Mount"]}],"Description":"Pyramid Skylight on top of a New York City building.","Image1":"Completed-3-10-15-2-Web500-Cropped.jpg","Image2":"Completed-3-10-15-2-Web500jpg.jpg","Image3":"Completed-3-10-15-1-Web500.jpg","Image4":"Completed-3-10-15-3-Web500.jpg","ExtColor":["White"],"IntColor":["White"],"LengthProjection":"10 ft 8 in","RidgeHeight":"3 ft 7 in","Location":"New York","Width":"10 ft 8 in","Application":["Residential"],"Glazes":["Insulated Glass","Laminated","LoE 340"]},{"ProjectID":"14-05-233","Date":201405233,"Products":[{"ProductName":"Operable / Retractable Skylights","GeoType1":["Gable End","Storage","Transom","Entryway / Vestibule","Operable Skylight","Retractable Skylight / Roof","Single Slope"],"GeoType2":"51-100 SQF. Glass,Motorized"},{"ProductName":"Skylight","GeoType1":["Single Slope"],"GeoType2":["51-100 SQF. Glass","Curb Mount","Pre-Assembled and Not Pre-Glazed"]}],"Description":"The custom designed single slope retractable skylight provided natural ventilation for a residence in an urban neighborhood with limited options.  The skylight system was curb mounted, using a crane to bring the pre-assembled portion of the skylight to the roof. This skylight came equipped with a weather sensor, a motorized operator, and the capability for thermostatic control.  The weather sensor recognizes wind speed and rain, triggering the motorized operator to automatically close the skylight when the conditions are no longer optimal. Then, if connected to the thermostatic control, once the set temperature has been reached and the weather sensor is no longer triggered, the skylight automatically opens to a clear opening of just over 3 ft to ventilate the residence.","Image1":"2015/06/completed-4-29-15-2-touched-up-Web500.jpg","Image2":"completed-4-29-15-1-edited-Web500.jpg","Image3":"2015/06/completed-4-29-15-2-touched-up-Web500.jpg","Image4":"completed-4-29-15-1-edited-Web500.jpg","ExtColor":[],"IntColor":["Bronze"],"LengthProjection":"8 ft","RidgeHeight":"2 ft 6 in","Location":"Massachusetts","Width":"8 ft","Application":["Residential"],"Glazes":["Gray","Insulated Glass","Laminated","LoE 340"]},{"ProjectID":"12-04-030","Date":201204030,"Products":[{"ProductName":"Complete Glazing Packages","GeoType1":["Complete Glazing Packages"],"GeoType2":["2001+ SQF. Glass","0 SQF. Glass","High Pressure Sodium Grow Light","Hydronic Bench"]},{"ProductName":"Folding Glass Wall","GeoType1":["Gable End","Multi Panel","Door","Monster Wall"],"GeoType2":["501-750 SQF. Glass"]},{"ProductName":"Sliding Door","GeoType1":["Door"],"GeoType2":["501-750 SQF. Glass","Dual Track","G2"]},{"ProductName":"Window","GeoType1":["Mulled"],"GeoType2":["501-750 SQF. Glass","Casement","Fixed"]}],"Description":"Complete glazing package featuring Solar's Mulled Window System. The project also includes folding glass walls and dual track sliding glass doors and windows.","Image1":"6-29-15-photo-5-Web500.jpg","Image2":"","Image3":"image-Web500.jpg","Image4":"2015/07/image2-Web500.jpg","ExtColor":["Clear Anodized","Class I Anodized"],"IntColor":["Clear Anodized","Class I Anodized"],"LengthProjection":"-","RidgeHeight":"varies per unit","Location":"Other","Width":"varies per unit","Application":["Residential"],"Glazes":["Insulated Glass","LoE 272","Tempered"]},{"ProjectID":"13-11-303","Date":201311303,"Products":[{"ProductName":"Canopy","GeoType1":["Straight Eave Lean-To"],"GeoType2":["101-250 SQF. Glass"]}],"Description":"Two straight eave, lean-to canopies with two gable ends, cover two entrance/exit doors on this Massachusetts educational institute and provide protection from the elements to students and faculty.\nThe canopies feature Class I Clear Anodized frame finish, and use clear, laminated, monolithic glazing to compliment the school?? industrial look.","Image1":"image2_web.jpg","Image2":"image2_web2.jpg","Image3":"","Image4":"","ExtColor":["Clear Anodized","Class I Anodized"],"IntColor":["Clear Anodized","Class I Anodized"],"LengthProjection":"3 ft 6 in","RidgeHeight":"25 ft","Location":"Massachusetts","Width":"4 ft","Application":["Educational"],"Glazes":["Clear","Laminated","Monolithic Glass"]}]
 
 /***/ }),
-/* 20 */
+/* 23 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_MegaFilter_vue__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_MegaFilter_vue__ = __webpack_require__(4);
 /* unused harmony namespace reexport */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_ca50bdd8_hasScoped_false_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_MegaFilter_vue__ = __webpack_require__(21);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_ca50bdd8_hasScoped_false_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_MegaFilter_vue__ = __webpack_require__(24);
 var disposed = false
 var normalizeComponent = __webpack_require__(0)
 /* script */
@@ -27553,7 +31594,7 @@ if (false) {(function () {
 
 
 /***/ }),
-/* 21 */
+/* 24 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -27947,17 +31988,17 @@ if (false) {
 }
 
 /***/ }),
-/* 22 */
+/* 25 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_ListItem_vue__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_ListItem_vue__ = __webpack_require__(5);
 /* unused harmony namespace reexport */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_8938a74a_hasScoped_true_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_ListItem_vue__ = __webpack_require__(56);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_8938a74a_hasScoped_true_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_ListItem_vue__ = __webpack_require__(27);
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(55)
+  __webpack_require__(26)
 }
 var normalizeComponent = __webpack_require__(0)
 /* script */
@@ -28003,2969 +32044,13 @@ if (false) {(function () {
 
 
 /***/ }),
-/* 23 */,
-/* 24 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_CheckFilter_vue__ = __webpack_require__(7);
-/* unused harmony namespace reexport */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_3f99a286_hasScoped_true_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_CheckFilter_vue__ = __webpack_require__(26);
-var disposed = false
-function injectStyle (ssrContext) {
-  if (disposed) return
-  __webpack_require__(25)
-}
-var normalizeComponent = __webpack_require__(0)
-/* script */
-
-
-/* template */
-
-/* template functional */
-var __vue_template_functional__ = false
-/* styles */
-var __vue_styles__ = injectStyle
-/* scopeId */
-var __vue_scopeId__ = "data-v-3f99a286"
-/* moduleIdentifier (server only) */
-var __vue_module_identifier__ = null
-var Component = normalizeComponent(
-  __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_CheckFilter_vue__["a" /* default */],
-  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_3f99a286_hasScoped_true_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_CheckFilter_vue__["a" /* default */],
-  __vue_template_functional__,
-  __vue_styles__,
-  __vue_scopeId__,
-  __vue_module_identifier__
-)
-Component.options.__file = "src/_vue/components/CheckFilter.vue"
-
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-3f99a286", Component.options)
-  } else {
-    hotAPI.reload("data-v-3f99a286", Component.options)
-  }
-  module.hot.dispose(function (data) {
-    disposed = true
-  })
-})()}
-
-/* harmony default export */ __webpack_exports__["a"] = (Component.exports);
-
-
-/***/ }),
-/* 25 */
+/* 26 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
-
-/***/ }),
-/* 26 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    { staticClass: "p-0 pointer", on: { click: _vm.checkFilter } },
-    [
-      _c("small", [
-        _c("i", {
-          staticClass: "mr-1",
-          class: {
-            "far fa-square": _vm.checked == false,
-            "fas fa-check-square": _vm.checked
-          },
-          staticStyle: { color: "rgb(150, 150, 150)" }
-        }),
-        _vm._v(" " + _vm._s(_vm.name) + "\n    ")
-      ])
-    ]
-  )
-}
-var staticRenderFns = []
-render._withStripped = true
-var esExports = { render: render, staticRenderFns: staticRenderFns }
-/* harmony default export */ __webpack_exports__["a"] = (esExports);
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-3f99a286", esExports)
-  }
-}
 
 /***/ }),
 /* 27 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_SmallGridItem_vue__ = __webpack_require__(8);
-/* unused harmony namespace reexport */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_3713ba06_hasScoped_false_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_SmallGridItem_vue__ = __webpack_require__(28);
-var disposed = false
-var normalizeComponent = __webpack_require__(0)
-/* script */
-
-
-/* template */
-
-/* template functional */
-var __vue_template_functional__ = false
-/* styles */
-var __vue_styles__ = null
-/* scopeId */
-var __vue_scopeId__ = null
-/* moduleIdentifier (server only) */
-var __vue_module_identifier__ = null
-var Component = normalizeComponent(
-  __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_SmallGridItem_vue__["a" /* default */],
-  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_3713ba06_hasScoped_false_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_SmallGridItem_vue__["a" /* default */],
-  __vue_template_functional__,
-  __vue_styles__,
-  __vue_scopeId__,
-  __vue_module_identifier__
-)
-Component.options.__file = "src/_vue/components/SmallGridItem.vue"
-
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-3713ba06", Component.options)
-  } else {
-    hotAPI.reload("data-v-3713ba06", Component.options)
-  }
-  module.hot.dispose(function (data) {
-    disposed = true
-  })
-})()}
-
-/* harmony default export */ __webpack_exports__["a"] = (Component.exports);
-
-
-/***/ }),
-/* 28 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "col-lg-3  mt-3 pt-3" }, [
-    _c("div", { staticClass: "row no-gutters" }, [
-      _c("div", { staticClass: "col-lg-12" }, [
-        _c("div", { staticClass: "row no-gutters  justify-content-end" }, [
-          _c("div", { staticClass: "col-lg-12" }),
-          _vm._v(" "),
-          _c("div", { staticClass: "col-12 mb-1" }, [
-            _c("img", {
-              staticClass: "img",
-              attrs: { src: _vm.imgUrlFormat(_vm.resource.Image1) }
-            })
-          ])
-        ])
-      ])
-    ])
-  ])
-}
-var staticRenderFns = []
-render._withStripped = true
-var esExports = { render: render, staticRenderFns: staticRenderFns }
-/* harmony default export */ __webpack_exports__["a"] = (esExports);
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-3713ba06", esExports)
-  }
-}
-
-/***/ }),
-/* 29 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_LargeGridItem_vue__ = __webpack_require__(9);
-/* unused harmony namespace reexport */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_7840323a_hasScoped_false_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_LargeGridItem_vue__ = __webpack_require__(30);
-var disposed = false
-var normalizeComponent = __webpack_require__(0)
-/* script */
-
-
-/* template */
-
-/* template functional */
-var __vue_template_functional__ = false
-/* styles */
-var __vue_styles__ = null
-/* scopeId */
-var __vue_scopeId__ = null
-/* moduleIdentifier (server only) */
-var __vue_module_identifier__ = null
-var Component = normalizeComponent(
-  __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_LargeGridItem_vue__["a" /* default */],
-  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_7840323a_hasScoped_false_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_LargeGridItem_vue__["a" /* default */],
-  __vue_template_functional__,
-  __vue_styles__,
-  __vue_scopeId__,
-  __vue_module_identifier__
-)
-Component.options.__file = "src/_vue/components/LargeGridItem.vue"
-
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-7840323a", Component.options)
-  } else {
-    hotAPI.reload("data-v-7840323a", Component.options)
-  }
-  module.hot.dispose(function (data) {
-    disposed = true
-  })
-})()}
-
-/* harmony default export */ __webpack_exports__["a"] = (Component.exports);
-
-
-/***/ }),
-/* 30 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "col-lg-4  mt-3 pt-3" }, [
-    _c("div", { staticClass: "row no-gutters" }, [
-      _c("div", { staticClass: "col-lg-12" }, [
-        _c("div", { staticClass: "row no-gutters pr-3 justify-content-end" }, [
-          _c("div", { staticClass: "col-lg-12" }, [
-            _c("h4", { staticClass: "mb-0" }, [
-              _vm._v(_vm._s(_vm.resource.ProjectID))
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "col-12 mb-1" }, [
-            _c("img", {
-              staticClass: "img",
-              attrs: { src: _vm.imgUrlFormat(_vm.resource.Image1) }
-            })
-          ])
-        ])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "col-lg-12 align-content-between" }, [
-        Array.isArray(_vm.resource.Products)
-          ? _c(
-              "div",
-              { staticClass: "mb-2" },
-              _vm._l(_vm.resource.Products, function(product) {
-                return _c(
-                  "span",
-                  { key: product.ID, staticClass: "badge badge-primary mr-2" },
-                  [_vm._v(_vm._s(product.ProductName))]
-                )
-              })
-            )
-          : _vm._e()
-      ])
-    ])
-  ])
-}
-var staticRenderFns = []
-render._withStripped = true
-var esExports = { render: render, staticRenderFns: staticRenderFns }
-/* harmony default export */ __webpack_exports__["a"] = (esExports);
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-7840323a", esExports)
-  }
-}
-
-/***/ }),
-/* 31 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c("main", { staticClass: "mt-3" }, [
-    _c(
-      "div",
-      { staticClass: "container-fluid mb-5", attrs: { id: "content" } },
-      [
-        _c("div", { staticClass: "row" }, [
-          _vm._m(0),
-          _vm._v(" "),
-          _c("div", { staticClass: "col-lg-2 border-right" }, [
-            _vm._m(1),
-            _vm._v(" "),
-            _c(
-              "div",
-              { staticClass: "d-flex flex-column" },
-              [
-                _c(
-                  "div",
-                  {
-                    staticClass:
-                      "d-flex justify-content-between align-items-center pointer",
-                    on: { click: _vm.toggleProductsDisplay }
-                  },
-                  [
-                    _c("strong", [_vm._v("Products")]),
-                    _vm._v(" "),
-                    _c("small", [
-                      _c("i", {
-                        class: {
-                          "fas fa-plus": !_vm.showProducts,
-                          "fas fa-minus": _vm.showProducts
-                        }
-                      })
-                    ])
-                  ]
-                ),
-                _vm._v(" "),
-                _c(
-                  "keep-alive",
-                  [
-                    _vm.showProducts
-                      ? _c("products-filter", {
-                          attrs: {
-                            category: "products",
-                            list: _vm.listProducts
-                          }
-                        })
-                      : _vm._e()
-                  ],
-                  1
-                )
-              ],
-              1
-            ),
-            _vm._v(" "),
-            _vm.products.length ? _c("hr", { staticClass: "my-2" }) : _vm._e(),
-            _vm._v(" "),
-            _vm.products.length
-              ? _c(
-                  "div",
-                  { staticClass: "d-flex flex-column" },
-                  [
-                    _c(
-                      "div",
-                      {
-                        staticClass:
-                          "d-flex justify-content-between align-items-center pointer",
-                        on: { click: _vm.toggleFeaturesDisplay }
-                      },
-                      [
-                        _c("strong", [_vm._v("Features")]),
-                        _vm._v(" "),
-                        _c("small", [
-                          _c("i", {
-                            class: {
-                              "fas fa-plus": !_vm.showFeatures,
-                              "fas fa-minus": _vm.showFeatures
-                            }
-                          })
-                        ])
-                      ]
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "keep-alive",
-                      [
-                        _c("features-filter", {
-                          attrs: {
-                            show: _vm.showFeatures,
-                            category: "geoType1",
-                            list: _vm.optionFeatureGroups,
-                            products: _vm.products
-                          }
-                        })
-                      ],
-                      1
-                    )
-                  ],
-                  1
-                )
-              : _vm._e(),
-            _vm._v(" "),
-            _vm.products.length ? _c("hr", { staticClass: "my-2" }) : _vm._e(),
-            _vm._v(" "),
-            _vm.products.length
-              ? _c(
-                  "div",
-                  { staticClass: "d-flex flex-column" },
-                  [
-                    _c(
-                      "div",
-                      {
-                        staticClass:
-                          "d-flex justify-content-between align-items-center pointer",
-                        on: { click: _vm.toggleDetailsDisplay }
-                      },
-                      [
-                        _c("strong", [_vm._v("Details")]),
-                        _vm._v(" "),
-                        _c("small", [
-                          _c("i", {
-                            class: {
-                              "fas fa-plus": !_vm.showDetails,
-                              "fas fa-minus": _vm.showDetails
-                            }
-                          })
-                        ])
-                      ]
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "keep-alive",
-                      [
-                        _c("features-filter", {
-                          attrs: {
-                            show: _vm.showDetails,
-                            category: "geoType2",
-                            list: _vm.optionDetailsGroups,
-                            sqf: _vm.sqfList,
-                            hideHeaders: _vm.detailHeadersList,
-                            products: _vm.products
-                          }
-                        })
-                      ],
-                      1
-                    )
-                  ],
-                  1
-                )
-              : _vm._e(),
-            _vm._v(" "),
-            _c("hr", { staticClass: "my-2" }),
-            _vm._v(" "),
-            _c(
-              "div",
-              { staticClass: "d-flex flex-column" },
-              [
-                _c(
-                  "div",
-                  {
-                    staticClass:
-                      "d-flex justify-content-between align-items-center pointer",
-                    on: { click: _vm.toggleApplicationsDisplay }
-                  },
-                  [
-                    _c("strong", [_vm._v("Applications")]),
-                    _vm._v(" "),
-                    _c("small", [
-                      _c("i", {
-                        class: {
-                          "fas fa-plus": !_vm.showApplications,
-                          "fas fa-minus": _vm.showApplications
-                        }
-                      })
-                    ])
-                  ]
-                ),
-                _vm._v(" "),
-                _c(
-                  "keep-alive",
-                  [
-                    _vm.showApplications
-                      ? _c("products-filter", {
-                          attrs: {
-                            category: "applications",
-                            list: _vm.listApplications
-                          }
-                        })
-                      : _vm._e()
-                  ],
-                  1
-                )
-              ],
-              1
-            ),
-            _vm._v(" "),
-            _c("hr", { staticClass: "my-2" }),
-            _vm._v(" "),
-            _c("div", { staticClass: "d-flex flex-column" }, [
-              _c(
-                "div",
-                {
-                  staticClass:
-                    "d-flex justify-content-between align-items-center pointer",
-                  on: { click: _vm.toggleGlazesDisplay }
-                },
-                [
-                  _c("strong", [_vm._v("Glaze")]),
-                  _vm._v(" "),
-                  _c("small", [
-                    _c("i", {
-                      class: {
-                        "fas fa-plus": !_vm.showGlazes,
-                        "fas fa-minus": _vm.showGlazes
-                      }
-                    })
-                  ])
-                ]
-              ),
-              _vm._v(" "),
-              _c(
-                "div",
-                [
-                  _c(
-                    "keep-alive",
-                    [
-                      _vm.showGlazes
-                        ? _c("products-filter", {
-                            attrs: {
-                              category: "glazes",
-                              list: _vm.glazesOptions
-                            }
-                          })
-                        : _vm._e()
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _vm.showGlazes
-                    ? _c(
-                        "div",
-                        {
-                          staticClass:
-                            "d-flex justify-content-between align-items-center pt-2"
-                        },
-                        [
-                          _c(
-                            "strong",
-                            { staticStyle: { "font-size": ".75em" } },
-                            [_vm._v("Square Footage")]
-                          )
-                        ]
-                      )
-                    : _vm._e(),
-                  _vm._v(" "),
-                  _c(
-                    "keep-alive",
-                    [
-                      _vm.showGlazes
-                        ? _c("products-filter", {
-                            attrs: { category: "geoType2", list: _vm.sqfList }
-                          })
-                        : _vm._e()
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _vm.showGlazes
-                    ? _c(
-                        "div",
-                        {
-                          staticClass:
-                            "d-flex justify-content-between align-items-center pt-2"
-                        },
-                        [
-                          _c(
-                            "strong",
-                            { staticStyle: { "font-size": ".75em" } },
-                            [_vm._v("Glaze Colors")]
-                          )
-                        ]
-                      )
-                    : _vm._e(),
-                  _vm._v(" "),
-                  _c(
-                    "keep-alive",
-                    [
-                      _vm.showGlazes
-                        ? _c("products-filter", {
-                            attrs: { category: "glazes", list: _vm.glazeColor }
-                          })
-                        : _vm._e()
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _vm.showGlazes
-                    ? _c(
-                        "div",
-                        {
-                          staticClass:
-                            "d-flex justify-content-between align-items-center pt-2"
-                        },
-                        [
-                          _c(
-                            "strong",
-                            { staticStyle: { "font-size": ".75em" } },
-                            [_vm._v("Glaze Coating")]
-                          )
-                        ]
-                      )
-                    : _vm._e(),
-                  _vm._v(" "),
-                  _c(
-                    "keep-alive",
-                    [
-                      _vm.showGlazes
-                        ? _c("products-filter", {
-                            attrs: {
-                              category: "glazes",
-                              list: _vm.listGlazeCoatings
-                            }
-                          })
-                        : _vm._e()
-                    ],
-                    1
-                  )
-                ],
-                1
-              )
-            ]),
-            _vm._v(" "),
-            _c("hr", { staticClass: "my-2" }),
-            _vm._v(" "),
-            _c(
-              "div",
-              { staticClass: "d-flex flex-column" },
-              [
-                _c(
-                  "div",
-                  {
-                    staticClass:
-                      "d-flex justify-content-between align-items-center pointer",
-                    on: { click: _vm.toggleExtColorDisplay }
-                  },
-                  [
-                    _c("strong", [_vm._v("Exterior")]),
-                    _vm._v(" "),
-                    _c("small", [
-                      _c("i", {
-                        class: {
-                          "fas fa-plus": !_vm.showExtColor,
-                          "fas fa-minus": _vm.showExtColor
-                        }
-                      })
-                    ])
-                  ]
-                ),
-                _vm._v(" "),
-                _vm.showExtColor
-                  ? _c(
-                      "div",
-                      {
-                        staticClass:
-                          "d-flex justify-content-between align-items-center pt-2"
-                      },
-                      [
-                        _c(
-                          "strong",
-                          { staticStyle: { "font-size": ".75em" } },
-                          [_vm._v("Materials")]
-                        )
-                      ]
-                    )
-                  : _vm._e(),
-                _vm._v(" "),
-                _c(
-                  "keep-alive",
-                  [
-                    _vm.showExtColor
-                      ? _c("products-filter", {
-                          attrs: {
-                            category: "extColor",
-                            list: _vm.materialOptions
-                          }
-                        })
-                      : _vm._e()
-                  ],
-                  1
-                ),
-                _vm._v(" "),
-                _vm.showExtColor
-                  ? _c(
-                      "div",
-                      {
-                        staticClass:
-                          "d-flex justify-content-between align-items-center pt-2"
-                      },
-                      [
-                        _c(
-                          "strong",
-                          { staticStyle: { "font-size": ".75em" } },
-                          [_vm._v("Finishes")]
-                        )
-                      ]
-                    )
-                  : _vm._e(),
-                _vm._v(" "),
-                _c(
-                  "keep-alive",
-                  [
-                    _vm.showExtColor
-                      ? _c("products-filter", {
-                          attrs: {
-                            category: "extColor",
-                            list: _vm.finishOptions
-                          }
-                        })
-                      : _vm._e()
-                  ],
-                  1
-                ),
-                _vm._v(" "),
-                _vm.showExtColor
-                  ? _c(
-                      "div",
-                      {
-                        staticClass:
-                          "d-flex justify-content-between align-items-center pt-2"
-                      },
-                      [
-                        _c(
-                          "strong",
-                          { staticStyle: { "font-size": ".75em" } },
-                          [_vm._v("Standard Colors")]
-                        )
-                      ]
-                    )
-                  : _vm._e(),
-                _vm._v(" "),
-                _c(
-                  "keep-alive",
-                  [
-                    _vm.showExtColor
-                      ? _c("products-filter", {
-                          attrs: {
-                            category: "extColor",
-                            list: _vm.standardColors
-                          }
-                        })
-                      : _vm._e()
-                  ],
-                  1
-                ),
-                _vm._v(" "),
-                _vm.showExtColor
-                  ? _c(
-                      "div",
-                      {
-                        staticClass:
-                          "d-flex justify-content-between align-items-center pt-2"
-                      },
-                      [
-                        _c(
-                          "strong",
-                          { staticStyle: { "font-size": ".75em" } },
-                          [_vm._v("Standard Cladding")]
-                        )
-                      ]
-                    )
-                  : _vm._e(),
-                _vm._v(" "),
-                _c(
-                  "keep-alive",
-                  [
-                    _vm.showExtColor
-                      ? _c("products-filter", {
-                          attrs: {
-                            category: "extColor",
-                            list: _vm.claddingOptions
-                          }
-                        })
-                      : _vm._e()
-                  ],
-                  1
-                ),
-                _vm._v(" "),
-                _vm.showExtColor
-                  ? _c(
-                      "div",
-                      {
-                        staticClass:
-                          "d-flex justify-content-between align-items-center pt-2"
-                      },
-                      [
-                        _c(
-                          "strong",
-                          { staticStyle: { "font-size": ".75em" } },
-                          [_vm._v("Custom Options")]
-                        )
-                      ]
-                    )
-                  : _vm._e(),
-                _vm._v(" "),
-                _c(
-                  "keep-alive",
-                  [
-                    _vm.showExtColor
-                      ? _c("products-filter", {
-                          attrs: {
-                            category: "extColor",
-                            list: _vm.listExtColor
-                          }
-                        })
-                      : _vm._e()
-                  ],
-                  1
-                )
-              ],
-              1
-            ),
-            _vm._v(" "),
-            _c("hr", { staticClass: "my-2" }),
-            _vm._v(" "),
-            _c(
-              "div",
-              { staticClass: "d-flex flex-column" },
-              [
-                _c(
-                  "div",
-                  {
-                    staticClass:
-                      "d-flex justify-content-between align-items-center pointer",
-                    on: { click: _vm.toggleIntColorDisplay }
-                  },
-                  [
-                    _c("strong", [_vm._v("Interior")]),
-                    _vm._v(" "),
-                    _c("small", [
-                      _c("i", {
-                        class: {
-                          "fas fa-plus": !_vm.showIntColor,
-                          "fas fa-minus": _vm.showIntColor
-                        }
-                      })
-                    ])
-                  ]
-                ),
-                _vm._v(" "),
-                _vm.showIntColor
-                  ? _c(
-                      "div",
-                      {
-                        staticClass:
-                          "d-flex justify-content-between align-items-center pt-2"
-                      },
-                      [
-                        _c(
-                          "strong",
-                          { staticStyle: { "font-size": ".75em" } },
-                          [_vm._v("Materials")]
-                        )
-                      ]
-                    )
-                  : _vm._e(),
-                _vm._v(" "),
-                _c(
-                  "keep-alive",
-                  [
-                    _vm.showIntColor
-                      ? _c("products-filter", {
-                          attrs: {
-                            category: "intColor",
-                            list: _vm.materialOptions
-                          }
-                        })
-                      : _vm._e()
-                  ],
-                  1
-                ),
-                _vm._v(" "),
-                _vm.showIntColor
-                  ? _c(
-                      "div",
-                      {
-                        staticClass:
-                          "d-flex justify-content-between align-items-center pt-2"
-                      },
-                      [
-                        _c(
-                          "strong",
-                          { staticStyle: { "font-size": ".75em" } },
-                          [_vm._v("Finishes")]
-                        )
-                      ]
-                    )
-                  : _vm._e(),
-                _vm._v(" "),
-                _c(
-                  "keep-alive",
-                  [
-                    _vm.showIntColor
-                      ? _c("products-filter", {
-                          attrs: {
-                            category: "intColor",
-                            list: _vm.finishOptions
-                          }
-                        })
-                      : _vm._e()
-                  ],
-                  1
-                ),
-                _vm._v(" "),
-                _vm.showIntColor
-                  ? _c(
-                      "div",
-                      {
-                        staticClass:
-                          "d-flex justify-content-between align-items-center pt-2"
-                      },
-                      [
-                        _c(
-                          "strong",
-                          { staticStyle: { "font-size": ".75em" } },
-                          [_vm._v("Standard Colors")]
-                        )
-                      ]
-                    )
-                  : _vm._e(),
-                _vm._v(" "),
-                _c(
-                  "keep-alive",
-                  [
-                    _vm.showIntColor
-                      ? _c("products-filter", {
-                          attrs: {
-                            category: "intColor",
-                            list: _vm.standardColors
-                          }
-                        })
-                      : _vm._e()
-                  ],
-                  1
-                ),
-                _vm._v(" "),
-                _vm.showIntColor
-                  ? _c(
-                      "div",
-                      {
-                        staticClass:
-                          "d-flex justify-content-between align-items-center pt-2"
-                      },
-                      [
-                        _c(
-                          "strong",
-                          { staticStyle: { "font-size": ".75em" } },
-                          [_vm._v("Standard Cladding")]
-                        )
-                      ]
-                    )
-                  : _vm._e(),
-                _vm._v(" "),
-                _c(
-                  "keep-alive",
-                  [
-                    _vm.showIntColor
-                      ? _c("products-filter", {
-                          attrs: {
-                            category: "intColor",
-                            list: _vm.claddingOptions
-                          }
-                        })
-                      : _vm._e()
-                  ],
-                  1
-                ),
-                _vm._v(" "),
-                _vm.showIntColor
-                  ? _c(
-                      "div",
-                      {
-                        staticClass:
-                          "d-flex justify-content-between align-items-center pt-2"
-                      },
-                      [
-                        _c(
-                          "strong",
-                          { staticStyle: { "font-size": ".75em" } },
-                          [_vm._v("Custom Options")]
-                        )
-                      ]
-                    )
-                  : _vm._e(),
-                _vm._v(" "),
-                _c(
-                  "keep-alive",
-                  [
-                    _vm.showIntColor
-                      ? _c("products-filter", {
-                          attrs: {
-                            category: "intColor",
-                            list: _vm.listIntColor
-                          }
-                        })
-                      : _vm._e()
-                  ],
-                  1
-                )
-              ],
-              1
-            ),
-            _vm._v(" "),
-            _c("hr", { staticClass: "my-2" }),
-            _vm._v(" "),
-            _c(
-              "div",
-              { staticClass: "d-flex flex-column" },
-              [
-                _c(
-                  "div",
-                  {
-                    staticClass:
-                      "d-flex justify-content-between align-items-center pointer",
-                    on: { click: _vm.toggleLocationDisplay }
-                  },
-                  [
-                    _c("strong", [_vm._v("Location")]),
-                    _vm._v(" "),
-                    _c("small", [
-                      _c("i", {
-                        class: {
-                          "fas fa-plus": !_vm.showLocations,
-                          "fas fa-minus": _vm.showLocations
-                        }
-                      })
-                    ])
-                  ]
-                ),
-                _vm._v(" "),
-                _vm.showLocations
-                  ? _c(
-                      "div",
-                      {
-                        staticClass:
-                          "mb-1 d-flex justify-content-between align-items-center pt-2"
-                      },
-                      [
-                        _c(
-                          "strong",
-                          { staticStyle: { "font-size": ".75em" } },
-                          [_vm._v("International")]
-                        )
-                      ]
-                    )
-                  : _vm._e(),
-                _vm._v(" "),
-                _c(
-                  "keep-alive",
-                  [
-                    _vm.showLocations
-                      ? _c("products-filter", {
-                          attrs: {
-                            category: "locations",
-                            list: _vm.internatinalOptions
-                          }
-                        })
-                      : _vm._e()
-                  ],
-                  1
-                ),
-                _vm._v(" "),
-                _vm.showLocations
-                  ? _c(
-                      "div",
-                      {
-                        staticClass:
-                          "mb-1 d-flex justify-content-between align-items-center pt-2"
-                      },
-                      [
-                        _c(
-                          "strong",
-                          { staticStyle: { "font-size": ".75em" } },
-                          [_vm._v("Domestic")]
-                        )
-                      ]
-                    )
-                  : _vm._e(),
-                _vm._v(" "),
-                _c(
-                  "keep-alive",
-                  [
-                    _vm.showLocations
-                      ? _c("products-filter", {
-                          attrs: {
-                            category: "locations",
-                            list: _vm.listLocation
-                          }
-                        })
-                      : _vm._e()
-                  ],
-                  1
-                )
-              ],
-              1
-            ),
-            _vm._v(" "),
-            _c("hr", { staticClass: "my-2" })
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "col-lg-10" }, [
-            _c("div", { staticClass: "container-fluid mb-2 pr-3 " }, [
-              _c(
-                "div",
-                { staticClass: "row d-nonex" },
-                [_vm._m(2), _vm._v(" "), _c("mega-filter")],
-                1
-              ),
-              _vm._v(" "),
-              _c("div", { staticClass: "row mt-3" }, [
-                _c("div", { staticClass: "col-4 text-left" }, [
-                  _c(
-                    "div",
-                    {
-                      staticClass: "btn-group",
-                      attrs: {
-                        role: "group",
-                        "aria-label": "Button group with nested dropdown"
-                      }
-                    },
-                    [
-                      _c(
-                        "button",
-                        {
-                          staticClass: "btn btn-secondary",
-                          attrs: { type: "button" },
-                          on: {
-                            click: function($event) {
-                              _vm.changeSortDirection()
-                            }
-                          }
-                        },
-                        [
-                          _c("i", {
-                            class: {
-                              "fas fa-sort-amount-up":
-                                _vm.sortDirection === "desc",
-                              "fas fa-sort-amount-down":
-                                _vm.sortDirection === "asc"
-                            }
-                          })
-                        ]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "button",
-                        {
-                          staticClass: "btn btn-secondary",
-                          attrs: { type: "button" },
-                          on: {
-                            click: function($event) {
-                              _vm.toggleMapDisplay()
-                            }
-                          }
-                        },
-                        [_c("i", { staticClass: "fas fa-globe-americas" })]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "button",
-                        {
-                          class: {
-                            "btn btn-secondary": true,
-                            active: _vm.currentView === "list-item"
-                          },
-                          attrs: { type: "button" },
-                          on: {
-                            click: function($event) {
-                              _vm.changeView("list-item")
-                            }
-                          }
-                        },
-                        [_c("i", { staticClass: "fas fa-list-ul" })]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "button",
-                        {
-                          staticClass: "btn btn-secondary",
-                          class: {
-                            "btn btn-secondary": true,
-                            active: _vm.currentView === "large-grid-item"
-                          },
-                          attrs: { type: "button" },
-                          on: {
-                            click: function($event) {
-                              _vm.changeView("large-grid-item")
-                            }
-                          }
-                        },
-                        [_c("i", { staticClass: "fas fa-th-large" })]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "button",
-                        {
-                          staticClass: "btn btn-secondary",
-                          class: {
-                            "btn btn-secondary": true,
-                            active: _vm.currentView === "small-grid-item"
-                          },
-                          attrs: { type: "button" },
-                          on: {
-                            click: function($event) {
-                              _vm.changeView("small-grid-item")
-                            }
-                          }
-                        },
-                        [_c("i", { staticClass: "fas fa-th" })]
-                      )
-                    ]
-                  )
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "col-6 text-muted mt-auto" }, [
-                  _c("div", { staticClass: "input-group" }, [
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.newSearch,
-                          expression: "newSearch"
-                        }
-                      ],
-                      staticClass: "form-control",
-                      attrs: {
-                        type: "text",
-                        placeholder: "Search for Projects",
-                        "aria-label": "Recipient's username",
-                        "aria-describedby": "search"
-                      },
-                      domProps: { value: _vm.newSearch },
-                      on: {
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
-                          }
-                          _vm.newSearch = $event.target.value
-                        }
-                      }
-                    }),
-                    _vm._v(" "),
-                    _vm._m(3)
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "col-2 text-muted mt-auto" }, [
-                  _c("small", [
-                    _vm._v(_vm._s(_vm.totalResults) + " results found.")
-                  ])
-                ]),
-                _vm._v(" "),
-                _vm.showMap
-                  ? _c(
-                      "div",
-                      { staticClass: "my-3", staticStyle: { margin: "auto" } },
-                      [
-                        _c("ul", { staticClass: "stately" }, [
-                          _c(
-                            "li",
-                            {
-                              staticClass: "al",
-                              class: {
-                                "shade-5":
-                                  _vm.optionLocation.Alabama.length >= 4,
-                                "shade-4":
-                                  _vm.optionLocation.Alabama.length == 3,
-                                "shade-3":
-                                  _vm.optionLocation.Alabama.length == 2,
-                                "shade-2":
-                                  _vm.optionLocation.Alabama.length == 1,
-                                "shade-1":
-                                  _vm.optionLocation.Alabama.length == 0
-                              },
-                              attrs: { "data-state": "al" }
-                            },
-                            [_vm._v("A")]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "li",
-                            {
-                              staticClass: "ak",
-                              class: {
-                                "shade-5":
-                                  _vm.optionLocation.Alabama.length >= 4,
-                                "shade-4":
-                                  _vm.optionLocation.Alabama.length == 3,
-                                "shade-3":
-                                  _vm.optionLocation.Alabama.length == 2,
-                                "shade-2":
-                                  _vm.optionLocation.Alabama.length == 1,
-                                "shade-1":
-                                  _vm.optionLocation.Alabama.length == 0
-                              },
-                              attrs: { "data-state": "ak" }
-                            },
-                            [_vm._v("B")]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "li",
-                            {
-                              staticClass: "ar",
-                              class: {
-                                "shade-5":
-                                  _vm.optionLocation.Alabama.length >= 4,
-                                "shade-4":
-                                  _vm.optionLocation.Alabama.length == 3,
-                                "shade-3":
-                                  _vm.optionLocation.Alabama.length == 2,
-                                "shade-2":
-                                  _vm.optionLocation.Alabama.length == 1,
-                                "shade-1":
-                                  _vm.optionLocation.Alabama.length == 0
-                              },
-                              attrs: { "data-state": "ar" }
-                            },
-                            [_vm._v("C")]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "li",
-                            {
-                              staticClass: "az",
-                              class: {
-                                "shade-5":
-                                  _vm.optionLocation.Arizona.length >= 4,
-                                "shade-4":
-                                  _vm.optionLocation.Arizona.length == 3,
-                                "shade-3":
-                                  _vm.optionLocation.Arizona.length == 2,
-                                "shade-2":
-                                  _vm.optionLocation.Arizona.length == 1,
-                                "shade-1":
-                                  _vm.optionLocation.Arizona.length == 0
-                              },
-                              attrs: { "data-state": "az" }
-                            },
-                            [_vm._v("D")]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "li",
-                            {
-                              staticClass: "ca",
-                              class: {
-                                "shade-5":
-                                  _vm.optionLocation.California.length >= 4,
-                                "shade-4":
-                                  _vm.optionLocation.California.length == 3,
-                                "shade-3":
-                                  _vm.optionLocation.California.length == 2,
-                                "shade-2":
-                                  _vm.optionLocation.California.length == 1,
-                                "shade-1":
-                                  _vm.optionLocation.California.length == 0
-                              },
-                              attrs: { "data-state": "ca" }
-                            },
-                            [_vm._v("E")]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "li",
-                            {
-                              staticClass: "co",
-                              class: {
-                                "shade-5":
-                                  _vm.optionLocation.Colorado.length >= 4,
-                                "shade-4":
-                                  _vm.optionLocation.Colorado.length == 3,
-                                "shade-3":
-                                  _vm.optionLocation.Colorado.length == 2,
-                                "shade-2":
-                                  _vm.optionLocation.Colorado.length == 1,
-                                "shade-1":
-                                  _vm.optionLocation.Colorado.length == 0
-                              },
-                              attrs: { "data-state": "co" }
-                            },
-                            [_vm._v("F")]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "li",
-                            {
-                              staticClass: "ct",
-                              class: {
-                                "shade-5":
-                                  _vm.optionLocation.Connecticut.length >= 4,
-                                "shade-4":
-                                  _vm.optionLocation.Connecticut.length == 3,
-                                "shade-3":
-                                  _vm.optionLocation.Connecticut.length == 2,
-                                "shade-2":
-                                  _vm.optionLocation.Connecticut.length == 1,
-                                "shade-1":
-                                  _vm.optionLocation.Connecticut.length == 0
-                              },
-                              attrs: { "data-state": "ct" }
-                            },
-                            [_vm._v("G")]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "li",
-                            {
-                              staticClass: "de",
-                              class: {
-                                "shade-5":
-                                  _vm.optionLocation.Delaware.length >= 4,
-                                "shade-4":
-                                  _vm.optionLocation.Delaware.length == 3,
-                                "shade-3":
-                                  _vm.optionLocation.Delaware.length == 2,
-                                "shade-2":
-                                  _vm.optionLocation.Delaware.length == 1,
-                                "shade-1":
-                                  _vm.optionLocation.Delaware.length == 0
-                              },
-                              attrs: { "data-state": "de" }
-                            },
-                            [_vm._v("H")]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "li",
-                            {
-                              staticClass: "dc",
-                              class: {
-                                "shade-5":
-                                  _vm.optionLocation.Alabama.length >= 4,
-                                "shade-4":
-                                  _vm.optionLocation.Alabama.length == 3,
-                                "shade-3":
-                                  _vm.optionLocation.Alabama.length == 2,
-                                "shade-2":
-                                  _vm.optionLocation.Alabama.length == 1,
-                                "shade-1":
-                                  _vm.optionLocation.Alabama.length == 0
-                              },
-                              attrs: { "data-state": "dc" }
-                            },
-                            [_vm._v("I")]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "li",
-                            {
-                              staticClass: "fl",
-                              class: {
-                                "shade-5":
-                                  _vm.optionLocation.Florida.length >= 4,
-                                "shade-4":
-                                  _vm.optionLocation.Florida.length == 3,
-                                "shade-3":
-                                  _vm.optionLocation.Florida.length == 2,
-                                "shade-2":
-                                  _vm.optionLocation.Florida.length == 1,
-                                "shade-1":
-                                  _vm.optionLocation.Florida.length == 0
-                              },
-                              attrs: { "data-state": "fl" }
-                            },
-                            [_vm._v("J")]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "li",
-                            {
-                              staticClass: "ga",
-                              class: {
-                                "shade-5":
-                                  _vm.optionLocation.Georgia.length >= 4,
-                                "shade-4":
-                                  _vm.optionLocation.Georgia.length == 3,
-                                "shade-3":
-                                  _vm.optionLocation.Georgia.length == 2,
-                                "shade-2":
-                                  _vm.optionLocation.Georgia.length == 1,
-                                "shade-1":
-                                  _vm.optionLocation.Georgia.length == 0
-                              },
-                              attrs: { "data-state": "ga" }
-                            },
-                            [_vm._v("K")]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "li",
-                            {
-                              staticClass: "hi",
-                              class: {
-                                "shade-5":
-                                  _vm.optionLocation.Hawaii.length >= 4,
-                                "shade-4":
-                                  _vm.optionLocation.Hawaii.length == 3,
-                                "shade-3":
-                                  _vm.optionLocation.Hawaii.length == 2,
-                                "shade-2":
-                                  _vm.optionLocation.Hawaii.length == 1,
-                                "shade-1": _vm.optionLocation.Hawaii.length == 0
-                              },
-                              attrs: { "data-state": "hi" }
-                            },
-                            [_vm._v("L")]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "li",
-                            {
-                              staticClass: "id",
-                              class: {
-                                "shade-5":
-                                  _vm.optionLocation.Alabama.length >= 4,
-                                "shade-4":
-                                  _vm.optionLocation.Alabama.length == 3,
-                                "shade-3":
-                                  _vm.optionLocation.Alabama.length == 2,
-                                "shade-2":
-                                  _vm.optionLocation.Alabama.length == 1,
-                                "shade-1":
-                                  _vm.optionLocation.Alabama.length == 0
-                              },
-                              attrs: { "data-state": "id" }
-                            },
-                            [_vm._v("M")]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "li",
-                            {
-                              staticClass: "il",
-                              class: {
-                                "shade-5":
-                                  _vm.optionLocation.Illinois.length >= 4,
-                                "shade-4":
-                                  _vm.optionLocation.Illinois.length == 3,
-                                "shade-3":
-                                  _vm.optionLocation.Illinois.length == 2,
-                                "shade-2":
-                                  _vm.optionLocation.Illinois.length == 1,
-                                "shade-1":
-                                  _vm.optionLocation.Illinois.length == 0
-                              },
-                              attrs: { "data-state": "il" }
-                            },
-                            [_vm._v("N")]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "li",
-                            {
-                              staticClass: "in",
-                              class: {
-                                "shade-5":
-                                  _vm.optionLocation.Indiana.length >= 4,
-                                "shade-4":
-                                  _vm.optionLocation.Indiana.length == 3,
-                                "shade-3":
-                                  _vm.optionLocation.Indiana.length == 2,
-                                "shade-2":
-                                  _vm.optionLocation.Indiana.length == 1,
-                                "shade-1":
-                                  _vm.optionLocation.Indiana.length == 0
-                              },
-                              attrs: { "data-state": "in" }
-                            },
-                            [_vm._v("O")]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "li",
-                            {
-                              staticClass: "ia",
-                              class: {
-                                "shade-5": _vm.optionLocation.Iowa.length >= 4,
-                                "shade-4": _vm.optionLocation.Iowa.length == 3,
-                                "shade-3": _vm.optionLocation.Iowa.length == 2,
-                                "shade-2": _vm.optionLocation.Iowa.length == 1,
-                                "shade-1": _vm.optionLocation.Iowa.length == 0
-                              },
-                              attrs: { "data-state": "ia" }
-                            },
-                            [_vm._v("P")]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "li",
-                            {
-                              staticClass: "ks",
-                              class: {
-                                "shade-5":
-                                  _vm.optionLocation.Kansas.length >= 4,
-                                "shade-4":
-                                  _vm.optionLocation.Kansas.length == 3,
-                                "shade-3":
-                                  _vm.optionLocation.Kansas.length == 2,
-                                "shade-2":
-                                  _vm.optionLocation.Kansas.length == 1,
-                                "shade-1": _vm.optionLocation.Kansas.length == 0
-                              },
-                              attrs: { "data-state": "ks" }
-                            },
-                            [_vm._v("Q")]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "li",
-                            {
-                              staticClass: "ky",
-                              class: {
-                                "shade-5":
-                                  _vm.optionLocation.Kentucky.length >= 4,
-                                "shade-4":
-                                  _vm.optionLocation.Kentucky.length == 3,
-                                "shade-3":
-                                  _vm.optionLocation.Kentucky.length == 2,
-                                "shade-2":
-                                  _vm.optionLocation.Kentucky.length == 1,
-                                "shade-1":
-                                  _vm.optionLocation.Kentucky.length == 0
-                              },
-                              attrs: { "data-state": "ky" }
-                            },
-                            [_vm._v("R")]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "li",
-                            {
-                              staticClass: "la",
-                              class: {
-                                "shade-5":
-                                  _vm.optionLocation.Alabama.length >= 4,
-                                "shade-4":
-                                  _vm.optionLocation.Alabama.length == 3,
-                                "shade-3":
-                                  _vm.optionLocation.Alabama.length == 2,
-                                "shade-2":
-                                  _vm.optionLocation.Alabama.length == 1,
-                                "shade-1":
-                                  _vm.optionLocation.Alabama.length == 0
-                              },
-                              attrs: { "data-state": "la" }
-                            },
-                            [_vm._v("S")]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "li",
-                            {
-                              staticClass: "me",
-                              class: {
-                                "shade-5": _vm.optionLocation.Maine.length >= 4,
-                                "shade-4": _vm.optionLocation.Maine.length == 3,
-                                "shade-3": _vm.optionLocation.Maine.length == 2,
-                                "shade-2": _vm.optionLocation.Maine.length == 1,
-                                "shade-1": _vm.optionLocation.Maine.length == 0
-                              },
-                              attrs: { "data-state": "me" }
-                            },
-                            [_vm._v("T")]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "li",
-                            {
-                              staticClass: "md",
-                              class: {
-                                "shade-5":
-                                  _vm.optionLocation.Maryland.length >= 4,
-                                "shade-4":
-                                  _vm.optionLocation.Maryland.length == 3,
-                                "shade-3":
-                                  _vm.optionLocation.Maryland.length == 2,
-                                "shade-2":
-                                  _vm.optionLocation.Maryland.length == 1,
-                                "shade-1":
-                                  _vm.optionLocation.Maryland.length == 0
-                              },
-                              attrs: { "data-state": "md" }
-                            },
-                            [_vm._v("U")]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "li",
-                            {
-                              staticClass: "ma",
-                              class: {
-                                "shade-5":
-                                  _vm.optionLocation.Massachusetts.length >= 4,
-                                "shade-4":
-                                  _vm.optionLocation.Massachusetts.length == 3,
-                                "shade-3":
-                                  _vm.optionLocation.Massachusetts.length == 2,
-                                "shade-2":
-                                  _vm.optionLocation.Massachusetts.length == 1,
-                                "shade-1":
-                                  _vm.optionLocation.Massachusetts.length == 0
-                              },
-                              attrs: { "data-state": "ma" }
-                            },
-                            [_vm._v("V")]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "li",
-                            {
-                              staticClass: "mi",
-                              class: {
-                                "shade-5":
-                                  _vm.optionLocation.Michigan.length >= 4,
-                                "shade-4":
-                                  _vm.optionLocation.Michigan.length == 3,
-                                "shade-3":
-                                  _vm.optionLocation.Michigan.length == 2,
-                                "shade-2":
-                                  _vm.optionLocation.Michigan.length == 1,
-                                "shade-1":
-                                  _vm.optionLocation.Michigan.length == 0
-                              },
-                              attrs: { "data-state": "mi" }
-                            },
-                            [_vm._v("W")]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "li",
-                            {
-                              staticClass: "mn",
-                              class: {
-                                "shade-5":
-                                  _vm.optionLocation.Minnesota.length >= 4,
-                                "shade-4":
-                                  _vm.optionLocation.Minnesota.length == 3,
-                                "shade-3":
-                                  _vm.optionLocation.Minnesota.length == 2,
-                                "shade-2":
-                                  _vm.optionLocation.Minnesota.length == 1,
-                                "shade-1":
-                                  _vm.optionLocation.Minnesota.length == 0
-                              },
-                              attrs: { "data-state": "mn" }
-                            },
-                            [_vm._v("X")]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "li",
-                            {
-                              staticClass: "ms",
-                              class: {
-                                "shade-5":
-                                  _vm.optionLocation.Mississippi.length >= 4,
-                                "shade-4":
-                                  _vm.optionLocation.Mississippi.length == 3,
-                                "shade-3":
-                                  _vm.optionLocation.Mississippi.length == 2,
-                                "shade-2":
-                                  _vm.optionLocation.Mississippi.length == 1,
-                                "shade-1":
-                                  _vm.optionLocation.Mississippi.length == 0
-                              },
-                              attrs: { "data-state": "ms" }
-                            },
-                            [_vm._v("Y")]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "li",
-                            {
-                              staticClass: "mo",
-                              class: {
-                                "shade-5":
-                                  _vm.optionLocation.Montana.length >= 4,
-                                "shade-4":
-                                  _vm.optionLocation.Montana.length == 3,
-                                "shade-3":
-                                  _vm.optionLocation.Montana.length == 2,
-                                "shade-2":
-                                  _vm.optionLocation.Montana.length == 1,
-                                "shade-1":
-                                  _vm.optionLocation.Montana.length == 0
-                              },
-                              attrs: { "data-state": "mo" }
-                            },
-                            [_vm._v("Z")]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "li",
-                            {
-                              staticClass: "mt",
-                              class: {
-                                "shade-5":
-                                  _vm.optionLocation.Nevada.length >= 4,
-                                "shade-4":
-                                  _vm.optionLocation.Nevada.length == 3,
-                                "shade-3":
-                                  _vm.optionLocation.Nevada.length == 2,
-                                "shade-2":
-                                  _vm.optionLocation.Nevada.length == 1,
-                                "shade-1": _vm.optionLocation.Nevada.length == 0
-                              },
-                              attrs: { "data-state": "mt" }
-                            },
-                            [_vm._v("a")]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "li",
-                            {
-                              staticClass: "ne",
-                              class: {
-                                "shade-5":
-                                  _vm.optionLocation.Alabama.length >= 4,
-                                "shade-4":
-                                  _vm.optionLocation.Alabama.length == 3,
-                                "shade-3":
-                                  _vm.optionLocation.Alabama.length == 2,
-                                "shade-2":
-                                  _vm.optionLocation.Alabama.length == 1,
-                                "shade-1":
-                                  _vm.optionLocation.Alabama.length == 0
-                              },
-                              attrs: { "data-state": "ne" }
-                            },
-                            [_vm._v("b")]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "li",
-                            {
-                              staticClass: "nv",
-                              class: {
-                                "shade-5":
-                                  _vm.optionLocation.Alabama.length >= 4,
-                                "shade-4":
-                                  _vm.optionLocation.Alabama.length == 3,
-                                "shade-3":
-                                  _vm.optionLocation.Alabama.length == 2,
-                                "shade-2":
-                                  _vm.optionLocation.Alabama.length == 1,
-                                "shade-1":
-                                  _vm.optionLocation.Alabama.length == 0
-                              },
-                              attrs: { "data-state": "nv" }
-                            },
-                            [_vm._v("c")]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "li",
-                            {
-                              staticClass: "nh",
-                              class: {
-                                "shade-5":
-                                  _vm.optionLocation["New Hampshire"].length >=
-                                  4,
-                                "shade-4":
-                                  _vm.optionLocation["New Hampshire"].length ==
-                                  3,
-                                "shade-3":
-                                  _vm.optionLocation["New Hampshire"].length ==
-                                  2,
-                                "shade-2":
-                                  _vm.optionLocation["New Hampshire"].length ==
-                                  1,
-                                "shade-1":
-                                  _vm.optionLocation["New Hampshire"].length ==
-                                  0
-                              },
-                              attrs: { "data-state": "nh" }
-                            },
-                            [_vm._v("d")]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "li",
-                            {
-                              staticClass: "nj",
-                              class: {
-                                "shade-5":
-                                  _vm.optionLocation["New Jersey"].length >= 4,
-                                "shade-4":
-                                  _vm.optionLocation["New Jersey"].length == 3,
-                                "shade-3":
-                                  _vm.optionLocation["New Jersey"].length == 2,
-                                "shade-2":
-                                  _vm.optionLocation["New Jersey"].length == 1,
-                                "shade-1":
-                                  _vm.optionLocation["New Jersey"].length == 0
-                              },
-                              attrs: { "data-state": "nj" }
-                            },
-                            [_vm._v("e")]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "li",
-                            {
-                              staticClass: "nm",
-                              class: {
-                                "shade-5":
-                                  _vm.optionLocation["New Mexico"].length >= 4,
-                                "shade-4":
-                                  _vm.optionLocation["New Mexico"].length == 3,
-                                "shade-3":
-                                  _vm.optionLocation["New Mexico"].length == 2,
-                                "shade-2":
-                                  _vm.optionLocation["New Mexico"].length == 1,
-                                "shade-1":
-                                  _vm.optionLocation["New Mexico"].length == 0
-                              },
-                              attrs: { "data-state": "nm" }
-                            },
-                            [_vm._v("f")]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "li",
-                            {
-                              staticClass: "ny",
-                              class: {
-                                "shade-5":
-                                  _vm.optionLocation["New York"].length >= 4,
-                                "shade-4":
-                                  _vm.optionLocation["New York"].length == 3,
-                                "shade-3":
-                                  _vm.optionLocation["New York"].length == 2,
-                                "shade-2":
-                                  _vm.optionLocation["New York"].length == 1,
-                                "shade-1":
-                                  _vm.optionLocation["New York"].length == 0
-                              },
-                              attrs: { "data-state": "ny" }
-                            },
-                            [_vm._v("g")]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "li",
-                            {
-                              staticClass: "nc",
-                              class: {
-                                "shade-5":
-                                  _vm.optionLocation["North Carolina"].length >=
-                                  4,
-                                "shade-4":
-                                  _vm.optionLocation["North Carolina"].length ==
-                                  3,
-                                "shade-3":
-                                  _vm.optionLocation["North Carolina"].length ==
-                                  2,
-                                "shade-2":
-                                  _vm.optionLocation["North Carolina"].length ==
-                                  1,
-                                "shade-1":
-                                  _vm.optionLocation["North Carolina"].length ==
-                                  0
-                              },
-                              attrs: { "data-state": "nc" }
-                            },
-                            [_vm._v("h")]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "li",
-                            {
-                              staticClass: "nd",
-                              class: {
-                                "shade-5":
-                                  _vm.optionLocation["North Dakota"].length >=
-                                  4,
-                                "shade-4":
-                                  _vm.optionLocation["North Dakota"].length ==
-                                  3,
-                                "shade-3":
-                                  _vm.optionLocation["North Dakota"].length ==
-                                  2,
-                                "shade-2":
-                                  _vm.optionLocation["North Dakota"].length ==
-                                  1,
-                                "shade-1":
-                                  _vm.optionLocation["North Dakota"].length == 0
-                              },
-                              attrs: { "data-state": "nd" }
-                            },
-                            [_vm._v("i")]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "li",
-                            {
-                              staticClass: "oh",
-                              class: {
-                                "shade-5": _vm.optionLocation.Ohio.length >= 4,
-                                "shade-4": _vm.optionLocation.Ohio.length == 3,
-                                "shade-3": _vm.optionLocation.Ohio.length == 2,
-                                "shade-2": _vm.optionLocation.Ohio.length == 1,
-                                "shade-1": _vm.optionLocation.Ohio.length == 0
-                              },
-                              attrs: { "data-state": "oh" }
-                            },
-                            [_vm._v("j")]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "li",
-                            {
-                              staticClass: "ok",
-                              class: {
-                                "shade-5":
-                                  _vm.optionLocation.Oklahoma.length >= 4,
-                                "shade-4":
-                                  _vm.optionLocation.Oklahoma.length == 3,
-                                "shade-3":
-                                  _vm.optionLocation.Oklahoma.length == 2,
-                                "shade-2":
-                                  _vm.optionLocation.Oklahoma.length == 1,
-                                "shade-1":
-                                  _vm.optionLocation.Oklahoma.length == 0
-                              },
-                              attrs: { "data-state": "ok" }
-                            },
-                            [_vm._v("k")]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "li",
-                            {
-                              staticClass: "or",
-                              class: {
-                                "shade-5":
-                                  _vm.optionLocation.Alabama.length >= 4,
-                                "shade-4":
-                                  _vm.optionLocation.Alabama.length == 3,
-                                "shade-3":
-                                  _vm.optionLocation.Alabama.length == 2,
-                                "shade-2":
-                                  _vm.optionLocation.Alabama.length == 1,
-                                "shade-1":
-                                  _vm.optionLocation.Alabama.length == 0
-                              },
-                              attrs: { "data-state": "or" }
-                            },
-                            [_vm._v("l")]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "li",
-                            {
-                              staticClass: "pa",
-                              class: {
-                                "shade-5":
-                                  _vm.optionLocation.Pennsylvania.length >= 4,
-                                "shade-4":
-                                  _vm.optionLocation.Pennsylvania.length == 3,
-                                "shade-3":
-                                  _vm.optionLocation.Pennsylvania.length == 2,
-                                "shade-2":
-                                  _vm.optionLocation.Pennsylvania.length == 1,
-                                "shade-1":
-                                  _vm.optionLocation.Pennsylvania.length == 0
-                              },
-                              attrs: { "data-state": "pa" }
-                            },
-                            [_vm._v("m")]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "li",
-                            {
-                              staticClass: "ri",
-                              class: {
-                                "shade-5":
-                                  _vm.optionLocation["Rhode Island"].length >=
-                                  4,
-                                "shade-4":
-                                  _vm.optionLocation["Rhode Island"].length ==
-                                  3,
-                                "shade-3":
-                                  _vm.optionLocation["Rhode Island"].length ==
-                                  2,
-                                "shade-2":
-                                  _vm.optionLocation["Rhode Island"].length ==
-                                  1,
-                                "shade-1":
-                                  _vm.optionLocation["Rhode Island"].length == 0
-                              },
-                              attrs: { "data-state": "ri" }
-                            },
-                            [_vm._v("n")]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "li",
-                            {
-                              staticClass: "sc",
-                              class: {
-                                "shade-5":
-                                  _vm.optionLocation["South Carolina"].length >=
-                                  4,
-                                "shade-4":
-                                  _vm.optionLocation["South Carolina"].length ==
-                                  3,
-                                "shade-3":
-                                  _vm.optionLocation["South Carolina"].length ==
-                                  2,
-                                "shade-2":
-                                  _vm.optionLocation["South Carolina"].length ==
-                                  1,
-                                "shade-1":
-                                  _vm.optionLocation["South Carolina"].length ==
-                                  0
-                              },
-                              attrs: { "data-state": "sc" }
-                            },
-                            [_vm._v("o")]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "li",
-                            {
-                              staticClass: "sd",
-                              class: {
-                                "shade-5":
-                                  _vm.optionLocation["Alabama"].length >= 4,
-                                "shade-4":
-                                  _vm.optionLocation["Alabama"].length == 3,
-                                "shade-3":
-                                  _vm.optionLocation["Alabama"].length == 2,
-                                "shade-2":
-                                  _vm.optionLocation["Alabama"].length == 1,
-                                "shade-1":
-                                  _vm.optionLocation["Alabama"].length == 0
-                              },
-                              attrs: { "data-state": "sd" }
-                            },
-                            [_vm._v("p")]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "li",
-                            {
-                              staticClass: "tn",
-                              class: {
-                                "shade-5":
-                                  _vm.optionLocation.Alabama.length >= 4,
-                                "shade-4":
-                                  _vm.optionLocation.Alabama.length == 3,
-                                "shade-3":
-                                  _vm.optionLocation.Alabama.length == 2,
-                                "shade-2":
-                                  _vm.optionLocation.Alabama.length == 1,
-                                "shade-1":
-                                  _vm.optionLocation.Alabama.length == 0
-                              },
-                              attrs: { "data-state": "tn" }
-                            },
-                            [_vm._v("q")]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "li",
-                            {
-                              staticClass: "tx",
-                              class: {
-                                "shade-5": _vm.optionLocation.Texas.length >= 4,
-                                "shade-4": _vm.optionLocation.Texas.length == 3,
-                                "shade-3": _vm.optionLocation.Texas.length == 2,
-                                "shade-2": _vm.optionLocation.Texas.length == 1,
-                                "shade-1": _vm.optionLocation.Texas.length == 0
-                              },
-                              attrs: { "data-state": "tx" }
-                            },
-                            [_vm._v("r")]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "li",
-                            {
-                              staticClass: "ut",
-                              class: {
-                                "shade-5":
-                                  _vm.optionLocation.Alabama.length >= 4,
-                                "shade-4":
-                                  _vm.optionLocation.Alabama.length == 3,
-                                "shade-3":
-                                  _vm.optionLocation.Alabama.length == 2,
-                                "shade-2":
-                                  _vm.optionLocation.Alabama.length == 1,
-                                "shade-1":
-                                  _vm.optionLocation.Alabama.length == 0
-                              },
-                              attrs: { "data-state": "ut" }
-                            },
-                            [_vm._v("s")]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "li",
-                            {
-                              staticClass: "va",
-                              class: {
-                                "shade-5":
-                                  _vm.optionLocation.Virginia.length >= 4,
-                                "shade-4":
-                                  _vm.optionLocation.Virginia.length == 3,
-                                "shade-3":
-                                  _vm.optionLocation.Virginia.length == 2,
-                                "shade-2":
-                                  _vm.optionLocation.Virginia.length == 1,
-                                "shade-1":
-                                  _vm.optionLocation.Virginia.length == 0
-                              },
-                              attrs: { "data-state": "va" }
-                            },
-                            [_vm._v("t")]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "li",
-                            {
-                              staticClass: "vt",
-                              class: {
-                                "shade-5":
-                                  _vm.optionLocation.Vermont.length >= 4,
-                                "shade-4":
-                                  _vm.optionLocation.Vermont.length == 3,
-                                "shade-3":
-                                  _vm.optionLocation.Vermont.length == 2,
-                                "shade-2":
-                                  _vm.optionLocation.Vermont.length == 1,
-                                "shade-1":
-                                  _vm.optionLocation.Vermont.length == 0
-                              },
-                              attrs: { "data-state": "vt" }
-                            },
-                            [_vm._v("u")]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "li",
-                            {
-                              staticClass: "wa",
-                              class: {
-                                "shade-5":
-                                  _vm.optionLocation.Washington.length >= 4,
-                                "shade-4":
-                                  _vm.optionLocation.Washington.length == 3,
-                                "shade-3":
-                                  _vm.optionLocation.Washington.length == 2,
-                                "shade-2":
-                                  _vm.optionLocation.Washington.length == 1,
-                                "shade-1":
-                                  _vm.optionLocation.Washington.length == 0
-                              },
-                              attrs: { "data-state": "wa" }
-                            },
-                            [_vm._v("v")]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "li",
-                            {
-                              staticClass: "wv",
-                              class: {
-                                "shade-5":
-                                  _vm.optionLocation["West Virginia"].length >=
-                                  4,
-                                "shade-4":
-                                  _vm.optionLocation["West Virginia"].length ==
-                                  3,
-                                "shade-3":
-                                  _vm.optionLocation["West Virginia"].length ==
-                                  2,
-                                "shade-2":
-                                  _vm.optionLocation["West Virginia"].length ==
-                                  1,
-                                "shade-1":
-                                  _vm.optionLocation["West Virginia"].length ==
-                                  0
-                              },
-                              attrs: { "data-state": "wv" }
-                            },
-                            [_vm._v("w")]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "li",
-                            {
-                              staticClass: "wi",
-                              class: {
-                                "shade-5":
-                                  _vm.optionLocation.Wisconsin.length >= 4,
-                                "shade-4":
-                                  _vm.optionLocation.Wisconsin.length == 3,
-                                "shade-3":
-                                  _vm.optionLocation.Wisconsin.length == 2,
-                                "shade-2":
-                                  _vm.optionLocation.Wisconsin.length == 1,
-                                "shade-1":
-                                  _vm.optionLocation.Wisconsin.length == 0
-                              },
-                              attrs: { "data-state": "wi" }
-                            },
-                            [_vm._v("x")]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "li",
-                            {
-                              staticClass: "wy",
-                              class: {
-                                "shade-5":
-                                  _vm.optionLocation.Alabama.length >= 4,
-                                "shade-4":
-                                  _vm.optionLocation.Alabama.length == 3,
-                                "shade-3":
-                                  _vm.optionLocation.Alabama.length == 2,
-                                "shade-2":
-                                  _vm.optionLocation.Alabama.length == 1,
-                                "shade-1":
-                                  _vm.optionLocation.Alabama.length == 0
-                              },
-                              attrs: { "data-state": "wy" }
-                            },
-                            [_vm._v("y")]
-                          )
-                        ]),
-                        _vm._v(" "),
-                        _c("h3", { staticClass: "text-center" }, [
-                          _vm._v("Projects by State")
-                        ]),
-                        _vm._v(" "),
-                        _vm._m(4)
-                      ]
-                    )
-                  : _vm._e()
-              ]),
-              _vm._v(" "),
-              _vm.filteredResources.length
-                ? _c(
-                    "div",
-                    {
-                      staticClass: "row d-nonez border-top mt-1 mb-4",
-                      attrs: { id: "results-list" }
-                    },
-                    _vm._l(_vm.filteredResources, function(resource) {
-                      return _c(_vm.currentView, {
-                        key: resource.Date,
-                        tag: "span",
-                        attrs: { resource: resource }
-                      })
-                    })
-                  )
-                : _vm.projects.length
-                  ? _c("div", { staticClass: "no-results" }, [
-                      _vm._v("\n              No Results\n          ")
-                    ])
-                  : _c("div", { staticClass: "no-results" }, [
-                      _vm._v("\n              Loading...\n          ")
-                    ]),
-              _vm._v(" "),
-              _c("div", { attrs: { id: "product-list-bottom" } })
-            ])
-          ])
-        ])
-      ]
-    )
-  ])
-}
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-12 border-bottom mb-4" }, [
-      _c("h1", [_vm._v("Resources")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("h3", { staticStyle: { "font-size": "90%", color: "#969696" } }, [
-      _c("strong", [_vm._v("Show results for:")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-12" }, [
-      _c(
-        "div",
-        {
-          staticClass: "alert mb-0 alert-secondary alert-dismissible fade show",
-          attrs: { role: "alert" }
-        },
-        [
-          _c("small", [
-            _vm._v("\n                  Solar Innovations"),
-            _c("sup", [_vm._v("®")]),
-            _vm._v(
-              " is happy to work with our customers, vendors, and dealers to achieve outstanding results. Time is of the essence for many of our customers, we have provided various resources for immediate review.\n                "
-            )
-          ]),
-          _vm._v(" "),
-          _c(
-            "button",
-            {
-              staticClass: "close",
-              attrs: {
-                type: "button",
-                "data-dismiss": "alert",
-                "aria-label": "Close"
-              }
-            },
-            [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
-          )
-        ]
-      )
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "input-group-append" }, [
-      _c(
-        "button",
-        {
-          staticClass: "btn btn-outline-secondary btn-sm",
-          attrs: { type: "submit", value: "Search" }
-        },
-        [_vm._v("Search")]
-      )
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "text-center" }, [
-      _c("i", { staticClass: "fas fa-square shade-1" }),
-      _vm._v(" "),
-      _c("i", { staticClass: "fas fa-square shade-2" }),
-      _vm._v(" "),
-      _c("i", { staticClass: "fas fa-square shade-3" }),
-      _vm._v(" "),
-      _c("i", { staticClass: "fas fa-square shade-4" }),
-      _vm._v(" "),
-      _c("i", { staticClass: "fas fa-square shade-5" })
-    ])
-  }
-]
-render._withStripped = true
-var esExports = { render: render, staticRenderFns: staticRenderFns }
-/* harmony default export */ __webpack_exports__["a"] = (esExports);
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-c7b149ea", esExports)
-  }
-}
-
-/***/ }),
-/* 32 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_Greet_vue__ = __webpack_require__(11);
-/* unused harmony namespace reexport */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_df221e22_hasScoped_true_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_Greet_vue__ = __webpack_require__(34);
-var disposed = false
-function injectStyle (ssrContext) {
-  if (disposed) return
-  __webpack_require__(33)
-}
-var normalizeComponent = __webpack_require__(0)
-/* script */
-
-
-/* template */
-
-/* template functional */
-var __vue_template_functional__ = false
-/* styles */
-var __vue_styles__ = injectStyle
-/* scopeId */
-var __vue_scopeId__ = "data-v-df221e22"
-/* moduleIdentifier (server only) */
-var __vue_module_identifier__ = null
-var Component = normalizeComponent(
-  __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_Greet_vue__["a" /* default */],
-  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_df221e22_hasScoped_true_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_Greet_vue__["a" /* default */],
-  __vue_template_functional__,
-  __vue_styles__,
-  __vue_scopeId__,
-  __vue_module_identifier__
-)
-Component.options.__file = "src/_vue/components/Greet.vue"
-
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-df221e22", Component.options)
-  } else {
-    hotAPI.reload("data-v-df221e22", Component.options)
-  }
-  module.hot.dispose(function (data) {
-    disposed = true
-  })
-})()}
-
-/* harmony default export */ __webpack_exports__["a"] = (Component.exports);
-
-
-/***/ }),
-/* 33 */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-/* 34 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c("div", [
-    _c("h3", [
-      _vm._v("Prop passed via data attribute: "),
-      _c("span", { staticStyle: { color: "#aaa" } }, [
-        _vm._v(_vm._s(_vm.message))
-      ])
-    ])
-  ])
-}
-var staticRenderFns = []
-render._withStripped = true
-var esExports = { render: render, staticRenderFns: staticRenderFns }
-/* harmony default export */ __webpack_exports__["a"] = (esExports);
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-df221e22", esExports)
-  }
-}
-
-/***/ }),
-/* 35 */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-/* 36 */,
-/* 37 */,
-/* 38 */,
-/* 39 */,
-/* 40 */,
-/* 41 */,
-/* 42 */,
-/* 43 */,
-/* 44 */,
-/* 45 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-
-/* harmony default export */ __webpack_exports__["a"] = ({
-  data: function data() {
-    return {
-      checked: []
-    };
-  },
-
-  props: ["list", "subhead", "category"],
-  methods: {
-    checkFilter: function checkFilter(category, name) {
-      if (this.checked.indexOf(name) != -1) {
-        this.checked.splice(this.checked.indexOf(name), 1);
-        this.$bus.$emit("check-filter", category, name, false);
-      } else {
-        this.checked.push(name);
-        this.$bus.$emit("check-filter", category, name, true);
-      }
-      // this.checked = !this.checked;
-    }
-  }
-});
-
-/***/ }),
-/* 46 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_ProductsFilter_vue__ = __webpack_require__(45);
-/* unused harmony namespace reexport */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_17ee8e86_hasScoped_true_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_ProductsFilter_vue__ = __webpack_require__(48);
-var disposed = false
-function injectStyle (ssrContext) {
-  if (disposed) return
-  __webpack_require__(47)
-}
-var normalizeComponent = __webpack_require__(0)
-/* script */
-
-
-/* template */
-
-/* template functional */
-var __vue_template_functional__ = false
-/* styles */
-var __vue_styles__ = injectStyle
-/* scopeId */
-var __vue_scopeId__ = "data-v-17ee8e86"
-/* moduleIdentifier (server only) */
-var __vue_module_identifier__ = null
-var Component = normalizeComponent(
-  __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_ProductsFilter_vue__["a" /* default */],
-  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_17ee8e86_hasScoped_true_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_ProductsFilter_vue__["a" /* default */],
-  __vue_template_functional__,
-  __vue_styles__,
-  __vue_scopeId__,
-  __vue_module_identifier__
-)
-Component.options.__file = "src/_vue/components/ProductsFilter.vue"
-
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-17ee8e86", Component.options)
-  } else {
-    hotAPI.reload("data-v-17ee8e86", Component.options)
-  }
-  module.hot.dispose(function (data) {
-    disposed = true
-  })
-})()}
-
-/* harmony default export */ __webpack_exports__["a"] = (Component.exports);
-
-
-/***/ }),
-/* 47 */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-/* 48 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    [
-      _vm.subhead
-        ? _c("strong", { staticStyle: { "font-size": ".75em" } }, [
-            _vm._v(_vm._s(_vm.subhead))
-          ])
-        : _vm._e(),
-      _vm._v(" "),
-      _vm._l(_vm.list, function(prod) {
-        return _c("div", { key: prod }, [
-          _c(
-            "div",
-            {
-              staticClass: "p-0 pointer",
-              on: {
-                click: function($event) {
-                  _vm.checkFilter(_vm.category, prod)
-                }
-              }
-            },
-            [
-              _c("small", [
-                _c("i", {
-                  staticClass: "mr-1",
-                  class: {
-                    "fas fa-check-square": _vm.checked.indexOf(prod) >= 0,
-                    "far fa-square": _vm.checked.indexOf(prod) == -1
-                  },
-                  staticStyle: { color: "rgb(150, 150, 150)" },
-                  attrs: { name: prod }
-                }),
-                _vm._v(" " + _vm._s(prod) + "\n        ")
-              ])
-            ]
-          )
-        ])
-      })
-    ],
-    2
-  )
-}
-var staticRenderFns = []
-render._withStripped = true
-var esExports = { render: render, staticRenderFns: staticRenderFns }
-/* harmony default export */ __webpack_exports__["a"] = (esExports);
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-17ee8e86", esExports)
-  }
-}
-
-/***/ }),
-/* 49 */,
-/* 50 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-
-/* harmony default export */ __webpack_exports__["a"] = ({
-  data: function data() {
-    return {
-      checked: []
-    };
-  },
-
-  props: ["list", "products", "category", "show", "sqf", "hideHeaders"],
-  methods: {
-    checkFilter: function checkFilter(category, name) {
-      if (this.checked.indexOf(name) != -1) {
-        this.checked.splice(this.checked.indexOf(name), 1);
-        this.$bus.$emit("check-filter", category, name, false);
-      } else {
-        this.checked.push(name);
-        this.$bus.$emit("check-filter", category, name, true);
-      }
-    }
-  }
-});
-
-/***/ }),
-/* 51 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_FeaturesFilter_vue__ = __webpack_require__(50);
-/* unused harmony namespace reexport */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_1f9ca61f_hasScoped_true_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_FeaturesFilter_vue__ = __webpack_require__(53);
-var disposed = false
-function injectStyle (ssrContext) {
-  if (disposed) return
-  __webpack_require__(52)
-}
-var normalizeComponent = __webpack_require__(0)
-/* script */
-
-
-/* template */
-
-/* template functional */
-var __vue_template_functional__ = false
-/* styles */
-var __vue_styles__ = injectStyle
-/* scopeId */
-var __vue_scopeId__ = "data-v-1f9ca61f"
-/* moduleIdentifier (server only) */
-var __vue_module_identifier__ = null
-var Component = normalizeComponent(
-  __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_FeaturesFilter_vue__["a" /* default */],
-  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_1f9ca61f_hasScoped_true_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_FeaturesFilter_vue__["a" /* default */],
-  __vue_template_functional__,
-  __vue_styles__,
-  __vue_scopeId__,
-  __vue_module_identifier__
-)
-Component.options.__file = "src/_vue/components/FeaturesFilter.vue"
-
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-1f9ca61f", Component.options)
-  } else {
-    hotAPI.reload("data-v-1f9ca61f", Component.options)
-  }
-  module.hot.dispose(function (data) {
-    disposed = true
-  })
-})()}
-
-/* harmony default export */ __webpack_exports__["a"] = (Component.exports);
-
-
-/***/ }),
-/* 52 */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-/* 53 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    _vm._l(_vm.products, function(product) {
-      return _vm.show
-        ? _c(
-            "div",
-            { key: product },
-            [
-              _vm.list[product] && _vm.list[product].length
-                ? _c(
-                    "div",
-                    {
-                      staticClass: "mt-2 mb-1 pt-1",
-                      staticStyle: {
-                        "font-size": ".75em",
-                        "line-height": "15px",
-                        "font-weight": "800"
-                      }
-                    },
-                    [_vm._v("\n      " + _vm._s(product) + "\n    ")]
-                  )
-                : _vm._e(),
-              _vm._v(" "),
-              _vm._l(_vm.list[product], function(feature) {
-                return _c("div", { key: feature }, [
-                  _c(
-                    "div",
-                    {
-                      staticClass: "p-0 pointer",
-                      on: {
-                        click: function($event) {
-                          _vm.checkFilter(_vm.category, feature)
-                        }
-                      }
-                    },
-                    [
-                      _c("small", [
-                        _c("i", {
-                          staticClass: "mr-1",
-                          class: {
-                            "fas fa-check-square":
-                              _vm.checked.indexOf(feature) >= 0,
-                            "far fa-square": _vm.checked.indexOf(feature) == -1
-                          },
-                          staticStyle: { color: "rgb(150, 150, 150)" },
-                          attrs: { name: feature }
-                        }),
-                        _vm._v(" " + _vm._s(feature) + "\n        ")
-                      ])
-                    ]
-                  )
-                ])
-              })
-            ],
-            2
-          )
-        : _vm._e()
-    })
-  )
-}
-var staticRenderFns = []
-render._withStripped = true
-var esExports = { render: render, staticRenderFns: staticRenderFns }
-/* harmony default export */ __webpack_exports__["a"] = (esExports);
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-1f9ca61f", esExports)
-  }
-}
-
-/***/ }),
-/* 54 */,
-/* 55 */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-/* 56 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -30998,6 +32083,9 @@ var render = function() {
                         "url(" + _vm.imgUrlFormat(_vm.resource.Image1) + ")"
                     },
                     on: {
+                      click: function($event) {
+                        _vm.show(_vm.resource.Image1)
+                      },
                       mouseover: function($event) {
                         _vm.imgHover(_vm.imgUrlFormat(_vm.resource.Image1))
                       }
@@ -31015,6 +32103,9 @@ var render = function() {
                         "url(" + _vm.imgUrlFormat(_vm.resource.Image2) + ")"
                     },
                     on: {
+                      click: function($event) {
+                        _vm.show(_vm.resource.Image2)
+                      },
                       mouseover: function($event) {
                         _vm.imgHover(_vm.imgUrlFormat(_vm.resource.Image2))
                       }
@@ -31032,6 +32123,9 @@ var render = function() {
                         "url(" + _vm.imgUrlFormat(_vm.resource.Image3) + ")"
                     },
                     on: {
+                      click: function($event) {
+                        _vm.show(_vm.resource.Image3)
+                      },
                       mouseover: function($event) {
                         _vm.imgHover(_vm.imgUrlFormat(_vm.resource.Image3))
                       }
@@ -31049,6 +32143,9 @@ var render = function() {
                         "url(" + _vm.imgUrlFormat(_vm.resource.Image4) + ")"
                     },
                     on: {
+                      click: function($event) {
+                        _vm.show(_vm.resource.Image4)
+                      },
                       mouseover: function($event) {
                         _vm.imgHover(_vm.imgUrlFormat(_vm.resource.Image4))
                       }
@@ -31255,6 +32352,2885 @@ if (false) {
     require("vue-hot-reload-api")      .rerender("data-v-8938a74a", esExports)
   }
 }
+
+/***/ }),
+/* 28 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_CheckFilter_vue__ = __webpack_require__(6);
+/* unused harmony namespace reexport */
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_3f99a286_hasScoped_true_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_CheckFilter_vue__ = __webpack_require__(30);
+var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__(29)
+}
+var normalizeComponent = __webpack_require__(0)
+/* script */
+
+
+/* template */
+
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = injectStyle
+/* scopeId */
+var __vue_scopeId__ = "data-v-3f99a286"
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_CheckFilter_vue__["a" /* default */],
+  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_3f99a286_hasScoped_true_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_CheckFilter_vue__["a" /* default */],
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "src/_vue/components/CheckFilter.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-3f99a286", Component.options)
+  } else {
+    hotAPI.reload("data-v-3f99a286", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+/* harmony default export */ __webpack_exports__["a"] = (Component.exports);
+
+
+/***/ }),
+/* 29 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 30 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    { staticClass: "p-0 pointer", on: { click: _vm.checkFilter } },
+    [
+      _c("small", [
+        _c("i", {
+          staticClass: "mr-1",
+          class: {
+            "far fa-square": _vm.checked == false,
+            "fas fa-check-square": _vm.checked
+          },
+          staticStyle: { color: "rgb(150, 150, 150)" }
+        }),
+        _vm._v(" " + _vm._s(_vm.name) + "\n    ")
+      ])
+    ]
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+var esExports = { render: render, staticRenderFns: staticRenderFns }
+/* harmony default export */ __webpack_exports__["a"] = (esExports);
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-3f99a286", esExports)
+  }
+}
+
+/***/ }),
+/* 31 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_ProductsFilter_vue__ = __webpack_require__(7);
+/* unused harmony namespace reexport */
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_17ee8e86_hasScoped_true_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_ProductsFilter_vue__ = __webpack_require__(33);
+var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__(32)
+}
+var normalizeComponent = __webpack_require__(0)
+/* script */
+
+
+/* template */
+
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = injectStyle
+/* scopeId */
+var __vue_scopeId__ = "data-v-17ee8e86"
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_ProductsFilter_vue__["a" /* default */],
+  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_17ee8e86_hasScoped_true_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_ProductsFilter_vue__["a" /* default */],
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "src/_vue/components/ProductsFilter.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-17ee8e86", Component.options)
+  } else {
+    hotAPI.reload("data-v-17ee8e86", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+/* harmony default export */ __webpack_exports__["a"] = (Component.exports);
+
+
+/***/ }),
+/* 32 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 33 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    [
+      _vm.subhead
+        ? _c("strong", { staticStyle: { "font-size": ".75em" } }, [
+            _vm._v(_vm._s(_vm.subhead))
+          ])
+        : _vm._e(),
+      _vm._v(" "),
+      _vm._l(_vm.list, function(prod) {
+        return _c("div", { key: prod }, [
+          _c(
+            "div",
+            {
+              staticClass: "p-0 pointer",
+              on: {
+                click: function($event) {
+                  _vm.checkFilter(_vm.category, prod)
+                }
+              }
+            },
+            [
+              _c("small", [
+                _c("i", {
+                  staticClass: "mr-1",
+                  class: {
+                    "fas fa-check-square": _vm.checked.indexOf(prod) >= 0,
+                    "far fa-square": _vm.checked.indexOf(prod) == -1
+                  },
+                  staticStyle: { color: "rgb(150, 150, 150)" },
+                  attrs: { name: prod }
+                }),
+                _vm._v(" " + _vm._s(prod) + "\n        ")
+              ])
+            ]
+          )
+        ])
+      })
+    ],
+    2
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+var esExports = { render: render, staticRenderFns: staticRenderFns }
+/* harmony default export */ __webpack_exports__["a"] = (esExports);
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-17ee8e86", esExports)
+  }
+}
+
+/***/ }),
+/* 34 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_FeaturesFilter_vue__ = __webpack_require__(8);
+/* unused harmony namespace reexport */
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_1f9ca61f_hasScoped_true_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_FeaturesFilter_vue__ = __webpack_require__(36);
+var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__(35)
+}
+var normalizeComponent = __webpack_require__(0)
+/* script */
+
+
+/* template */
+
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = injectStyle
+/* scopeId */
+var __vue_scopeId__ = "data-v-1f9ca61f"
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_FeaturesFilter_vue__["a" /* default */],
+  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_1f9ca61f_hasScoped_true_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_FeaturesFilter_vue__["a" /* default */],
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "src/_vue/components/FeaturesFilter.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-1f9ca61f", Component.options)
+  } else {
+    hotAPI.reload("data-v-1f9ca61f", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+/* harmony default export */ __webpack_exports__["a"] = (Component.exports);
+
+
+/***/ }),
+/* 35 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 36 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    _vm._l(_vm.products, function(product) {
+      return _vm.show
+        ? _c(
+            "div",
+            { key: product },
+            [
+              _vm.list[product] && _vm.list[product].length
+                ? _c(
+                    "div",
+                    {
+                      staticClass: "mt-2 mb-1 pt-1",
+                      staticStyle: {
+                        "font-size": ".75em",
+                        "line-height": "15px",
+                        "font-weight": "800"
+                      }
+                    },
+                    [_vm._v("\n      " + _vm._s(product) + "\n    ")]
+                  )
+                : _vm._e(),
+              _vm._v(" "),
+              _vm._l(_vm.list[product], function(feature) {
+                return _c("div", { key: feature }, [
+                  _c(
+                    "div",
+                    {
+                      staticClass: "p-0 pointer",
+                      on: {
+                        click: function($event) {
+                          _vm.checkFilter(_vm.category, feature)
+                        }
+                      }
+                    },
+                    [
+                      _c("small", [
+                        _c("i", {
+                          staticClass: "mr-1",
+                          class: {
+                            "fas fa-check-square":
+                              _vm.checked.indexOf(feature) >= 0,
+                            "far fa-square": _vm.checked.indexOf(feature) == -1
+                          },
+                          staticStyle: { color: "rgb(150, 150, 150)" },
+                          attrs: { name: feature }
+                        }),
+                        _vm._v(" " + _vm._s(feature) + "\n        ")
+                      ])
+                    ]
+                  )
+                ])
+              })
+            ],
+            2
+          )
+        : _vm._e()
+    })
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+var esExports = { render: render, staticRenderFns: staticRenderFns }
+/* harmony default export */ __webpack_exports__["a"] = (esExports);
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-1f9ca61f", esExports)
+  }
+}
+
+/***/ }),
+/* 37 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_SmallGridItem_vue__ = __webpack_require__(9);
+/* unused harmony namespace reexport */
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_3713ba06_hasScoped_false_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_SmallGridItem_vue__ = __webpack_require__(38);
+var disposed = false
+var normalizeComponent = __webpack_require__(0)
+/* script */
+
+
+/* template */
+
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_SmallGridItem_vue__["a" /* default */],
+  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_3713ba06_hasScoped_false_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_SmallGridItem_vue__["a" /* default */],
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "src/_vue/components/SmallGridItem.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-3713ba06", Component.options)
+  } else {
+    hotAPI.reload("data-v-3713ba06", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+/* harmony default export */ __webpack_exports__["a"] = (Component.exports);
+
+
+/***/ }),
+/* 38 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "col-lg-3  mt-3 pt-3" }, [
+    _c("div", { staticClass: "row no-gutters" }, [
+      _c("div", { staticClass: "col-lg-12" }, [
+        _c("div", { staticClass: "row no-gutters  justify-content-end" }, [
+          _c("div", { staticClass: "col-lg-12" }),
+          _vm._v(" "),
+          _c("div", { staticClass: "col-12 mb-1" }, [
+            _c("img", {
+              staticClass: "img",
+              attrs: { src: _vm.imgUrlFormat(_vm.resource.Image1) }
+            })
+          ])
+        ])
+      ])
+    ])
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+var esExports = { render: render, staticRenderFns: staticRenderFns }
+/* harmony default export */ __webpack_exports__["a"] = (esExports);
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-3713ba06", esExports)
+  }
+}
+
+/***/ }),
+/* 39 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_LargeGridItem_vue__ = __webpack_require__(10);
+/* unused harmony namespace reexport */
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_7840323a_hasScoped_false_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_LargeGridItem_vue__ = __webpack_require__(40);
+var disposed = false
+var normalizeComponent = __webpack_require__(0)
+/* script */
+
+
+/* template */
+
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_LargeGridItem_vue__["a" /* default */],
+  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_7840323a_hasScoped_false_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_LargeGridItem_vue__["a" /* default */],
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "src/_vue/components/LargeGridItem.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-7840323a", Component.options)
+  } else {
+    hotAPI.reload("data-v-7840323a", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+/* harmony default export */ __webpack_exports__["a"] = (Component.exports);
+
+
+/***/ }),
+/* 40 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "col-lg-4  mt-3 pt-3" }, [
+    _c("div", { staticClass: "row no-gutters" }, [
+      _c("div", { staticClass: "col-lg-12" }, [
+        _c("div", { staticClass: "row no-gutters pr-3 justify-content-end" }, [
+          _c("div", { staticClass: "col-lg-12" }, [
+            _c("h4", { staticClass: "mb-0" }, [
+              _vm._v(_vm._s(_vm.resource.ProjectID))
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "col-12 mb-1" }, [
+            _c("img", {
+              staticClass: "img",
+              attrs: { src: _vm.imgUrlFormat(_vm.resource.Image1) }
+            })
+          ])
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-lg-12 align-content-between" }, [
+        Array.isArray(_vm.resource.Products)
+          ? _c(
+              "div",
+              { staticClass: "mb-2" },
+              _vm._l(_vm.resource.Products, function(product) {
+                return _c(
+                  "span",
+                  { key: product.ID, staticClass: "badge badge-primary mr-2" },
+                  [_vm._v(_vm._s(product.ProductName))]
+                )
+              })
+            )
+          : _vm._e()
+      ])
+    ])
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+var esExports = { render: render, staticRenderFns: staticRenderFns }
+/* harmony default export */ __webpack_exports__["a"] = (esExports);
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-7840323a", esExports)
+  }
+}
+
+/***/ }),
+/* 41 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "main",
+    { staticClass: "mt-3" },
+    [
+      _c("modal", { attrs: { name: "hello-world" } }, [
+        _vm._v("\n  hello, world!\n")
+      ]),
+      _vm._v(" "),
+      _c(
+        "div",
+        { staticClass: "container-fluid mb-5", attrs: { id: "content" } },
+        [
+          _c("div", { staticClass: "row" }, [
+            _vm._m(0),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-lg-2 border-right" }, [
+              _vm._m(1),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "d-flex flex-column" },
+                [
+                  _c(
+                    "div",
+                    {
+                      staticClass:
+                        "d-flex justify-content-between align-items-center pointer",
+                      on: { click: _vm.toggleProductsDisplay }
+                    },
+                    [
+                      _c("strong", [_vm._v("Products")]),
+                      _vm._v(" "),
+                      _c("small", [
+                        _c("i", {
+                          class: {
+                            "fas fa-plus": !_vm.showProducts,
+                            "fas fa-minus": _vm.showProducts
+                          }
+                        })
+                      ])
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "keep-alive",
+                    [
+                      _vm.showProducts
+                        ? _c("products-filter", {
+                            attrs: {
+                              category: "products",
+                              list: _vm.listProducts
+                            }
+                          })
+                        : _vm._e()
+                    ],
+                    1
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _vm.products.length
+                ? _c("hr", { staticClass: "my-2" })
+                : _vm._e(),
+              _vm._v(" "),
+              _vm.products.length
+                ? _c(
+                    "div",
+                    { staticClass: "d-flex flex-column" },
+                    [
+                      _c(
+                        "div",
+                        {
+                          staticClass:
+                            "d-flex justify-content-between align-items-center pointer",
+                          on: { click: _vm.toggleFeaturesDisplay }
+                        },
+                        [
+                          _c("strong", [_vm._v("Features")]),
+                          _vm._v(" "),
+                          _c("small", [
+                            _c("i", {
+                              class: {
+                                "fas fa-plus": !_vm.showFeatures,
+                                "fas fa-minus": _vm.showFeatures
+                              }
+                            })
+                          ])
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "keep-alive",
+                        [
+                          _c("features-filter", {
+                            attrs: {
+                              show: _vm.showFeatures,
+                              category: "geoType1",
+                              list: _vm.optionFeatureGroups,
+                              products: _vm.products
+                            }
+                          })
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  )
+                : _vm._e(),
+              _vm._v(" "),
+              _vm.products.length
+                ? _c("hr", { staticClass: "my-2" })
+                : _vm._e(),
+              _vm._v(" "),
+              _vm.products.length
+                ? _c(
+                    "div",
+                    { staticClass: "d-flex flex-column" },
+                    [
+                      _c(
+                        "div",
+                        {
+                          staticClass:
+                            "d-flex justify-content-between align-items-center pointer",
+                          on: { click: _vm.toggleDetailsDisplay }
+                        },
+                        [
+                          _c("strong", [_vm._v("Details")]),
+                          _vm._v(" "),
+                          _c("small", [
+                            _c("i", {
+                              class: {
+                                "fas fa-plus": !_vm.showDetails,
+                                "fas fa-minus": _vm.showDetails
+                              }
+                            })
+                          ])
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "keep-alive",
+                        [
+                          _c("features-filter", {
+                            attrs: {
+                              show: _vm.showDetails,
+                              category: "geoType2",
+                              list: _vm.optionDetailsGroups,
+                              sqf: _vm.sqfList,
+                              hideHeaders: _vm.detailHeadersList,
+                              products: _vm.products
+                            }
+                          })
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  )
+                : _vm._e(),
+              _vm._v(" "),
+              _c("hr", { staticClass: "my-2" }),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "d-flex flex-column" },
+                [
+                  _c(
+                    "div",
+                    {
+                      staticClass:
+                        "d-flex justify-content-between align-items-center pointer",
+                      on: { click: _vm.toggleApplicationsDisplay }
+                    },
+                    [
+                      _c("strong", [_vm._v("Applications")]),
+                      _vm._v(" "),
+                      _c("small", [
+                        _c("i", {
+                          class: {
+                            "fas fa-plus": !_vm.showApplications,
+                            "fas fa-minus": _vm.showApplications
+                          }
+                        })
+                      ])
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "keep-alive",
+                    [
+                      _vm.showApplications
+                        ? _c("products-filter", {
+                            attrs: {
+                              category: "applications",
+                              list: _vm.listApplications
+                            }
+                          })
+                        : _vm._e()
+                    ],
+                    1
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c("hr", { staticClass: "my-2" }),
+              _vm._v(" "),
+              _c("div", { staticClass: "d-flex flex-column" }, [
+                _c(
+                  "div",
+                  {
+                    staticClass:
+                      "d-flex justify-content-between align-items-center pointer",
+                    on: { click: _vm.toggleGlazesDisplay }
+                  },
+                  [
+                    _c("strong", [_vm._v("Glaze")]),
+                    _vm._v(" "),
+                    _c("small", [
+                      _c("i", {
+                        class: {
+                          "fas fa-plus": !_vm.showGlazes,
+                          "fas fa-minus": _vm.showGlazes
+                        }
+                      })
+                    ])
+                  ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  [
+                    _c(
+                      "keep-alive",
+                      [
+                        _vm.showGlazes
+                          ? _c("products-filter", {
+                              attrs: {
+                                category: "glazes",
+                                list: _vm.glazesOptions
+                              }
+                            })
+                          : _vm._e()
+                      ],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _vm.showGlazes
+                      ? _c(
+                          "div",
+                          {
+                            staticClass:
+                              "d-flex justify-content-between align-items-center pt-2"
+                          },
+                          [
+                            _c(
+                              "strong",
+                              { staticStyle: { "font-size": ".75em" } },
+                              [_vm._v("Square Footage")]
+                            )
+                          ]
+                        )
+                      : _vm._e(),
+                    _vm._v(" "),
+                    _c(
+                      "keep-alive",
+                      [
+                        _vm.showGlazes
+                          ? _c("products-filter", {
+                              attrs: { category: "geoType2", list: _vm.sqfList }
+                            })
+                          : _vm._e()
+                      ],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _vm.showGlazes
+                      ? _c(
+                          "div",
+                          {
+                            staticClass:
+                              "d-flex justify-content-between align-items-center pt-2"
+                          },
+                          [
+                            _c(
+                              "strong",
+                              { staticStyle: { "font-size": ".75em" } },
+                              [_vm._v("Glaze Colors")]
+                            )
+                          ]
+                        )
+                      : _vm._e(),
+                    _vm._v(" "),
+                    _c(
+                      "keep-alive",
+                      [
+                        _vm.showGlazes
+                          ? _c("products-filter", {
+                              attrs: {
+                                category: "glazes",
+                                list: _vm.glazeColor
+                              }
+                            })
+                          : _vm._e()
+                      ],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _vm.showGlazes
+                      ? _c(
+                          "div",
+                          {
+                            staticClass:
+                              "d-flex justify-content-between align-items-center pt-2"
+                          },
+                          [
+                            _c(
+                              "strong",
+                              { staticStyle: { "font-size": ".75em" } },
+                              [_vm._v("Glaze Coating")]
+                            )
+                          ]
+                        )
+                      : _vm._e(),
+                    _vm._v(" "),
+                    _c(
+                      "keep-alive",
+                      [
+                        _vm.showGlazes
+                          ? _c("products-filter", {
+                              attrs: {
+                                category: "glazes",
+                                list: _vm.listGlazeCoatings
+                              }
+                            })
+                          : _vm._e()
+                      ],
+                      1
+                    )
+                  ],
+                  1
+                )
+              ]),
+              _vm._v(" "),
+              _c("hr", { staticClass: "my-2" }),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "d-flex flex-column" },
+                [
+                  _c(
+                    "div",
+                    {
+                      staticClass:
+                        "d-flex justify-content-between align-items-center pointer",
+                      on: { click: _vm.toggleExtColorDisplay }
+                    },
+                    [
+                      _c("strong", [_vm._v("Exterior")]),
+                      _vm._v(" "),
+                      _c("small", [
+                        _c("i", {
+                          class: {
+                            "fas fa-plus": !_vm.showExtColor,
+                            "fas fa-minus": _vm.showExtColor
+                          }
+                        })
+                      ])
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _vm.showExtColor
+                    ? _c(
+                        "div",
+                        {
+                          staticClass:
+                            "d-flex justify-content-between align-items-center pt-2"
+                        },
+                        [
+                          _c(
+                            "strong",
+                            { staticStyle: { "font-size": ".75em" } },
+                            [_vm._v("Materials")]
+                          )
+                        ]
+                      )
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _c(
+                    "keep-alive",
+                    [
+                      _vm.showExtColor
+                        ? _c("products-filter", {
+                            attrs: {
+                              category: "extColor",
+                              list: _vm.materialOptions
+                            }
+                          })
+                        : _vm._e()
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _vm.showExtColor
+                    ? _c(
+                        "div",
+                        {
+                          staticClass:
+                            "d-flex justify-content-between align-items-center pt-2"
+                        },
+                        [
+                          _c(
+                            "strong",
+                            { staticStyle: { "font-size": ".75em" } },
+                            [_vm._v("Finishes")]
+                          )
+                        ]
+                      )
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _c(
+                    "keep-alive",
+                    [
+                      _vm.showExtColor
+                        ? _c("products-filter", {
+                            attrs: {
+                              category: "extColor",
+                              list: _vm.finishOptions
+                            }
+                          })
+                        : _vm._e()
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _vm.showExtColor
+                    ? _c(
+                        "div",
+                        {
+                          staticClass:
+                            "d-flex justify-content-between align-items-center pt-2"
+                        },
+                        [
+                          _c(
+                            "strong",
+                            { staticStyle: { "font-size": ".75em" } },
+                            [_vm._v("Standard Colors")]
+                          )
+                        ]
+                      )
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _c(
+                    "keep-alive",
+                    [
+                      _vm.showExtColor
+                        ? _c("products-filter", {
+                            attrs: {
+                              category: "extColor",
+                              list: _vm.standardColors
+                            }
+                          })
+                        : _vm._e()
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _vm.showExtColor
+                    ? _c(
+                        "div",
+                        {
+                          staticClass:
+                            "d-flex justify-content-between align-items-center pt-2"
+                        },
+                        [
+                          _c(
+                            "strong",
+                            { staticStyle: { "font-size": ".75em" } },
+                            [_vm._v("Standard Cladding")]
+                          )
+                        ]
+                      )
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _c(
+                    "keep-alive",
+                    [
+                      _vm.showExtColor
+                        ? _c("products-filter", {
+                            attrs: {
+                              category: "extColor",
+                              list: _vm.claddingOptions
+                            }
+                          })
+                        : _vm._e()
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _vm.showExtColor
+                    ? _c(
+                        "div",
+                        {
+                          staticClass:
+                            "d-flex justify-content-between align-items-center pt-2"
+                        },
+                        [
+                          _c(
+                            "strong",
+                            { staticStyle: { "font-size": ".75em" } },
+                            [_vm._v("Custom Options")]
+                          )
+                        ]
+                      )
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _c(
+                    "keep-alive",
+                    [
+                      _vm.showExtColor
+                        ? _c("products-filter", {
+                            attrs: {
+                              category: "extColor",
+                              list: _vm.listExtColor
+                            }
+                          })
+                        : _vm._e()
+                    ],
+                    1
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c("hr", { staticClass: "my-2" }),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "d-flex flex-column" },
+                [
+                  _c(
+                    "div",
+                    {
+                      staticClass:
+                        "d-flex justify-content-between align-items-center pointer",
+                      on: { click: _vm.toggleIntColorDisplay }
+                    },
+                    [
+                      _c("strong", [_vm._v("Interior")]),
+                      _vm._v(" "),
+                      _c("small", [
+                        _c("i", {
+                          class: {
+                            "fas fa-plus": !_vm.showIntColor,
+                            "fas fa-minus": _vm.showIntColor
+                          }
+                        })
+                      ])
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _vm.showIntColor
+                    ? _c(
+                        "div",
+                        {
+                          staticClass:
+                            "d-flex justify-content-between align-items-center pt-2"
+                        },
+                        [
+                          _c(
+                            "strong",
+                            { staticStyle: { "font-size": ".75em" } },
+                            [_vm._v("Materials")]
+                          )
+                        ]
+                      )
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _c(
+                    "keep-alive",
+                    [
+                      _vm.showIntColor
+                        ? _c("products-filter", {
+                            attrs: {
+                              category: "intColor",
+                              list: _vm.materialOptions
+                            }
+                          })
+                        : _vm._e()
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _vm.showIntColor
+                    ? _c(
+                        "div",
+                        {
+                          staticClass:
+                            "d-flex justify-content-between align-items-center pt-2"
+                        },
+                        [
+                          _c(
+                            "strong",
+                            { staticStyle: { "font-size": ".75em" } },
+                            [_vm._v("Finishes")]
+                          )
+                        ]
+                      )
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _c(
+                    "keep-alive",
+                    [
+                      _vm.showIntColor
+                        ? _c("products-filter", {
+                            attrs: {
+                              category: "intColor",
+                              list: _vm.finishOptions
+                            }
+                          })
+                        : _vm._e()
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _vm.showIntColor
+                    ? _c(
+                        "div",
+                        {
+                          staticClass:
+                            "d-flex justify-content-between align-items-center pt-2"
+                        },
+                        [
+                          _c(
+                            "strong",
+                            { staticStyle: { "font-size": ".75em" } },
+                            [_vm._v("Standard Colors")]
+                          )
+                        ]
+                      )
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _c(
+                    "keep-alive",
+                    [
+                      _vm.showIntColor
+                        ? _c("products-filter", {
+                            attrs: {
+                              category: "intColor",
+                              list: _vm.standardColors
+                            }
+                          })
+                        : _vm._e()
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _vm.showIntColor
+                    ? _c(
+                        "div",
+                        {
+                          staticClass:
+                            "d-flex justify-content-between align-items-center pt-2"
+                        },
+                        [
+                          _c(
+                            "strong",
+                            { staticStyle: { "font-size": ".75em" } },
+                            [_vm._v("Standard Cladding")]
+                          )
+                        ]
+                      )
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _c(
+                    "keep-alive",
+                    [
+                      _vm.showIntColor
+                        ? _c("products-filter", {
+                            attrs: {
+                              category: "intColor",
+                              list: _vm.claddingOptions
+                            }
+                          })
+                        : _vm._e()
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _vm.showIntColor
+                    ? _c(
+                        "div",
+                        {
+                          staticClass:
+                            "d-flex justify-content-between align-items-center pt-2"
+                        },
+                        [
+                          _c(
+                            "strong",
+                            { staticStyle: { "font-size": ".75em" } },
+                            [_vm._v("Custom Options")]
+                          )
+                        ]
+                      )
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _c(
+                    "keep-alive",
+                    [
+                      _vm.showIntColor
+                        ? _c("products-filter", {
+                            attrs: {
+                              category: "intColor",
+                              list: _vm.listIntColor
+                            }
+                          })
+                        : _vm._e()
+                    ],
+                    1
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c("hr", { staticClass: "my-2" }),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "d-flex flex-column" },
+                [
+                  _c(
+                    "div",
+                    {
+                      staticClass:
+                        "d-flex justify-content-between align-items-center pointer",
+                      on: { click: _vm.toggleLocationDisplay }
+                    },
+                    [
+                      _c("strong", [_vm._v("Location")]),
+                      _vm._v(" "),
+                      _c("small", [
+                        _c("i", {
+                          class: {
+                            "fas fa-plus": !_vm.showLocations,
+                            "fas fa-minus": _vm.showLocations
+                          }
+                        })
+                      ])
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _vm.showLocations
+                    ? _c(
+                        "div",
+                        {
+                          staticClass:
+                            "mb-1 d-flex justify-content-between align-items-center pt-2"
+                        },
+                        [
+                          _c(
+                            "strong",
+                            { staticStyle: { "font-size": ".75em" } },
+                            [_vm._v("International")]
+                          )
+                        ]
+                      )
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _c(
+                    "keep-alive",
+                    [
+                      _vm.showLocations
+                        ? _c("products-filter", {
+                            attrs: {
+                              category: "locations",
+                              list: _vm.internatinalOptions
+                            }
+                          })
+                        : _vm._e()
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _vm.showLocations
+                    ? _c(
+                        "div",
+                        {
+                          staticClass:
+                            "mb-1 d-flex justify-content-between align-items-center pt-2"
+                        },
+                        [
+                          _c(
+                            "strong",
+                            { staticStyle: { "font-size": ".75em" } },
+                            [_vm._v("Domestic")]
+                          )
+                        ]
+                      )
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _c(
+                    "keep-alive",
+                    [
+                      _vm.showLocations
+                        ? _c("products-filter", {
+                            attrs: {
+                              category: "locations",
+                              list: _vm.listLocation
+                            }
+                          })
+                        : _vm._e()
+                    ],
+                    1
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c("hr", { staticClass: "my-2" })
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-lg-10" }, [
+              _c("div", { staticClass: "container-fluid mb-2 pr-3 " }, [
+                _c(
+                  "div",
+                  { staticClass: "row d-nonex" },
+                  [_vm._m(2), _vm._v(" "), _c("mega-filter")],
+                  1
+                ),
+                _vm._v(" "),
+                _c("div", { staticClass: "row mt-3" }, [
+                  _c("div", { staticClass: "col-4 text-left" }, [
+                    _c(
+                      "div",
+                      {
+                        staticClass: "btn-group",
+                        attrs: {
+                          role: "group",
+                          "aria-label": "Button group with nested dropdown"
+                        }
+                      },
+                      [
+                        _c(
+                          "button",
+                          {
+                            staticClass: "btn btn-secondary",
+                            attrs: { type: "button" },
+                            on: {
+                              click: function($event) {
+                                _vm.changeSortDirection()
+                              }
+                            }
+                          },
+                          [
+                            _c("i", {
+                              class: {
+                                "fas fa-sort-amount-up":
+                                  _vm.sortDirection === "desc",
+                                "fas fa-sort-amount-down":
+                                  _vm.sortDirection === "asc"
+                              }
+                            })
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "button",
+                          {
+                            class: {
+                              "btn btn-secondary": true,
+                              active: _vm.showMap === true
+                            },
+                            attrs: { type: "button" },
+                            on: {
+                              click: function($event) {
+                                _vm.toggleMapDisplay()
+                              }
+                            }
+                          },
+                          [_c("i", { staticClass: "fas fa-globe-americas" })]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "button",
+                          {
+                            class: {
+                              "btn btn-secondary": true,
+                              active: _vm.currentView === "list-item"
+                            },
+                            attrs: { type: "button" },
+                            on: {
+                              click: function($event) {
+                                _vm.changeView("list-item")
+                              }
+                            }
+                          },
+                          [_c("i", { staticClass: "fas fa-list-ul" })]
+                        )
+                      ]
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-6 text-muted mt-auto" }, [
+                    _c("div", { staticClass: "input-group" }, [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.newSearch,
+                            expression: "newSearch"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        attrs: {
+                          type: "text",
+                          placeholder: "Search for Projects",
+                          "aria-label": "Recipient's username",
+                          "aria-describedby": "search"
+                        },
+                        domProps: { value: _vm.newSearch },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.newSearch = $event.target.value
+                          }
+                        }
+                      }),
+                      _vm._v(" "),
+                      _vm._m(3)
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-2 text-muted mt-auto" }, [
+                    _c("small", [
+                      _vm._v(_vm._s(_vm.totalResults) + " results found.")
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _vm.showMap
+                    ? _c(
+                        "div",
+                        {
+                          staticClass: "my-3",
+                          staticStyle: { margin: "auto" }
+                        },
+                        [
+                          _c("ul", { staticClass: "stately" }, [
+                            _c(
+                              "li",
+                              {
+                                staticClass: "al",
+                                class: {
+                                  "shade-5":
+                                    _vm.optionLocation.Alabama.length >= 4,
+                                  "shade-4":
+                                    _vm.optionLocation.Alabama.length == 3,
+                                  "shade-3":
+                                    _vm.optionLocation.Alabama.length == 2,
+                                  "shade-2":
+                                    _vm.optionLocation.Alabama.length == 1,
+                                  "shade-1":
+                                    _vm.optionLocation.Alabama.length == 0
+                                },
+                                attrs: { "data-state": "al" }
+                              },
+                              [_vm._v("A")]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "li",
+                              {
+                                staticClass: "ak",
+                                class: {
+                                  "shade-5":
+                                    _vm.optionLocation.Alabama.length >= 4,
+                                  "shade-4":
+                                    _vm.optionLocation.Alabama.length == 3,
+                                  "shade-3":
+                                    _vm.optionLocation.Alabama.length == 2,
+                                  "shade-2":
+                                    _vm.optionLocation.Alabama.length == 1,
+                                  "shade-1":
+                                    _vm.optionLocation.Alabama.length == 0
+                                },
+                                attrs: { "data-state": "ak" }
+                              },
+                              [_vm._v("B")]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "li",
+                              {
+                                staticClass: "ar",
+                                class: {
+                                  "shade-5":
+                                    _vm.optionLocation.Alabama.length >= 4,
+                                  "shade-4":
+                                    _vm.optionLocation.Alabama.length == 3,
+                                  "shade-3":
+                                    _vm.optionLocation.Alabama.length == 2,
+                                  "shade-2":
+                                    _vm.optionLocation.Alabama.length == 1,
+                                  "shade-1":
+                                    _vm.optionLocation.Alabama.length == 0
+                                },
+                                attrs: { "data-state": "ar" }
+                              },
+                              [_vm._v("C")]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "li",
+                              {
+                                staticClass: "az",
+                                class: {
+                                  "shade-5":
+                                    _vm.optionLocation.Arizona.length >= 4,
+                                  "shade-4":
+                                    _vm.optionLocation.Arizona.length == 3,
+                                  "shade-3":
+                                    _vm.optionLocation.Arizona.length == 2,
+                                  "shade-2":
+                                    _vm.optionLocation.Arizona.length == 1,
+                                  "shade-1":
+                                    _vm.optionLocation.Arizona.length == 0
+                                },
+                                attrs: { "data-state": "az" }
+                              },
+                              [_vm._v("D")]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "li",
+                              {
+                                staticClass: "ca",
+                                class: {
+                                  "shade-5":
+                                    _vm.optionLocation.California.length >= 4,
+                                  "shade-4":
+                                    _vm.optionLocation.California.length == 3,
+                                  "shade-3":
+                                    _vm.optionLocation.California.length == 2,
+                                  "shade-2":
+                                    _vm.optionLocation.California.length == 1,
+                                  "shade-1":
+                                    _vm.optionLocation.California.length == 0
+                                },
+                                attrs: { "data-state": "ca" }
+                              },
+                              [_vm._v("E")]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "li",
+                              {
+                                staticClass: "co",
+                                class: {
+                                  "shade-5":
+                                    _vm.optionLocation.Colorado.length >= 4,
+                                  "shade-4":
+                                    _vm.optionLocation.Colorado.length == 3,
+                                  "shade-3":
+                                    _vm.optionLocation.Colorado.length == 2,
+                                  "shade-2":
+                                    _vm.optionLocation.Colorado.length == 1,
+                                  "shade-1":
+                                    _vm.optionLocation.Colorado.length == 0
+                                },
+                                attrs: { "data-state": "co" }
+                              },
+                              [_vm._v("F")]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "li",
+                              {
+                                staticClass: "ct",
+                                class: {
+                                  "shade-5":
+                                    _vm.optionLocation.Connecticut.length >= 4,
+                                  "shade-4":
+                                    _vm.optionLocation.Connecticut.length == 3,
+                                  "shade-3":
+                                    _vm.optionLocation.Connecticut.length == 2,
+                                  "shade-2":
+                                    _vm.optionLocation.Connecticut.length == 1,
+                                  "shade-1":
+                                    _vm.optionLocation.Connecticut.length == 0
+                                },
+                                attrs: { "data-state": "ct" }
+                              },
+                              [_vm._v("G")]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "li",
+                              {
+                                staticClass: "de",
+                                class: {
+                                  "shade-5":
+                                    _vm.optionLocation.Delaware.length >= 4,
+                                  "shade-4":
+                                    _vm.optionLocation.Delaware.length == 3,
+                                  "shade-3":
+                                    _vm.optionLocation.Delaware.length == 2,
+                                  "shade-2":
+                                    _vm.optionLocation.Delaware.length == 1,
+                                  "shade-1":
+                                    _vm.optionLocation.Delaware.length == 0
+                                },
+                                attrs: { "data-state": "de" }
+                              },
+                              [_vm._v("H")]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "li",
+                              {
+                                staticClass: "dc",
+                                class: {
+                                  "shade-5":
+                                    _vm.optionLocation.Alabama.length >= 4,
+                                  "shade-4":
+                                    _vm.optionLocation.Alabama.length == 3,
+                                  "shade-3":
+                                    _vm.optionLocation.Alabama.length == 2,
+                                  "shade-2":
+                                    _vm.optionLocation.Alabama.length == 1,
+                                  "shade-1":
+                                    _vm.optionLocation.Alabama.length == 0
+                                },
+                                attrs: { "data-state": "dc" }
+                              },
+                              [_vm._v("I")]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "li",
+                              {
+                                staticClass: "fl",
+                                class: {
+                                  "shade-5":
+                                    _vm.optionLocation.Florida.length >= 4,
+                                  "shade-4":
+                                    _vm.optionLocation.Florida.length == 3,
+                                  "shade-3":
+                                    _vm.optionLocation.Florida.length == 2,
+                                  "shade-2":
+                                    _vm.optionLocation.Florida.length == 1,
+                                  "shade-1":
+                                    _vm.optionLocation.Florida.length == 0
+                                },
+                                attrs: { "data-state": "fl" }
+                              },
+                              [_vm._v("J")]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "li",
+                              {
+                                staticClass: "ga",
+                                class: {
+                                  "shade-5":
+                                    _vm.optionLocation.Georgia.length >= 4,
+                                  "shade-4":
+                                    _vm.optionLocation.Georgia.length == 3,
+                                  "shade-3":
+                                    _vm.optionLocation.Georgia.length == 2,
+                                  "shade-2":
+                                    _vm.optionLocation.Georgia.length == 1,
+                                  "shade-1":
+                                    _vm.optionLocation.Georgia.length == 0
+                                },
+                                attrs: { "data-state": "ga" }
+                              },
+                              [_vm._v("K")]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "li",
+                              {
+                                staticClass: "hi",
+                                class: {
+                                  "shade-5":
+                                    _vm.optionLocation.Hawaii.length >= 4,
+                                  "shade-4":
+                                    _vm.optionLocation.Hawaii.length == 3,
+                                  "shade-3":
+                                    _vm.optionLocation.Hawaii.length == 2,
+                                  "shade-2":
+                                    _vm.optionLocation.Hawaii.length == 1,
+                                  "shade-1":
+                                    _vm.optionLocation.Hawaii.length == 0
+                                },
+                                attrs: { "data-state": "hi" }
+                              },
+                              [_vm._v("L")]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "li",
+                              {
+                                staticClass: "id",
+                                class: {
+                                  "shade-5":
+                                    _vm.optionLocation.Alabama.length >= 4,
+                                  "shade-4":
+                                    _vm.optionLocation.Alabama.length == 3,
+                                  "shade-3":
+                                    _vm.optionLocation.Alabama.length == 2,
+                                  "shade-2":
+                                    _vm.optionLocation.Alabama.length == 1,
+                                  "shade-1":
+                                    _vm.optionLocation.Alabama.length == 0
+                                },
+                                attrs: { "data-state": "id" }
+                              },
+                              [_vm._v("M")]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "li",
+                              {
+                                staticClass: "il",
+                                class: {
+                                  "shade-5":
+                                    _vm.optionLocation.Illinois.length >= 4,
+                                  "shade-4":
+                                    _vm.optionLocation.Illinois.length == 3,
+                                  "shade-3":
+                                    _vm.optionLocation.Illinois.length == 2,
+                                  "shade-2":
+                                    _vm.optionLocation.Illinois.length == 1,
+                                  "shade-1":
+                                    _vm.optionLocation.Illinois.length == 0
+                                },
+                                attrs: { "data-state": "il" }
+                              },
+                              [_vm._v("N")]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "li",
+                              {
+                                staticClass: "in",
+                                class: {
+                                  "shade-5":
+                                    _vm.optionLocation.Indiana.length >= 4,
+                                  "shade-4":
+                                    _vm.optionLocation.Indiana.length == 3,
+                                  "shade-3":
+                                    _vm.optionLocation.Indiana.length == 2,
+                                  "shade-2":
+                                    _vm.optionLocation.Indiana.length == 1,
+                                  "shade-1":
+                                    _vm.optionLocation.Indiana.length == 0
+                                },
+                                attrs: { "data-state": "in" }
+                              },
+                              [_vm._v("O")]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "li",
+                              {
+                                staticClass: "ia",
+                                class: {
+                                  "shade-5":
+                                    _vm.optionLocation.Iowa.length >= 4,
+                                  "shade-4":
+                                    _vm.optionLocation.Iowa.length == 3,
+                                  "shade-3":
+                                    _vm.optionLocation.Iowa.length == 2,
+                                  "shade-2":
+                                    _vm.optionLocation.Iowa.length == 1,
+                                  "shade-1": _vm.optionLocation.Iowa.length == 0
+                                },
+                                attrs: { "data-state": "ia" }
+                              },
+                              [_vm._v("P")]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "li",
+                              {
+                                staticClass: "ks",
+                                class: {
+                                  "shade-5":
+                                    _vm.optionLocation.Kansas.length >= 4,
+                                  "shade-4":
+                                    _vm.optionLocation.Kansas.length == 3,
+                                  "shade-3":
+                                    _vm.optionLocation.Kansas.length == 2,
+                                  "shade-2":
+                                    _vm.optionLocation.Kansas.length == 1,
+                                  "shade-1":
+                                    _vm.optionLocation.Kansas.length == 0
+                                },
+                                attrs: { "data-state": "ks" }
+                              },
+                              [_vm._v("Q")]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "li",
+                              {
+                                staticClass: "ky",
+                                class: {
+                                  "shade-5":
+                                    _vm.optionLocation.Kentucky.length >= 4,
+                                  "shade-4":
+                                    _vm.optionLocation.Kentucky.length == 3,
+                                  "shade-3":
+                                    _vm.optionLocation.Kentucky.length == 2,
+                                  "shade-2":
+                                    _vm.optionLocation.Kentucky.length == 1,
+                                  "shade-1":
+                                    _vm.optionLocation.Kentucky.length == 0
+                                },
+                                attrs: { "data-state": "ky" }
+                              },
+                              [_vm._v("R")]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "li",
+                              {
+                                staticClass: "la",
+                                class: {
+                                  "shade-5":
+                                    _vm.optionLocation.Alabama.length >= 4,
+                                  "shade-4":
+                                    _vm.optionLocation.Alabama.length == 3,
+                                  "shade-3":
+                                    _vm.optionLocation.Alabama.length == 2,
+                                  "shade-2":
+                                    _vm.optionLocation.Alabama.length == 1,
+                                  "shade-1":
+                                    _vm.optionLocation.Alabama.length == 0
+                                },
+                                attrs: { "data-state": "la" }
+                              },
+                              [_vm._v("S")]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "li",
+                              {
+                                staticClass: "me",
+                                class: {
+                                  "shade-5":
+                                    _vm.optionLocation.Maine.length >= 4,
+                                  "shade-4":
+                                    _vm.optionLocation.Maine.length == 3,
+                                  "shade-3":
+                                    _vm.optionLocation.Maine.length == 2,
+                                  "shade-2":
+                                    _vm.optionLocation.Maine.length == 1,
+                                  "shade-1":
+                                    _vm.optionLocation.Maine.length == 0
+                                },
+                                attrs: { "data-state": "me" }
+                              },
+                              [_vm._v("T")]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "li",
+                              {
+                                staticClass: "md",
+                                class: {
+                                  "shade-5":
+                                    _vm.optionLocation.Maryland.length >= 4,
+                                  "shade-4":
+                                    _vm.optionLocation.Maryland.length == 3,
+                                  "shade-3":
+                                    _vm.optionLocation.Maryland.length == 2,
+                                  "shade-2":
+                                    _vm.optionLocation.Maryland.length == 1,
+                                  "shade-1":
+                                    _vm.optionLocation.Maryland.length == 0
+                                },
+                                attrs: { "data-state": "md" }
+                              },
+                              [_vm._v("U")]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "li",
+                              {
+                                staticClass: "ma",
+                                class: {
+                                  "shade-5":
+                                    _vm.optionLocation.Massachusetts.length >=
+                                    4,
+                                  "shade-4":
+                                    _vm.optionLocation.Massachusetts.length ==
+                                    3,
+                                  "shade-3":
+                                    _vm.optionLocation.Massachusetts.length ==
+                                    2,
+                                  "shade-2":
+                                    _vm.optionLocation.Massachusetts.length ==
+                                    1,
+                                  "shade-1":
+                                    _vm.optionLocation.Massachusetts.length == 0
+                                },
+                                attrs: { "data-state": "ma" }
+                              },
+                              [_vm._v("V")]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "li",
+                              {
+                                staticClass: "mi",
+                                class: {
+                                  "shade-5":
+                                    _vm.optionLocation.Michigan.length >= 4,
+                                  "shade-4":
+                                    _vm.optionLocation.Michigan.length == 3,
+                                  "shade-3":
+                                    _vm.optionLocation.Michigan.length == 2,
+                                  "shade-2":
+                                    _vm.optionLocation.Michigan.length == 1,
+                                  "shade-1":
+                                    _vm.optionLocation.Michigan.length == 0
+                                },
+                                attrs: { "data-state": "mi" }
+                              },
+                              [_vm._v("W")]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "li",
+                              {
+                                staticClass: "mn",
+                                class: {
+                                  "shade-5":
+                                    _vm.optionLocation.Minnesota.length >= 4,
+                                  "shade-4":
+                                    _vm.optionLocation.Minnesota.length == 3,
+                                  "shade-3":
+                                    _vm.optionLocation.Minnesota.length == 2,
+                                  "shade-2":
+                                    _vm.optionLocation.Minnesota.length == 1,
+                                  "shade-1":
+                                    _vm.optionLocation.Minnesota.length == 0
+                                },
+                                attrs: { "data-state": "mn" }
+                              },
+                              [_vm._v("X")]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "li",
+                              {
+                                staticClass: "ms",
+                                class: {
+                                  "shade-5":
+                                    _vm.optionLocation.Mississippi.length >= 4,
+                                  "shade-4":
+                                    _vm.optionLocation.Mississippi.length == 3,
+                                  "shade-3":
+                                    _vm.optionLocation.Mississippi.length == 2,
+                                  "shade-2":
+                                    _vm.optionLocation.Mississippi.length == 1,
+                                  "shade-1":
+                                    _vm.optionLocation.Mississippi.length == 0
+                                },
+                                attrs: { "data-state": "ms" }
+                              },
+                              [_vm._v("Y")]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "li",
+                              {
+                                staticClass: "mo",
+                                class: {
+                                  "shade-5":
+                                    _vm.optionLocation.Montana.length >= 4,
+                                  "shade-4":
+                                    _vm.optionLocation.Montana.length == 3,
+                                  "shade-3":
+                                    _vm.optionLocation.Montana.length == 2,
+                                  "shade-2":
+                                    _vm.optionLocation.Montana.length == 1,
+                                  "shade-1":
+                                    _vm.optionLocation.Montana.length == 0
+                                },
+                                attrs: { "data-state": "mo" }
+                              },
+                              [_vm._v("Z")]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "li",
+                              {
+                                staticClass: "mt",
+                                class: {
+                                  "shade-5":
+                                    _vm.optionLocation.Nevada.length >= 4,
+                                  "shade-4":
+                                    _vm.optionLocation.Nevada.length == 3,
+                                  "shade-3":
+                                    _vm.optionLocation.Nevada.length == 2,
+                                  "shade-2":
+                                    _vm.optionLocation.Nevada.length == 1,
+                                  "shade-1":
+                                    _vm.optionLocation.Nevada.length == 0
+                                },
+                                attrs: { "data-state": "mt" }
+                              },
+                              [_vm._v("a")]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "li",
+                              {
+                                staticClass: "ne",
+                                class: {
+                                  "shade-5":
+                                    _vm.optionLocation.Alabama.length >= 4,
+                                  "shade-4":
+                                    _vm.optionLocation.Alabama.length == 3,
+                                  "shade-3":
+                                    _vm.optionLocation.Alabama.length == 2,
+                                  "shade-2":
+                                    _vm.optionLocation.Alabama.length == 1,
+                                  "shade-1":
+                                    _vm.optionLocation.Alabama.length == 0
+                                },
+                                attrs: { "data-state": "ne" }
+                              },
+                              [_vm._v("b")]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "li",
+                              {
+                                staticClass: "nv",
+                                class: {
+                                  "shade-5":
+                                    _vm.optionLocation.Alabama.length >= 4,
+                                  "shade-4":
+                                    _vm.optionLocation.Alabama.length == 3,
+                                  "shade-3":
+                                    _vm.optionLocation.Alabama.length == 2,
+                                  "shade-2":
+                                    _vm.optionLocation.Alabama.length == 1,
+                                  "shade-1":
+                                    _vm.optionLocation.Alabama.length == 0
+                                },
+                                attrs: { "data-state": "nv" }
+                              },
+                              [_vm._v("c")]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "li",
+                              {
+                                staticClass: "nh",
+                                class: {
+                                  "shade-5":
+                                    _vm.optionLocation["New Hampshire"]
+                                      .length >= 4,
+                                  "shade-4":
+                                    _vm.optionLocation["New Hampshire"]
+                                      .length == 3,
+                                  "shade-3":
+                                    _vm.optionLocation["New Hampshire"]
+                                      .length == 2,
+                                  "shade-2":
+                                    _vm.optionLocation["New Hampshire"]
+                                      .length == 1,
+                                  "shade-1":
+                                    _vm.optionLocation["New Hampshire"]
+                                      .length == 0
+                                },
+                                attrs: { "data-state": "nh" }
+                              },
+                              [_vm._v("d")]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "li",
+                              {
+                                staticClass: "nj",
+                                class: {
+                                  "shade-5":
+                                    _vm.optionLocation["New Jersey"].length >=
+                                    4,
+                                  "shade-4":
+                                    _vm.optionLocation["New Jersey"].length ==
+                                    3,
+                                  "shade-3":
+                                    _vm.optionLocation["New Jersey"].length ==
+                                    2,
+                                  "shade-2":
+                                    _vm.optionLocation["New Jersey"].length ==
+                                    1,
+                                  "shade-1":
+                                    _vm.optionLocation["New Jersey"].length == 0
+                                },
+                                attrs: { "data-state": "nj" }
+                              },
+                              [_vm._v("e")]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "li",
+                              {
+                                staticClass: "nm",
+                                class: {
+                                  "shade-5":
+                                    _vm.optionLocation["New Mexico"].length >=
+                                    4,
+                                  "shade-4":
+                                    _vm.optionLocation["New Mexico"].length ==
+                                    3,
+                                  "shade-3":
+                                    _vm.optionLocation["New Mexico"].length ==
+                                    2,
+                                  "shade-2":
+                                    _vm.optionLocation["New Mexico"].length ==
+                                    1,
+                                  "shade-1":
+                                    _vm.optionLocation["New Mexico"].length == 0
+                                },
+                                attrs: { "data-state": "nm" }
+                              },
+                              [_vm._v("f")]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "li",
+                              {
+                                staticClass: "ny",
+                                class: {
+                                  "shade-5":
+                                    _vm.optionLocation["New York"].length >= 4,
+                                  "shade-4":
+                                    _vm.optionLocation["New York"].length == 3,
+                                  "shade-3":
+                                    _vm.optionLocation["New York"].length == 2,
+                                  "shade-2":
+                                    _vm.optionLocation["New York"].length == 1,
+                                  "shade-1":
+                                    _vm.optionLocation["New York"].length == 0
+                                },
+                                attrs: { "data-state": "ny" }
+                              },
+                              [_vm._v("g")]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "li",
+                              {
+                                staticClass: "nc",
+                                class: {
+                                  "shade-5":
+                                    _vm.optionLocation["North Carolina"]
+                                      .length >= 4,
+                                  "shade-4":
+                                    _vm.optionLocation["North Carolina"]
+                                      .length == 3,
+                                  "shade-3":
+                                    _vm.optionLocation["North Carolina"]
+                                      .length == 2,
+                                  "shade-2":
+                                    _vm.optionLocation["North Carolina"]
+                                      .length == 1,
+                                  "shade-1":
+                                    _vm.optionLocation["North Carolina"]
+                                      .length == 0
+                                },
+                                attrs: { "data-state": "nc" }
+                              },
+                              [_vm._v("h")]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "li",
+                              {
+                                staticClass: "nd",
+                                class: {
+                                  "shade-5":
+                                    _vm.optionLocation["North Dakota"].length >=
+                                    4,
+                                  "shade-4":
+                                    _vm.optionLocation["North Dakota"].length ==
+                                    3,
+                                  "shade-3":
+                                    _vm.optionLocation["North Dakota"].length ==
+                                    2,
+                                  "shade-2":
+                                    _vm.optionLocation["North Dakota"].length ==
+                                    1,
+                                  "shade-1":
+                                    _vm.optionLocation["North Dakota"].length ==
+                                    0
+                                },
+                                attrs: { "data-state": "nd" }
+                              },
+                              [_vm._v("i")]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "li",
+                              {
+                                staticClass: "oh",
+                                class: {
+                                  "shade-5":
+                                    _vm.optionLocation.Ohio.length >= 4,
+                                  "shade-4":
+                                    _vm.optionLocation.Ohio.length == 3,
+                                  "shade-3":
+                                    _vm.optionLocation.Ohio.length == 2,
+                                  "shade-2":
+                                    _vm.optionLocation.Ohio.length == 1,
+                                  "shade-1": _vm.optionLocation.Ohio.length == 0
+                                },
+                                attrs: { "data-state": "oh" }
+                              },
+                              [_vm._v("j")]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "li",
+                              {
+                                staticClass: "ok",
+                                class: {
+                                  "shade-5":
+                                    _vm.optionLocation.Oklahoma.length >= 4,
+                                  "shade-4":
+                                    _vm.optionLocation.Oklahoma.length == 3,
+                                  "shade-3":
+                                    _vm.optionLocation.Oklahoma.length == 2,
+                                  "shade-2":
+                                    _vm.optionLocation.Oklahoma.length == 1,
+                                  "shade-1":
+                                    _vm.optionLocation.Oklahoma.length == 0
+                                },
+                                attrs: { "data-state": "ok" }
+                              },
+                              [_vm._v("k")]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "li",
+                              {
+                                staticClass: "or",
+                                class: {
+                                  "shade-5":
+                                    _vm.optionLocation.Alabama.length >= 4,
+                                  "shade-4":
+                                    _vm.optionLocation.Alabama.length == 3,
+                                  "shade-3":
+                                    _vm.optionLocation.Alabama.length == 2,
+                                  "shade-2":
+                                    _vm.optionLocation.Alabama.length == 1,
+                                  "shade-1":
+                                    _vm.optionLocation.Alabama.length == 0
+                                },
+                                attrs: { "data-state": "or" }
+                              },
+                              [_vm._v("l")]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "li",
+                              {
+                                staticClass: "pa",
+                                class: {
+                                  "shade-5":
+                                    _vm.optionLocation.Pennsylvania.length >= 4,
+                                  "shade-4":
+                                    _vm.optionLocation.Pennsylvania.length == 3,
+                                  "shade-3":
+                                    _vm.optionLocation.Pennsylvania.length == 2,
+                                  "shade-2":
+                                    _vm.optionLocation.Pennsylvania.length == 1,
+                                  "shade-1":
+                                    _vm.optionLocation.Pennsylvania.length == 0
+                                },
+                                attrs: { "data-state": "pa" }
+                              },
+                              [_vm._v("m")]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "li",
+                              {
+                                staticClass: "ri",
+                                class: {
+                                  "shade-5":
+                                    _vm.optionLocation["Rhode Island"].length >=
+                                    4,
+                                  "shade-4":
+                                    _vm.optionLocation["Rhode Island"].length ==
+                                    3,
+                                  "shade-3":
+                                    _vm.optionLocation["Rhode Island"].length ==
+                                    2,
+                                  "shade-2":
+                                    _vm.optionLocation["Rhode Island"].length ==
+                                    1,
+                                  "shade-1":
+                                    _vm.optionLocation["Rhode Island"].length ==
+                                    0
+                                },
+                                attrs: { "data-state": "ri" }
+                              },
+                              [_vm._v("n")]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "li",
+                              {
+                                staticClass: "sc",
+                                class: {
+                                  "shade-5":
+                                    _vm.optionLocation["South Carolina"]
+                                      .length >= 4,
+                                  "shade-4":
+                                    _vm.optionLocation["South Carolina"]
+                                      .length == 3,
+                                  "shade-3":
+                                    _vm.optionLocation["South Carolina"]
+                                      .length == 2,
+                                  "shade-2":
+                                    _vm.optionLocation["South Carolina"]
+                                      .length == 1,
+                                  "shade-1":
+                                    _vm.optionLocation["South Carolina"]
+                                      .length == 0
+                                },
+                                attrs: { "data-state": "sc" }
+                              },
+                              [_vm._v("o")]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "li",
+                              {
+                                staticClass: "sd",
+                                class: {
+                                  "shade-5":
+                                    _vm.optionLocation["Alabama"].length >= 4,
+                                  "shade-4":
+                                    _vm.optionLocation["Alabama"].length == 3,
+                                  "shade-3":
+                                    _vm.optionLocation["Alabama"].length == 2,
+                                  "shade-2":
+                                    _vm.optionLocation["Alabama"].length == 1,
+                                  "shade-1":
+                                    _vm.optionLocation["Alabama"].length == 0
+                                },
+                                attrs: { "data-state": "sd" }
+                              },
+                              [_vm._v("p")]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "li",
+                              {
+                                staticClass: "tn",
+                                class: {
+                                  "shade-5":
+                                    _vm.optionLocation.Alabama.length >= 4,
+                                  "shade-4":
+                                    _vm.optionLocation.Alabama.length == 3,
+                                  "shade-3":
+                                    _vm.optionLocation.Alabama.length == 2,
+                                  "shade-2":
+                                    _vm.optionLocation.Alabama.length == 1,
+                                  "shade-1":
+                                    _vm.optionLocation.Alabama.length == 0
+                                },
+                                attrs: { "data-state": "tn" }
+                              },
+                              [_vm._v("q")]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "li",
+                              {
+                                staticClass: "tx",
+                                class: {
+                                  "shade-5":
+                                    _vm.optionLocation.Texas.length >= 4,
+                                  "shade-4":
+                                    _vm.optionLocation.Texas.length == 3,
+                                  "shade-3":
+                                    _vm.optionLocation.Texas.length == 2,
+                                  "shade-2":
+                                    _vm.optionLocation.Texas.length == 1,
+                                  "shade-1":
+                                    _vm.optionLocation.Texas.length == 0
+                                },
+                                attrs: { "data-state": "tx" }
+                              },
+                              [_vm._v("r")]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "li",
+                              {
+                                staticClass: "ut",
+                                class: {
+                                  "shade-5":
+                                    _vm.optionLocation.Alabama.length >= 4,
+                                  "shade-4":
+                                    _vm.optionLocation.Alabama.length == 3,
+                                  "shade-3":
+                                    _vm.optionLocation.Alabama.length == 2,
+                                  "shade-2":
+                                    _vm.optionLocation.Alabama.length == 1,
+                                  "shade-1":
+                                    _vm.optionLocation.Alabama.length == 0
+                                },
+                                attrs: { "data-state": "ut" }
+                              },
+                              [_vm._v("s")]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "li",
+                              {
+                                staticClass: "va",
+                                class: {
+                                  "shade-5":
+                                    _vm.optionLocation.Virginia.length >= 4,
+                                  "shade-4":
+                                    _vm.optionLocation.Virginia.length == 3,
+                                  "shade-3":
+                                    _vm.optionLocation.Virginia.length == 2,
+                                  "shade-2":
+                                    _vm.optionLocation.Virginia.length == 1,
+                                  "shade-1":
+                                    _vm.optionLocation.Virginia.length == 0
+                                },
+                                attrs: { "data-state": "va" }
+                              },
+                              [_vm._v("t")]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "li",
+                              {
+                                staticClass: "vt",
+                                class: {
+                                  "shade-5":
+                                    _vm.optionLocation.Vermont.length >= 4,
+                                  "shade-4":
+                                    _vm.optionLocation.Vermont.length == 3,
+                                  "shade-3":
+                                    _vm.optionLocation.Vermont.length == 2,
+                                  "shade-2":
+                                    _vm.optionLocation.Vermont.length == 1,
+                                  "shade-1":
+                                    _vm.optionLocation.Vermont.length == 0
+                                },
+                                attrs: { "data-state": "vt" }
+                              },
+                              [_vm._v("u")]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "li",
+                              {
+                                staticClass: "wa",
+                                class: {
+                                  "shade-5":
+                                    _vm.optionLocation.Washington.length >= 4,
+                                  "shade-4":
+                                    _vm.optionLocation.Washington.length == 3,
+                                  "shade-3":
+                                    _vm.optionLocation.Washington.length == 2,
+                                  "shade-2":
+                                    _vm.optionLocation.Washington.length == 1,
+                                  "shade-1":
+                                    _vm.optionLocation.Washington.length == 0
+                                },
+                                attrs: { "data-state": "wa" }
+                              },
+                              [_vm._v("v")]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "li",
+                              {
+                                staticClass: "wv",
+                                class: {
+                                  "shade-5":
+                                    _vm.optionLocation["West Virginia"]
+                                      .length >= 4,
+                                  "shade-4":
+                                    _vm.optionLocation["West Virginia"]
+                                      .length == 3,
+                                  "shade-3":
+                                    _vm.optionLocation["West Virginia"]
+                                      .length == 2,
+                                  "shade-2":
+                                    _vm.optionLocation["West Virginia"]
+                                      .length == 1,
+                                  "shade-1":
+                                    _vm.optionLocation["West Virginia"]
+                                      .length == 0
+                                },
+                                attrs: { "data-state": "wv" }
+                              },
+                              [_vm._v("w")]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "li",
+                              {
+                                staticClass: "wi",
+                                class: {
+                                  "shade-5":
+                                    _vm.optionLocation.Wisconsin.length >= 4,
+                                  "shade-4":
+                                    _vm.optionLocation.Wisconsin.length == 3,
+                                  "shade-3":
+                                    _vm.optionLocation.Wisconsin.length == 2,
+                                  "shade-2":
+                                    _vm.optionLocation.Wisconsin.length == 1,
+                                  "shade-1":
+                                    _vm.optionLocation.Wisconsin.length == 0
+                                },
+                                attrs: { "data-state": "wi" }
+                              },
+                              [_vm._v("x")]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "li",
+                              {
+                                staticClass: "wy",
+                                class: {
+                                  "shade-5":
+                                    _vm.optionLocation.Alabama.length >= 4,
+                                  "shade-4":
+                                    _vm.optionLocation.Alabama.length == 3,
+                                  "shade-3":
+                                    _vm.optionLocation.Alabama.length == 2,
+                                  "shade-2":
+                                    _vm.optionLocation.Alabama.length == 1,
+                                  "shade-1":
+                                    _vm.optionLocation.Alabama.length == 0
+                                },
+                                attrs: { "data-state": "wy" }
+                              },
+                              [_vm._v("y")]
+                            )
+                          ]),
+                          _vm._v(" "),
+                          _c("h3", { staticClass: "text-center" }, [
+                            _vm._v("Projects by State")
+                          ]),
+                          _vm._v(" "),
+                          _vm._m(4)
+                        ]
+                      )
+                    : _vm._e()
+                ]),
+                _vm._v(" "),
+                _vm.filteredResources.length
+                  ? _c(
+                      "div",
+                      {
+                        staticClass: "row d-nonez border-top mt-1 mb-4",
+                        attrs: { id: "results-list" }
+                      },
+                      _vm._l(_vm.filteredResources, function(resource) {
+                        return _c(_vm.currentView, {
+                          key: resource.Date,
+                          tag: "span",
+                          attrs: { resource: resource }
+                        })
+                      })
+                    )
+                  : _vm.projects.length
+                    ? _c("div", { staticClass: "no-results" }, [
+                        _vm._v("\n              No Results\n          ")
+                      ])
+                    : _c("div", { staticClass: "no-results" }, [
+                        _vm._v("\n              Loading...\n          ")
+                      ]),
+                _vm._v(" "),
+                _c("div", { attrs: { id: "product-list-bottom" } })
+              ])
+            ])
+          ])
+        ]
+      )
+    ],
+    1
+  )
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-12 border-bottom mb-4" }, [
+      _c("h1", [_vm._v("Resources")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("h3", { staticStyle: { "font-size": "90%", color: "#969696" } }, [
+      _c("strong", [_vm._v("Show results for:")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-12" }, [
+      _c(
+        "div",
+        {
+          staticClass: "alert mb-0 alert-secondary alert-dismissible fade show",
+          attrs: { role: "alert" }
+        },
+        [
+          _c("small", [
+            _vm._v("\n                  Solar Innovations"),
+            _c("sup", [_vm._v("®")]),
+            _vm._v(
+              " is happy to work with our customers, vendors, and dealers to achieve outstanding results. Time is of the essence for many of our customers, we have provided various resources for immediate review.\n                "
+            )
+          ]),
+          _vm._v(" "),
+          _c(
+            "button",
+            {
+              staticClass: "close",
+              staticStyle: { padding: "0rem .7rem" },
+              attrs: {
+                type: "button",
+                "data-dismiss": "alert",
+                "aria-label": "Close"
+              }
+            },
+            [
+              _c("span", { attrs: { "aria-hidden": "true" } }, [
+                _c("i", {
+                  staticClass: "fas fa-times",
+                  staticStyle: { "font-size": ".6em" }
+                })
+              ])
+            ]
+          )
+        ]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "input-group-append" }, [
+      _c(
+        "button",
+        {
+          staticClass: "btn btn-outline-secondary btn-sm",
+          attrs: { type: "submit", value: "Search" }
+        },
+        [_vm._v("Search")]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "text-center" }, [
+      _c("i", { staticClass: "fas fa-square shade-1" }),
+      _vm._v(" "),
+      _c("i", { staticClass: "fas fa-square shade-2" }),
+      _vm._v(" "),
+      _c("i", { staticClass: "fas fa-square shade-3" }),
+      _vm._v(" "),
+      _c("i", { staticClass: "fas fa-square shade-4" }),
+      _vm._v(" "),
+      _c("i", { staticClass: "fas fa-square shade-5" })
+    ])
+  }
+]
+render._withStripped = true
+var esExports = { render: render, staticRenderFns: staticRenderFns }
+/* harmony default export */ __webpack_exports__["a"] = (esExports);
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-c7b149ea", esExports)
+  }
+}
+
+/***/ }),
+/* 42 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_Greet_vue__ = __webpack_require__(12);
+/* unused harmony namespace reexport */
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_df221e22_hasScoped_true_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_Greet_vue__ = __webpack_require__(44);
+var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__(43)
+}
+var normalizeComponent = __webpack_require__(0)
+/* script */
+
+
+/* template */
+
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = injectStyle
+/* scopeId */
+var __vue_scopeId__ = "data-v-df221e22"
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_Greet_vue__["a" /* default */],
+  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_df221e22_hasScoped_true_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_Greet_vue__["a" /* default */],
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "src/_vue/components/Greet.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-df221e22", Component.options)
+  } else {
+    hotAPI.reload("data-v-df221e22", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+/* harmony default export */ __webpack_exports__["a"] = (Component.exports);
+
+
+/***/ }),
+/* 43 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 44 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", [
+    _c("h3", [
+      _vm._v("Prop passed via data attribute: "),
+      _c("span", { staticStyle: { color: "#aaa" } }, [
+        _vm._v(_vm._s(_vm.message))
+      ])
+    ])
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+var esExports = { render: render, staticRenderFns: staticRenderFns }
+/* harmony default export */ __webpack_exports__["a"] = (esExports);
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-df221e22", esExports)
+  }
+}
+
+/***/ }),
+/* 45 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
 
 /***/ })
 /******/ ]);

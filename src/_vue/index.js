@@ -1,6 +1,8 @@
 
 // import moment from "moment"
 import 'lodash';
+import VModal from 'vue-js-modal'
+
 // import jQuery from 'jquery';
 // window.$ = window.JQuery = jQuery;
 import Vue from 'vue';
@@ -8,8 +10,10 @@ import Resources from './components/Resources.vue';
 import Greet from './components/Greet.vue';
 import { checkFilter, setDay } from "./util/bus";
 
-
 import '../_sass/app.scss'
+
+Vue.use(VModal, { dynamic: true, injectModalsContainer: true });
+
 Vue.config.devtools = true
 const APPS = {
   Resources,

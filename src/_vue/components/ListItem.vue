@@ -4,23 +4,23 @@
             <div class="col-lg-4">
                 <div class="row  no-gutters pr-3">
                     <div class="col-12 ">
-                        <!-- <img class="img-fluid" v-bind:src="image" > -->
                         <div class="img thumbBig" v-bind:style="{ backgroundImage: 'url(' + image + ')' }" ></div>
                     </div>
                 </div>
                 <div class="row no-gutters pr-3 pt-1 justify-content-end">
                     <div class="col-6  mb-1" v-if="resource.Image1">
-                        <div @mouseover="imgHover(imgUrlFormat(resource.Image1))" class="img thumb" v-bind:style="{ backgroundImage: 'url(' + imgUrlFormat(resource.Image1) + ')' }" ></div>
+                        <div @click="show(resource.Image1)" @mouseover="imgHover(imgUrlFormat(resource.Image1))" class="img thumb" v-bind:style="{ backgroundImage: 'url(' + imgUrlFormat(resource.Image1) + ')' }" ></div>
                     </div>
                     <div class="col-6 pl-1 mb-1" v-if="resource.Image2">
-                        <div @mouseover="imgHover(imgUrlFormat(resource.Image2))" class="img thumb" v-bind:style="{ backgroundImage: 'url(' + imgUrlFormat(resource.Image2) + ')' }" ></div>
+                        <div @click="show(resource.Image2)" @mouseover="imgHover(imgUrlFormat(resource.Image2))" class="img thumb" v-bind:style="{ backgroundImage: 'url(' + imgUrlFormat(resource.Image2) + ')' }" ></div>
                     </div>
                     <div class="col-6 mb-1" v-if="resource.Image3">
-                        <div @mouseover="imgHover(imgUrlFormat(resource.Image3))" class="img thumb" v-bind:style="{ backgroundImage: 'url(' + imgUrlFormat(resource.Image3) + ')' }" ></div>
+                        <div @click="show(resource.Image3)" @mouseover="imgHover(imgUrlFormat(resource.Image3))" class="img thumb" v-bind:style="{ backgroundImage: 'url(' + imgUrlFormat(resource.Image3) + ')' }" ></div>
                     </div>
                     <div class="col-6 pl-1 mb-1" v-if="resource.Image4">
-                        <div @mouseover="imgHover(imgUrlFormat(resource.Image4))" class="img thumb" v-bind:style="{ backgroundImage: 'url(' + imgUrlFormat(resource.Image4) + ')' }" ></div>
+                        <div @click="show(resource.Image4)" @mouseover="imgHover(imgUrlFormat(resource.Image4))" class="img thumb" v-bind:style="{ backgroundImage: 'url(' + imgUrlFormat(resource.Image4) + ')' }" ></div>
                     </div>
+                    
                 </div>
             </div>   
                     
@@ -114,10 +114,49 @@ export default {
   props: ["resource"],
   data() {
     return {
-      image: this.imgUrlFormat(this.resource.Image1)
+      image: this.imgUrlFormat(this.resource.Image1),
+      images : [
+            {
+                src : this.imgUrlFormat(this.resource.Image1),
+            },
+            {
+                src : this.imgUrlFormat(this.resource.Image2),
+            },
+            {
+                src : this.imgUrlFormat(this.resource.Image3),
+            },
+            {
+                src : this.imgUrlFormat(this.resource.Image4),
+            },
+          ],
+          options : {
+            closeText : '<i class="fas fa-times"></i>',
+            loop: true,
+          }
     };
   },
   methods: {
+    show (imgUrl) {
+        this.$modal.show({
+            template: `
+                <img style='width:100%' src='` + this.imgUrlFormat(imgUrl) + `'>
+            `,
+            props: ['text']
+        }, {
+            text: 'This text is passed as a property'
+        }, {
+            // draggable: true,
+            adaptive: true,
+            draggable: true,
+            height: 'auto'
+        }, {
+            'before-close': (event) => { console.log('this will be called before the modal closes'); },
+            'opened': (event) => { console.log('this will be called after the modal opens'); }
+        })
+    },
+    hide () {
+      this.$modal.hide('hello-world');
+    },
     imgUrlFormat(filename) {
       // <img src="http://solar.localhost/wp-content/uploads/000_1163_500.jpg">
 
@@ -132,13 +171,14 @@ export default {
       this.image = image;
     }
   },
-  computed: {}
+  computed: {},
+  
 };
 </script>  
 <style scoped>
 .thumb {
     background-color: black;
-    width: 140px;
+    width: 100%;
     height: 100px;
     display: inline-block; /* makes it fit in like an <img> */
     background-size: cover; /* or contain */
@@ -147,7 +187,7 @@ export default {
 }
 .thumbBig {
     background-color: black;
-    width: 290px;
+    width: 100%;
     height: 200px;
     display: inline-block; /* makes it fit in like an <img> */
     background-size: cover; /* or contain */

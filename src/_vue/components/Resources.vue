@@ -1,5 +1,8 @@
 <template>
   <main  class="mt-3">
+    <modal name="hello-world">
+  hello, world!
+</modal>
     <div class="container-fluid mb-5" id="content">
       <div class="row">
       <div class="col-12 border-bottom mb-4">
@@ -232,8 +235,8 @@
                 <small>
                   Solar Innovations<sup>®</sup> is happy to work with our customers, vendors, and dealers to achieve outstanding results. Time is of the essence for many of our customers, we have provided various resources for immediate review.
                 </small>
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close" style="padding: 0rem .7rem;">
+                  <span aria-hidden="true"><i style="font-size:.6em" class="fas fa-times"></i></span>
                 </button>
               </div>
             </div>
@@ -249,9 +252,10 @@
                   <i v-bind:class="{ 'fas fa-sort-amount-up': sortDirection === 'desc', 'fas fa-sort-amount-down': sortDirection === 'asc' }"></i>
                 </button>
 
-                <button type="button" class="btn btn-secondary" @click="toggleMapDisplay()" >
+                <button  v-bind:class="{ 'btn btn-secondary': true, active: showMap === true }" type="button"  @click="toggleMapDisplay()" >
                   <i class="fas fa-globe-americas"></i>
                 </button>
+                
  
                 <!-- <div class="btn-group" role="group">
 
@@ -264,8 +268,8 @@
                 </div> -->
 
                 <button v-bind:class="{ 'btn btn-secondary': true, active: currentView === 'list-item' }" @click="changeView('list-item')" type="button" ><i class="fas fa-list-ul"></i></button>
-                <button v-bind:class="{ 'btn btn-secondary': true, active: currentView === 'large-grid-item' }" @click="changeView('large-grid-item')" type="button" class="btn btn-secondary"><i class="fas fa-th-large"></i></button>
-                <button v-bind:class="{ 'btn btn-secondary': true, active: currentView === 'small-grid-item' }" @click="changeView('small-grid-item')" type="button" class="btn btn-secondary"><i class="fas fa-th"></i></button>
+                <!-- <button v-bind:class="{ 'btn btn-secondary': true, active: currentView === 'large-grid-item' }" @click="changeView('large-grid-item')" type="button" class="btn btn-secondary"><i class="fas fa-th-large"></i></button>
+                <button v-bind:class="{ 'btn btn-secondary': true, active: currentView === 'small-grid-item' }" @click="changeView('small-grid-item')" type="button" class="btn btn-secondary"><i class="fas fa-th"></i></button> -->
 
               </div>
             </div>
