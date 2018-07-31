@@ -32062,7 +32062,7 @@ var render = function() {
     _c("div", { staticClass: "row no-gutters" }, [
       _c("div", { staticClass: "col-lg-4" }, [
         _c("div", { staticClass: "row  no-gutters pr-3" }, [
-          _c("div", { staticClass: "col-12 " }, [
+          _c("div", { staticClass: "col-12 pl-1" }, [
             _c("div", {
               staticClass: "img thumbBig",
               style: { backgroundImage: "url(" + _vm.image + ")" }
@@ -32075,7 +32075,7 @@ var render = function() {
           { staticClass: "row no-gutters pr-3 pt-1 justify-content-end" },
           [
             _vm.resource.Image1
-              ? _c("div", { staticClass: "col-6  mb-1" }, [
+              ? _c("div", { staticClass: "col-6 pl-1 mb-1" }, [
                   _c("div", {
                     staticClass: "img thumb",
                     style: {
@@ -32115,7 +32115,7 @@ var render = function() {
               : _vm._e(),
             _vm._v(" "),
             _vm.resource.Image3
-              ? _c("div", { staticClass: "col-6 mb-1" }, [
+              ? _c("div", { staticClass: "col-6 pl-1 mb-1" }, [
                   _c("div", {
                     staticClass: "img thumb",
                     style: {
