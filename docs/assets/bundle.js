@@ -11549,8 +11549,6 @@ return Vue;
 //
 //
 //
-//
-//
 
 
 
@@ -32926,230 +32924,36 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "main",
-    { staticClass: "mt-3" },
-    [
-      _c("modal", { attrs: { name: "hello-world" } }, [
-        _vm._v("\n  hello, world!\n")
-      ]),
-      _vm._v(" "),
-      _c(
-        "div",
-        { staticClass: "container-fluid mb-5", attrs: { id: "content" } },
-        [
-          _c("div", { staticClass: "row" }, [
-            _vm._m(0),
+  return _c("main", { staticClass: "mt-3" }, [
+    _c(
+      "div",
+      { staticClass: "container-fluid mb-5", attrs: { id: "content" } },
+      [
+        _c("div", { staticClass: "row" }, [
+          _vm._m(0),
+          _vm._v(" "),
+          _c("div", { staticClass: "col-lg-2 border-right" }, [
+            _vm._m(1),
             _vm._v(" "),
-            _c("div", { staticClass: "col-lg-2 border-right" }, [
-              _vm._m(1),
-              _vm._v(" "),
-              _c(
-                "div",
-                { staticClass: "d-flex flex-column" },
-                [
-                  _c(
-                    "div",
-                    {
-                      staticClass:
-                        "d-flex justify-content-between align-items-center pointer",
-                      on: { click: _vm.toggleProductsDisplay }
-                    },
-                    [
-                      _c("strong", [_vm._v("Products")]),
-                      _vm._v(" "),
-                      _c("small", [
-                        _c("i", {
-                          class: {
-                            "fas fa-plus": !_vm.showProducts,
-                            "fas fa-minus": _vm.showProducts
-                          }
-                        })
-                      ])
-                    ]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "keep-alive",
-                    [
-                      _vm.showProducts
-                        ? _c("products-filter", {
-                            attrs: {
-                              category: "products",
-                              list: _vm.listProducts
-                            }
-                          })
-                        : _vm._e()
-                    ],
-                    1
-                  )
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _vm.products.length
-                ? _c("hr", { staticClass: "my-2" })
-                : _vm._e(),
-              _vm._v(" "),
-              _vm.products.length
-                ? _c(
-                    "div",
-                    { staticClass: "d-flex flex-column" },
-                    [
-                      _c(
-                        "div",
-                        {
-                          staticClass:
-                            "d-flex justify-content-between align-items-center pointer",
-                          on: { click: _vm.toggleFeaturesDisplay }
-                        },
-                        [
-                          _c("strong", [_vm._v("Features")]),
-                          _vm._v(" "),
-                          _c("small", [
-                            _c("i", {
-                              class: {
-                                "fas fa-plus": !_vm.showFeatures,
-                                "fas fa-minus": _vm.showFeatures
-                              }
-                            })
-                          ])
-                        ]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "keep-alive",
-                        [
-                          _c("features-filter", {
-                            attrs: {
-                              show: _vm.showFeatures,
-                              category: "geoType1",
-                              list: _vm.optionFeatureGroups,
-                              products: _vm.products
-                            }
-                          })
-                        ],
-                        1
-                      )
-                    ],
-                    1
-                  )
-                : _vm._e(),
-              _vm._v(" "),
-              _vm.products.length
-                ? _c("hr", { staticClass: "my-2" })
-                : _vm._e(),
-              _vm._v(" "),
-              _vm.products.length
-                ? _c(
-                    "div",
-                    { staticClass: "d-flex flex-column" },
-                    [
-                      _c(
-                        "div",
-                        {
-                          staticClass:
-                            "d-flex justify-content-between align-items-center pointer",
-                          on: { click: _vm.toggleDetailsDisplay }
-                        },
-                        [
-                          _c("strong", [_vm._v("Details")]),
-                          _vm._v(" "),
-                          _c("small", [
-                            _c("i", {
-                              class: {
-                                "fas fa-plus": !_vm.showDetails,
-                                "fas fa-minus": _vm.showDetails
-                              }
-                            })
-                          ])
-                        ]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "keep-alive",
-                        [
-                          _c("features-filter", {
-                            attrs: {
-                              show: _vm.showDetails,
-                              category: "geoType2",
-                              list: _vm.optionDetailsGroups,
-                              sqf: _vm.sqfList,
-                              hideHeaders: _vm.detailHeadersList,
-                              products: _vm.products
-                            }
-                          })
-                        ],
-                        1
-                      )
-                    ],
-                    1
-                  )
-                : _vm._e(),
-              _vm._v(" "),
-              _c("hr", { staticClass: "my-2" }),
-              _vm._v(" "),
-              _c(
-                "div",
-                { staticClass: "d-flex flex-column" },
-                [
-                  _c(
-                    "div",
-                    {
-                      staticClass:
-                        "d-flex justify-content-between align-items-center pointer",
-                      on: { click: _vm.toggleApplicationsDisplay }
-                    },
-                    [
-                      _c("strong", [_vm._v("Applications")]),
-                      _vm._v(" "),
-                      _c("small", [
-                        _c("i", {
-                          class: {
-                            "fas fa-plus": !_vm.showApplications,
-                            "fas fa-minus": _vm.showApplications
-                          }
-                        })
-                      ])
-                    ]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "keep-alive",
-                    [
-                      _vm.showApplications
-                        ? _c("products-filter", {
-                            attrs: {
-                              category: "applications",
-                              list: _vm.listApplications
-                            }
-                          })
-                        : _vm._e()
-                    ],
-                    1
-                  )
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c("hr", { staticClass: "my-2" }),
-              _vm._v(" "),
-              _c("div", { staticClass: "d-flex flex-column" }, [
+            _c(
+              "div",
+              { staticClass: "d-flex flex-column" },
+              [
                 _c(
                   "div",
                   {
                     staticClass:
                       "d-flex justify-content-between align-items-center pointer",
-                    on: { click: _vm.toggleGlazesDisplay }
+                    on: { click: _vm.toggleProductsDisplay }
                   },
                   [
-                    _c("strong", [_vm._v("Glaze")]),
+                    _c("strong", [_vm._v("Products")]),
                     _vm._v(" "),
                     _c("small", [
                       _c("i", {
                         class: {
-                          "fas fa-plus": !_vm.showGlazes,
-                          "fas fa-minus": _vm.showGlazes
+                          "fas fa-plus": !_vm.showProducts,
+                          "fas fa-minus": _vm.showProducts
                         }
                       })
                     ])
@@ -33157,1880 +32961,2015 @@ var render = function() {
                 ),
                 _vm._v(" "),
                 _c(
+                  "keep-alive",
+                  [
+                    _vm.showProducts
+                      ? _c("products-filter", {
+                          attrs: {
+                            category: "products",
+                            list: _vm.listProducts
+                          }
+                        })
+                      : _vm._e()
+                  ],
+                  1
+                )
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _vm.products.length ? _c("hr", { staticClass: "my-2" }) : _vm._e(),
+            _vm._v(" "),
+            _vm.products.length
+              ? _c(
                   "div",
+                  { staticClass: "d-flex flex-column" },
                   [
                     _c(
-                      "keep-alive",
+                      "div",
+                      {
+                        staticClass:
+                          "d-flex justify-content-between align-items-center pointer",
+                        on: { click: _vm.toggleFeaturesDisplay }
+                      },
                       [
-                        _vm.showGlazes
-                          ? _c("products-filter", {
-                              attrs: {
-                                category: "glazes",
-                                list: _vm.glazesOptions
-                              }
-                            })
-                          : _vm._e()
-                      ],
-                      1
+                        _c("strong", [_vm._v("Features")]),
+                        _vm._v(" "),
+                        _c("small", [
+                          _c("i", {
+                            class: {
+                              "fas fa-plus": !_vm.showFeatures,
+                              "fas fa-minus": _vm.showFeatures
+                            }
+                          })
+                        ])
+                      ]
                     ),
-                    _vm._v(" "),
-                    _vm.showGlazes
-                      ? _c(
-                          "div",
-                          {
-                            staticClass:
-                              "d-flex justify-content-between align-items-center pt-2"
-                          },
-                          [
-                            _c(
-                              "strong",
-                              { staticStyle: { "font-size": ".75em" } },
-                              [_vm._v("Square Footage")]
-                            )
-                          ]
-                        )
-                      : _vm._e(),
                     _vm._v(" "),
                     _c(
                       "keep-alive",
                       [
-                        _vm.showGlazes
-                          ? _c("products-filter", {
-                              attrs: { category: "geoType2", list: _vm.sqfList }
-                            })
-                          : _vm._e()
-                      ],
-                      1
-                    ),
-                    _vm._v(" "),
-                    _vm.showGlazes
-                      ? _c(
-                          "div",
-                          {
-                            staticClass:
-                              "d-flex justify-content-between align-items-center pt-2"
-                          },
-                          [
-                            _c(
-                              "strong",
-                              { staticStyle: { "font-size": ".75em" } },
-                              [_vm._v("Glaze Colors")]
-                            )
-                          ]
-                        )
-                      : _vm._e(),
-                    _vm._v(" "),
-                    _c(
-                      "keep-alive",
-                      [
-                        _vm.showGlazes
-                          ? _c("products-filter", {
-                              attrs: {
-                                category: "glazes",
-                                list: _vm.glazeColor
-                              }
-                            })
-                          : _vm._e()
-                      ],
-                      1
-                    ),
-                    _vm._v(" "),
-                    _vm.showGlazes
-                      ? _c(
-                          "div",
-                          {
-                            staticClass:
-                              "d-flex justify-content-between align-items-center pt-2"
-                          },
-                          [
-                            _c(
-                              "strong",
-                              { staticStyle: { "font-size": ".75em" } },
-                              [_vm._v("Glaze Coating")]
-                            )
-                          ]
-                        )
-                      : _vm._e(),
-                    _vm._v(" "),
-                    _c(
-                      "keep-alive",
-                      [
-                        _vm.showGlazes
-                          ? _c("products-filter", {
-                              attrs: {
-                                category: "glazes",
-                                list: _vm.listGlazeCoatings
-                              }
-                            })
-                          : _vm._e()
+                        _c("features-filter", {
+                          attrs: {
+                            show: _vm.showFeatures,
+                            category: "geoType1",
+                            list: _vm.optionFeatureGroups,
+                            products: _vm.products
+                          }
+                        })
                       ],
                       1
                     )
                   ],
                   1
                 )
-              ]),
-              _vm._v(" "),
-              _c("hr", { staticClass: "my-2" }),
-              _vm._v(" "),
-              _c(
-                "div",
-                { staticClass: "d-flex flex-column" },
-                [
-                  _c(
-                    "div",
-                    {
-                      staticClass:
-                        "d-flex justify-content-between align-items-center pointer",
-                      on: { click: _vm.toggleExtColorDisplay }
-                    },
-                    [
-                      _c("strong", [_vm._v("Exterior")]),
-                      _vm._v(" "),
-                      _c("small", [
-                        _c("i", {
-                          class: {
-                            "fas fa-plus": !_vm.showExtColor,
-                            "fas fa-minus": _vm.showExtColor
-                          }
-                        })
-                      ])
-                    ]
-                  ),
-                  _vm._v(" "),
-                  _vm.showExtColor
-                    ? _c(
-                        "div",
-                        {
-                          staticClass:
-                            "d-flex justify-content-between align-items-center pt-2"
-                        },
-                        [
-                          _c(
-                            "strong",
-                            { staticStyle: { "font-size": ".75em" } },
-                            [_vm._v("Materials")]
-                          )
-                        ]
-                      )
-                    : _vm._e(),
-                  _vm._v(" "),
-                  _c(
-                    "keep-alive",
-                    [
-                      _vm.showExtColor
-                        ? _c("products-filter", {
-                            attrs: {
-                              category: "extColor",
-                              list: _vm.materialOptions
-                            }
-                          })
-                        : _vm._e()
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _vm.showExtColor
-                    ? _c(
-                        "div",
-                        {
-                          staticClass:
-                            "d-flex justify-content-between align-items-center pt-2"
-                        },
-                        [
-                          _c(
-                            "strong",
-                            { staticStyle: { "font-size": ".75em" } },
-                            [_vm._v("Finishes")]
-                          )
-                        ]
-                      )
-                    : _vm._e(),
-                  _vm._v(" "),
-                  _c(
-                    "keep-alive",
-                    [
-                      _vm.showExtColor
-                        ? _c("products-filter", {
-                            attrs: {
-                              category: "extColor",
-                              list: _vm.finishOptions
-                            }
-                          })
-                        : _vm._e()
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _vm.showExtColor
-                    ? _c(
-                        "div",
-                        {
-                          staticClass:
-                            "d-flex justify-content-between align-items-center pt-2"
-                        },
-                        [
-                          _c(
-                            "strong",
-                            { staticStyle: { "font-size": ".75em" } },
-                            [_vm._v("Standard Colors")]
-                          )
-                        ]
-                      )
-                    : _vm._e(),
-                  _vm._v(" "),
-                  _c(
-                    "keep-alive",
-                    [
-                      _vm.showExtColor
-                        ? _c("products-filter", {
-                            attrs: {
-                              category: "extColor",
-                              list: _vm.standardColors
-                            }
-                          })
-                        : _vm._e()
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _vm.showExtColor
-                    ? _c(
-                        "div",
-                        {
-                          staticClass:
-                            "d-flex justify-content-between align-items-center pt-2"
-                        },
-                        [
-                          _c(
-                            "strong",
-                            { staticStyle: { "font-size": ".75em" } },
-                            [_vm._v("Standard Cladding")]
-                          )
-                        ]
-                      )
-                    : _vm._e(),
-                  _vm._v(" "),
-                  _c(
-                    "keep-alive",
-                    [
-                      _vm.showExtColor
-                        ? _c("products-filter", {
-                            attrs: {
-                              category: "extColor",
-                              list: _vm.claddingOptions
-                            }
-                          })
-                        : _vm._e()
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _vm.showExtColor
-                    ? _c(
-                        "div",
-                        {
-                          staticClass:
-                            "d-flex justify-content-between align-items-center pt-2"
-                        },
-                        [
-                          _c(
-                            "strong",
-                            { staticStyle: { "font-size": ".75em" } },
-                            [_vm._v("Custom Options")]
-                          )
-                        ]
-                      )
-                    : _vm._e(),
-                  _vm._v(" "),
-                  _c(
-                    "keep-alive",
-                    [
-                      _vm.showExtColor
-                        ? _c("products-filter", {
-                            attrs: {
-                              category: "extColor",
-                              list: _vm.listExtColor
-                            }
-                          })
-                        : _vm._e()
-                    ],
-                    1
-                  )
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c("hr", { staticClass: "my-2" }),
-              _vm._v(" "),
-              _c(
-                "div",
-                { staticClass: "d-flex flex-column" },
-                [
-                  _c(
-                    "div",
-                    {
-                      staticClass:
-                        "d-flex justify-content-between align-items-center pointer",
-                      on: { click: _vm.toggleIntColorDisplay }
-                    },
-                    [
-                      _c("strong", [_vm._v("Interior")]),
-                      _vm._v(" "),
-                      _c("small", [
-                        _c("i", {
-                          class: {
-                            "fas fa-plus": !_vm.showIntColor,
-                            "fas fa-minus": _vm.showIntColor
-                          }
-                        })
-                      ])
-                    ]
-                  ),
-                  _vm._v(" "),
-                  _vm.showIntColor
-                    ? _c(
-                        "div",
-                        {
-                          staticClass:
-                            "d-flex justify-content-between align-items-center pt-2"
-                        },
-                        [
-                          _c(
-                            "strong",
-                            { staticStyle: { "font-size": ".75em" } },
-                            [_vm._v("Materials")]
-                          )
-                        ]
-                      )
-                    : _vm._e(),
-                  _vm._v(" "),
-                  _c(
-                    "keep-alive",
-                    [
-                      _vm.showIntColor
-                        ? _c("products-filter", {
-                            attrs: {
-                              category: "intColor",
-                              list: _vm.materialOptions
-                            }
-                          })
-                        : _vm._e()
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _vm.showIntColor
-                    ? _c(
-                        "div",
-                        {
-                          staticClass:
-                            "d-flex justify-content-between align-items-center pt-2"
-                        },
-                        [
-                          _c(
-                            "strong",
-                            { staticStyle: { "font-size": ".75em" } },
-                            [_vm._v("Finishes")]
-                          )
-                        ]
-                      )
-                    : _vm._e(),
-                  _vm._v(" "),
-                  _c(
-                    "keep-alive",
-                    [
-                      _vm.showIntColor
-                        ? _c("products-filter", {
-                            attrs: {
-                              category: "intColor",
-                              list: _vm.finishOptions
-                            }
-                          })
-                        : _vm._e()
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _vm.showIntColor
-                    ? _c(
-                        "div",
-                        {
-                          staticClass:
-                            "d-flex justify-content-between align-items-center pt-2"
-                        },
-                        [
-                          _c(
-                            "strong",
-                            { staticStyle: { "font-size": ".75em" } },
-                            [_vm._v("Standard Colors")]
-                          )
-                        ]
-                      )
-                    : _vm._e(),
-                  _vm._v(" "),
-                  _c(
-                    "keep-alive",
-                    [
-                      _vm.showIntColor
-                        ? _c("products-filter", {
-                            attrs: {
-                              category: "intColor",
-                              list: _vm.standardColors
-                            }
-                          })
-                        : _vm._e()
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _vm.showIntColor
-                    ? _c(
-                        "div",
-                        {
-                          staticClass:
-                            "d-flex justify-content-between align-items-center pt-2"
-                        },
-                        [
-                          _c(
-                            "strong",
-                            { staticStyle: { "font-size": ".75em" } },
-                            [_vm._v("Standard Cladding")]
-                          )
-                        ]
-                      )
-                    : _vm._e(),
-                  _vm._v(" "),
-                  _c(
-                    "keep-alive",
-                    [
-                      _vm.showIntColor
-                        ? _c("products-filter", {
-                            attrs: {
-                              category: "intColor",
-                              list: _vm.claddingOptions
-                            }
-                          })
-                        : _vm._e()
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _vm.showIntColor
-                    ? _c(
-                        "div",
-                        {
-                          staticClass:
-                            "d-flex justify-content-between align-items-center pt-2"
-                        },
-                        [
-                          _c(
-                            "strong",
-                            { staticStyle: { "font-size": ".75em" } },
-                            [_vm._v("Custom Options")]
-                          )
-                        ]
-                      )
-                    : _vm._e(),
-                  _vm._v(" "),
-                  _c(
-                    "keep-alive",
-                    [
-                      _vm.showIntColor
-                        ? _c("products-filter", {
-                            attrs: {
-                              category: "intColor",
-                              list: _vm.listIntColor
-                            }
-                          })
-                        : _vm._e()
-                    ],
-                    1
-                  )
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c("hr", { staticClass: "my-2" }),
-              _vm._v(" "),
-              _c(
-                "div",
-                { staticClass: "d-flex flex-column" },
-                [
-                  _c(
-                    "div",
-                    {
-                      staticClass:
-                        "d-flex justify-content-between align-items-center pointer",
-                      on: { click: _vm.toggleLocationDisplay }
-                    },
-                    [
-                      _c("strong", [_vm._v("Location")]),
-                      _vm._v(" "),
-                      _c("small", [
-                        _c("i", {
-                          class: {
-                            "fas fa-plus": !_vm.showLocations,
-                            "fas fa-minus": _vm.showLocations
-                          }
-                        })
-                      ])
-                    ]
-                  ),
-                  _vm._v(" "),
-                  _vm.showLocations
-                    ? _c(
-                        "div",
-                        {
-                          staticClass:
-                            "mb-1 d-flex justify-content-between align-items-center pt-2"
-                        },
-                        [
-                          _c(
-                            "strong",
-                            { staticStyle: { "font-size": ".75em" } },
-                            [_vm._v("International")]
-                          )
-                        ]
-                      )
-                    : _vm._e(),
-                  _vm._v(" "),
-                  _c(
-                    "keep-alive",
-                    [
-                      _vm.showLocations
-                        ? _c("products-filter", {
-                            attrs: {
-                              category: "locations",
-                              list: _vm.internatinalOptions
-                            }
-                          })
-                        : _vm._e()
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _vm.showLocations
-                    ? _c(
-                        "div",
-                        {
-                          staticClass:
-                            "mb-1 d-flex justify-content-between align-items-center pt-2"
-                        },
-                        [
-                          _c(
-                            "strong",
-                            { staticStyle: { "font-size": ".75em" } },
-                            [_vm._v("Domestic")]
-                          )
-                        ]
-                      )
-                    : _vm._e(),
-                  _vm._v(" "),
-                  _c(
-                    "keep-alive",
-                    [
-                      _vm.showLocations
-                        ? _c("products-filter", {
-                            attrs: {
-                              category: "locations",
-                              list: _vm.listLocation
-                            }
-                          })
-                        : _vm._e()
-                    ],
-                    1
-                  )
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c("hr", { staticClass: "my-2" })
-            ]),
+              : _vm._e(),
             _vm._v(" "),
-            _c("div", { staticClass: "col-lg-10" }, [
-              _c("div", { staticClass: "container-fluid mb-2 pr-3 " }, [
-                _c(
+            _vm.products.length ? _c("hr", { staticClass: "my-2" }) : _vm._e(),
+            _vm._v(" "),
+            _vm.products.length
+              ? _c(
                   "div",
-                  { staticClass: "row d-nonex" },
-                  [_vm._m(2), _vm._v(" "), _c("mega-filter")],
-                  1
-                ),
-                _vm._v(" "),
-                _c("div", { staticClass: "row mt-3" }, [
-                  _c("div", { staticClass: "col-4 text-left" }, [
+                  { staticClass: "d-flex flex-column" },
+                  [
                     _c(
                       "div",
                       {
-                        staticClass: "btn-group",
-                        attrs: {
-                          role: "group",
-                          "aria-label": "Button group with nested dropdown"
-                        }
+                        staticClass:
+                          "d-flex justify-content-between align-items-center pointer",
+                        on: { click: _vm.toggleDetailsDisplay }
                       },
                       [
-                        _c(
-                          "button",
-                          {
-                            staticClass: "btn btn-secondary",
-                            attrs: { type: "button" },
-                            on: {
-                              click: function($event) {
-                                _vm.changeSortDirection()
-                              }
-                            }
-                          },
-                          [
-                            _c("i", {
-                              class: {
-                                "fas fa-sort-amount-up":
-                                  _vm.sortDirection === "desc",
-                                "fas fa-sort-amount-down":
-                                  _vm.sortDirection === "asc"
-                              }
-                            })
-                          ]
-                        ),
+                        _c("strong", [_vm._v("Details")]),
                         _vm._v(" "),
-                        _c(
-                          "button",
-                          {
+                        _c("small", [
+                          _c("i", {
                             class: {
-                              "btn btn-secondary": true,
-                              active: _vm.showMap === true
-                            },
-                            attrs: { type: "button" },
-                            on: {
-                              click: function($event) {
-                                _vm.toggleMapDisplay()
-                              }
+                              "fas fa-plus": !_vm.showDetails,
+                              "fas fa-minus": _vm.showDetails
                             }
-                          },
-                          [_c("i", { staticClass: "fas fa-globe-americas" })]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "button",
-                          {
-                            class: {
-                              "btn btn-secondary": true,
-                              active: _vm.currentView === "list-item"
-                            },
-                            attrs: { type: "button" },
-                            on: {
-                              click: function($event) {
-                                _vm.changeView("list-item")
-                              }
-                            }
-                          },
-                          [_c("i", { staticClass: "fas fa-list-ul" })]
-                        )
+                          })
+                        ])
                       ]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "keep-alive",
+                      [
+                        _c("features-filter", {
+                          attrs: {
+                            show: _vm.showDetails,
+                            category: "geoType2",
+                            list: _vm.optionDetailsGroups,
+                            sqf: _vm.sqfList,
+                            hideHeaders: _vm.detailHeadersList,
+                            products: _vm.products
+                          }
+                        })
+                      ],
+                      1
                     )
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "col-6 text-muted mt-auto" }, [
-                    _c("div", { staticClass: "input-group" }, [
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.newSearch,
-                            expression: "newSearch"
-                          }
-                        ],
-                        staticClass: "form-control",
-                        attrs: {
-                          type: "text",
-                          placeholder: "Search for Projects",
-                          "aria-label": "Recipient's username",
-                          "aria-describedby": "search"
-                        },
-                        domProps: { value: _vm.newSearch },
-                        on: {
-                          input: function($event) {
-                            if ($event.target.composing) {
-                              return
-                            }
-                            _vm.newSearch = $event.target.value
-                          }
-                        }
-                      }),
-                      _vm._v(" "),
-                      _vm._m(3)
-                    ])
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "col-2 text-muted mt-auto" }, [
+                  ],
+                  1
+                )
+              : _vm._e(),
+            _vm._v(" "),
+            _c("hr", { staticClass: "my-2" }),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "d-flex flex-column" },
+              [
+                _c(
+                  "div",
+                  {
+                    staticClass:
+                      "d-flex justify-content-between align-items-center pointer",
+                    on: { click: _vm.toggleApplicationsDisplay }
+                  },
+                  [
+                    _c("strong", [_vm._v("Applications")]),
+                    _vm._v(" "),
                     _c("small", [
-                      _vm._v(_vm._s(_vm.totalResults) + " results found.")
+                      _c("i", {
+                        class: {
+                          "fas fa-plus": !_vm.showApplications,
+                          "fas fa-minus": _vm.showApplications
+                        }
+                      })
                     ])
-                  ]),
+                  ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "keep-alive",
+                  [
+                    _vm.showApplications
+                      ? _c("products-filter", {
+                          attrs: {
+                            category: "applications",
+                            list: _vm.listApplications
+                          }
+                        })
+                      : _vm._e()
+                  ],
+                  1
+                )
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c("hr", { staticClass: "my-2" }),
+            _vm._v(" "),
+            _c("div", { staticClass: "d-flex flex-column" }, [
+              _c(
+                "div",
+                {
+                  staticClass:
+                    "d-flex justify-content-between align-items-center pointer",
+                  on: { click: _vm.toggleGlazesDisplay }
+                },
+                [
+                  _c("strong", [_vm._v("Glaze")]),
                   _vm._v(" "),
-                  _vm.showMap
+                  _c("small", [
+                    _c("i", {
+                      class: {
+                        "fas fa-plus": !_vm.showGlazes,
+                        "fas fa-minus": _vm.showGlazes
+                      }
+                    })
+                  ])
+                ]
+              ),
+              _vm._v(" "),
+              _c(
+                "div",
+                [
+                  _c(
+                    "keep-alive",
+                    [
+                      _vm.showGlazes
+                        ? _c("products-filter", {
+                            attrs: {
+                              category: "glazes",
+                              list: _vm.glazesOptions
+                            }
+                          })
+                        : _vm._e()
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _vm.showGlazes
                     ? _c(
                         "div",
                         {
-                          staticClass: "my-3",
-                          staticStyle: { margin: "auto" }
+                          staticClass:
+                            "d-flex justify-content-between align-items-center pt-2"
                         },
                         [
-                          _c("ul", { staticClass: "stately" }, [
-                            _c(
-                              "li",
-                              {
-                                staticClass: "al",
-                                class: {
-                                  "shade-5":
-                                    _vm.optionLocation.Alabama.length >= 4,
-                                  "shade-4":
-                                    _vm.optionLocation.Alabama.length == 3,
-                                  "shade-3":
-                                    _vm.optionLocation.Alabama.length == 2,
-                                  "shade-2":
-                                    _vm.optionLocation.Alabama.length == 1,
-                                  "shade-1":
-                                    _vm.optionLocation.Alabama.length == 0
-                                },
-                                attrs: { "data-state": "al" }
-                              },
-                              [_vm._v("A")]
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "li",
-                              {
-                                staticClass: "ak",
-                                class: {
-                                  "shade-5":
-                                    _vm.optionLocation.Alabama.length >= 4,
-                                  "shade-4":
-                                    _vm.optionLocation.Alabama.length == 3,
-                                  "shade-3":
-                                    _vm.optionLocation.Alabama.length == 2,
-                                  "shade-2":
-                                    _vm.optionLocation.Alabama.length == 1,
-                                  "shade-1":
-                                    _vm.optionLocation.Alabama.length == 0
-                                },
-                                attrs: { "data-state": "ak" }
-                              },
-                              [_vm._v("B")]
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "li",
-                              {
-                                staticClass: "ar",
-                                class: {
-                                  "shade-5":
-                                    _vm.optionLocation.Alabama.length >= 4,
-                                  "shade-4":
-                                    _vm.optionLocation.Alabama.length == 3,
-                                  "shade-3":
-                                    _vm.optionLocation.Alabama.length == 2,
-                                  "shade-2":
-                                    _vm.optionLocation.Alabama.length == 1,
-                                  "shade-1":
-                                    _vm.optionLocation.Alabama.length == 0
-                                },
-                                attrs: { "data-state": "ar" }
-                              },
-                              [_vm._v("C")]
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "li",
-                              {
-                                staticClass: "az",
-                                class: {
-                                  "shade-5":
-                                    _vm.optionLocation.Arizona.length >= 4,
-                                  "shade-4":
-                                    _vm.optionLocation.Arizona.length == 3,
-                                  "shade-3":
-                                    _vm.optionLocation.Arizona.length == 2,
-                                  "shade-2":
-                                    _vm.optionLocation.Arizona.length == 1,
-                                  "shade-1":
-                                    _vm.optionLocation.Arizona.length == 0
-                                },
-                                attrs: { "data-state": "az" }
-                              },
-                              [_vm._v("D")]
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "li",
-                              {
-                                staticClass: "ca",
-                                class: {
-                                  "shade-5":
-                                    _vm.optionLocation.California.length >= 4,
-                                  "shade-4":
-                                    _vm.optionLocation.California.length == 3,
-                                  "shade-3":
-                                    _vm.optionLocation.California.length == 2,
-                                  "shade-2":
-                                    _vm.optionLocation.California.length == 1,
-                                  "shade-1":
-                                    _vm.optionLocation.California.length == 0
-                                },
-                                attrs: { "data-state": "ca" }
-                              },
-                              [_vm._v("E")]
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "li",
-                              {
-                                staticClass: "co",
-                                class: {
-                                  "shade-5":
-                                    _vm.optionLocation.Colorado.length >= 4,
-                                  "shade-4":
-                                    _vm.optionLocation.Colorado.length == 3,
-                                  "shade-3":
-                                    _vm.optionLocation.Colorado.length == 2,
-                                  "shade-2":
-                                    _vm.optionLocation.Colorado.length == 1,
-                                  "shade-1":
-                                    _vm.optionLocation.Colorado.length == 0
-                                },
-                                attrs: { "data-state": "co" }
-                              },
-                              [_vm._v("F")]
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "li",
-                              {
-                                staticClass: "ct",
-                                class: {
-                                  "shade-5":
-                                    _vm.optionLocation.Connecticut.length >= 4,
-                                  "shade-4":
-                                    _vm.optionLocation.Connecticut.length == 3,
-                                  "shade-3":
-                                    _vm.optionLocation.Connecticut.length == 2,
-                                  "shade-2":
-                                    _vm.optionLocation.Connecticut.length == 1,
-                                  "shade-1":
-                                    _vm.optionLocation.Connecticut.length == 0
-                                },
-                                attrs: { "data-state": "ct" }
-                              },
-                              [_vm._v("G")]
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "li",
-                              {
-                                staticClass: "de",
-                                class: {
-                                  "shade-5":
-                                    _vm.optionLocation.Delaware.length >= 4,
-                                  "shade-4":
-                                    _vm.optionLocation.Delaware.length == 3,
-                                  "shade-3":
-                                    _vm.optionLocation.Delaware.length == 2,
-                                  "shade-2":
-                                    _vm.optionLocation.Delaware.length == 1,
-                                  "shade-1":
-                                    _vm.optionLocation.Delaware.length == 0
-                                },
-                                attrs: { "data-state": "de" }
-                              },
-                              [_vm._v("H")]
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "li",
-                              {
-                                staticClass: "dc",
-                                class: {
-                                  "shade-5":
-                                    _vm.optionLocation.Alabama.length >= 4,
-                                  "shade-4":
-                                    _vm.optionLocation.Alabama.length == 3,
-                                  "shade-3":
-                                    _vm.optionLocation.Alabama.length == 2,
-                                  "shade-2":
-                                    _vm.optionLocation.Alabama.length == 1,
-                                  "shade-1":
-                                    _vm.optionLocation.Alabama.length == 0
-                                },
-                                attrs: { "data-state": "dc" }
-                              },
-                              [_vm._v("I")]
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "li",
-                              {
-                                staticClass: "fl",
-                                class: {
-                                  "shade-5":
-                                    _vm.optionLocation.Florida.length >= 4,
-                                  "shade-4":
-                                    _vm.optionLocation.Florida.length == 3,
-                                  "shade-3":
-                                    _vm.optionLocation.Florida.length == 2,
-                                  "shade-2":
-                                    _vm.optionLocation.Florida.length == 1,
-                                  "shade-1":
-                                    _vm.optionLocation.Florida.length == 0
-                                },
-                                attrs: { "data-state": "fl" }
-                              },
-                              [_vm._v("J")]
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "li",
-                              {
-                                staticClass: "ga",
-                                class: {
-                                  "shade-5":
-                                    _vm.optionLocation.Georgia.length >= 4,
-                                  "shade-4":
-                                    _vm.optionLocation.Georgia.length == 3,
-                                  "shade-3":
-                                    _vm.optionLocation.Georgia.length == 2,
-                                  "shade-2":
-                                    _vm.optionLocation.Georgia.length == 1,
-                                  "shade-1":
-                                    _vm.optionLocation.Georgia.length == 0
-                                },
-                                attrs: { "data-state": "ga" }
-                              },
-                              [_vm._v("K")]
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "li",
-                              {
-                                staticClass: "hi",
-                                class: {
-                                  "shade-5":
-                                    _vm.optionLocation.Hawaii.length >= 4,
-                                  "shade-4":
-                                    _vm.optionLocation.Hawaii.length == 3,
-                                  "shade-3":
-                                    _vm.optionLocation.Hawaii.length == 2,
-                                  "shade-2":
-                                    _vm.optionLocation.Hawaii.length == 1,
-                                  "shade-1":
-                                    _vm.optionLocation.Hawaii.length == 0
-                                },
-                                attrs: { "data-state": "hi" }
-                              },
-                              [_vm._v("L")]
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "li",
-                              {
-                                staticClass: "id",
-                                class: {
-                                  "shade-5":
-                                    _vm.optionLocation.Alabama.length >= 4,
-                                  "shade-4":
-                                    _vm.optionLocation.Alabama.length == 3,
-                                  "shade-3":
-                                    _vm.optionLocation.Alabama.length == 2,
-                                  "shade-2":
-                                    _vm.optionLocation.Alabama.length == 1,
-                                  "shade-1":
-                                    _vm.optionLocation.Alabama.length == 0
-                                },
-                                attrs: { "data-state": "id" }
-                              },
-                              [_vm._v("M")]
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "li",
-                              {
-                                staticClass: "il",
-                                class: {
-                                  "shade-5":
-                                    _vm.optionLocation.Illinois.length >= 4,
-                                  "shade-4":
-                                    _vm.optionLocation.Illinois.length == 3,
-                                  "shade-3":
-                                    _vm.optionLocation.Illinois.length == 2,
-                                  "shade-2":
-                                    _vm.optionLocation.Illinois.length == 1,
-                                  "shade-1":
-                                    _vm.optionLocation.Illinois.length == 0
-                                },
-                                attrs: { "data-state": "il" }
-                              },
-                              [_vm._v("N")]
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "li",
-                              {
-                                staticClass: "in",
-                                class: {
-                                  "shade-5":
-                                    _vm.optionLocation.Indiana.length >= 4,
-                                  "shade-4":
-                                    _vm.optionLocation.Indiana.length == 3,
-                                  "shade-3":
-                                    _vm.optionLocation.Indiana.length == 2,
-                                  "shade-2":
-                                    _vm.optionLocation.Indiana.length == 1,
-                                  "shade-1":
-                                    _vm.optionLocation.Indiana.length == 0
-                                },
-                                attrs: { "data-state": "in" }
-                              },
-                              [_vm._v("O")]
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "li",
-                              {
-                                staticClass: "ia",
-                                class: {
-                                  "shade-5":
-                                    _vm.optionLocation.Iowa.length >= 4,
-                                  "shade-4":
-                                    _vm.optionLocation.Iowa.length == 3,
-                                  "shade-3":
-                                    _vm.optionLocation.Iowa.length == 2,
-                                  "shade-2":
-                                    _vm.optionLocation.Iowa.length == 1,
-                                  "shade-1": _vm.optionLocation.Iowa.length == 0
-                                },
-                                attrs: { "data-state": "ia" }
-                              },
-                              [_vm._v("P")]
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "li",
-                              {
-                                staticClass: "ks",
-                                class: {
-                                  "shade-5":
-                                    _vm.optionLocation.Kansas.length >= 4,
-                                  "shade-4":
-                                    _vm.optionLocation.Kansas.length == 3,
-                                  "shade-3":
-                                    _vm.optionLocation.Kansas.length == 2,
-                                  "shade-2":
-                                    _vm.optionLocation.Kansas.length == 1,
-                                  "shade-1":
-                                    _vm.optionLocation.Kansas.length == 0
-                                },
-                                attrs: { "data-state": "ks" }
-                              },
-                              [_vm._v("Q")]
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "li",
-                              {
-                                staticClass: "ky",
-                                class: {
-                                  "shade-5":
-                                    _vm.optionLocation.Kentucky.length >= 4,
-                                  "shade-4":
-                                    _vm.optionLocation.Kentucky.length == 3,
-                                  "shade-3":
-                                    _vm.optionLocation.Kentucky.length == 2,
-                                  "shade-2":
-                                    _vm.optionLocation.Kentucky.length == 1,
-                                  "shade-1":
-                                    _vm.optionLocation.Kentucky.length == 0
-                                },
-                                attrs: { "data-state": "ky" }
-                              },
-                              [_vm._v("R")]
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "li",
-                              {
-                                staticClass: "la",
-                                class: {
-                                  "shade-5":
-                                    _vm.optionLocation.Alabama.length >= 4,
-                                  "shade-4":
-                                    _vm.optionLocation.Alabama.length == 3,
-                                  "shade-3":
-                                    _vm.optionLocation.Alabama.length == 2,
-                                  "shade-2":
-                                    _vm.optionLocation.Alabama.length == 1,
-                                  "shade-1":
-                                    _vm.optionLocation.Alabama.length == 0
-                                },
-                                attrs: { "data-state": "la" }
-                              },
-                              [_vm._v("S")]
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "li",
-                              {
-                                staticClass: "me",
-                                class: {
-                                  "shade-5":
-                                    _vm.optionLocation.Maine.length >= 4,
-                                  "shade-4":
-                                    _vm.optionLocation.Maine.length == 3,
-                                  "shade-3":
-                                    _vm.optionLocation.Maine.length == 2,
-                                  "shade-2":
-                                    _vm.optionLocation.Maine.length == 1,
-                                  "shade-1":
-                                    _vm.optionLocation.Maine.length == 0
-                                },
-                                attrs: { "data-state": "me" }
-                              },
-                              [_vm._v("T")]
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "li",
-                              {
-                                staticClass: "md",
-                                class: {
-                                  "shade-5":
-                                    _vm.optionLocation.Maryland.length >= 4,
-                                  "shade-4":
-                                    _vm.optionLocation.Maryland.length == 3,
-                                  "shade-3":
-                                    _vm.optionLocation.Maryland.length == 2,
-                                  "shade-2":
-                                    _vm.optionLocation.Maryland.length == 1,
-                                  "shade-1":
-                                    _vm.optionLocation.Maryland.length == 0
-                                },
-                                attrs: { "data-state": "md" }
-                              },
-                              [_vm._v("U")]
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "li",
-                              {
-                                staticClass: "ma",
-                                class: {
-                                  "shade-5":
-                                    _vm.optionLocation.Massachusetts.length >=
-                                    4,
-                                  "shade-4":
-                                    _vm.optionLocation.Massachusetts.length ==
-                                    3,
-                                  "shade-3":
-                                    _vm.optionLocation.Massachusetts.length ==
-                                    2,
-                                  "shade-2":
-                                    _vm.optionLocation.Massachusetts.length ==
-                                    1,
-                                  "shade-1":
-                                    _vm.optionLocation.Massachusetts.length == 0
-                                },
-                                attrs: { "data-state": "ma" }
-                              },
-                              [_vm._v("V")]
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "li",
-                              {
-                                staticClass: "mi",
-                                class: {
-                                  "shade-5":
-                                    _vm.optionLocation.Michigan.length >= 4,
-                                  "shade-4":
-                                    _vm.optionLocation.Michigan.length == 3,
-                                  "shade-3":
-                                    _vm.optionLocation.Michigan.length == 2,
-                                  "shade-2":
-                                    _vm.optionLocation.Michigan.length == 1,
-                                  "shade-1":
-                                    _vm.optionLocation.Michigan.length == 0
-                                },
-                                attrs: { "data-state": "mi" }
-                              },
-                              [_vm._v("W")]
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "li",
-                              {
-                                staticClass: "mn",
-                                class: {
-                                  "shade-5":
-                                    _vm.optionLocation.Minnesota.length >= 4,
-                                  "shade-4":
-                                    _vm.optionLocation.Minnesota.length == 3,
-                                  "shade-3":
-                                    _vm.optionLocation.Minnesota.length == 2,
-                                  "shade-2":
-                                    _vm.optionLocation.Minnesota.length == 1,
-                                  "shade-1":
-                                    _vm.optionLocation.Minnesota.length == 0
-                                },
-                                attrs: { "data-state": "mn" }
-                              },
-                              [_vm._v("X")]
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "li",
-                              {
-                                staticClass: "ms",
-                                class: {
-                                  "shade-5":
-                                    _vm.optionLocation.Mississippi.length >= 4,
-                                  "shade-4":
-                                    _vm.optionLocation.Mississippi.length == 3,
-                                  "shade-3":
-                                    _vm.optionLocation.Mississippi.length == 2,
-                                  "shade-2":
-                                    _vm.optionLocation.Mississippi.length == 1,
-                                  "shade-1":
-                                    _vm.optionLocation.Mississippi.length == 0
-                                },
-                                attrs: { "data-state": "ms" }
-                              },
-                              [_vm._v("Y")]
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "li",
-                              {
-                                staticClass: "mo",
-                                class: {
-                                  "shade-5":
-                                    _vm.optionLocation.Montana.length >= 4,
-                                  "shade-4":
-                                    _vm.optionLocation.Montana.length == 3,
-                                  "shade-3":
-                                    _vm.optionLocation.Montana.length == 2,
-                                  "shade-2":
-                                    _vm.optionLocation.Montana.length == 1,
-                                  "shade-1":
-                                    _vm.optionLocation.Montana.length == 0
-                                },
-                                attrs: { "data-state": "mo" }
-                              },
-                              [_vm._v("Z")]
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "li",
-                              {
-                                staticClass: "mt",
-                                class: {
-                                  "shade-5":
-                                    _vm.optionLocation.Nevada.length >= 4,
-                                  "shade-4":
-                                    _vm.optionLocation.Nevada.length == 3,
-                                  "shade-3":
-                                    _vm.optionLocation.Nevada.length == 2,
-                                  "shade-2":
-                                    _vm.optionLocation.Nevada.length == 1,
-                                  "shade-1":
-                                    _vm.optionLocation.Nevada.length == 0
-                                },
-                                attrs: { "data-state": "mt" }
-                              },
-                              [_vm._v("a")]
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "li",
-                              {
-                                staticClass: "ne",
-                                class: {
-                                  "shade-5":
-                                    _vm.optionLocation.Alabama.length >= 4,
-                                  "shade-4":
-                                    _vm.optionLocation.Alabama.length == 3,
-                                  "shade-3":
-                                    _vm.optionLocation.Alabama.length == 2,
-                                  "shade-2":
-                                    _vm.optionLocation.Alabama.length == 1,
-                                  "shade-1":
-                                    _vm.optionLocation.Alabama.length == 0
-                                },
-                                attrs: { "data-state": "ne" }
-                              },
-                              [_vm._v("b")]
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "li",
-                              {
-                                staticClass: "nv",
-                                class: {
-                                  "shade-5":
-                                    _vm.optionLocation.Alabama.length >= 4,
-                                  "shade-4":
-                                    _vm.optionLocation.Alabama.length == 3,
-                                  "shade-3":
-                                    _vm.optionLocation.Alabama.length == 2,
-                                  "shade-2":
-                                    _vm.optionLocation.Alabama.length == 1,
-                                  "shade-1":
-                                    _vm.optionLocation.Alabama.length == 0
-                                },
-                                attrs: { "data-state": "nv" }
-                              },
-                              [_vm._v("c")]
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "li",
-                              {
-                                staticClass: "nh",
-                                class: {
-                                  "shade-5":
-                                    _vm.optionLocation["New Hampshire"]
-                                      .length >= 4,
-                                  "shade-4":
-                                    _vm.optionLocation["New Hampshire"]
-                                      .length == 3,
-                                  "shade-3":
-                                    _vm.optionLocation["New Hampshire"]
-                                      .length == 2,
-                                  "shade-2":
-                                    _vm.optionLocation["New Hampshire"]
-                                      .length == 1,
-                                  "shade-1":
-                                    _vm.optionLocation["New Hampshire"]
-                                      .length == 0
-                                },
-                                attrs: { "data-state": "nh" }
-                              },
-                              [_vm._v("d")]
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "li",
-                              {
-                                staticClass: "nj",
-                                class: {
-                                  "shade-5":
-                                    _vm.optionLocation["New Jersey"].length >=
-                                    4,
-                                  "shade-4":
-                                    _vm.optionLocation["New Jersey"].length ==
-                                    3,
-                                  "shade-3":
-                                    _vm.optionLocation["New Jersey"].length ==
-                                    2,
-                                  "shade-2":
-                                    _vm.optionLocation["New Jersey"].length ==
-                                    1,
-                                  "shade-1":
-                                    _vm.optionLocation["New Jersey"].length == 0
-                                },
-                                attrs: { "data-state": "nj" }
-                              },
-                              [_vm._v("e")]
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "li",
-                              {
-                                staticClass: "nm",
-                                class: {
-                                  "shade-5":
-                                    _vm.optionLocation["New Mexico"].length >=
-                                    4,
-                                  "shade-4":
-                                    _vm.optionLocation["New Mexico"].length ==
-                                    3,
-                                  "shade-3":
-                                    _vm.optionLocation["New Mexico"].length ==
-                                    2,
-                                  "shade-2":
-                                    _vm.optionLocation["New Mexico"].length ==
-                                    1,
-                                  "shade-1":
-                                    _vm.optionLocation["New Mexico"].length == 0
-                                },
-                                attrs: { "data-state": "nm" }
-                              },
-                              [_vm._v("f")]
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "li",
-                              {
-                                staticClass: "ny",
-                                class: {
-                                  "shade-5":
-                                    _vm.optionLocation["New York"].length >= 4,
-                                  "shade-4":
-                                    _vm.optionLocation["New York"].length == 3,
-                                  "shade-3":
-                                    _vm.optionLocation["New York"].length == 2,
-                                  "shade-2":
-                                    _vm.optionLocation["New York"].length == 1,
-                                  "shade-1":
-                                    _vm.optionLocation["New York"].length == 0
-                                },
-                                attrs: { "data-state": "ny" }
-                              },
-                              [_vm._v("g")]
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "li",
-                              {
-                                staticClass: "nc",
-                                class: {
-                                  "shade-5":
-                                    _vm.optionLocation["North Carolina"]
-                                      .length >= 4,
-                                  "shade-4":
-                                    _vm.optionLocation["North Carolina"]
-                                      .length == 3,
-                                  "shade-3":
-                                    _vm.optionLocation["North Carolina"]
-                                      .length == 2,
-                                  "shade-2":
-                                    _vm.optionLocation["North Carolina"]
-                                      .length == 1,
-                                  "shade-1":
-                                    _vm.optionLocation["North Carolina"]
-                                      .length == 0
-                                },
-                                attrs: { "data-state": "nc" }
-                              },
-                              [_vm._v("h")]
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "li",
-                              {
-                                staticClass: "nd",
-                                class: {
-                                  "shade-5":
-                                    _vm.optionLocation["North Dakota"].length >=
-                                    4,
-                                  "shade-4":
-                                    _vm.optionLocation["North Dakota"].length ==
-                                    3,
-                                  "shade-3":
-                                    _vm.optionLocation["North Dakota"].length ==
-                                    2,
-                                  "shade-2":
-                                    _vm.optionLocation["North Dakota"].length ==
-                                    1,
-                                  "shade-1":
-                                    _vm.optionLocation["North Dakota"].length ==
-                                    0
-                                },
-                                attrs: { "data-state": "nd" }
-                              },
-                              [_vm._v("i")]
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "li",
-                              {
-                                staticClass: "oh",
-                                class: {
-                                  "shade-5":
-                                    _vm.optionLocation.Ohio.length >= 4,
-                                  "shade-4":
-                                    _vm.optionLocation.Ohio.length == 3,
-                                  "shade-3":
-                                    _vm.optionLocation.Ohio.length == 2,
-                                  "shade-2":
-                                    _vm.optionLocation.Ohio.length == 1,
-                                  "shade-1": _vm.optionLocation.Ohio.length == 0
-                                },
-                                attrs: { "data-state": "oh" }
-                              },
-                              [_vm._v("j")]
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "li",
-                              {
-                                staticClass: "ok",
-                                class: {
-                                  "shade-5":
-                                    _vm.optionLocation.Oklahoma.length >= 4,
-                                  "shade-4":
-                                    _vm.optionLocation.Oklahoma.length == 3,
-                                  "shade-3":
-                                    _vm.optionLocation.Oklahoma.length == 2,
-                                  "shade-2":
-                                    _vm.optionLocation.Oklahoma.length == 1,
-                                  "shade-1":
-                                    _vm.optionLocation.Oklahoma.length == 0
-                                },
-                                attrs: { "data-state": "ok" }
-                              },
-                              [_vm._v("k")]
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "li",
-                              {
-                                staticClass: "or",
-                                class: {
-                                  "shade-5":
-                                    _vm.optionLocation.Alabama.length >= 4,
-                                  "shade-4":
-                                    _vm.optionLocation.Alabama.length == 3,
-                                  "shade-3":
-                                    _vm.optionLocation.Alabama.length == 2,
-                                  "shade-2":
-                                    _vm.optionLocation.Alabama.length == 1,
-                                  "shade-1":
-                                    _vm.optionLocation.Alabama.length == 0
-                                },
-                                attrs: { "data-state": "or" }
-                              },
-                              [_vm._v("l")]
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "li",
-                              {
-                                staticClass: "pa",
-                                class: {
-                                  "shade-5":
-                                    _vm.optionLocation.Pennsylvania.length >= 4,
-                                  "shade-4":
-                                    _vm.optionLocation.Pennsylvania.length == 3,
-                                  "shade-3":
-                                    _vm.optionLocation.Pennsylvania.length == 2,
-                                  "shade-2":
-                                    _vm.optionLocation.Pennsylvania.length == 1,
-                                  "shade-1":
-                                    _vm.optionLocation.Pennsylvania.length == 0
-                                },
-                                attrs: { "data-state": "pa" }
-                              },
-                              [_vm._v("m")]
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "li",
-                              {
-                                staticClass: "ri",
-                                class: {
-                                  "shade-5":
-                                    _vm.optionLocation["Rhode Island"].length >=
-                                    4,
-                                  "shade-4":
-                                    _vm.optionLocation["Rhode Island"].length ==
-                                    3,
-                                  "shade-3":
-                                    _vm.optionLocation["Rhode Island"].length ==
-                                    2,
-                                  "shade-2":
-                                    _vm.optionLocation["Rhode Island"].length ==
-                                    1,
-                                  "shade-1":
-                                    _vm.optionLocation["Rhode Island"].length ==
-                                    0
-                                },
-                                attrs: { "data-state": "ri" }
-                              },
-                              [_vm._v("n")]
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "li",
-                              {
-                                staticClass: "sc",
-                                class: {
-                                  "shade-5":
-                                    _vm.optionLocation["South Carolina"]
-                                      .length >= 4,
-                                  "shade-4":
-                                    _vm.optionLocation["South Carolina"]
-                                      .length == 3,
-                                  "shade-3":
-                                    _vm.optionLocation["South Carolina"]
-                                      .length == 2,
-                                  "shade-2":
-                                    _vm.optionLocation["South Carolina"]
-                                      .length == 1,
-                                  "shade-1":
-                                    _vm.optionLocation["South Carolina"]
-                                      .length == 0
-                                },
-                                attrs: { "data-state": "sc" }
-                              },
-                              [_vm._v("o")]
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "li",
-                              {
-                                staticClass: "sd",
-                                class: {
-                                  "shade-5":
-                                    _vm.optionLocation["Alabama"].length >= 4,
-                                  "shade-4":
-                                    _vm.optionLocation["Alabama"].length == 3,
-                                  "shade-3":
-                                    _vm.optionLocation["Alabama"].length == 2,
-                                  "shade-2":
-                                    _vm.optionLocation["Alabama"].length == 1,
-                                  "shade-1":
-                                    _vm.optionLocation["Alabama"].length == 0
-                                },
-                                attrs: { "data-state": "sd" }
-                              },
-                              [_vm._v("p")]
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "li",
-                              {
-                                staticClass: "tn",
-                                class: {
-                                  "shade-5":
-                                    _vm.optionLocation.Alabama.length >= 4,
-                                  "shade-4":
-                                    _vm.optionLocation.Alabama.length == 3,
-                                  "shade-3":
-                                    _vm.optionLocation.Alabama.length == 2,
-                                  "shade-2":
-                                    _vm.optionLocation.Alabama.length == 1,
-                                  "shade-1":
-                                    _vm.optionLocation.Alabama.length == 0
-                                },
-                                attrs: { "data-state": "tn" }
-                              },
-                              [_vm._v("q")]
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "li",
-                              {
-                                staticClass: "tx",
-                                class: {
-                                  "shade-5":
-                                    _vm.optionLocation.Texas.length >= 4,
-                                  "shade-4":
-                                    _vm.optionLocation.Texas.length == 3,
-                                  "shade-3":
-                                    _vm.optionLocation.Texas.length == 2,
-                                  "shade-2":
-                                    _vm.optionLocation.Texas.length == 1,
-                                  "shade-1":
-                                    _vm.optionLocation.Texas.length == 0
-                                },
-                                attrs: { "data-state": "tx" }
-                              },
-                              [_vm._v("r")]
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "li",
-                              {
-                                staticClass: "ut",
-                                class: {
-                                  "shade-5":
-                                    _vm.optionLocation.Alabama.length >= 4,
-                                  "shade-4":
-                                    _vm.optionLocation.Alabama.length == 3,
-                                  "shade-3":
-                                    _vm.optionLocation.Alabama.length == 2,
-                                  "shade-2":
-                                    _vm.optionLocation.Alabama.length == 1,
-                                  "shade-1":
-                                    _vm.optionLocation.Alabama.length == 0
-                                },
-                                attrs: { "data-state": "ut" }
-                              },
-                              [_vm._v("s")]
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "li",
-                              {
-                                staticClass: "va",
-                                class: {
-                                  "shade-5":
-                                    _vm.optionLocation.Virginia.length >= 4,
-                                  "shade-4":
-                                    _vm.optionLocation.Virginia.length == 3,
-                                  "shade-3":
-                                    _vm.optionLocation.Virginia.length == 2,
-                                  "shade-2":
-                                    _vm.optionLocation.Virginia.length == 1,
-                                  "shade-1":
-                                    _vm.optionLocation.Virginia.length == 0
-                                },
-                                attrs: { "data-state": "va" }
-                              },
-                              [_vm._v("t")]
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "li",
-                              {
-                                staticClass: "vt",
-                                class: {
-                                  "shade-5":
-                                    _vm.optionLocation.Vermont.length >= 4,
-                                  "shade-4":
-                                    _vm.optionLocation.Vermont.length == 3,
-                                  "shade-3":
-                                    _vm.optionLocation.Vermont.length == 2,
-                                  "shade-2":
-                                    _vm.optionLocation.Vermont.length == 1,
-                                  "shade-1":
-                                    _vm.optionLocation.Vermont.length == 0
-                                },
-                                attrs: { "data-state": "vt" }
-                              },
-                              [_vm._v("u")]
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "li",
-                              {
-                                staticClass: "wa",
-                                class: {
-                                  "shade-5":
-                                    _vm.optionLocation.Washington.length >= 4,
-                                  "shade-4":
-                                    _vm.optionLocation.Washington.length == 3,
-                                  "shade-3":
-                                    _vm.optionLocation.Washington.length == 2,
-                                  "shade-2":
-                                    _vm.optionLocation.Washington.length == 1,
-                                  "shade-1":
-                                    _vm.optionLocation.Washington.length == 0
-                                },
-                                attrs: { "data-state": "wa" }
-                              },
-                              [_vm._v("v")]
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "li",
-                              {
-                                staticClass: "wv",
-                                class: {
-                                  "shade-5":
-                                    _vm.optionLocation["West Virginia"]
-                                      .length >= 4,
-                                  "shade-4":
-                                    _vm.optionLocation["West Virginia"]
-                                      .length == 3,
-                                  "shade-3":
-                                    _vm.optionLocation["West Virginia"]
-                                      .length == 2,
-                                  "shade-2":
-                                    _vm.optionLocation["West Virginia"]
-                                      .length == 1,
-                                  "shade-1":
-                                    _vm.optionLocation["West Virginia"]
-                                      .length == 0
-                                },
-                                attrs: { "data-state": "wv" }
-                              },
-                              [_vm._v("w")]
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "li",
-                              {
-                                staticClass: "wi",
-                                class: {
-                                  "shade-5":
-                                    _vm.optionLocation.Wisconsin.length >= 4,
-                                  "shade-4":
-                                    _vm.optionLocation.Wisconsin.length == 3,
-                                  "shade-3":
-                                    _vm.optionLocation.Wisconsin.length == 2,
-                                  "shade-2":
-                                    _vm.optionLocation.Wisconsin.length == 1,
-                                  "shade-1":
-                                    _vm.optionLocation.Wisconsin.length == 0
-                                },
-                                attrs: { "data-state": "wi" }
-                              },
-                              [_vm._v("x")]
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "li",
-                              {
-                                staticClass: "wy",
-                                class: {
-                                  "shade-5":
-                                    _vm.optionLocation.Alabama.length >= 4,
-                                  "shade-4":
-                                    _vm.optionLocation.Alabama.length == 3,
-                                  "shade-3":
-                                    _vm.optionLocation.Alabama.length == 2,
-                                  "shade-2":
-                                    _vm.optionLocation.Alabama.length == 1,
-                                  "shade-1":
-                                    _vm.optionLocation.Alabama.length == 0
-                                },
-                                attrs: { "data-state": "wy" }
-                              },
-                              [_vm._v("y")]
-                            )
-                          ]),
-                          _vm._v(" "),
-                          _c("h3", { staticClass: "text-center" }, [
-                            _vm._v("Projects by State")
-                          ]),
-                          _vm._v(" "),
-                          _vm._m(4)
+                          _c(
+                            "strong",
+                            { staticStyle: { "font-size": ".75em" } },
+                            [_vm._v("Square Footage")]
+                          )
                         ]
                       )
-                    : _vm._e()
-                ]),
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _c(
+                    "keep-alive",
+                    [
+                      _vm.showGlazes
+                        ? _c("products-filter", {
+                            attrs: { category: "geoType2", list: _vm.sqfList }
+                          })
+                        : _vm._e()
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _vm.showGlazes
+                    ? _c(
+                        "div",
+                        {
+                          staticClass:
+                            "d-flex justify-content-between align-items-center pt-2"
+                        },
+                        [
+                          _c(
+                            "strong",
+                            { staticStyle: { "font-size": ".75em" } },
+                            [_vm._v("Glaze Colors")]
+                          )
+                        ]
+                      )
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _c(
+                    "keep-alive",
+                    [
+                      _vm.showGlazes
+                        ? _c("products-filter", {
+                            attrs: { category: "glazes", list: _vm.glazeColor }
+                          })
+                        : _vm._e()
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _vm.showGlazes
+                    ? _c(
+                        "div",
+                        {
+                          staticClass:
+                            "d-flex justify-content-between align-items-center pt-2"
+                        },
+                        [
+                          _c(
+                            "strong",
+                            { staticStyle: { "font-size": ".75em" } },
+                            [_vm._v("Glaze Coating")]
+                          )
+                        ]
+                      )
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _c(
+                    "keep-alive",
+                    [
+                      _vm.showGlazes
+                        ? _c("products-filter", {
+                            attrs: {
+                              category: "glazes",
+                              list: _vm.listGlazeCoatings
+                            }
+                          })
+                        : _vm._e()
+                    ],
+                    1
+                  )
+                ],
+                1
+              )
+            ]),
+            _vm._v(" "),
+            _c("hr", { staticClass: "my-2" }),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "d-flex flex-column" },
+              [
+                _c(
+                  "div",
+                  {
+                    staticClass:
+                      "d-flex justify-content-between align-items-center pointer",
+                    on: { click: _vm.toggleExtColorDisplay }
+                  },
+                  [
+                    _c("strong", [_vm._v("Exterior")]),
+                    _vm._v(" "),
+                    _c("small", [
+                      _c("i", {
+                        class: {
+                          "fas fa-plus": !_vm.showExtColor,
+                          "fas fa-minus": _vm.showExtColor
+                        }
+                      })
+                    ])
+                  ]
+                ),
                 _vm._v(" "),
-                _vm.filteredResources.length
+                _vm.showExtColor
                   ? _c(
                       "div",
                       {
-                        staticClass: "row d-nonez border-top mt-1 mb-4",
-                        attrs: { id: "results-list" }
+                        staticClass:
+                          "d-flex justify-content-between align-items-center pt-2"
                       },
-                      _vm._l(_vm.filteredResources, function(resource) {
-                        return _c(_vm.currentView, {
-                          key: resource.Date,
-                          tag: "span",
-                          attrs: { resource: resource }
-                        })
-                      })
+                      [
+                        _c(
+                          "strong",
+                          { staticStyle: { "font-size": ".75em" } },
+                          [_vm._v("Materials")]
+                        )
+                      ]
                     )
-                  : _vm.projects.length
-                    ? _c("div", { staticClass: "no-results" }, [
-                        _vm._v("\n              No Results\n          ")
-                      ])
-                    : _c("div", { staticClass: "no-results" }, [
-                        _vm._v("\n              Loading...\n          ")
-                      ]),
+                  : _vm._e(),
                 _vm._v(" "),
-                _c("div", { attrs: { id: "product-list-bottom" } })
-              ])
+                _c(
+                  "keep-alive",
+                  [
+                    _vm.showExtColor
+                      ? _c("products-filter", {
+                          attrs: {
+                            category: "extColor",
+                            list: _vm.materialOptions
+                          }
+                        })
+                      : _vm._e()
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _vm.showExtColor
+                  ? _c(
+                      "div",
+                      {
+                        staticClass:
+                          "d-flex justify-content-between align-items-center pt-2"
+                      },
+                      [
+                        _c(
+                          "strong",
+                          { staticStyle: { "font-size": ".75em" } },
+                          [_vm._v("Finishes")]
+                        )
+                      ]
+                    )
+                  : _vm._e(),
+                _vm._v(" "),
+                _c(
+                  "keep-alive",
+                  [
+                    _vm.showExtColor
+                      ? _c("products-filter", {
+                          attrs: {
+                            category: "extColor",
+                            list: _vm.finishOptions
+                          }
+                        })
+                      : _vm._e()
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _vm.showExtColor
+                  ? _c(
+                      "div",
+                      {
+                        staticClass:
+                          "d-flex justify-content-between align-items-center pt-2"
+                      },
+                      [
+                        _c(
+                          "strong",
+                          { staticStyle: { "font-size": ".75em" } },
+                          [_vm._v("Standard Colors")]
+                        )
+                      ]
+                    )
+                  : _vm._e(),
+                _vm._v(" "),
+                _c(
+                  "keep-alive",
+                  [
+                    _vm.showExtColor
+                      ? _c("products-filter", {
+                          attrs: {
+                            category: "extColor",
+                            list: _vm.standardColors
+                          }
+                        })
+                      : _vm._e()
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _vm.showExtColor
+                  ? _c(
+                      "div",
+                      {
+                        staticClass:
+                          "d-flex justify-content-between align-items-center pt-2"
+                      },
+                      [
+                        _c(
+                          "strong",
+                          { staticStyle: { "font-size": ".75em" } },
+                          [_vm._v("Standard Cladding")]
+                        )
+                      ]
+                    )
+                  : _vm._e(),
+                _vm._v(" "),
+                _c(
+                  "keep-alive",
+                  [
+                    _vm.showExtColor
+                      ? _c("products-filter", {
+                          attrs: {
+                            category: "extColor",
+                            list: _vm.claddingOptions
+                          }
+                        })
+                      : _vm._e()
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _vm.showExtColor
+                  ? _c(
+                      "div",
+                      {
+                        staticClass:
+                          "d-flex justify-content-between align-items-center pt-2"
+                      },
+                      [
+                        _c(
+                          "strong",
+                          { staticStyle: { "font-size": ".75em" } },
+                          [_vm._v("Custom Options")]
+                        )
+                      ]
+                    )
+                  : _vm._e(),
+                _vm._v(" "),
+                _c(
+                  "keep-alive",
+                  [
+                    _vm.showExtColor
+                      ? _c("products-filter", {
+                          attrs: {
+                            category: "extColor",
+                            list: _vm.listExtColor
+                          }
+                        })
+                      : _vm._e()
+                  ],
+                  1
+                )
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c("hr", { staticClass: "my-2" }),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "d-flex flex-column" },
+              [
+                _c(
+                  "div",
+                  {
+                    staticClass:
+                      "d-flex justify-content-between align-items-center pointer",
+                    on: { click: _vm.toggleIntColorDisplay }
+                  },
+                  [
+                    _c("strong", [_vm._v("Interior")]),
+                    _vm._v(" "),
+                    _c("small", [
+                      _c("i", {
+                        class: {
+                          "fas fa-plus": !_vm.showIntColor,
+                          "fas fa-minus": _vm.showIntColor
+                        }
+                      })
+                    ])
+                  ]
+                ),
+                _vm._v(" "),
+                _vm.showIntColor
+                  ? _c(
+                      "div",
+                      {
+                        staticClass:
+                          "d-flex justify-content-between align-items-center pt-2"
+                      },
+                      [
+                        _c(
+                          "strong",
+                          { staticStyle: { "font-size": ".75em" } },
+                          [_vm._v("Materials")]
+                        )
+                      ]
+                    )
+                  : _vm._e(),
+                _vm._v(" "),
+                _c(
+                  "keep-alive",
+                  [
+                    _vm.showIntColor
+                      ? _c("products-filter", {
+                          attrs: {
+                            category: "intColor",
+                            list: _vm.materialOptions
+                          }
+                        })
+                      : _vm._e()
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _vm.showIntColor
+                  ? _c(
+                      "div",
+                      {
+                        staticClass:
+                          "d-flex justify-content-between align-items-center pt-2"
+                      },
+                      [
+                        _c(
+                          "strong",
+                          { staticStyle: { "font-size": ".75em" } },
+                          [_vm._v("Finishes")]
+                        )
+                      ]
+                    )
+                  : _vm._e(),
+                _vm._v(" "),
+                _c(
+                  "keep-alive",
+                  [
+                    _vm.showIntColor
+                      ? _c("products-filter", {
+                          attrs: {
+                            category: "intColor",
+                            list: _vm.finishOptions
+                          }
+                        })
+                      : _vm._e()
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _vm.showIntColor
+                  ? _c(
+                      "div",
+                      {
+                        staticClass:
+                          "d-flex justify-content-between align-items-center pt-2"
+                      },
+                      [
+                        _c(
+                          "strong",
+                          { staticStyle: { "font-size": ".75em" } },
+                          [_vm._v("Standard Colors")]
+                        )
+                      ]
+                    )
+                  : _vm._e(),
+                _vm._v(" "),
+                _c(
+                  "keep-alive",
+                  [
+                    _vm.showIntColor
+                      ? _c("products-filter", {
+                          attrs: {
+                            category: "intColor",
+                            list: _vm.standardColors
+                          }
+                        })
+                      : _vm._e()
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _vm.showIntColor
+                  ? _c(
+                      "div",
+                      {
+                        staticClass:
+                          "d-flex justify-content-between align-items-center pt-2"
+                      },
+                      [
+                        _c(
+                          "strong",
+                          { staticStyle: { "font-size": ".75em" } },
+                          [_vm._v("Standard Cladding")]
+                        )
+                      ]
+                    )
+                  : _vm._e(),
+                _vm._v(" "),
+                _c(
+                  "keep-alive",
+                  [
+                    _vm.showIntColor
+                      ? _c("products-filter", {
+                          attrs: {
+                            category: "intColor",
+                            list: _vm.claddingOptions
+                          }
+                        })
+                      : _vm._e()
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _vm.showIntColor
+                  ? _c(
+                      "div",
+                      {
+                        staticClass:
+                          "d-flex justify-content-between align-items-center pt-2"
+                      },
+                      [
+                        _c(
+                          "strong",
+                          { staticStyle: { "font-size": ".75em" } },
+                          [_vm._v("Custom Options")]
+                        )
+                      ]
+                    )
+                  : _vm._e(),
+                _vm._v(" "),
+                _c(
+                  "keep-alive",
+                  [
+                    _vm.showIntColor
+                      ? _c("products-filter", {
+                          attrs: {
+                            category: "intColor",
+                            list: _vm.listIntColor
+                          }
+                        })
+                      : _vm._e()
+                  ],
+                  1
+                )
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c("hr", { staticClass: "my-2" }),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "d-flex flex-column" },
+              [
+                _c(
+                  "div",
+                  {
+                    staticClass:
+                      "d-flex justify-content-between align-items-center pointer",
+                    on: { click: _vm.toggleLocationDisplay }
+                  },
+                  [
+                    _c("strong", [_vm._v("Location")]),
+                    _vm._v(" "),
+                    _c("small", [
+                      _c("i", {
+                        class: {
+                          "fas fa-plus": !_vm.showLocations,
+                          "fas fa-minus": _vm.showLocations
+                        }
+                      })
+                    ])
+                  ]
+                ),
+                _vm._v(" "),
+                _vm.showLocations
+                  ? _c(
+                      "div",
+                      {
+                        staticClass:
+                          "mb-1 d-flex justify-content-between align-items-center pt-2"
+                      },
+                      [
+                        _c(
+                          "strong",
+                          { staticStyle: { "font-size": ".75em" } },
+                          [_vm._v("International")]
+                        )
+                      ]
+                    )
+                  : _vm._e(),
+                _vm._v(" "),
+                _c(
+                  "keep-alive",
+                  [
+                    _vm.showLocations
+                      ? _c("products-filter", {
+                          attrs: {
+                            category: "locations",
+                            list: _vm.internatinalOptions
+                          }
+                        })
+                      : _vm._e()
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _vm.showLocations
+                  ? _c(
+                      "div",
+                      {
+                        staticClass:
+                          "mb-1 d-flex justify-content-between align-items-center pt-2"
+                      },
+                      [
+                        _c(
+                          "strong",
+                          { staticStyle: { "font-size": ".75em" } },
+                          [_vm._v("Domestic")]
+                        )
+                      ]
+                    )
+                  : _vm._e(),
+                _vm._v(" "),
+                _c(
+                  "keep-alive",
+                  [
+                    _vm.showLocations
+                      ? _c("products-filter", {
+                          attrs: {
+                            category: "locations",
+                            list: _vm.listLocation
+                          }
+                        })
+                      : _vm._e()
+                  ],
+                  1
+                )
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c("hr", { staticClass: "my-2" })
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "col-lg-10" }, [
+            _c("div", { staticClass: "container-fluid mb-2 pr-3 " }, [
+              _c("div", { staticClass: "row d-nonex" }),
+              _vm._v(" "),
+              _c("div", { staticClass: "row mt-0" }, [
+                _c("div", { staticClass: "col-4 text-left" }, [
+                  _c(
+                    "div",
+                    {
+                      staticClass: "btn-group",
+                      attrs: {
+                        role: "group",
+                        "aria-label": "Button group with nested dropdown"
+                      }
+                    },
+                    [
+                      _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-secondary",
+                          attrs: { type: "button" },
+                          on: {
+                            click: function($event) {
+                              _vm.changeSortDirection()
+                            }
+                          }
+                        },
+                        [
+                          _c("i", {
+                            class: {
+                              "fas fa-sort-amount-up":
+                                _vm.sortDirection === "desc",
+                              "fas fa-sort-amount-down":
+                                _vm.sortDirection === "asc"
+                            }
+                          })
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "button",
+                        {
+                          class: {
+                            "btn btn-secondary": true,
+                            active: _vm.showMap === true
+                          },
+                          attrs: { type: "button" },
+                          on: {
+                            click: function($event) {
+                              _vm.toggleMapDisplay()
+                            }
+                          }
+                        },
+                        [_c("i", { staticClass: "fas fa-globe-americas" })]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "button",
+                        {
+                          class: {
+                            "btn btn-secondary": true,
+                            active: _vm.currentView === "list-item"
+                          },
+                          attrs: { type: "button" },
+                          on: {
+                            click: function($event) {
+                              _vm.changeView("list-item")
+                            }
+                          }
+                        },
+                        [_c("i", { staticClass: "fas fa-list-ul" })]
+                      )
+                    ]
+                  )
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-6 text-muted mt-auto" }, [
+                  _c("div", { staticClass: "input-group" }, [
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.newSearch,
+                          expression: "newSearch"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: {
+                        type: "text",
+                        placeholder: "Search for Projects",
+                        "aria-label": "Recipient's username",
+                        "aria-describedby": "search"
+                      },
+                      domProps: { value: _vm.newSearch },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.newSearch = $event.target.value
+                        }
+                      }
+                    }),
+                    _vm._v(" "),
+                    _vm._m(2)
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-2 text-muted mt-auto" }, [
+                  _c("small", [
+                    _vm._v(_vm._s(_vm.totalResults) + " results found.")
+                  ])
+                ]),
+                _vm._v(" "),
+                _vm.showMap
+                  ? _c(
+                      "div",
+                      { staticClass: "my-3", staticStyle: { margin: "auto" } },
+                      [
+                        _c("ul", { staticClass: "stately" }, [
+                          _c(
+                            "li",
+                            {
+                              staticClass: "al",
+                              class: {
+                                "shade-5":
+                                  _vm.optionLocation.Alabama.length >= 4,
+                                "shade-4":
+                                  _vm.optionLocation.Alabama.length == 3,
+                                "shade-3":
+                                  _vm.optionLocation.Alabama.length == 2,
+                                "shade-2":
+                                  _vm.optionLocation.Alabama.length == 1,
+                                "shade-1":
+                                  _vm.optionLocation.Alabama.length == 0
+                              },
+                              attrs: { "data-state": "al" }
+                            },
+                            [_vm._v("A")]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "li",
+                            {
+                              staticClass: "ak",
+                              class: {
+                                "shade-5":
+                                  _vm.optionLocation.Alabama.length >= 4,
+                                "shade-4":
+                                  _vm.optionLocation.Alabama.length == 3,
+                                "shade-3":
+                                  _vm.optionLocation.Alabama.length == 2,
+                                "shade-2":
+                                  _vm.optionLocation.Alabama.length == 1,
+                                "shade-1":
+                                  _vm.optionLocation.Alabama.length == 0
+                              },
+                              attrs: { "data-state": "ak" }
+                            },
+                            [_vm._v("B")]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "li",
+                            {
+                              staticClass: "ar",
+                              class: {
+                                "shade-5":
+                                  _vm.optionLocation.Alabama.length >= 4,
+                                "shade-4":
+                                  _vm.optionLocation.Alabama.length == 3,
+                                "shade-3":
+                                  _vm.optionLocation.Alabama.length == 2,
+                                "shade-2":
+                                  _vm.optionLocation.Alabama.length == 1,
+                                "shade-1":
+                                  _vm.optionLocation.Alabama.length == 0
+                              },
+                              attrs: { "data-state": "ar" }
+                            },
+                            [_vm._v("C")]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "li",
+                            {
+                              staticClass: "az",
+                              class: {
+                                "shade-5":
+                                  _vm.optionLocation.Arizona.length >= 4,
+                                "shade-4":
+                                  _vm.optionLocation.Arizona.length == 3,
+                                "shade-3":
+                                  _vm.optionLocation.Arizona.length == 2,
+                                "shade-2":
+                                  _vm.optionLocation.Arizona.length == 1,
+                                "shade-1":
+                                  _vm.optionLocation.Arizona.length == 0
+                              },
+                              attrs: { "data-state": "az" }
+                            },
+                            [_vm._v("D")]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "li",
+                            {
+                              staticClass: "ca",
+                              class: {
+                                "shade-5":
+                                  _vm.optionLocation.California.length >= 4,
+                                "shade-4":
+                                  _vm.optionLocation.California.length == 3,
+                                "shade-3":
+                                  _vm.optionLocation.California.length == 2,
+                                "shade-2":
+                                  _vm.optionLocation.California.length == 1,
+                                "shade-1":
+                                  _vm.optionLocation.California.length == 0
+                              },
+                              attrs: { "data-state": "ca" }
+                            },
+                            [_vm._v("E")]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "li",
+                            {
+                              staticClass: "co",
+                              class: {
+                                "shade-5":
+                                  _vm.optionLocation.Colorado.length >= 4,
+                                "shade-4":
+                                  _vm.optionLocation.Colorado.length == 3,
+                                "shade-3":
+                                  _vm.optionLocation.Colorado.length == 2,
+                                "shade-2":
+                                  _vm.optionLocation.Colorado.length == 1,
+                                "shade-1":
+                                  _vm.optionLocation.Colorado.length == 0
+                              },
+                              attrs: { "data-state": "co" }
+                            },
+                            [_vm._v("F")]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "li",
+                            {
+                              staticClass: "ct",
+                              class: {
+                                "shade-5":
+                                  _vm.optionLocation.Connecticut.length >= 4,
+                                "shade-4":
+                                  _vm.optionLocation.Connecticut.length == 3,
+                                "shade-3":
+                                  _vm.optionLocation.Connecticut.length == 2,
+                                "shade-2":
+                                  _vm.optionLocation.Connecticut.length == 1,
+                                "shade-1":
+                                  _vm.optionLocation.Connecticut.length == 0
+                              },
+                              attrs: { "data-state": "ct" }
+                            },
+                            [_vm._v("G")]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "li",
+                            {
+                              staticClass: "de",
+                              class: {
+                                "shade-5":
+                                  _vm.optionLocation.Delaware.length >= 4,
+                                "shade-4":
+                                  _vm.optionLocation.Delaware.length == 3,
+                                "shade-3":
+                                  _vm.optionLocation.Delaware.length == 2,
+                                "shade-2":
+                                  _vm.optionLocation.Delaware.length == 1,
+                                "shade-1":
+                                  _vm.optionLocation.Delaware.length == 0
+                              },
+                              attrs: { "data-state": "de" }
+                            },
+                            [_vm._v("H")]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "li",
+                            {
+                              staticClass: "dc",
+                              class: {
+                                "shade-5":
+                                  _vm.optionLocation.Alabama.length >= 4,
+                                "shade-4":
+                                  _vm.optionLocation.Alabama.length == 3,
+                                "shade-3":
+                                  _vm.optionLocation.Alabama.length == 2,
+                                "shade-2":
+                                  _vm.optionLocation.Alabama.length == 1,
+                                "shade-1":
+                                  _vm.optionLocation.Alabama.length == 0
+                              },
+                              attrs: { "data-state": "dc" }
+                            },
+                            [_vm._v("I")]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "li",
+                            {
+                              staticClass: "fl",
+                              class: {
+                                "shade-5":
+                                  _vm.optionLocation.Florida.length >= 4,
+                                "shade-4":
+                                  _vm.optionLocation.Florida.length == 3,
+                                "shade-3":
+                                  _vm.optionLocation.Florida.length == 2,
+                                "shade-2":
+                                  _vm.optionLocation.Florida.length == 1,
+                                "shade-1":
+                                  _vm.optionLocation.Florida.length == 0
+                              },
+                              attrs: { "data-state": "fl" }
+                            },
+                            [_vm._v("J")]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "li",
+                            {
+                              staticClass: "ga",
+                              class: {
+                                "shade-5":
+                                  _vm.optionLocation.Georgia.length >= 4,
+                                "shade-4":
+                                  _vm.optionLocation.Georgia.length == 3,
+                                "shade-3":
+                                  _vm.optionLocation.Georgia.length == 2,
+                                "shade-2":
+                                  _vm.optionLocation.Georgia.length == 1,
+                                "shade-1":
+                                  _vm.optionLocation.Georgia.length == 0
+                              },
+                              attrs: { "data-state": "ga" }
+                            },
+                            [_vm._v("K")]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "li",
+                            {
+                              staticClass: "hi",
+                              class: {
+                                "shade-5":
+                                  _vm.optionLocation.Hawaii.length >= 4,
+                                "shade-4":
+                                  _vm.optionLocation.Hawaii.length == 3,
+                                "shade-3":
+                                  _vm.optionLocation.Hawaii.length == 2,
+                                "shade-2":
+                                  _vm.optionLocation.Hawaii.length == 1,
+                                "shade-1": _vm.optionLocation.Hawaii.length == 0
+                              },
+                              attrs: { "data-state": "hi" }
+                            },
+                            [_vm._v("L")]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "li",
+                            {
+                              staticClass: "id",
+                              class: {
+                                "shade-5":
+                                  _vm.optionLocation.Alabama.length >= 4,
+                                "shade-4":
+                                  _vm.optionLocation.Alabama.length == 3,
+                                "shade-3":
+                                  _vm.optionLocation.Alabama.length == 2,
+                                "shade-2":
+                                  _vm.optionLocation.Alabama.length == 1,
+                                "shade-1":
+                                  _vm.optionLocation.Alabama.length == 0
+                              },
+                              attrs: { "data-state": "id" }
+                            },
+                            [_vm._v("M")]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "li",
+                            {
+                              staticClass: "il",
+                              class: {
+                                "shade-5":
+                                  _vm.optionLocation.Illinois.length >= 4,
+                                "shade-4":
+                                  _vm.optionLocation.Illinois.length == 3,
+                                "shade-3":
+                                  _vm.optionLocation.Illinois.length == 2,
+                                "shade-2":
+                                  _vm.optionLocation.Illinois.length == 1,
+                                "shade-1":
+                                  _vm.optionLocation.Illinois.length == 0
+                              },
+                              attrs: { "data-state": "il" }
+                            },
+                            [_vm._v("N")]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "li",
+                            {
+                              staticClass: "in",
+                              class: {
+                                "shade-5":
+                                  _vm.optionLocation.Indiana.length >= 4,
+                                "shade-4":
+                                  _vm.optionLocation.Indiana.length == 3,
+                                "shade-3":
+                                  _vm.optionLocation.Indiana.length == 2,
+                                "shade-2":
+                                  _vm.optionLocation.Indiana.length == 1,
+                                "shade-1":
+                                  _vm.optionLocation.Indiana.length == 0
+                              },
+                              attrs: { "data-state": "in" }
+                            },
+                            [_vm._v("O")]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "li",
+                            {
+                              staticClass: "ia",
+                              class: {
+                                "shade-5": _vm.optionLocation.Iowa.length >= 4,
+                                "shade-4": _vm.optionLocation.Iowa.length == 3,
+                                "shade-3": _vm.optionLocation.Iowa.length == 2,
+                                "shade-2": _vm.optionLocation.Iowa.length == 1,
+                                "shade-1": _vm.optionLocation.Iowa.length == 0
+                              },
+                              attrs: { "data-state": "ia" }
+                            },
+                            [_vm._v("P")]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "li",
+                            {
+                              staticClass: "ks",
+                              class: {
+                                "shade-5":
+                                  _vm.optionLocation.Kansas.length >= 4,
+                                "shade-4":
+                                  _vm.optionLocation.Kansas.length == 3,
+                                "shade-3":
+                                  _vm.optionLocation.Kansas.length == 2,
+                                "shade-2":
+                                  _vm.optionLocation.Kansas.length == 1,
+                                "shade-1": _vm.optionLocation.Kansas.length == 0
+                              },
+                              attrs: { "data-state": "ks" }
+                            },
+                            [_vm._v("Q")]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "li",
+                            {
+                              staticClass: "ky",
+                              class: {
+                                "shade-5":
+                                  _vm.optionLocation.Kentucky.length >= 4,
+                                "shade-4":
+                                  _vm.optionLocation.Kentucky.length == 3,
+                                "shade-3":
+                                  _vm.optionLocation.Kentucky.length == 2,
+                                "shade-2":
+                                  _vm.optionLocation.Kentucky.length == 1,
+                                "shade-1":
+                                  _vm.optionLocation.Kentucky.length == 0
+                              },
+                              attrs: { "data-state": "ky" }
+                            },
+                            [_vm._v("R")]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "li",
+                            {
+                              staticClass: "la",
+                              class: {
+                                "shade-5":
+                                  _vm.optionLocation.Alabama.length >= 4,
+                                "shade-4":
+                                  _vm.optionLocation.Alabama.length == 3,
+                                "shade-3":
+                                  _vm.optionLocation.Alabama.length == 2,
+                                "shade-2":
+                                  _vm.optionLocation.Alabama.length == 1,
+                                "shade-1":
+                                  _vm.optionLocation.Alabama.length == 0
+                              },
+                              attrs: { "data-state": "la" }
+                            },
+                            [_vm._v("S")]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "li",
+                            {
+                              staticClass: "me",
+                              class: {
+                                "shade-5": _vm.optionLocation.Maine.length >= 4,
+                                "shade-4": _vm.optionLocation.Maine.length == 3,
+                                "shade-3": _vm.optionLocation.Maine.length == 2,
+                                "shade-2": _vm.optionLocation.Maine.length == 1,
+                                "shade-1": _vm.optionLocation.Maine.length == 0
+                              },
+                              attrs: { "data-state": "me" }
+                            },
+                            [_vm._v("T")]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "li",
+                            {
+                              staticClass: "md",
+                              class: {
+                                "shade-5":
+                                  _vm.optionLocation.Maryland.length >= 4,
+                                "shade-4":
+                                  _vm.optionLocation.Maryland.length == 3,
+                                "shade-3":
+                                  _vm.optionLocation.Maryland.length == 2,
+                                "shade-2":
+                                  _vm.optionLocation.Maryland.length == 1,
+                                "shade-1":
+                                  _vm.optionLocation.Maryland.length == 0
+                              },
+                              attrs: { "data-state": "md" }
+                            },
+                            [_vm._v("U")]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "li",
+                            {
+                              staticClass: "ma",
+                              class: {
+                                "shade-5":
+                                  _vm.optionLocation.Massachusetts.length >= 4,
+                                "shade-4":
+                                  _vm.optionLocation.Massachusetts.length == 3,
+                                "shade-3":
+                                  _vm.optionLocation.Massachusetts.length == 2,
+                                "shade-2":
+                                  _vm.optionLocation.Massachusetts.length == 1,
+                                "shade-1":
+                                  _vm.optionLocation.Massachusetts.length == 0
+                              },
+                              attrs: { "data-state": "ma" }
+                            },
+                            [_vm._v("V")]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "li",
+                            {
+                              staticClass: "mi",
+                              class: {
+                                "shade-5":
+                                  _vm.optionLocation.Michigan.length >= 4,
+                                "shade-4":
+                                  _vm.optionLocation.Michigan.length == 3,
+                                "shade-3":
+                                  _vm.optionLocation.Michigan.length == 2,
+                                "shade-2":
+                                  _vm.optionLocation.Michigan.length == 1,
+                                "shade-1":
+                                  _vm.optionLocation.Michigan.length == 0
+                              },
+                              attrs: { "data-state": "mi" }
+                            },
+                            [_vm._v("W")]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "li",
+                            {
+                              staticClass: "mn",
+                              class: {
+                                "shade-5":
+                                  _vm.optionLocation.Minnesota.length >= 4,
+                                "shade-4":
+                                  _vm.optionLocation.Minnesota.length == 3,
+                                "shade-3":
+                                  _vm.optionLocation.Minnesota.length == 2,
+                                "shade-2":
+                                  _vm.optionLocation.Minnesota.length == 1,
+                                "shade-1":
+                                  _vm.optionLocation.Minnesota.length == 0
+                              },
+                              attrs: { "data-state": "mn" }
+                            },
+                            [_vm._v("X")]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "li",
+                            {
+                              staticClass: "ms",
+                              class: {
+                                "shade-5":
+                                  _vm.optionLocation.Mississippi.length >= 4,
+                                "shade-4":
+                                  _vm.optionLocation.Mississippi.length == 3,
+                                "shade-3":
+                                  _vm.optionLocation.Mississippi.length == 2,
+                                "shade-2":
+                                  _vm.optionLocation.Mississippi.length == 1,
+                                "shade-1":
+                                  _vm.optionLocation.Mississippi.length == 0
+                              },
+                              attrs: { "data-state": "ms" }
+                            },
+                            [_vm._v("Y")]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "li",
+                            {
+                              staticClass: "mo",
+                              class: {
+                                "shade-5":
+                                  _vm.optionLocation.Montana.length >= 4,
+                                "shade-4":
+                                  _vm.optionLocation.Montana.length == 3,
+                                "shade-3":
+                                  _vm.optionLocation.Montana.length == 2,
+                                "shade-2":
+                                  _vm.optionLocation.Montana.length == 1,
+                                "shade-1":
+                                  _vm.optionLocation.Montana.length == 0
+                              },
+                              attrs: { "data-state": "mo" }
+                            },
+                            [_vm._v("Z")]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "li",
+                            {
+                              staticClass: "mt",
+                              class: {
+                                "shade-5":
+                                  _vm.optionLocation.Nevada.length >= 4,
+                                "shade-4":
+                                  _vm.optionLocation.Nevada.length == 3,
+                                "shade-3":
+                                  _vm.optionLocation.Nevada.length == 2,
+                                "shade-2":
+                                  _vm.optionLocation.Nevada.length == 1,
+                                "shade-1": _vm.optionLocation.Nevada.length == 0
+                              },
+                              attrs: { "data-state": "mt" }
+                            },
+                            [_vm._v("a")]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "li",
+                            {
+                              staticClass: "ne",
+                              class: {
+                                "shade-5":
+                                  _vm.optionLocation.Alabama.length >= 4,
+                                "shade-4":
+                                  _vm.optionLocation.Alabama.length == 3,
+                                "shade-3":
+                                  _vm.optionLocation.Alabama.length == 2,
+                                "shade-2":
+                                  _vm.optionLocation.Alabama.length == 1,
+                                "shade-1":
+                                  _vm.optionLocation.Alabama.length == 0
+                              },
+                              attrs: { "data-state": "ne" }
+                            },
+                            [_vm._v("b")]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "li",
+                            {
+                              staticClass: "nv",
+                              class: {
+                                "shade-5":
+                                  _vm.optionLocation.Alabama.length >= 4,
+                                "shade-4":
+                                  _vm.optionLocation.Alabama.length == 3,
+                                "shade-3":
+                                  _vm.optionLocation.Alabama.length == 2,
+                                "shade-2":
+                                  _vm.optionLocation.Alabama.length == 1,
+                                "shade-1":
+                                  _vm.optionLocation.Alabama.length == 0
+                              },
+                              attrs: { "data-state": "nv" }
+                            },
+                            [_vm._v("c")]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "li",
+                            {
+                              staticClass: "nh",
+                              class: {
+                                "shade-5":
+                                  _vm.optionLocation["New Hampshire"].length >=
+                                  4,
+                                "shade-4":
+                                  _vm.optionLocation["New Hampshire"].length ==
+                                  3,
+                                "shade-3":
+                                  _vm.optionLocation["New Hampshire"].length ==
+                                  2,
+                                "shade-2":
+                                  _vm.optionLocation["New Hampshire"].length ==
+                                  1,
+                                "shade-1":
+                                  _vm.optionLocation["New Hampshire"].length ==
+                                  0
+                              },
+                              attrs: { "data-state": "nh" }
+                            },
+                            [_vm._v("d")]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "li",
+                            {
+                              staticClass: "nj",
+                              class: {
+                                "shade-5":
+                                  _vm.optionLocation["New Jersey"].length >= 4,
+                                "shade-4":
+                                  _vm.optionLocation["New Jersey"].length == 3,
+                                "shade-3":
+                                  _vm.optionLocation["New Jersey"].length == 2,
+                                "shade-2":
+                                  _vm.optionLocation["New Jersey"].length == 1,
+                                "shade-1":
+                                  _vm.optionLocation["New Jersey"].length == 0
+                              },
+                              attrs: { "data-state": "nj" }
+                            },
+                            [_vm._v("e")]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "li",
+                            {
+                              staticClass: "nm",
+                              class: {
+                                "shade-5":
+                                  _vm.optionLocation["New Mexico"].length >= 4,
+                                "shade-4":
+                                  _vm.optionLocation["New Mexico"].length == 3,
+                                "shade-3":
+                                  _vm.optionLocation["New Mexico"].length == 2,
+                                "shade-2":
+                                  _vm.optionLocation["New Mexico"].length == 1,
+                                "shade-1":
+                                  _vm.optionLocation["New Mexico"].length == 0
+                              },
+                              attrs: { "data-state": "nm" }
+                            },
+                            [_vm._v("f")]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "li",
+                            {
+                              staticClass: "ny",
+                              class: {
+                                "shade-5":
+                                  _vm.optionLocation["New York"].length >= 4,
+                                "shade-4":
+                                  _vm.optionLocation["New York"].length == 3,
+                                "shade-3":
+                                  _vm.optionLocation["New York"].length == 2,
+                                "shade-2":
+                                  _vm.optionLocation["New York"].length == 1,
+                                "shade-1":
+                                  _vm.optionLocation["New York"].length == 0
+                              },
+                              attrs: { "data-state": "ny" }
+                            },
+                            [_vm._v("g")]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "li",
+                            {
+                              staticClass: "nc",
+                              class: {
+                                "shade-5":
+                                  _vm.optionLocation["North Carolina"].length >=
+                                  4,
+                                "shade-4":
+                                  _vm.optionLocation["North Carolina"].length ==
+                                  3,
+                                "shade-3":
+                                  _vm.optionLocation["North Carolina"].length ==
+                                  2,
+                                "shade-2":
+                                  _vm.optionLocation["North Carolina"].length ==
+                                  1,
+                                "shade-1":
+                                  _vm.optionLocation["North Carolina"].length ==
+                                  0
+                              },
+                              attrs: { "data-state": "nc" }
+                            },
+                            [_vm._v("h")]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "li",
+                            {
+                              staticClass: "nd",
+                              class: {
+                                "shade-5":
+                                  _vm.optionLocation["North Dakota"].length >=
+                                  4,
+                                "shade-4":
+                                  _vm.optionLocation["North Dakota"].length ==
+                                  3,
+                                "shade-3":
+                                  _vm.optionLocation["North Dakota"].length ==
+                                  2,
+                                "shade-2":
+                                  _vm.optionLocation["North Dakota"].length ==
+                                  1,
+                                "shade-1":
+                                  _vm.optionLocation["North Dakota"].length == 0
+                              },
+                              attrs: { "data-state": "nd" }
+                            },
+                            [_vm._v("i")]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "li",
+                            {
+                              staticClass: "oh",
+                              class: {
+                                "shade-5": _vm.optionLocation.Ohio.length >= 4,
+                                "shade-4": _vm.optionLocation.Ohio.length == 3,
+                                "shade-3": _vm.optionLocation.Ohio.length == 2,
+                                "shade-2": _vm.optionLocation.Ohio.length == 1,
+                                "shade-1": _vm.optionLocation.Ohio.length == 0
+                              },
+                              attrs: { "data-state": "oh" }
+                            },
+                            [_vm._v("j")]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "li",
+                            {
+                              staticClass: "ok",
+                              class: {
+                                "shade-5":
+                                  _vm.optionLocation.Oklahoma.length >= 4,
+                                "shade-4":
+                                  _vm.optionLocation.Oklahoma.length == 3,
+                                "shade-3":
+                                  _vm.optionLocation.Oklahoma.length == 2,
+                                "shade-2":
+                                  _vm.optionLocation.Oklahoma.length == 1,
+                                "shade-1":
+                                  _vm.optionLocation.Oklahoma.length == 0
+                              },
+                              attrs: { "data-state": "ok" }
+                            },
+                            [_vm._v("k")]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "li",
+                            {
+                              staticClass: "or",
+                              class: {
+                                "shade-5":
+                                  _vm.optionLocation.Alabama.length >= 4,
+                                "shade-4":
+                                  _vm.optionLocation.Alabama.length == 3,
+                                "shade-3":
+                                  _vm.optionLocation.Alabama.length == 2,
+                                "shade-2":
+                                  _vm.optionLocation.Alabama.length == 1,
+                                "shade-1":
+                                  _vm.optionLocation.Alabama.length == 0
+                              },
+                              attrs: { "data-state": "or" }
+                            },
+                            [_vm._v("l")]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "li",
+                            {
+                              staticClass: "pa",
+                              class: {
+                                "shade-5":
+                                  _vm.optionLocation.Pennsylvania.length >= 4,
+                                "shade-4":
+                                  _vm.optionLocation.Pennsylvania.length == 3,
+                                "shade-3":
+                                  _vm.optionLocation.Pennsylvania.length == 2,
+                                "shade-2":
+                                  _vm.optionLocation.Pennsylvania.length == 1,
+                                "shade-1":
+                                  _vm.optionLocation.Pennsylvania.length == 0
+                              },
+                              attrs: { "data-state": "pa" }
+                            },
+                            [_vm._v("m")]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "li",
+                            {
+                              staticClass: "ri",
+                              class: {
+                                "shade-5":
+                                  _vm.optionLocation["Rhode Island"].length >=
+                                  4,
+                                "shade-4":
+                                  _vm.optionLocation["Rhode Island"].length ==
+                                  3,
+                                "shade-3":
+                                  _vm.optionLocation["Rhode Island"].length ==
+                                  2,
+                                "shade-2":
+                                  _vm.optionLocation["Rhode Island"].length ==
+                                  1,
+                                "shade-1":
+                                  _vm.optionLocation["Rhode Island"].length == 0
+                              },
+                              attrs: { "data-state": "ri" }
+                            },
+                            [_vm._v("n")]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "li",
+                            {
+                              staticClass: "sc",
+                              class: {
+                                "shade-5":
+                                  _vm.optionLocation["South Carolina"].length >=
+                                  4,
+                                "shade-4":
+                                  _vm.optionLocation["South Carolina"].length ==
+                                  3,
+                                "shade-3":
+                                  _vm.optionLocation["South Carolina"].length ==
+                                  2,
+                                "shade-2":
+                                  _vm.optionLocation["South Carolina"].length ==
+                                  1,
+                                "shade-1":
+                                  _vm.optionLocation["South Carolina"].length ==
+                                  0
+                              },
+                              attrs: { "data-state": "sc" }
+                            },
+                            [_vm._v("o")]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "li",
+                            {
+                              staticClass: "sd",
+                              class: {
+                                "shade-5":
+                                  _vm.optionLocation["Alabama"].length >= 4,
+                                "shade-4":
+                                  _vm.optionLocation["Alabama"].length == 3,
+                                "shade-3":
+                                  _vm.optionLocation["Alabama"].length == 2,
+                                "shade-2":
+                                  _vm.optionLocation["Alabama"].length == 1,
+                                "shade-1":
+                                  _vm.optionLocation["Alabama"].length == 0
+                              },
+                              attrs: { "data-state": "sd" }
+                            },
+                            [_vm._v("p")]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "li",
+                            {
+                              staticClass: "tn",
+                              class: {
+                                "shade-5":
+                                  _vm.optionLocation.Alabama.length >= 4,
+                                "shade-4":
+                                  _vm.optionLocation.Alabama.length == 3,
+                                "shade-3":
+                                  _vm.optionLocation.Alabama.length == 2,
+                                "shade-2":
+                                  _vm.optionLocation.Alabama.length == 1,
+                                "shade-1":
+                                  _vm.optionLocation.Alabama.length == 0
+                              },
+                              attrs: { "data-state": "tn" }
+                            },
+                            [_vm._v("q")]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "li",
+                            {
+                              staticClass: "tx",
+                              class: {
+                                "shade-5": _vm.optionLocation.Texas.length >= 4,
+                                "shade-4": _vm.optionLocation.Texas.length == 3,
+                                "shade-3": _vm.optionLocation.Texas.length == 2,
+                                "shade-2": _vm.optionLocation.Texas.length == 1,
+                                "shade-1": _vm.optionLocation.Texas.length == 0
+                              },
+                              attrs: { "data-state": "tx" }
+                            },
+                            [_vm._v("r")]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "li",
+                            {
+                              staticClass: "ut",
+                              class: {
+                                "shade-5":
+                                  _vm.optionLocation.Alabama.length >= 4,
+                                "shade-4":
+                                  _vm.optionLocation.Alabama.length == 3,
+                                "shade-3":
+                                  _vm.optionLocation.Alabama.length == 2,
+                                "shade-2":
+                                  _vm.optionLocation.Alabama.length == 1,
+                                "shade-1":
+                                  _vm.optionLocation.Alabama.length == 0
+                              },
+                              attrs: { "data-state": "ut" }
+                            },
+                            [_vm._v("s")]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "li",
+                            {
+                              staticClass: "va",
+                              class: {
+                                "shade-5":
+                                  _vm.optionLocation.Virginia.length >= 4,
+                                "shade-4":
+                                  _vm.optionLocation.Virginia.length == 3,
+                                "shade-3":
+                                  _vm.optionLocation.Virginia.length == 2,
+                                "shade-2":
+                                  _vm.optionLocation.Virginia.length == 1,
+                                "shade-1":
+                                  _vm.optionLocation.Virginia.length == 0
+                              },
+                              attrs: { "data-state": "va" }
+                            },
+                            [_vm._v("t")]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "li",
+                            {
+                              staticClass: "vt",
+                              class: {
+                                "shade-5":
+                                  _vm.optionLocation.Vermont.length >= 4,
+                                "shade-4":
+                                  _vm.optionLocation.Vermont.length == 3,
+                                "shade-3":
+                                  _vm.optionLocation.Vermont.length == 2,
+                                "shade-2":
+                                  _vm.optionLocation.Vermont.length == 1,
+                                "shade-1":
+                                  _vm.optionLocation.Vermont.length == 0
+                              },
+                              attrs: { "data-state": "vt" }
+                            },
+                            [_vm._v("u")]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "li",
+                            {
+                              staticClass: "wa",
+                              class: {
+                                "shade-5":
+                                  _vm.optionLocation.Washington.length >= 4,
+                                "shade-4":
+                                  _vm.optionLocation.Washington.length == 3,
+                                "shade-3":
+                                  _vm.optionLocation.Washington.length == 2,
+                                "shade-2":
+                                  _vm.optionLocation.Washington.length == 1,
+                                "shade-1":
+                                  _vm.optionLocation.Washington.length == 0
+                              },
+                              attrs: { "data-state": "wa" }
+                            },
+                            [_vm._v("v")]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "li",
+                            {
+                              staticClass: "wv",
+                              class: {
+                                "shade-5":
+                                  _vm.optionLocation["West Virginia"].length >=
+                                  4,
+                                "shade-4":
+                                  _vm.optionLocation["West Virginia"].length ==
+                                  3,
+                                "shade-3":
+                                  _vm.optionLocation["West Virginia"].length ==
+                                  2,
+                                "shade-2":
+                                  _vm.optionLocation["West Virginia"].length ==
+                                  1,
+                                "shade-1":
+                                  _vm.optionLocation["West Virginia"].length ==
+                                  0
+                              },
+                              attrs: { "data-state": "wv" }
+                            },
+                            [_vm._v("w")]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "li",
+                            {
+                              staticClass: "wi",
+                              class: {
+                                "shade-5":
+                                  _vm.optionLocation.Wisconsin.length >= 4,
+                                "shade-4":
+                                  _vm.optionLocation.Wisconsin.length == 3,
+                                "shade-3":
+                                  _vm.optionLocation.Wisconsin.length == 2,
+                                "shade-2":
+                                  _vm.optionLocation.Wisconsin.length == 1,
+                                "shade-1":
+                                  _vm.optionLocation.Wisconsin.length == 0
+                              },
+                              attrs: { "data-state": "wi" }
+                            },
+                            [_vm._v("x")]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "li",
+                            {
+                              staticClass: "wy",
+                              class: {
+                                "shade-5":
+                                  _vm.optionLocation.Alabama.length >= 4,
+                                "shade-4":
+                                  _vm.optionLocation.Alabama.length == 3,
+                                "shade-3":
+                                  _vm.optionLocation.Alabama.length == 2,
+                                "shade-2":
+                                  _vm.optionLocation.Alabama.length == 1,
+                                "shade-1":
+                                  _vm.optionLocation.Alabama.length == 0
+                              },
+                              attrs: { "data-state": "wy" }
+                            },
+                            [_vm._v("y")]
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("h3", { staticClass: "text-center" }, [
+                          _vm._v("Projects by State")
+                        ]),
+                        _vm._v(" "),
+                        _vm._m(3)
+                      ]
+                    )
+                  : _vm._e()
+              ]),
+              _vm._v(" "),
+              _vm.filteredResources.length
+                ? _c(
+                    "div",
+                    {
+                      staticClass: "row d-nonez border-top mt-1 mb-4",
+                      attrs: { id: "results-list" }
+                    },
+                    _vm._l(_vm.filteredResources, function(resource) {
+                      return _c(_vm.currentView, {
+                        key: resource.Date,
+                        tag: "span",
+                        attrs: { resource: resource }
+                      })
+                    })
+                  )
+                : _vm.projects.length
+                  ? _c("div", { staticClass: "no-results" }, [
+                      _vm._v("\n              No Results\n          ")
+                    ])
+                  : _c("div", { staticClass: "no-results" }, [
+                      _vm._v("\n              Loading...\n          ")
+                    ]),
+              _vm._v(" "),
+              _c("div", { attrs: { id: "product-list-bottom" } })
             ])
           ])
-        ]
-      )
-    ],
-    1
-  )
+        ])
+      ]
+    )
+  ])
 }
 var staticRenderFns = [
   function() {
@@ -35047,50 +34986,6 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("h3", { staticStyle: { "font-size": "90%", color: "#969696" } }, [
       _c("strong", [_vm._v("Show results for:")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-12" }, [
-      _c(
-        "div",
-        {
-          staticClass: "alert mb-0 alert-secondary alert-dismissible fade show",
-          attrs: { role: "alert" }
-        },
-        [
-          _c("small", [
-            _vm._v("\n                  Solar Innovations"),
-            _c("sup", [_vm._v("®")]),
-            _vm._v(
-              " is happy to work with our customers, vendors, and dealers to achieve outstanding results. Time is of the essence for many of our customers, we have provided various resources for immediate review.\n                "
-            )
-          ]),
-          _vm._v(" "),
-          _c(
-            "button",
-            {
-              staticClass: "close",
-              staticStyle: { padding: "0rem .7rem" },
-              attrs: {
-                type: "button",
-                "data-dismiss": "alert",
-                "aria-label": "Close"
-              }
-            },
-            [
-              _c("span", { attrs: { "aria-hidden": "true" } }, [
-                _c("i", {
-                  staticClass: "fas fa-times",
-                  staticStyle: { "font-size": ".6em" }
-                })
-              ])
-            ]
-          )
-        ]
-      )
     ])
   },
   function() {

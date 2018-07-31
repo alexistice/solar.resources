@@ -1,8 +1,6 @@
 <template>
   <main  class="mt-3">
-    <modal name="hello-world">
-  hello, world!
-</modal>
+
     <div class="container-fluid mb-5" id="content">
       <div class="row">
       <div class="col-12 border-bottom mb-4">
@@ -230,7 +228,7 @@
       <div class="col-lg-10">
         <div class="container-fluid mb-2 pr-3 ">
           <div class="row d-nonex">
-            <div class="col-12">
+            <!-- <div class="col-12">
               <div class="alert mb-0 alert-secondary alert-dismissible fade show" role="alert">
                 <small>
                   Solar Innovations<sup>®</sup> is happy to work with our customers, vendors, and dealers to achieve outstanding results. Time is of the essence for many of our customers, we have provided various resources for immediate review.
@@ -239,12 +237,12 @@
                   <span aria-hidden="true"><i style="font-size:.6em" class="fas fa-times"></i></span>
                 </button>
               </div>
-            </div>
-            <mega-filter></mega-filter>
+            </div> -->
+            <!-- <mega-filter></mega-filter> -->
           </div>  
           
           <!-- Results, Sort, Display options -->
-          <div class="row mt-3">
+          <div class="row mt-0">
             <div class="col-4 text-left">
               <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
 
