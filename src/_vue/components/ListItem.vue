@@ -9,16 +9,16 @@
                 </div>
                 <div class="row no-gutters pr-3 pt-1 justify-content-end">
                     <div class="col-6 pl-1 mb-1" v-if="resource.Image1">
-                        <div @click="show(resource.Image1)" @mouseover="imgHover(imgUrlFormat(resource.Image1))" class="img thumb" v-bind:style="{ backgroundImage: 'url(' + imgUrlFormat(resource.Image1) + ')' }" ></div>
+                        <div @click="show(resource.Image1)" @mouseover="imgHover(imgUrlFormat(resource.Image1))" class="img thumb pointer" v-bind:style="{ backgroundImage: 'url(' + imgUrlFormat(resource.Image1) + ')' }" ></div>
                     </div>
                     <div class="col-6 pl-1 mb-1" v-if="resource.Image2">
-                        <div @click="show(resource.Image2)" @mouseover="imgHover(imgUrlFormat(resource.Image2))" class="img thumb" v-bind:style="{ backgroundImage: 'url(' + imgUrlFormat(resource.Image2) + ')' }" ></div>
+                        <div @click="show(resource.Image2)" @mouseover="imgHover(imgUrlFormat(resource.Image2))" class="img thumb pointer" v-bind:style="{ backgroundImage: 'url(' + imgUrlFormat(resource.Image2) + ')' }" ></div>
                     </div>
                     <div class="col-6 pl-1 mb-1" v-if="resource.Image3">
-                        <div @click="show(resource.Image3)" @mouseover="imgHover(imgUrlFormat(resource.Image3))" class="img thumb" v-bind:style="{ backgroundImage: 'url(' + imgUrlFormat(resource.Image3) + ')' }" ></div>
+                        <div @click="show(resource.Image3)" @mouseover="imgHover(imgUrlFormat(resource.Image3))" class="img thumb pointer" v-bind:style="{ backgroundImage: 'url(' + imgUrlFormat(resource.Image3) + ')' }" ></div>
                     </div>
                     <div class="col-6 pl-1 mb-1" v-if="resource.Image4">
-                        <div @click="show(resource.Image4)" @mouseover="imgHover(imgUrlFormat(resource.Image4))" class="img thumb" v-bind:style="{ backgroundImage: 'url(' + imgUrlFormat(resource.Image4) + ')' }" ></div>
+                        <div @click="show(resource.Image4)" @mouseover="imgHover(imgUrlFormat(resource.Image4))" class="img thumb pointer" v-bind:style="{ backgroundImage: 'url(' + imgUrlFormat(resource.Image4) + ')' }" ></div>
                     </div>
                     
                 </div>

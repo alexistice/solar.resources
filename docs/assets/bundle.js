@@ -32077,7 +32077,7 @@ var render = function() {
             _vm.resource.Image1
               ? _c("div", { staticClass: "col-6 pl-1 mb-1" }, [
                   _c("div", {
-                    staticClass: "img thumb",
+                    staticClass: "img thumb pointer",
                     style: {
                       backgroundImage:
                         "url(" + _vm.imgUrlFormat(_vm.resource.Image1) + ")"
@@ -32097,7 +32097,7 @@ var render = function() {
             _vm.resource.Image2
               ? _c("div", { staticClass: "col-6 pl-1 mb-1" }, [
                   _c("div", {
-                    staticClass: "img thumb",
+                    staticClass: "img thumb pointer",
                     style: {
                       backgroundImage:
                         "url(" + _vm.imgUrlFormat(_vm.resource.Image2) + ")"
@@ -32117,7 +32117,7 @@ var render = function() {
             _vm.resource.Image3
               ? _c("div", { staticClass: "col-6 pl-1 mb-1" }, [
                   _c("div", {
-                    staticClass: "img thumb",
+                    staticClass: "img thumb pointer",
                     style: {
                       backgroundImage:
                         "url(" + _vm.imgUrlFormat(_vm.resource.Image3) + ")"
@@ -32137,7 +32137,7 @@ var render = function() {
             _vm.resource.Image4
               ? _c("div", { staticClass: "col-6 pl-1 mb-1" }, [
                   _c("div", {
-                    staticClass: "img thumb",
+                    staticClass: "img thumb pointer",
                     style: {
                       backgroundImage:
                         "url(" + _vm.imgUrlFormat(_vm.resource.Image4) + ")"
