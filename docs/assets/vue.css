@@ -59,5 +59,142 @@ pointer[data-v-1f9ca61f]{
 
 h1[data-v-df221e22] {color: blue
 }
+nav.navbar {
+  z-index: 99;
+  box-shadow: 0 -35px 10px 35px rgba(0, 0, 0, 0.2); }
+
+.navbar .mega-dropdown {
+  position: static !important; }
+
+.navbar .dropdown-menu.mega-menu {
+  width: 100%;
+  border: none;
+  border-radius: 0; }
+
+.navbar .dropdown-menu.mega-menu.v-2 a {
+  padding: 0px; }
+
+.navbar .dropdown-menu.mega-menu.v-2 {
+  font-weight: 500;
+  font-size: 1rem;
+  line-height: 1.5;
+  -webkit-transition: .2s;
+  transition: .2s;
+  color: #231F20 !important; }
+
+.navbar .dropdown-menu.mega-menu.v-2 .sub-title {
+  padding-bottom: .5rem !important;
+  margin-bottom: .5rem !important;
+  border-bottom: 0px solid; }
+
+.navbar .dropdown-menu.mega-menu.v-2 .font-small {
+  font-size: 0.85rem; }
+
+.nav-link:hover,
+.pointer:hover {
+  cursor: pointer; }
+
+.dropdown-menu.mega-menu,
+nav {
+  background: white; }
+
+.dropdown-toggle::after {
+  display: none; }
+
+.sub-title,
+.black-text,
+a.news-title-2,
+li.nav-item,
+a.nav-link,
+.icon-pic {
+  color: #4e4b4c; }
+
+.dropdown-menu {
+  margin-top: 0px; }
+
+.faded {
+  color: #656262; }
+
+.nav-scroll {
+  height: -moz-calc(100vh - 131px);
+  /* Firefox */
+  height: -webkit-calc(100vh - 131px);
+  /* Chrome, Safari */
+  height: calc(100vh - 131px); }
+
+@media only screen and (max-width: 991px) {
+  .nav-scroll {
+    height: -moz-calc(100vh - 331px);
+    /* Firefox */
+    height: -webkit-calc(100vh - 331px);
+    /* Chrome, Safari */
+    height: calc(100vh - 331px); } }
+
+.nav-scroll {
+  overflow-y: scroll;
+  position: absolute; }
+
+.shadow-top {
+  -webkit-box-shadow: inset 0 14px 20px -20px rgba(0, 0, 0, 0.8);
+  -moz-box-shadow: inset 0 14px 20px -20px rgba(0, 0, 0, 0.8);
+  box-shadow: inset 0 14px 20px -20px rgba(0, 0, 0, 0.8);
+  /* box-shadow: 0 8px 6px -6px black; */
+  padding-top: 3px; }
+
+.paper-bg {
+  background: linear-gradient(rgba(255, 255, 255, 0.35), rgba(255, 255, 255, 0.35)), url("/assets/patterns/white_wall_hash.png"); }
+
+#footer > div > small > div > div > div > div > a > h6,
+#footer > div > small > div > div > div > div > h6,
+#footer > div > small > div > div > div > div > div > ul > li,
+#footer > div > small > div > div > a > h6,
+#footer > div > small > div > div > div > ul > li,
+#footer > div > small > div > div > h6 {
+  color: #a0a0a0;
+  /* color: #c6c6c6; */ }
+
+html {
+  background: #231F20; }
+
+.grad-cust {
+  background: linear-gradient(rgba(50, 107, 50, 0.95), #231f20);
+  color: white;
+  border-top: solid 5px #f47b28; }
+
+footer.footer {
+  background: url("/assets/iso/Iso3.gif"), url("/assets/iso/Iso11.gif");
+  background-repeat: no-repeat;
+  background-position: left top, right top; }
+
+.brand-foot {
+  background: linear-gradient(#231f20, #231f20); }
+
+body {
+  background: #f8f9fa; }
+
+hr.grad-left {
+  border: 0;
+  height: 1px;
+  background-image: linear-gradient(to right, rgba(255, 255, 255, 0.75), rgba(255, 255, 255, 0));
+  width: 90%;
+  margin: auto auto; }
+
+a.highlight {
+  background: #f47b28;
+  color: white;
+  padding: 5px 10px;
+  font-weight: bold;
+  transition: color .2s;
+  transition: background .2s; }
+
+a.highlight:hover {
+  background: transparent;
+  color: #f47b28;
+  padding: 5px 10px;
+  font-weight: bold; }
+
+.footer-header {
+  text-transform: capitalize;
+  color: #c6c6c6; }
 
 /*# sourceMappingURL=vue.css.map*/

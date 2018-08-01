@@ -1,63 +1,7 @@
 {% assign color = page.theme_style | default: site.theme_style %}
 {% assign links = site.data.navigation %}
 
-<style>
-  html {
-    background: #231F20;
-  }
-
-  .grad-cust {
-    background: linear-gradient( rgba(50, 107, 50, .95), rgba(35, 31, 32, 1));
-    color: white;
-    border-top: solid 5px #f47b28;
-  }
-
-  footer.footer {
-    background: url('/assets/iso/Iso3.gif'), url('/assets/iso/Iso11.gif');
-    background-repeat: no-repeat;
-    background-position: left top, right top;
-  }
-
-  .brand-foot {
-    background: linear-gradient( rgba(35, 31, 32, 1),
-    rgba(35, 31, 32, 1));
-  }
-
-  body {
-    background: #f8f9fa;
-  }
-
-  hr.grad-left {
-    border: 0;
-    height: 1px;
-    background-image: linear-gradient(to right, rgba(255, 255, 255, 0.75), rgba(255, 255, 255, 0));
-    width: 90%;
-    margin: auto auto;
-  }
-
-  a.highlight {
-    background: #f47b28;
-    color: white;
-    padding: 5px 10px;
-    font-weight: bold;
-    transition: color .2s;
-    transition: background .2s;
-
-  }
-
-  a.highlight:hover {
-    background: transparent;
-    color: #f47b28;
-    padding: 5px 10px;
-    font-weight: bold;
-  }
-
-  .footer-header {
-    text-transform: capitalize;
-    color: #c6c6c6;
-  }
-</style>
-<footer class="footer" id="footer">
+<footer class="footer js" id="footer">
 
   <section class="grad-cust">
 
@@ -311,7 +255,6 @@
       </div>
     </div>
   </div>
-
 </footer>
 
 
@@ -343,6 +286,10 @@
       $('body').css('overflow', 'auto');
     });
 
+    document.getElementById("footer").style.display="block";
+    document.getElementById("navbar").style.display="flex";
+    // document.getElementById("navToggle").style.display="block";
+    // document.getElementById("brand").style.display="block";
   });
 </script>
 
