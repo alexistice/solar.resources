@@ -19,7 +19,7 @@
             {% assign link-lowercase = nav-item | downcase %}
             {% capture filename %}navbar/{{link-lowercase}}.html{% endcapture %}
             <li class="nav-item dropdown mega-dropdown">
-                <a class="nav-link dropdown-toggle pl-3" id="navbarDropdownMenuLink{{forloop.index}}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ nav-item }}</a>
+                <a class="nav-link pl-3" id="navbarDropdownMenuLink{{forloop.index}}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ nav-item }}</a>
             
                 <div class="dropdown-menu mega-menu v-2 row z-depth-1 position-absolute" aria-labelledby="navbarDropdownMenuLink{{forloop.index}}">
                     <div class="row mx-md-4 mx-1 justify-content-between mb-1 ">
