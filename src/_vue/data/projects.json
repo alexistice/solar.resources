@@ -598,7 +598,7 @@
     ,"RidgeHeight":"Units Vary"
     ,"Location":"California"
     ,"Width":"Units Vary"
-    ,"Application":["Home", "Residential"]
+    ,"Application":["Residential"]
     ,"Glazes":["Clear"]
   },
   {
@@ -810,7 +810,7 @@
     ,"RidgeHeight":"8 ft"
     ,"Location":"New York"
     ,"Width":"-"
-    ,"Application":["Dining", "Home", "Living Space", "Office Space", "Residential"]
+    ,"Application":["Dining", "Living Space", "Office Space", "Residential"]
     ,"Glazes":["Clear"]
   },
   {
@@ -1365,7 +1365,7 @@
     ,"RidgeHeight":"10 ft"
     ,"Location":"New York"
     ,"Width":"12 ft"
-    ,"Application":["Home", "Residential"]
+    ,"Application":["Residential"]
     ,"Glazes":["Clear"]
   },
   {
@@ -1900,7 +1900,7 @@
     ,"RidgeHeight":"8 ft"
     ,"Location":"Washington DC"
     ,"Width":"-"
-    ,"Application":["NEED ENTRY"]
+    ,"Application":["Residential"]
     ,"Glazes":["Clear"]
   },
   {
@@ -1983,7 +1983,7 @@
     ,"RidgeHeight":"9 ft 6 in"
     ,"Location":"Pennsylvania"
     ,"Width":"6 ft 1 in"
-    ,"Application":["Home", "Living Space", "Residential"]
+    ,"Application":["Living Space", "Residential"]
     ,"Glazes":["Clear"]
   },
   {
@@ -2068,7 +2068,7 @@
     ,"RidgeHeight":"10 ft"
     ,"Location":"Maryland"
     ,"Width":"20 ft"
-    ,"Application":["NEED ENTRY"]
+    ,"Application":["Residential"]
     ,"Glazes":["Clear"]
   },
   {
@@ -2149,7 +2149,7 @@
     ,"RidgeHeight":"7 ft"
     ,"Location":"Virginia"
     ,"Width":"-"
-    ,"Application":["Commercial", "Home", "Residential", "Retail Sales"]
+    ,"Application":["Commercial", "Retail Sales"]
     ,"Glazes":["Clear"]
   },
   {
@@ -2437,7 +2437,7 @@
     ,"RidgeHeight":"10 ft"
     ,"Location":"New York"
     ,"Width":"14 ft"
-    ,"Application":["Home", "Residential"]
+    ,"Application":["Residential"]
     ,"Glazes":["LoE 272"]
   },
   {
@@ -2459,7 +2459,7 @@
     ,"RidgeHeight":"12 ft"
     ,"Location":"Pennsylvania"
     ,"Width":"27 ft"
-    ,"Application":["Home", "Residential", "Sporting"]
+    ,"Application":["Residential", "Sporting"]
     ,"Glazes":["Clear"]
   },
   {
@@ -3528,7 +3528,7 @@
     ,"RidgeHeight":"8 ft"
     ,"Location":"Virginia"
     ,"Width":"6 ft"
-    ,"Application":["Home", "Residential"]
+    ,"Application":["Residential"]
     ,"Glazes":["LoE 272"]
   },
   {
@@ -3568,7 +3568,7 @@
     ,"RidgeHeight":"6 ft 5 in"
     ,"Location":"Florida"
     ,"Width":"5 ft"
-    ,"Application":["Home", "Residential"]
+    ,"Application":["Residential"]
     ,"Glazes":["Clear"]
   },
   {
@@ -3588,7 +3588,7 @@
     ,"RidgeHeight":"2 ft"
     ,"Location":"New York"
     ,"Width":"11 ft 5 in"
-    ,"Application":["Ecclesiastical", "Home"]
+    ,"Application":["Ecclesiastical", "Residential"]
     ,"Glazes": ""
   },
   {
@@ -3608,7 +3608,7 @@
     ,"RidgeHeight":"2 ft"
     ,"Location":"New York"
     ,"Width":"13 ft 8 in"
-    ,"Application":["Ecclesiastical", "Home"]
+    ,"Application":["Ecclesiastical", "Residential"]
     ,"Glazes":["LoE 272"]
   },
   {
@@ -3957,7 +3957,7 @@
     ,"RidgeHeight":"11 ft"
     ,"Location":"Pennsylvania"
     ,"Width":"14 ft"
-    ,"Application":["Home", "Living Space", "Residential", "Retirement"]
+    ,"Application":["Living Space", "Residential", "Retirement"]
     ,"Glazes":["Clear"]
   },
   {
@@ -4021,7 +4021,7 @@
     ,"RidgeHeight":"14 ft 10 in"
     ,"Location":"Virginia"
     ,"Width":"69 ft"
-    ,"Application":["NEED ENTRY"]
+    ,"Application":["Residential"]
     ,"Glazes":["LoE 272"]
   },
   {
@@ -4064,7 +4064,7 @@
     ,"RidgeHeight":"5 ft 7 in"
     ,"Location":"Virginia"
     ,"Width":"39 ft 8 in"
-    ,"Application":["Commercial", "Home", "Residential"]
+    ,"Application":["Commercial"]
     ,"Glazes":["Clear"]
   },
   {
@@ -4105,7 +4105,7 @@
     ,"RidgeHeight":"5 ft 8 in"
     ,"Location":"Pennsylvania"
     ,"Width":"18 ft 10 in"
-    ,"Application":["Home", "Residential"]
+    ,"Application":["Residential"]
     ,"Glazes":["Clear"]
   },
   {
@@ -4127,7 +4127,7 @@
     ,"RidgeHeight":"9 ft"
     ,"Location":"Pennsylvania"
     ,"Width":"9 ft"
-    ,"Application":["Home", "Residential"]
+    ,"Application":["Residential"]
     ,"Glazes":["Clear"]
   },
   {
@@ -4147,7 +4147,7 @@
     ,"RidgeHeight":"12 ft"
     ,"Location":"Pennsylvania"
     ,"Width":"23 ft 10 in"
-    ,"Application":["Home", "Residential"]
+    ,"Application":["Residential"]
     ,"Glazes":["LoE 272"]
   },
   {
@@ -4232,7 +4232,7 @@
     ,"RidgeHeight":"4 ft"
     ,"Location":"Pennsylvania"
     ,"Width":"27 ft"
-    ,"Application":["Home", "Living Space", "Residential", "Sporting"]
+    ,"Application":["Living Space", "Residential", "Sporting"]
     ,"Glazes":["Clear"]
   },
   {
@@ -4383,7 +4383,7 @@
     ,"RidgeHeight":"14 ft"
     ,"Location":"Pennsylvania"
     ,"Width":"16 ft"
-    ,"Application":["Home", "Residential"]
+    ,"Application":["Residential"]
     ,"Glazes":["Clear"]
   },
   {
@@ -4426,7 +4426,7 @@
     ,"RidgeHeight":"8 ft"
     ,"Location":"New York"
     ,"Width":"-"
-    ,"Application":["Home", "Residential"]
+    ,"Application":["Residential"]
     ,"Glazes":["Bronze"]
   },
   {
@@ -4506,7 +4506,7 @@
     ,"RidgeHeight":"-"
     ,"Location":"Europe"
     ,"Width":"27 ft 4 in"
-    ,"Application":["Home", "Living Space", "Residential"]
+    ,"Application":["Living Space", "Residential"]
     ,"Glazes":["Clear"]
   },
   {
@@ -4647,7 +4647,7 @@
     ,"RidgeHeight":"9 ft"
     ,"Location":"Pennsylvania"
     ,"Width":"7 ft"
-    ,"Application":["Home", "Residential"]
+    ,"Application":["Residential"]
     ,"Glazes":["Clear"]
   },
   {
@@ -4670,7 +4670,7 @@
     ,"RidgeHeight":"10 ft"
     ,"Location":"Massachusetts"
     ,"Width":"22 ft"
-    ,"Application":["Home", "Residential"]
+    ,"Application":["Residential"]
     ,"Glazes":["Clear"]
   },
   {
@@ -4692,7 +4692,7 @@
     ,"RidgeHeight":"13 ft"
     ,"Location":"Pennsylvania"
     ,"Width":"34 ft"
-    ,"Application":["Home", "Residential", "Sporting"]
+    ,"Application":["Residential", "Sporting"]
     ,"Glazes":["LoE 272"]
   },
   {
@@ -4836,7 +4836,7 @@
     ,"RidgeHeight":"7 ft 6 in"
     ,"Location":"Georgia"
     ,"Width":"16 ft"
-    ,"Application":["Dining", "Home", "Living Space", "Residential"]
+    ,"Application":["Dining", "Living Space", "Residential"]
     ,"Glazes":["LoE 366"]
   },
   {
@@ -4985,7 +4985,7 @@
     ,"RidgeHeight":"Units Vary"
     ,"Location":"Canada"
     ,"Width":"Units Vary"
-    ,"Application":["Home", "Residential"]
+    ,"Application":["Residential"]
     ,"Glazes":["LoE 366"]
   },
   {
@@ -5007,7 +5007,7 @@
     ,"RidgeHeight":"Units Vary"
     ,"Location":"Maryland"
     ,"Width":"Units Vary"
-    ,"Application":["Home", "Living Space", "Residential"]
+    ,"Application":["Living Space", "Residential"]
     ,"Glazes":["LoE 272", "Clear"]
   },
   {
@@ -5327,7 +5327,7 @@
     ,"RidgeHeight":"14 ft"
     ,"Location":"Massachusetts"
     ,"Width":"13 ft"
-    ,"Application":["Home", "Residential"]
+    ,"Application":["Residential"]
     ,"Glazes":["Clear"]
   },
   {
@@ -5416,7 +5416,7 @@
     ,"RidgeHeight":"varies per unit"
     ,"Location":"New York"
     ,"Width":"varies per unti"
-    ,"Application":["Home", "Living Space", "Residential"]
+    ,"Application":["Living Space", "Residential"]
     ,"Glazes":["LoE 272"]
   },
   {
@@ -6801,7 +6801,7 @@
     ,"RidgeHeight":"3 ft 6 in"
     ,"Location":"Massachusetts"
     ,"Width":"9 ft"
-    ,"Application":["Home", "Residential"]
+    ,"Application":["Residential"]
     ,"Glazes":["LoE 272", "Laminated", "White"]
   },
   {
@@ -8700,7 +8700,7 @@
     ,"RidgeHeight":"7 ft 5 in"
     ,"Location":"New York"
     ,"Width":"-"
-    ,"Application":["Home", "Residential", "Sporting"]
+    ,"Application":["Residential", "Sporting"]
     ,"Glazes":["Clear", "Insulated Glass"]
   },
   {
@@ -8888,7 +8888,7 @@
     ,"RidgeHeight":"Units Vary"
     ,"Location":"New Jersey"
     ,"Width":"Units Vary"
-    ,"Application":["Home", "Residential", "Sporting"]
+    ,"Application":["Residential", "Sporting"]
     ,"Glazes":["LoE 180"]
   },
   {
@@ -8929,7 +8929,7 @@
     ,"RidgeHeight":"Units Vary"
     ,"Location":"New York"
     ,"Width":"Units Vary"
-    ,"Application":["Home", "Residential"]
+    ,"Application":["Residential"]
     ,"Glazes": ""
   },
   {
@@ -9094,7 +9094,7 @@
     ,"RidgeHeight":"12 ft"
     ,"Location":"Canada"
     ,"Width":"-"
-    ,"Application":["Home", "Residential"]
+    ,"Application":["Residential"]
     ,"Glazes":["LoE 272"]
   },
   {
@@ -9196,7 +9196,7 @@
     ,"RidgeHeight":"8 ft"
     ,"Location":"Massachusetts"
     ,"Width":"varies per unit"
-    ,"Application":["Home", "Living Space", "Residential"]
+    ,"Application":["Living Space", "Residential"]
     ,"Glazes":["Clear"]
   },
   {
@@ -10277,7 +10277,7 @@
     ,"RidgeHeight":"Units Vary"
     ,"Location":"Florida"
     ,"Width":"Units Vary"
-    ,"Application":["Home", "Residential"]
+    ,"Application":["Residential"]
     ,"Glazes":["Solarban 60"]
   },
   {
@@ -10299,7 +10299,7 @@
     ,"RidgeHeight":"Units Vary"
     ,"Location":"New York"
     ,"Width":"Units Vary"
-    ,"Application":["Home", "Residential"]
+    ,"Application":["Residential"]
     ,"Glazes":["Gray"]
   },
   {
@@ -10340,7 +10340,7 @@
     ,"RidgeHeight":"Units Vary"
     ,"Location":"Florida"
     ,"Width":"Units Vary"
-    ,"Application":["Dining", "Home", "Living Space", "Residential"]
+    ,"Application":["Dining", "Living Space", "Residential"]
     ,"Glazes":["LoE 366"]
   },
   {
@@ -10400,7 +10400,7 @@
     ,"RidgeHeight":"Units Vary"
     ,"Location":"Other"
     ,"Width":"Units Vary"
-    ,"Application":["Home", "Residential"]
+    ,"Application":["Residential"]
     ,"Glazes":["LoE 340"]
   },
   {
@@ -10420,7 +10420,7 @@
     ,"RidgeHeight":"8 ft 10 in"
     ,"Location":"Connecticut"
     ,"Width":"6 ft 10 in"
-    ,"Application":["Home", "Residential"]
+    ,"Application":["Residential"]
     ,"Glazes":["LoE 366"]
   },
   {
@@ -10564,7 +10564,7 @@
     ,"RidgeHeight":"6 ft 3 in"
     ,"Location":"North Carolina"
     ,"Width":"-"
-    ,"Application":["Home", "Residential"]
+    ,"Application":["Residential"]
     ,"Glazes":["Clear"]
   },
   {
@@ -10584,7 +10584,7 @@
     ,"RidgeHeight":"varies per unit"
     ,"Location":"Florida"
     ,"Width":"varies per unit"
-    ,"Application":["Home", "Residential"]
+    ,"Application":["Residential"]
     ,"Glazes":["Clear"]
   },
   {
@@ -12463,7 +12463,7 @@
     ,"RidgeHeight":"varies per unit"
     ,"Location":"New York"
     ,"Width":"varies by unit"
-    ,"Application":["Home", "Residential"]
+    ,"Application":["Residential"]
     ,"Glazes":["Clear"]
   },
   {
@@ -13311,7 +13311,7 @@
     ,"RidgeHeight":"varies per unit"
     ,"Location":"Pennsylvania"
     ,"Width":"varies per unit"
-    ,"Application":["Home", "Living Space", "Residential"]
+    ,"Application":["Living Space", "Residential"]
     ,"Glazes":["Insulated Glass", "LoE 272", "Tempered"]
   },
   {
@@ -13333,7 +13333,7 @@
     ,"RidgeHeight":"8 ft"
     ,"Location":"Virginia"
     ,"Width":"12 ft"
-    ,"Application":["Home", "Living Space", "Residential"]
+    ,"Application":["Living Space", "Residential"]
     ,"Glazes":["Insulated Glass", "LoE 272", "Tempered"]
   },
   {
@@ -13478,7 +13478,7 @@
     ,"RidgeHeight":"14 ft 9 in"
     ,"Location":"North Carolina"
     ,"Width":"21 ft"
-    ,"Application":["Home", "Residential"]
+    ,"Application":["Residential"]
     ,"Glazes":["LoE 272"]
   },
   {
@@ -13538,7 +13538,7 @@
     ,"RidgeHeight":"14 ft"
     ,"Location":"Illinois"
     ,"Width":"20 ft"
-    ,"Application":["Home", "Living Space", "Residential"]
+    ,"Application":["Living Space", "Residential"]
     ,"Glazes":["Insulated Glass", "LoE 272"]
   },
   {
@@ -13603,7 +13603,7 @@
     ,"RidgeHeight":"9 ft "
     ,"Location":"Vermont"
     ,"Width":"10 ft"
-    ,"Application":["Home", "Residential"]
+    ,"Application":["Residential"]
     ,"Glazes":["Insulated Glass", "LoE 272"]
   },
   {
